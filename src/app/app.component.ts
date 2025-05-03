@@ -6,20 +6,22 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeService } from './core/services/theme.service';
 import { CommonModule } from '@angular/common';
+import { ButtonComponent } from './shared/components/button/button.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    CommonModule, 
-    RouterOutlet, 
-    MatButtonModule, 
-    MatCardModule, 
+    CommonModule,
+    RouterOutlet,
+    MatButtonModule,
+    MatCardModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    ButtonComponent
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'swiftport-frontend';
@@ -33,5 +35,9 @@ export class AppComponent {
 
   toggleTheme(): void {
     this.themeService.toggleTheme();
+  }
+
+  onClickPersonalizado(): void {
+    console.log('¡Click en el botón personalizado!');
   }
 }
