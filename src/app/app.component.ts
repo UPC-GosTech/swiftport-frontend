@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from './shared/components/button/button.component';
 import {TranslateService} from '@ngx-translate/core';
 import {SelectorComponent} from './shared/components/selector/selector.component';
+import {InputComponent} from './shared/components/input/input.component';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,8 @@ import {SelectorComponent} from './shared/components/selector/selector.component
     MatIconModule,
     MatTooltipModule,
     ButtonComponent,
-    SelectorComponent
+    SelectorComponent,
+    InputComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
