@@ -1,0 +1,41 @@
+<div class="general-container">
+  <div>
+    <img src="" alt="el logo q no hay">
+  </div>
+  <div class="right">
+    <div>
+      <img src="" alt="logo peque q tmp hay">
+    </div>
+    <div class="info-input">
+      <div class="input-container">
+        <h5>Email</h5>
+        <app-input
+          [(value)]="email"
+          [placeholder]="placeholderEmail">
+        </app-input>
+      </div>
+      <div class="input-container">
+        <h5>Nombre</h5>
+        <app-input
+          [(value)]="name"
+          [placeholder]="placeholderName">
+        </app-input>
+      </div>
+      <div class="input-container">
+        <h5>Password</h5>
+        <app-input
+          [(value)]="password1"
+          [placeholder]="placeholderP1">
+        </app-input>
+      </div>
+      <div class="input-container">
+        <h5>Repeat Password</h5>
+        <app-input
+          [(value)]="password2"
+          [placeholder]="placeholderP2">
+        </app-input>
+      </div>
+      <app-button class="button" [color]="'primary'" [label]="'Registrarse'" (click)="onSaveEvent()"></app-button>
+    </div>
+  </div>
+</div>

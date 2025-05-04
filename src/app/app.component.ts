@@ -12,6 +12,7 @@ import {SelectorComponent} from './shared/components/selector/selector.component
 import {InputComponent} from './shared/components/input/input.component';
 import {PaymentCardComponent} from './features/billing/payment-card/payment-card.component';
 import {RegisterComponent} from './core/registration/views/register/register.component';
+import {AccountCreationComponent} from './core/registration/views/account-creation/account-creation.component';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +28,8 @@ import {RegisterComponent} from './core/registration/views/register/register.com
     SelectorComponent,
     InputComponent,
     PaymentCardComponent,
-    RegisterComponent
+    RegisterComponent,
+    AccountCreationComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
