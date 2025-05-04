@@ -11,6 +11,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {SelectorComponent} from './shared/components/selector/selector.component';
 import {InputComponent} from './shared/components/input/input.component';
 import {PaymentCardComponent} from './features/billing/payment-card/payment-card.component';
+import {RegisterComponent} from './core/registration/views/register/register.component';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +26,8 @@ import {PaymentCardComponent} from './features/billing/payment-card/payment-card
     ButtonComponent,
     SelectorComponent,
     InputComponent,
-    PaymentCardComponent
+    PaymentCardComponent,
+    RegisterComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
@@ -59,19 +61,4 @@ export class AppComponent {
     console.log('Opción seleccionada:', selected);
   }
 
-  card = {
-    title: 'Plan Básico',
-    items: [
-      'Hasta 50 tareas/mes',
-      'Reportes limitados',
-      '1 usuario supervisor',
-      'Soporte'
-    ],
-    price: '$50'
-  };
-
-  // Método que maneja el clic en el botón y guarda el título
-  onTitleSaved(title: string): void {
-    console.log('Título guardado:', title);
-  }
 }
