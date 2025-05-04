@@ -10,7 +10,7 @@
   flex-direction: column;
 
   .card-header {
-    background-color: #ff7f2a;  // Color del encabezado
+    background-color: var(--warning);  // Color del encabezado
     color: white;
     padding: 15px;
     width: 100%;
@@ -37,7 +37,7 @@
   .card-footer {
     display: flex;
     flex-direction: column;
-    background-color: #ff7f2a;  // Color de pie de tarjeta
+    background-color: var(--warning);  // Color de pie de tarjeta
     padding: 15px;
     text-align: center;
     gap: 5px;
