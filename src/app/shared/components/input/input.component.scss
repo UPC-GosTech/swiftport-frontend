@@ -1,0 +1,25 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 1rem;
+
+  input {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid var(--secondary);
+    outline: none;
+
+    &:focus {
+      border-color: var(--secondary);
+    }
+
+    // Estilo para cuando el input está deshabilitado
+    &[disabled] {
+      background-color: var(--error);
+      cursor: not-allowed;
+      border: 1px solid #ccc;
+    }
+  }
+}
