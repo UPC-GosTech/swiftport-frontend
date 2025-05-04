@@ -4,6 +4,17 @@
   </button>
 </div>
 
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <h1>Swifties TV</h1>
+    <div class="mat-spacer"></div>
+    @for (option of options; track option.title) {
+      <a mat-button [routerLink]="option.path">{{ option.title }}</a>
+    }
+  </mat-toolbar-row>
+</mat-toolbar>
+<router-outlet/>
+
 <div class="style-demo">
   <!-- Typography Section -->
   <section class="typography-demo">
@@ -99,19 +110,6 @@
         <button mat-flat-button color="warn">Flat Warn</button>
       </div>
     </div>
-
-    <div class="app-container">
-      <app-selector
-        [options]="options"
-        [color]="'secondary'"
-        [size]="'small'"
-        (selectionChange)="onSelectionChange($event)">
-      </app-selector>
-
-      <p>Opción seleccionada: {{ selectedOption }}</p>
-    </div>
-
-    <app-account-creation></app-account-creation>
 
     <div class="cards-demo">
       <h2>Cards</h2>
