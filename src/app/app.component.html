@@ -4,6 +4,17 @@
   </button>
 </div>
 
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <h1>Swifties TV</h1>
+    <div class="mat-spacer"></div>
+    @for (option of options; track option.title) {
+      <a mat-button [routerLink]="option.path">{{ option.title }}</a>
+    }
+  </mat-toolbar-row>
+</mat-toolbar>
+<router-outlet/>
+
 <div class="style-demo">
   <!-- Typography Section -->
   <section class="typography-demo">
