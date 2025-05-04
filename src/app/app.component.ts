@@ -8,6 +8,7 @@ import { ThemeService } from './core/services/theme.service';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from './shared/components/button/button.component';
 import {TranslateService} from '@ngx-translate/core';
+import {SelectorComponent} from './shared/components/selector/selector.component';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,8 @@ import {TranslateService} from '@ngx-translate/core';
     MatCardModule,
     MatIconModule,
     MatTooltipModule,
-    ButtonComponent
+    ButtonComponent,
+    SelectorComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
@@ -43,5 +45,13 @@ export class AppComponent {
 
   onClickPersonalizado(): void {
     console.log('¡Click en el botón personalizado!');
+  }
+
+  options: string[] = ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'];
+  selectedOption: string = '';
+
+  onSelectionChange(selected: string) {
+    this.selectedOption = selected;
+    console.log('Opción seleccionada:', selected);
   }
 }
