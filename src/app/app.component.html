@@ -111,16 +111,6 @@
       <p>Opción seleccionada: {{ selectedOption }}</p>
     </div>
 
-    <div class="app-container">
-      <app-payment-card
-        [title]="card.title"
-        [items]="card.items"
-        [price]="card.price"
-        (typeSaved)="onTitleSaved($event)">
-      </app-payment-card>
-    </div>
-
-
     <div class="cards-demo">
       <h2>Cards</h2>
       <div class="card-grid">
