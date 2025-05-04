@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
+import {RouterLink, RouterOutlet} from '@angular/router';
+import {MatAnchor, MatButtonModule} from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -13,6 +13,7 @@ import {InputComponent} from './shared/components/input/input.component';
 import {PaymentCardComponent} from './features/billing/payment-card/payment-card.component';
 import {RegisterComponent} from './core/registration/views/register/register.component';
 import {AccountCreationComponent} from './core/registration/views/account-creation/account-creation.component';
+import {MatToolbar, MatToolbarRow} from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,11 @@ import {AccountCreationComponent} from './core/registration/views/account-creati
     MatCardModule,
     MatIconModule,
     MatTooltipModule,
+    MatToolbar,
+    MatToolbarRow,
+    RouterLink,
+    RouterOutlet,
+    MatAnchor,
     ButtonComponent,
     SelectorComponent,
     InputComponent,
@@ -38,6 +44,12 @@ export class AppComponent {
   title = 'swiftport-frontend';
   isDarkTheme = false;
 
+  options = [
+    { path: '/register', title: 'Register' },
+    { path:'/account', title: 'Account' }
+  ]
+
+
   constructor(private themeService: ThemeService, private translate: TranslateService) {
     this.translate.addLangs(['en', 'es']);
     this.translate.setDefaultLang('en');
@@ -49,18 +61,6 @@ export class AppComponent {
 
   toggleTheme(): void {
     this.themeService.toggleTheme();
-  }
-
-  onClickPersonalizado(): void {
-    console.log('¡Click en el botón personalizado!');
-  }
-
-  options: string[] = ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'];
-  selectedOption: string = '';
-
-  onSelectionChange(selected: string) {
-    this.selectedOption = selected;
-    console.log('Opción seleccionada:', selected);
   }
 
 }

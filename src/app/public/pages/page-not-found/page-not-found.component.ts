@@ -9,7 +9,7 @@ import {MatButton} from "@angular/material/button";
     MatButton
   ],
   templateUrl: './page-not-found.component.html',
-  styleUrl: './page-not-found.component.css'
+  styleUrl: './page-not-found.component.scss'
 })
 export class PageNotFoundComponent implements OnInit {
   protected invalidPath: string;
@@ -25,6 +25,6 @@ export class PageNotFoundComponent implements OnInit {
   }
 
   protected onNavigateHome() {
-    this.router.navigate(['home']).then();
+    this.router.navigate(['register']).then();
   }
 }
