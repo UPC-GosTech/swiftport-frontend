@@ -1,14 +1,20 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {NgClass, NgForOf} from '@angular/common';
 
 @Component({
-  selector: 'app-selector.component',
-  imports: [],
-  templateUrl: './selector.component.component.html',
-  styleUrl: './selector.component.component.scss'
+  selector: 'app-selector',
+  imports: [
+    FormsModule,
+    NgForOf,
+    NgClass
+  ],
+  templateUrl: './selector.component.html',
+  styleUrl: './selector.component.scss'
 })
-export class SelectorComponentComponent {
+export class SelectorComponent {
   @Input() options: string[] = [];
-  @Input() color: 'secondary' | 'seccess' | 'error' | 'warning' = 'secondary';
+  @Input() color: 'secondary' | 'success' | 'error' | 'warning' = 'secondary';
   @Input() size: 'small' | 'medium' | 'large' = 'medium';
 
   @Output() selectionChange = new EventEmitter<string>();
