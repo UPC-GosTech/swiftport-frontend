@@ -100,6 +100,18 @@
       </div>
     </div>
 
+    <div class="app-container">
+      <app-selector
+        [options]="options"
+        [color]="'secondary'"
+        [size]="'large'"
+        (selectionChange)="onSelectionChange($event)">
+      </app-selector>
+
+      <p>Opción seleccionada: {{ selectedOption }}</p>
+    </div>
+
+
     <div class="cards-demo">
       <h2>Cards</h2>
       <div class="card-grid">
