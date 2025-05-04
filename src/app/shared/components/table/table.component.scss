@@ -1,0 +1,142 @@
+@use '../../../../styles/variables' as v;
+
+:host {
+    display: block;
+    width: 100%;
+  }
+  
+  :host ::ng-deep {
+    .m-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 800px;
+      margin-bottom: v.$spacing-lg;
+  
+      thead {
+        background-color: var(--primary);
+        color: var(--text-inverted);
+        
+        th {
+          padding: v.$spacing-md;
+          text-align: center;
+          font-weight: v.$font-weight-bold;
+          font-size: v.$font-size-base;
+          position: sticky;
+          top: 0;
+          z-index: 10;
+          background-color: var(--primary); 
+        }
+      }
+  
+      tbody {
+        tr {
+          &:nth-child(even) {
+            background-color: var(--surface);
+          }
+          &:hover {
+            background-color: var(--secondary);
+          }
+  
+          &.selectable {
+            cursor: pointer;
+            &:hover {
+              background-color: var(--secondary);
+            }
+          }
+  
+          &.loading {
+            opacity: 0.5;
+            pointer-events: none;
+          }
+  
+          td {
+            padding: v.$spacing-sm v.$spacing-md;
+            border-bottom: 1px solid var(--secondary);
+            font-size: v.$font-size-sm;
+            text-align: center;
+            color: var(--text-primary);
+          }
+        }
+      }
+    }
+  
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+  
+      &.fixed-size {
+        overflow-y: auto;
+        position: relative;
+  
+        .m-table {
+          margin-bottom: 0;
+        }
+      }
+    }
+  
+    .no-data-message {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: v.$spacing-lg;
+      color: var(--text-secondary);
+  
+      mat-icon {
+        margin-right: v.$spacing-sm;
+      }
+  
+      p {
+        font-weight: v.$font-weight-bold;
+        font-size: v.$font-size-sm;
+      }
+    }
+  
+    .loading-wrapper {
+      width: 100%;
+    }
+  
+    .loading-item {
+      padding: v.$spacing-sm v.$spacing-md;
+      border-bottom: 1px solid var(--secondary);
+  
+      .animated-background {
+        height: 20px;
+        background: linear-gradient(
+          90deg,
+          var(--surface) 0%,
+          var(--secondary) 50%,
+          var(--surface) 100%
+        );
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+      }
+    }
+  
+    @keyframes loading {
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: -200% 0;
+      }
+    }
+  }
+
+button {
+    color: var(--text-inverted);
+    border: none;
+    padding: v.$spacing-sm v.$spacing-md;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: v.$font-size-sm;
+    margin: v.$spacing-sm 0;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: var(--primary);
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: var(--accent);
+    }
+}
