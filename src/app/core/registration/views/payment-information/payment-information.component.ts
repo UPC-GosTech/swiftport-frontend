@@ -17,7 +17,7 @@ export class PaymentInformationComponent {
   name: string = '';
   placeholderName: string = 'Nombre completo';
   company: string = '';
-  placeholderCompany: string = 'Nombre completo';
+  placeholderCompany: string = 'Nombre de la empresa';
   cardnumber: string = '';
   placeholderCardnumber: string = 'Numero de tarjeta';
   ruc: string = '';
