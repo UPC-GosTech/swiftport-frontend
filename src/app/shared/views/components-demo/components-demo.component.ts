@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { TableComponent } from '../../components/table/table.component';
+import { SelectorComponent } from '../../components/selector/selector.component';
 import { Columns } from '../../components/table/table.models';
 import { CallbackPipe } from '../../pipes/callback.pipe';
 @Component({
   selector: 'app-components-demo',
   standalone: true,
-  imports: [TableComponent, CallbackPipe],
+  imports: [TableComponent, CallbackPipe, SelectorComponent],
   templateUrl: './components-demo.component.html',
   styleUrl: './components-demo.component.scss'
 })
@@ -14,6 +15,8 @@ export class ComponentsDemoComponent {
   namna = (value: any) => {
     return value + 'ñamña';
   }
+  options = ['Option 1', 'Option 2', 'Option 3'];
+  
   loadingTest = false;
   tableTestData : any[] = [
     {
