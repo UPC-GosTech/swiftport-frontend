@@ -74,7 +74,7 @@
                                 [disabled]="itemsBeingDeleted.has(row.id) || (column.settings?.disable ? column.settings?.disable(row) : false)"
                                 (click)="$event.stopPropagation(); onSelectRow(row)"
                             >
-                                <mat-icon [svgIcon]="'heroicons_outline:pencil-square'"></mat-icon>
+                                <mat-icon class="material-icons-outlined">edit</mat-icon>
                             </button>
                         </div>
                     </td>
