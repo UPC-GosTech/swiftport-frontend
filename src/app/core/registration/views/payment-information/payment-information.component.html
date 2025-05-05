@@ -5,13 +5,75 @@
   <div class="information-container">
     <h1>Ingrese la informacion bancaria</h1>
     <div class="data-container">
-      <div class="name-container">
+      <div class="field">
         <p>Nombre completo</p>
         <app-input
           [(value)]="name"
           [placeholder]="placeholderName">
         </app-input>
       </div>
+      <div class="field">
+        <p>Nombre de la empresa</p>
+        <app-input
+          [(value)]="company"
+          [placeholder]="placeholderCompany">
+        </app-input>
+      </div>
+      <div class="two-inputs">
+        <div class="field">
+          <p>Numero de la tarjeta</p>
+          <app-input
+            [(value)]="cardnumber"
+            [placeholder]="placeholderCardnumber">
+          </app-input>
+        </div>
+        <div class="field">
+          <p>Tipo de tarjeta</p>
+          <app-selector
+            [options]="cardTypeList"
+            [color]="'secondary'"
+            [size]="'medium'"
+            (selectionChange)="onCardTypeChange($event)">
+          </app-selector>
+        </div>
+      </div>
+      <div class="two-inputs">
+        <div class="field">
+          <p>Mes</p>
+          <app-selector
+            [options]="monthList"
+            [color]="'secondary'"
+            [size]="'medium'"
+            (selectionChange)="onMonthChange($event)">
+          </app-selector>
+        </div>
+        <div class="field">
+          <p>Año</p>
+          <app-selector
+            [options]="yearList"
+            [color]="'secondary'"
+            [size]="'medium'"
+            (selectionChange)="onYearChange($event)">
+          </app-selector>
+        </div>
+      </div>
+      <div class="two-inputs">
+        <div class="field">
+          <p>CVV</p>
+          <app-input
+            [(value)]="cvv"
+            [placeholder]="placeholderCvv">
+          </app-input>
+        </div>
+        <div class="field">
+          <p>Numero de RUC</p>
+          <app-input
+            [(value)]="ruc"
+            [placeholder]="placeholderRuc">
+          </app-input>
+        </div>
+      </div>
     </div>
+    <app-button class="button" [color]="'primary'" [label]="'Cuardar'" (click)="onSaveInformation()"></app-button>
   </div>
 </div>
