@@ -18,7 +18,8 @@ export class AppComponent {
 
   options = [
     { path: '/register', title: 'Register' },
-    { path:'/account', title: 'Account' }
+    { path: '/account', title: 'Account' },
+    { path: '/payment', title: 'Payment' },
   ]
 
 
