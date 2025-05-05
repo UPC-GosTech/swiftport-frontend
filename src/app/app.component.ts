@@ -1,41 +1,13 @@
 import { Component } from '@angular/core';
-import {RouterLink, RouterOutlet} from '@angular/router';
-import {MatAnchor, MatButtonModule} from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import {RouterOutlet} from '@angular/router';
 import { ThemeService } from './core/services/theme.service';
-import { CommonModule } from '@angular/common';
-import { ButtonComponent } from './shared/components/button/button.component';
 import {TranslateService} from '@ngx-translate/core';
-import {SelectorComponent} from './shared/components/selector/selector.component';
-import {InputComponent} from './shared/components/input/input.component';
-import {PaymentCardComponent} from './features/billing/payment-card/payment-card.component';
-import {RegisterComponent} from './core/registration/views/register/register.component';
-import {AccountCreationComponent} from './core/registration/views/account-creation/account-creation.component';
-import {MatToolbar, MatToolbarRow} from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    CommonModule,
-    RouterOutlet,
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatToolbar,
-    MatToolbarRow,
-    RouterLink,
-    RouterOutlet,
-    MatAnchor,
-    ButtonComponent,
-    SelectorComponent,
-    InputComponent,
-    PaymentCardComponent,
-    RegisterComponent,
-    AccountCreationComponent
+    RouterOutlet
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
