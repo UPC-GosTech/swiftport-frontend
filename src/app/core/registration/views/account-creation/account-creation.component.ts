@@ -39,7 +39,10 @@ export class AccountCreationComponent {
   }
 
   onSaveEvent(): void {
-
+    this.onEmailChange(this.email);
+    this.onNameChange(this.name);
+    this.onP1Change(this.password1);
+    this.onP2Change(this.password2);
   }
 
 }
