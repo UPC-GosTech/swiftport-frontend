@@ -1,5 +1,4 @@
 <div class="selector-container" [ngClass]="[color, size]">
-  <label for="options">Seleccione una opción:</label>
   <select id="options" [(ngModel)]="selectedOption" (change)="onSelectionChange(selectedOption)">
     <option *ngFor="let option of options" [value]="option">{{ option }}</option>
   </select>
