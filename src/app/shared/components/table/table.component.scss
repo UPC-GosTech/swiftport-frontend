@@ -122,21 +122,18 @@
     }
   }
 
-button {
-    color: var(--text-inverted);
-    border: none;
-    padding: v.$spacing-sm v.$spacing-md;
-    text-align: center;
-    text-decoration: none;
+.material-icons-outlined {
+    font-family: 'Material Icons Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
     display: inline-block;
-    font-size: v.$font-size-sm;
-    margin: v.$spacing-sm 0;
-    cursor: pointer;
-    border-radius: 4px;
-    background-color: var(--primary);
-    transition: background-color 0.3s ease;
-
-    &:hover {
-        background-color: var(--accent);
-    }
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
 }

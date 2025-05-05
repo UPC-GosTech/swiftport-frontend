@@ -3,10 +3,12 @@ import { TableComponent } from '../../components/table/table.component';
 import { SelectorComponent } from '../../components/selector/selector.component';
 import { Columns } from '../../components/table/table.models';
 import { CallbackPipe } from '../../pipes/callback.pipe';
+import { ButtonComponent } from '../../components/button/button.component';
+
 @Component({
   selector: 'app-components-demo',
   standalone: true,
-  imports: [TableComponent, CallbackPipe, SelectorComponent],
+  imports: [TableComponent, CallbackPipe, SelectorComponent, ButtonComponent],
   templateUrl: './components-demo.component.html',
   styleUrl: './components-demo.component.scss'
 })
@@ -68,6 +70,19 @@ export class ComponentsDemoComponent {
       hide: {
         visible: true,
         label: 'Age',
+      }
+    },
+    {
+      header: {
+        key: 'email',
+        label: 'Actions',
+      },
+      cell: 'email',
+      type: 'edit_option',
+      sortable: false,
+      hide: {
+        visible: true,
+        label: 'Email',
       }
     }
   ];
