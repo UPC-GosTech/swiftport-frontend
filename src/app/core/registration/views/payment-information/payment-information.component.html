@@ -32,7 +32,7 @@
           <app-selector
             [options]="cardTypeList"
             [color]="'secondary'"
-            [size]="'medium'"
+            [size]="'large'"
             (selectionChange)="onCardTypeChange($event)">
           </app-selector>
         </div>
@@ -43,7 +43,7 @@
           <app-selector
             [options]="monthList"
             [color]="'secondary'"
-            [size]="'medium'"
+            [size]="'large'"
             (selectionChange)="onMonthChange($event)">
           </app-selector>
         </div>
@@ -52,7 +52,7 @@
           <app-selector
             [options]="yearList"
             [color]="'secondary'"
-            [size]="'medium'"
+            [size]="'large'"
             (selectionChange)="onYearChange($event)">
           </app-selector>
         </div>
@@ -74,6 +74,8 @@
         </div>
       </div>
     </div>
-    <app-button class="button" [color]="'primary'" [label]="'Cuardar'" (click)="onSaveInformation()"></app-button>
+    <div class="button-container">
+      <app-button class="button" [color]="'primary'" [label]="'Guardar'" (click)="onSaveInformation()"></app-button>
+    </div>
   </div>
 </div>
