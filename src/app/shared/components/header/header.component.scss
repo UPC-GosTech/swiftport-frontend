@@ -1,0 +1,77 @@
+@use '../../../../styles/variables' as v;
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 v.$spacing-md;
+  background-color: var(--background);
+  border-bottom: 1px solid var(--secondary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  
+  &__left {
+    display: flex;
+    align-items: center;
+  }
+  
+  &__menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: v.$spacing-md;
+    color: var(--text-primary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+    
+    &:hover {
+      background-color: var(--surface);
+    }
+    
+    span {
+      font-size: 24px;
+    }
+  }
+  
+  &__title {
+    font-size: v.$font-size-lg;
+    font-weight: v.$font-weight-bold;
+    color: var(--text-primary);
+    
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+  
+  &__right {
+    display: flex;
+    align-items: center;
+  }
+  
+  &__user {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--surface);
+    color: var(--primary);
+    cursor: pointer;
+    transition: background-color 0.2s;
+    
+    &:hover {
+      background-color: var(--secondary);
+    }
+  }
+}
