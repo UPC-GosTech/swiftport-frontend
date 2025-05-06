@@ -1,7 +1,7 @@
-import { Planification } from './planification.entity';
+import { PlanificationEntity } from './planification.entity';
 
-describe('Planification', () => {
+describe('PlanificationEntity', () => {
   it('should create an instance', () => {
-    expect(new Planification()).toBeTruthy();
+    expect(new PlanificationEntity()).toBeTruthy();
   });
 });

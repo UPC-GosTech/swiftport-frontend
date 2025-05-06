@@ -1,24 +1,29 @@
-export class Planification {
-  id?: number;
-  requirementId?: number;
-  description?: string;
-  status?: 'NEW' | 'PLANNED' | 'EXECUTED' | 'CANCELLED';
-  createdAt?: Date;
-  updatedAt?: Date;
-
-  priorityRuleIds?: number[];
-  executionIds?: number[];
-  cargoIds?: number[];
+export class PlanificationEntity {
+  id: string;
+  title: string;
+  description: string;
+  startDate: Date;
+  endDate: Date;
+  createdBy: string;
+  responsible: string;
+  comments: string;
+  status: string;
+  activityIds: string[];
+  createdAt: Date;
+  updatedAt: Date;
 
   constructor() {
-    this.id = 0;
-    this.requirementId = 0;
+    this.id = '';
+    this.title = '';
     this.description = '';
-    this.status = 'NEW';
+    this.startDate = new Date();
+    this.endDate = new Date();
+    this.createdBy = '';
+    this.responsible = '';
+    this.comments = '';
+    this.status = '';
+    this.activityIds = [];
     this.createdAt = new Date();
     this.updatedAt = new Date();
-    this.priorityRuleIds = [];
-    this.executionIds = [];
-    this.cargoIds = [];
-    }
+  }
 }
