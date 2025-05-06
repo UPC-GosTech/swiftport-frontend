@@ -1,5 +1,5 @@
-export class Employee {
-  employeeId: number;
+export class Employe {
+  employeId: number;
   accountId: number;
   name: string;
   status: 'ACTIVE' | 'SUSPENDED';
@@ -7,7 +7,7 @@ export class Employee {
   updatedAt: Date;
 
   constructor() {
-    this.employeeId = 0;
+    this.employeId = 0;
     this.accountId = 0;
     this.name = '';
     this.status = 'ACTIVE';
