@@ -5,11 +5,13 @@ import { Columns } from '../../components/table/table.models';
 import { CallbackPipe } from '../../pipes/callback.pipe';
 import { ButtonComponent } from '../../components/button/button.component';
 import {SearchBarComponent} from '../../components/search-bar/search-bar.component';
+import {SnackbarComponent} from '../../components/snackbar/snackbar.component';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-components-demo',
   standalone: true,
-  imports: [TableComponent, CallbackPipe, SelectorComponent, ButtonComponent, SearchBarComponent],
+  imports: [TableComponent, CallbackPipe, SelectorComponent, ButtonComponent, SearchBarComponent, SnackbarComponent, NgIf],
   templateUrl: './components-demo.component.html',
   styleUrl: './components-demo.component.scss'
 })
@@ -20,6 +22,17 @@ export class ComponentsDemoComponent {
     console.log('Buscando:', term);
   }
 
+  showSnackbar: boolean = false;
+  snackbarMessage: string = '';
+
+  showMessage(message: string) {
+    this.snackbarMessage = message;
+    this.showSnackbar = true;
+  }
+
+  onSnackbarClosed() {
+    this.showSnackbar = false;
+  }
 
   namna = (value: any) => {
     return value + 'ñamña';

@@ -1,0 +1,9 @@
+<div class="snackbar" [class.show]="show" (click)="close()">
+  <div class="snackbar-message">
+    <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+    <span>{{ message }}</span>
+  </div>
+  <button mat-icon-button (click)="close()" aria-label="Close">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>

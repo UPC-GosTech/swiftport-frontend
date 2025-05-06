@@ -1,5 +1,13 @@
 <app-search-bar (search)="onSearch($event)"></app-search-bar>
 
+<app-snackbar
+  *ngIf="showSnackbar"
+  [message]="snackbarMessage"
+  [icon]="'info'"
+  [duration]="3000"
+  (closed)="onSnackbarClosed()">
+</app-snackbar>
+
 <app-table
     [columns]="columns"
     [dataSource]="tableTestData"
@@ -20,10 +28,12 @@
 </div>
 
 <div class="button-container">
-    <app-button
-        [label]="'Click me'"
-        [color]="'primary'"
-        [disabled]="false"
-    ></app-button>
+  <app-button
+    [label]="'Click me'"
+    [color]="'primary'"
+    [disabled]="false"
+    (clicked)="showMessage('Hola, este es un snackbar!')"
+  ></app-button>
 </div>
+
 
