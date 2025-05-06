@@ -4,21 +4,28 @@ import { SelectorComponent } from '../../components/selector/selector.component'
 import { Columns } from '../../components/table/table.models';
 import { CallbackPipe } from '../../pipes/callback.pipe';
 import { ButtonComponent } from '../../components/button/button.component';
+import {SearchBarComponent} from '../../components/search-bar/search-bar.component';
 
 @Component({
   selector: 'app-components-demo',
   standalone: true,
-  imports: [TableComponent, CallbackPipe, SelectorComponent, ButtonComponent],
+  imports: [TableComponent, CallbackPipe, SelectorComponent, ButtonComponent, SearchBarComponent],
   templateUrl: './components-demo.component.html',
   styleUrl: './components-demo.component.scss'
 })
 export class ComponentsDemoComponent {
 
+
+  onSearch(term: string) {
+    console.log('Buscando:', term);
+  }
+
+
   namna = (value: any) => {
     return value + 'ñamña';
   }
   options = ['Option 1', 'Option 2', 'Option 3'];
-  
+
   loadingTest = false;
   tableTestData : any[] = [
     {
