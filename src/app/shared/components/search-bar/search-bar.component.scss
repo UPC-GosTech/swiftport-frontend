@@ -1,4 +1,93 @@
 .search-bar {
   width: 100%;
-  max-width: 400px;
+  max-width: 100%;
+  margin: 0;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border-radius: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  gap: 12px;
+  cursor: pointer;
+
+  @media screen and (max-width: 768px) {
+    padding: 8px 12px;
+  }
+
+  &:focus-within {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    background-color: #fff8e1;
+  }
+}
+
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 0;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.mat-form-field-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #ff9800;
+  margin-left: 10px;
+}
+
+.mat-input-element {
+  padding: 6px 12px;
+  font-size: 16px;
+  color: #333;
+  border-radius: 25px;
+  background-color: #f0f0f0;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  width: 100%;
+  text-align: left;
+
+  &:focus {
+    background-color: #fff;
+    transform: scale(1.02);
+  }
+}
+
+.mat-icon-button {
+  color: #ff9800;
+  padding: 6px;
+  border-radius: 50%;
+  transition: color 0.3s ease, background-color 0.3s ease;
+
+  &:hover {
+    color: #fff;
+    background-color: #ff9800;
+  }
+}
+
+.search-bar .mat-input-element:focus {
+  background-color: #fff;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  border-color: #ff9800;
+  transition: border-color 0.3s ease;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+  border-color: #ff9800;
+}
+
+.mat-form-field.mat-focused .mat-form-field-outline-thick {
+  border-color: #fb8c00;
+}
+
+@media screen and (max-width: 768px) {
+  .search-bar {
+    max-width: 100%;
+    padding: 6px 12px;
+    gap: 8px;
+  }
 }

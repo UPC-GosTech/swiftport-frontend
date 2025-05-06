@@ -5,9 +5,9 @@
     type="text"
     [(ngModel)]="searchTerm"
     (input)="onSearchChange()"
-    placeholder="Escribe para buscar..."
+    placeholder="Escribe algo..."
   />
-  <button mat-icon-button matSuffix *ngIf="searchTerm" (click)="searchTerm = ''; onSearchChange()">
+  <button mat-icon-button matSuffix *ngIf="searchTerm" (click)="searchTerm = ''; onSearchChange()" aria-label="Clear">
     <mat-icon>close</mat-icon>
   </button>
 </mat-form-field>
