@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeService } from './core/services/theme.service';
 import { CommonModule } from '@angular/common';
-import { ButtonComponent } from './shared/components/button/button.component';
+import {ButtonComponent} from './shared/components/button/button.component';
 
 @Component({
   selector: 'app-root',

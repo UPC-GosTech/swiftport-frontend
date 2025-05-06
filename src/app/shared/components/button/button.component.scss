@@ -43,37 +43,37 @@
 // Paleta dinámica basada en variables
 .primary {
   background-color: var(--primary);
-  color: #000;
+  color: 	#d7e94c;
 }
 
 .accent {
   background-color: var(--accent);
-  color: #fff;
+  color: 	#f98eb2;
 }
 
 .secondary {
   background-color: var(--secondary);
-  color: #000;
+  color: 	#444444;
 }
 
 .success {
   background-color: var(--success);
-  color: #fff;
+  color: #66bb6a;
 }
 
 .error {
   background-color: var(--error);
-  color: #fff;
+  color: #f06463;
 }
 
 .warning {
   background-color: var(--warning);
-  color: #000;
+  color: 	#f5a623;
 }
 
 .info {
   background-color: var(--info);
-  color: #fff;
+  color: #29b6f6;
 }
 
 // Animaciones
@@ -94,3 +94,16 @@
     transform: scale(1);
   }
 }
+.btn-icon {
+  font-size: 20px;
+  margin-right: 8px;
+  color: #1a1a1a;
+
+
+  &:last-child {
+    margin-right: 0;
+    margin-left: 8px;
+    color: #1a1a1a;
+  }
+}
+

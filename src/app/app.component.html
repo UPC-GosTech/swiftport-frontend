@@ -83,6 +83,8 @@
 
     <div class="buttons-demo">
       <h2>Buttons</h2>
+
+      <!-- Angular Material Buttons -->
       <div class="button-group">
         <button mat-raised-button color="primary">Primary Button</button>
         <button mat-raised-button color="accent">Accent Button</button>
@@ -98,8 +100,41 @@
         <button mat-flat-button color="accent">Flat Accent</button>
         <button mat-flat-button color="warn">Flat Warn</button>
       </div>
+
+      <!-- Custom SwiftPort Buttons -->
+      <h3>Custom SwiftPort Buttons</h3>
+      <div class="button-group">
+        <app-button
+          label="Guardar"
+          color="primary"
+          icon="save"
+          textColor="black"
+        ></app-button>
+
+        <app-button
+          icon="cancel"
+          label="Cancelar"
+          color="secondary"
+          textColor="white"
+        ></app-button>
+
+        <app-button
+          label="Eliminar"
+          color="error"
+          icon="delete"
+          textColor="white"
+        ></app-button>
+
+        <app-button
+          label="Editar"
+          color="info"
+          icon="edit"
+          textColor="black"
+        ></app-button>
+      </div>
     </div>
 
+    <!-- Cards Section -->
     <div class="cards-demo">
       <h2>Cards</h2>
       <div class="card-grid">
