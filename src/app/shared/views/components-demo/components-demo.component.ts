@@ -6,11 +6,14 @@ import { CallbackPipe } from '../../pipes/callback.pipe';
 import { ButtonComponent } from '../../components/button/button.component';
 import {InputComponent} from '../../components/input/input.component';
 import {FormsModule} from '@angular/forms';
+import {
+  TaskExecutionViewComponent
+} from '../../../features/planning/components/task-execution-view/task-execution-view.component';
 
 @Component({
   selector: 'app-components-demo',
   standalone: true,
-  imports: [TableComponent, CallbackPipe, SelectorComponent, ButtonComponent, InputComponent, FormsModule],
+  imports: [TableComponent, CallbackPipe, SelectorComponent, ButtonComponent, InputComponent, FormsModule, TaskExecutionViewComponent],
   templateUrl: './components-demo.component.html',
   styleUrl: './components-demo.component.scss'
 })
