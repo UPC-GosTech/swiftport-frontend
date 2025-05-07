@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import { Task } from '../../model/task/task.entity';
 
 @Component({
   selector: 'app-segmented-task',
@@ -7,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrl: './segmented-task.component.scss'
 })
 export class SegmentedTaskComponent {
+  //@Input() task!: Task;
 
+  task = new Task();
+
+  usedPortionValue: number = 10;
+  availablePortionValue: number = 100 - this.usedPortionValue;
 }

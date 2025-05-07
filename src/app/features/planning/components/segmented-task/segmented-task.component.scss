@@ -1,0 +1,23 @@
+.progress-bar-chart-graph-line {
+  display: flex;
+  flex-direction: row;
+  height: 5px;
+  width: 100%;
+  border-radius: 8px;
+  background-color: purple;
+}
+
+.progress-bar-chart-graph-line-portion {
+  height: 100%;
+}
+
+#portion-used {
+  border-radius: 8px;
+  background-color: blue;
+}
+
+#portion-available {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background-color: red;
+}
