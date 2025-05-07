@@ -13,6 +13,7 @@ export class InputComponent {
   @Input() value: string = '';
   @Input() placeholder: string = '';
   @Input() disabled: boolean = false;
+  @Input() type: string = 'text';
 
   @Output() valueChange = new EventEmitter<string>();
 
