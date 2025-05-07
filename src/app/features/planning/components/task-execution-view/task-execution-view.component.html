@@ -4,7 +4,24 @@
   </div>
   <div class="form-container">
     <div class="field-container">
-
+      <p>Hora de inicio</p>
+      <app-input
+        [type]="'time'"
+        [(ngModel)]="startTime"
+        (valueChange)="onStartTimeChange($event)"
+        [placeholder]="'HH:MM'"
+        [disabled]="startTimeDisabled"
+      ></app-input>
+    </div>
+    <div class="field-container">
+      <p>Hora de inicio</p>
+      <app-input
+        [type]="'time'"
+        [(ngModel)]="startTime"
+        (valueChange)="onStartTimeChange($event)"
+        [placeholder]="'HH:MM'"
+        [disabled]="startTimeDisabled"
+      ></app-input>
     </div>
   </div>
 </div>
