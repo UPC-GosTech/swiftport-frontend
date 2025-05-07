@@ -4,11 +4,13 @@ import { SelectorComponent } from '../../components/selector/selector.component'
 import { Columns } from '../../components/table/table.models';
 import { CallbackPipe } from '../../pipes/callback.pipe';
 import { ButtonComponent } from '../../components/button/button.component';
+import {InputComponent} from '../../components/input/input.component';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-components-demo',
   standalone: true,
-  imports: [TableComponent, CallbackPipe, SelectorComponent, ButtonComponent],
+  imports: [TableComponent, CallbackPipe, SelectorComponent, ButtonComponent, InputComponent, FormsModule],
   templateUrl: './components-demo.component.html',
   styleUrl: './components-demo.component.scss'
 })
@@ -18,7 +20,8 @@ export class ComponentsDemoComponent {
     return value + 'ñamña';
   }
   options = ['Option 1', 'Option 2', 'Option 3'];
-  
+  magia: string = '';
+
   loadingTest = false;
   tableTestData : any[] = [
     {
