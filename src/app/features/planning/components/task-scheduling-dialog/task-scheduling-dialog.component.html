@@ -54,4 +54,7 @@
                 (click)="onSaveInformation()"
     ></app-button>
   </div>
+  <div class="message-container" *ngIf="OnSolapamiento()">
+    <p>Hay solapamiento de equipo</p>
+  </div>
 </div>

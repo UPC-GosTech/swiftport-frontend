@@ -3,6 +3,7 @@ import {ButtonComponent} from "../../../../shared/components/button/button.compo
 import {InputComponent} from "../../../../shared/components/input/input.component";
 import {SelectorComponent} from "../../../../shared/components/selector/selector.component";
 import {FormsModule} from '@angular/forms';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-task-scheduling-dialog',
@@ -10,7 +11,8 @@ import {FormsModule} from '@angular/forms';
     ButtonComponent,
     InputComponent,
     SelectorComponent,
-    FormsModule
+    FormsModule,
+    NgIf
   ],
   templateUrl: './task-scheduling-dialog.component.html',
   styleUrl: './task-scheduling-dialog.component.scss'
@@ -53,5 +55,9 @@ export class TaskSchedulingDialogComponent {
 
   onSaveInformation(): void {
     console.log('Save information');
+  }
+
+  OnSolapamiento() {
+    return this.machine == 'maquinita 1';
   }
 }

@@ -48,4 +48,18 @@
   .button-container {
     margin: 0.5rem;
   }
+
+  .message-container p {
+    width: 100%;
+    color: black;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: var(--error);
+    border: none;
+    border-radius: 12px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
 }
