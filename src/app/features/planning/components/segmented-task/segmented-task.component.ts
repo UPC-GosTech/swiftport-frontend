@@ -8,9 +8,9 @@ import { Task } from '../../model/task/task.entity';
   styleUrl: './segmented-task.component.scss'
 })
 export class SegmentedTaskComponent {
-  //@Input() task!: Task;
+  @Input() task: Task = new Task();
 
-  task = new Task();
+  //task = new Task();
 
   usedPortionValue: number = this.task.progress <= 100? this.task.progress : 100;
   availablePortionValue: number = 100 - this.usedPortionValue;
