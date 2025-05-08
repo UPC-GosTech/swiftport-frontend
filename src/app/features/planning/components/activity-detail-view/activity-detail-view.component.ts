@@ -1,11 +1,30 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {SegmentedTaskComponent} from '../segmented-task/segmented-task.component';
+import {DatePipe, NgForOf} from '@angular/common';
+import { Task } from '../../model/task/task.entity';
+import {Activity} from '../../model/activity/activity.entity';
+import {ButtonComponent} from '../../../../shared/components/button/button.component';
 
 @Component({
   selector: 'app-activity-detail-view',
-  imports: [],
+  imports: [
+    SegmentedTaskComponent,
+    NgForOf,
+    ButtonComponent,
+    DatePipe
+  ],
   templateUrl: './activity-detail-view.component.html',
   styleUrl: './activity-detail-view.component.scss'
 })
 export class ActivityDetailViewComponent {
+  tasks: Task[] = [ new Task(), new Task()];
+  activity: Activity = new Activity();
 
+  toTaskSegmentationView() {
+
+  }
+
+  onEditActivity() {
+
+  }
 }

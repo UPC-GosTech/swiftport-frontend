@@ -1,1 +1,57 @@
-<p>activity-detail-view works!</p>
+<div class="general-container">
+  <h1>Detalles de la actividad "{{ activity.title }}"</h1>
+  <div class="information-container">
+    <div class="activity-container">
+      <div class="fields-group">
+        <div class="field">
+          <h5>Activity ID</h5>
+          <p>{{ activity.id }}</p>
+        </div>
+        <div class="field">
+          <h5>Origin Location ID</h5>
+          <p>{{ activity.originLocationId }}</p>
+        </div>
+        <div class="field">
+          <h5>Destination Location ID</h5>
+          <p>{{ activity.destinationLocationId }}</p>
+        </div>
+      </div>
+      <div class="fields-group">
+        <div class="field">
+          <h5>Estimated duration</h5>
+          <p>{{ activity.estimatedDuration }}</p>
+        </div>
+        <div class="field">
+          <h5>Scheduled date</h5>
+          <p>{{ activity.scheduledDate | date: 'longDate' }}</p>
+        </div>
+        <div class="field">
+          <h5>Status</h5>
+          <p>{{ activity.status }}</p>
+        </div>
+      </div>
+      <div class="field">
+        <h5>Description</h5>
+        <p>{{ activity.description }}</p>
+      </div>
+      <div class="buttons-container">
+        <app-button class="button"
+          [color]="'primary'"
+          [label]="'Ir a TaskSegmentationView'"
+          (click)="toTaskSegmentationView()"
+        ></app-button>
+        <app-button class="button"
+          [color]="'primary'"
+          [label]="'Editar Actividad'"
+          (click)="onEditActivity()"
+        ></app-button>
+      </div>
+    </div>
+    <div class="segmented-tasks-container">
+      <h2>Lista de tareas</h2>
+      <div class="tasks-list" *ngFor="let task of tasks">
+        <app-segmented-task [task]="task"></app-segmented-task>
+      </div>
+    </div>
+  </div>
+</div>
