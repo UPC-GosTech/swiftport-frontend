@@ -9,7 +9,13 @@
         </div>
         <div class="field">
           <h5>Origin Location ID</h5>
-          <p>{{ activity.originLocationId }}</p>
+          <p *ngIf="!showInputs">{{ activity.originLocationId }}</p>
+          <app-input *ngIf="showInputs"
+            [type]="'text'"
+            [(ngModel)]="activity.originLocationId"
+            (valueChange)="onOriginLocationChange($event)"
+            [placeholder]="activity.originLocationId.toString()"
+          ></app-input>
         </div>
         <div class="field">
           <h5>Destination Location ID</h5>
