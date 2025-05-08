@@ -12,6 +12,6 @@ export class SegmentedTaskComponent {
 
   task = new Task();
 
-  usedPortionValue: number = 10;
+  usedPortionValue: number = this.task.progress <= 100? this.task.progress : 100;
   availablePortionValue: number = 100 - this.usedPortionValue;
 }

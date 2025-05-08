@@ -1,10 +1,29 @@
+.general-container {
+  width: 100%;
+  max-width: 500px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+  padding: 0 1rem 1rem 1rem;
+  border: solid 2px var(--warning);
+  border-radius: 10px;
+}
+
+.general-container:hover {
+  background-color: var(--secondary);
+  border: solid 3px var(--success);
+  border-radius: 10px;
+}
+
 .progress-bar-chart-graph-line {
   display: flex;
   flex-direction: row;
   height: 5px;
   width: 100%;
   border-radius: 8px;
-  background-color: purple;
+  background-color: var(--error);
 }
 
 .progress-bar-chart-graph-line-portion {
@@ -13,11 +32,11 @@
 
 #portion-used {
   border-radius: 8px;
-  background-color: blue;
+  background-color: var(--success);
 }
 
 #portion-available {
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
-  background-color: red;
+  background-color: var(--error);
 }
