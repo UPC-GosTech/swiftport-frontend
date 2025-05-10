@@ -1,6 +1,6 @@
 <div class="input-container">
   <input
-    type="text"
+    [type]="type"
     [(ngModel)]="value"
     (input)="onInputChange(value)"
     [placeholder]="placeholder"
