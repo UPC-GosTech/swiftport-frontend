@@ -1,0 +1,62 @@
+<form [formGroup]="settingsForm" class="settings-card" (ngSubmit)="renewPlan()">
+  <div class="settings-header">
+    <h1>Panel de Suscripción</h1>
+    <p class="subtext">Administra tu plan, estado y forma de pago</p>
+  </div>
+
+  <div class="settings-info">
+    <!-- Plan actual -->
+    <div class="info-block" [ngClass]="{ 'has-error': isInvalid('plan') }">
+      <label for="plan" class="label">Plan actual *</label>
+      <input id="plan" formControlName="plan" type="text" class="value-input" placeholder="Ej. Empresa Plus" />
+      <small *ngIf="isInvalid('plan')" class="input-error">Este campo es obligatorio.</small>
+    </div>
+
+    <!-- Estado -->
+    <div class="info-block" [ngClass]="{ 'has-error': isInvalid('status') }">
+      <label for="status" class="label">Estado *</label>
+      <select id="status" formControlName="status" class="value-input">
+        <option value="">Seleccionar estado</option>
+        <option value="Activo">Activo</option>
+        <option value="Inactivo">Inactivo</option>
+      </select>
+      <small *ngIf="isInvalid('status')" class="input-error">Selecciona un estado válido.</small>
+    </div>
+
+    <!-- Inicio del plan -->
+    <div class="info-block" [ngClass]="{ 'has-error': isInvalid('startDate') }">
+      <label for="startDate" class="label">Inicio del plan *</label>
+      <input id="startDate" formControlName="startDate" type="date" class="value-input" />
+      <small *ngIf="isInvalid('startDate')" class="input-error">Fecha requerida.</small>
+    </div>
+
+    <!-- Próximo pago -->
+    <div class="info-block" [ngClass]="{ 'has-error': isInvalid('nextPayment') }">
+      <label for="nextPayment" class="label">Próximo pago *</label>
+      <input id="nextPayment" formControlName="nextPayment" type="date" class="value-input" />
+      <small *ngIf="isInvalid('nextPayment')" class="input-error">Fecha requerida.</small>
+    </div>
+
+    <!-- Método de pago -->
+    <div class="info-block" [ngClass]="{ 'has-error': isInvalid('paymentMethod') }">
+      <label for="paymentMethod" class="label">Método de pago *</label>
+      <input id="paymentMethod" formControlName="paymentMethod" type="text" class="value-input" placeholder="Ej. VISA **** 1234" />
+      <small *ngIf="isInvalid('paymentMethod')" class="input-error">Este campo es obligatorio.</small>
+    </div>
+  </div>
+
+  <!-- Acciones -->
+  <div class="settings-actions">
+    <button class="btn btn-outline" type="button" (click)="viewPlanDetails()">Ver plan</button>
+    <button class="btn btn-light" type="button" (click)="changePaymentMethod()">Cambiar método de pago</button>
+    <button class="btn btn-primary" type="submit" [disabled]="settingsForm.invalid || loading">
+      <span *ngIf="loading">Procesando...</span>
+      <span *ngIf="!loading">Renovar suscripción</span>
+    </button>
+  </div>
+
+  <!-- Mensaje de error general -->
+  <div *ngIf="settingsForm.invalid && submitted" class="error-msg">
+    Revisa los campos marcados antes de continuar.
+  </div>
+</form>
