@@ -26,31 +26,25 @@ export class InputComponent implements ControlValueAccessor {
   private onChange = (_: any) => {};
   private onTouched = () => {};
 
-  // Llamado por Angular cuando el FormControl cambia externamente
   writeValue(obj: any): void {
     this.value = obj ?? '';
   }
-  // Angular nos da la función que debemos llamar cuando el valor interno cambia
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
-  // Angular nos da la función que debemos llamar cuando se toca (blur)
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
-  // Cuando el FormControl se deshabilita/habilita
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
 
-  // Al cambiar el input
   onInputChange(value: string) {
     this.value = value;
     this.valueChange.emit(this.value);
     this.onChange(this.value);
   }
 
-  // Al perder foco
   onBlur() {
     this.onTouched();
   }
