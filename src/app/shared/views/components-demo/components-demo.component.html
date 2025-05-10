@@ -1,0 +1,27 @@
+<app-table
+    [columns]="columns"
+    [dataSource]="tableTestData"
+    [loading]="loadingTest"
+    [showPaginator]="true"
+    [selectable]="false"
+></app-table>
+
+
+<p> {{ 'test' | callback : namna }} </p>
+
+<div>
+    <app-selector
+        [options]="options"
+        [color]="'secondary'"
+        [size]="'medium'"
+    ></app-selector>
+</div>
+
+<div class="button-container">
+    <app-button
+        [label]="'Click me'"
+        [color]="'primary'"
+        [disabled]="false"
+    ></app-button>
+</div>
+

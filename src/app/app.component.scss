@@ -8,7 +8,7 @@
     background-color: var(--surface);
     color: var(--text-primary);
     border: 1px solid var(--secondary);
-    
+
     &:hover {
       background-color: var(--background);
     }
@@ -55,7 +55,7 @@
     border-radius: 4px;
     background: var(--surface);
     border: 1px solid var(--secondary);
-    
+
     h1, h2, h3, h4, h5, h6 {
       margin: 0 0 0.5rem 0;
       color: var(--text-primary);
@@ -162,7 +162,7 @@
     mat-card {
       background: var(--surface);
       border: 1px solid var(--secondary);
-      
+
       mat-card-header {
         margin-bottom: 1rem;
       }
@@ -184,4 +184,8 @@
       }
     }
   }
+}
+
+.mat-spacer {
+  flex: 1 1 auto;
 }

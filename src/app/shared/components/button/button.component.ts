@@ -2,9 +2,6 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
-
-
-
 @Component({
   selector: 'app-button',
   standalone: true,
@@ -14,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class ButtonComponent {
 
-  @Input() label = 'Click me';
+  @Input() label?: string;
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
   @Input() disabled = false;
   @Input() loading = false;
@@ -28,9 +25,9 @@ export class ButtonComponent {
     | 'info' = 'primary';
   @Input() icon?: string;
   @Input() iconPosition: 'start' | 'end' = 'start';
-  @Output() clicked = new EventEmitter<void>();
   @Input() textColor: 'black' | 'white' = 'black';
-
+  @Input() size: 'small' | 'medium' | 'large' = 'medium';
+  @Output() clicked = new EventEmitter<void>();
 
   handleClick(): void {
     if (!this.disabled && !this.loading) {

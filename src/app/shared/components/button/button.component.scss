@@ -30,6 +30,22 @@
     box-shadow: none;
   }
 
+  // Tamaños
+  &.small {
+    padding: 6px 16px;
+    font-size: 13px;
+  }
+
+  &.medium {
+    padding: 12px 28px;
+    font-size: 15px;
+  }
+
+  &.large {
+    padding: 16px 36px;
+    font-size: 17px;
+  }
+
   .loader {
     width: 20px;
     height: 20px;
@@ -43,17 +59,17 @@
 // Paleta dinámica basada en variables
 .primary {
   background-color: var(--primary);
-  color: 	#d7e94c;
+  color: #d7e94c;
 }
 
 .accent {
   background-color: var(--accent);
-  color: 	#f98eb2;
+  color: #f98eb2;
 }
 
 .secondary {
   background-color: var(--secondary);
-  color: 	#444444;
+  color: #444444;
 }
 
 .success {
@@ -68,7 +84,7 @@
 
 .warning {
   background-color: var(--warning);
-  color: 	#f5a623;
+  color: #f5a623;
 }
 
 .info {
@@ -94,11 +110,10 @@
     transform: scale(1);
   }
 }
+
 .btn-icon {
   font-size: 20px;
-  margin-right: 8px;
   color: #1a1a1a;
-
 
   &:last-child {
     margin-right: 0;
@@ -106,4 +121,3 @@
     color: #1a1a1a;
   }
 }
-

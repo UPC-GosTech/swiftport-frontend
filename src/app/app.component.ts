@@ -7,6 +7,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeService } from './core/services/theme.service';
 import { CommonModule } from '@angular/common';
 import {ButtonComponent} from './shared/components/button/button.component';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +28,17 @@ export class AppComponent {
   title = 'swiftport-frontend';
   isDarkTheme = false;
 
-  constructor(private themeService: ThemeService) {
+  options = [
+    { path: '/register', title: 'Register' },
+    { path: '/account', title: 'Account' },
+    { path: '/payment', title: 'Payment' },
+  ]
+
+
+  constructor(private themeService: ThemeService, private translate: TranslateService) {
+    this.translate.addLangs(['en', 'es']);
+    this.translate.setDefaultLang('en');
+    this.translate.use('en');
     this.themeService.theme$.subscribe(theme => {
       this.isDarkTheme = theme === 'dark';
     });

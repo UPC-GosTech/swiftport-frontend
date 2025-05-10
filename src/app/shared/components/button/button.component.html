@@ -1,21 +1,21 @@
 <button
   [type]="type"
   [disabled]="disabled || loading"
-  [ngClass]="color"
-  (click)="handleClick()"
-  class="btn"
+  [ngClass]="[color, size]"
+(click)="handleClick()"
+class="btn"
 >
-  <mat-icon *ngIf="icon && iconPosition === 'start'" class="btn-icon">
-    {{ icon }}
-  </mat-icon>
+<mat-icon *ngIf="icon && iconPosition === 'start'" class="btn-icon">
+  {{ icon }}
+</mat-icon>
 
-  <span *ngIf="!loading" [style.color]="textColor === 'white' ? '#fff' : '#000'">
+<span *ngIf="!loading" [style.color]="textColor === 'white' ? '#fff' : '#000'">
     {{ label }}
   </span>
 
-  <span *ngIf="loading" class="loader"></span>
+<span *ngIf="loading" class="loader"></span>
 
-  <mat-icon *ngIf="icon && iconPosition === 'end'" class="btn-icon">
-    {{ icon }}
-  </mat-icon>
+<mat-icon *ngIf="icon && iconPosition === 'end'" class="btn-icon">
+  {{ icon }}
+</mat-icon>
 </button>
