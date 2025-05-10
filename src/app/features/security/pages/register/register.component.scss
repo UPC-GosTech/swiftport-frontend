@@ -1,0 +1,139 @@
+:root {
+  --primary: #E6801A;
+  --primary-hover: #d36e0c;
+  --bg-light: #FFF5EC;
+  --text: #2E2E2E;
+  --font: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  background-color: var(--bg-light);
+  color: var(--text);
+}
+
+/* Wrapper general */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 60px;
+  height: 100vh;
+  padding: 40px 20px;
+  background-color: var(--bg-light);
+}
+
+/* Logo */
+.logo {
+  max-width: 200px;
+  height: auto;
+}
+
+/* Formulario o sección derecha */
+.form {
+  max-width: 420px;
+  width: 100%;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+/* Título */
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid #000;
+  display: inline-block;
+}
+
+/* Subtítulo */
+.subtitle {
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+/* Etiquetas */
+label {
+  display: block;
+  margin: 12px 0 4px;
+  font-weight: 500;
+  text-align: left;
+}
+
+/* Campos de entrada */
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  font-size: 15px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(230, 128, 26, 0.25);
+}
+button {
+  width: 100%;
+  margin-top: 24px;
+  background-color: var(--primary);
+  color: black;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  background-color: orange;
+}
+
+button:active {
+  box-shadow: 0 0 0 4px rgba(230, 128, 26, 0.4);
+  transform: scale(0.97);
+}
+
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+    gap: 30px;
+    padding: 30px 20px;
+  }
+
+  .logo {
+    max-width: 150px;
+  }
+
+  .form {
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+
+  input,
+  button {
+    font-size: 15px;
+  }
+}
