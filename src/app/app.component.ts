@@ -2,12 +2,15 @@ import { Component } from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import { ThemeService } from './core/services/theme.service';
 import {TranslateService} from '@ngx-translate/core';
+import { IncidentReportComponent } from './features/planning/pages/incident-report/incident-report.component'; // Ajusta ruta si es necesario
+
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet
+    IncidentReportComponent // ✅ Aquí lo agregas directamente
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
@@ -20,8 +23,7 @@ export class AppComponent {
     { path: '/register', title: 'Register' },
     { path: '/account', title: 'Account' },
     { path: '/payment', title: 'Payment' },
-  ]
-
+  ];
 
   constructor(private themeService: ThemeService, private translate: TranslateService) {
     this.translate.addLangs(['en', 'es']);
@@ -35,5 +37,5 @@ export class AppComponent {
   toggleTheme(): void {
     this.themeService.toggleTheme();
   }
-
 }
+
