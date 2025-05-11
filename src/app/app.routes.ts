@@ -8,7 +8,7 @@ import {PaymentInformationComponent} from './core/registration/views/payment-inf
 import { EquipmentManagementComponent } from './features/resources/pages/equipment-management/equipment-management.component';
 import { EmployeeManagementComponent } from './features/resources/pages/employee-management/employee-management.component';
 import { LocationManagementComponent } from './features/resources/pages/location-management/location-management.component';
-
+import { TeamManagementComponent } from './features/resources/pages/team-management/team-management.component';
 export const routes: Routes = [
   {
     path: '',
@@ -18,6 +18,7 @@ export const routes: Routes = [
         { path: 'equipments-management', component: EquipmentManagementComponent},
         { path: 'employee-management', component: EmployeeManagementComponent},
         { path: 'location-management', component: LocationManagementComponent},
+        { path: 'teams-management', component: TeamManagementComponent},
     ]
   },
   { path: 'register',         component: RegisterComponent },
