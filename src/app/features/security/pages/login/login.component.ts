@@ -19,31 +19,26 @@ export class LoginComponent {
 
   constructor(private router: Router) {}
 
-  // Método para iniciar sesión
   onLogin(): void {
     this.submitted = true;
     this.errorMessage = '';
 
-    // Validación: campos vacíos
     if (!this.email || !this.password) {
       this.errorMessage = 'Por favor, complete todos los campos.';
       return;
     }
 
-    // Validación: formato de email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(this.email)) {
       this.errorMessage = 'Ingrese un email válido.';
       return;
     }
 
-    // Validación: longitud mínima de contraseña
     if (this.password.length < 6) {
       this.errorMessage = 'La contraseña debe tener al menos 6 caracteres.';
       return;
     }
 
-    // Simulación de autenticación
     this.isLoading = true;
     setTimeout(() => {
       this.isLoading = false;
@@ -59,13 +54,18 @@ export class LoginComponent {
     }, 1200);
   }
 
-  // Navegación al formulario de registro
   onRegister(): void {
     this.router.navigate(['/register']);
   }
 
-  // Navegación al formulario de recuperación de contraseña
   goToRecovery(): void {
     this.router.navigate(['/password-recovery']);
+  }
+
+  onSumit() {
+    if (this.email === 'operario' && this.password.length >= 6) {
+      this.router.navigate(['/home-operario']);
+    }
+    else this.router.navigate(['/home-admin']);
   }
 }
