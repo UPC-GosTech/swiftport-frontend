@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {NgForOf} from '@angular/common';
 
 interface Usuario {
   nombre: string;
@@ -12,7 +13,8 @@ interface Usuario {
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
   imports: [
-    FormsModule
+    FormsModule,
+    NgForOf
   ],
   styleUrls: ['./user-management.component.scss']
 })
