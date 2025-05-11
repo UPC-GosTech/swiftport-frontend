@@ -6,6 +6,33 @@
     "not-found": "No zones found",
     "create": "Create your first zone"
   },
+  "location-form-dialog": {
+    "name": "Name",
+    "n2": "Name is required",
+    "description": "Description",
+    "l1": "Latitude",
+    "l2": "Latitude is required",
+    "l3": "Longitude",
+    "l4": "Longitude is required",
+    "cancel": "Cancel",
+    "update": "Update",
+    "add": "Add"
+  },
+  "zone-form-dialog": {
+    "name": "Name",
+    "n2": "Name is required",
+    "description": "Description",
+    "cancel": "Cancel",
+    "update": "Update",
+    "add": "Add"
+  },
+  "zone-card": {
+    "locations": "Locations",
+    "edit": "Edit",
+    "activate": "Activate",
+    "deactivate": "Deactivate",
+    "add": "Add Location"
+  },
   "equipment-management": {
     "equipment": "Equipment Management",
     "filter": "Filter by status: ",
@@ -17,11 +44,43 @@
     "able": "Available",
     "picture": "Upload picture"
   },
+  "equipment-card": {
+    "status": "Status: ",
+    "charge": "Load capacity: ",
+    "passengers": "Passenger capacity: ",
+    "edit": "Edit",
+    "picture": "Upload pictures",
+    "maintain": "To maintenance",
+    "able": "Available"
+  },
+  "equipment-form-dialog": {
+    "plate": "Plate",
+    "model": "Model/Type",
+    "charge": "Load capacity (kg) ",
+    "passengers": "Passenger capacity ",
+    "status": "Status",
+    "cancel": "Cancel",
+    "save": "Save",
+    "list": "No equipment available with the selected filters."
+  },
   "employee-management": {
     "employee": "Employee Management",
     "filter": "Filter by position: ",
     "add": "Add Employee",
     "edit": "Edit",
     "delete": "Delete"
+  },
+  "employee-form-dialog": {
+    "add": "Add employee",
+    "edit": "Edit employee",
+    "name": "Name",
+    "last-name": "Last Name",
+    "phone": "Phone",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "charges": "Positions",
+    "cancel": "Cancel",
+    "save": "Save"
   }
 }
