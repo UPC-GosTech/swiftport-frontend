@@ -12,7 +12,7 @@ interface BillingRecord {
   selector: 'app-company-settings',
   standalone: true,
   templateUrl: './company-settings.component.html',
-  styleUrls: ['./company-settings.component.css'],
+  styleUrls: ['./company-settings.component.scss'],
   imports: [ReactiveFormsModule, CommonModule]
 })
 export class CompanySettingsComponent implements OnInit {

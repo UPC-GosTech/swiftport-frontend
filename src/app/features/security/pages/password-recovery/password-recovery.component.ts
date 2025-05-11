@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   selector: 'app-password-recovery',
   standalone: true,
   templateUrl: './password-recovery.component.html',
-  styleUrls: ['./password-recovery.component.css'],
+  styleUrls: ['./password-recovery.component.scss'],
   imports: [FormsModule]
 })
 export class PasswordRecoveryComponent {

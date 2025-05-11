@@ -14,7 +14,7 @@ interface Usuario {
   imports: [
     FormsModule
   ],
-  styleUrls: ['./user-management.component.css']
+  styleUrls: ['./user-management.component.scss']
 })
 export class UserManagementComponent {
   users: Usuario[] = [
