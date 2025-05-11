@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import { Task } from '../../model/task/task.entity';
+import { Task } from '../../model/task.entity';
 
 @Component({
   selector: 'app-segmented-task',

@@ -9,12 +9,12 @@ import { EquipmentManagementComponent } from './features/resources/pages/equipme
 import { EmployeeManagementComponent } from './features/resources/pages/employee-management/employee-management.component';
 import { LocationManagementComponent } from './features/resources/pages/location-management/location-management.component';
 import { TeamManagementComponent } from './features/resources/pages/team-management/team-management.component';
+import { ActivityManagementComponent } from './features/planning/pages/activity-management/activity-management.component';
 import {LoginComponent} from './features/security/pages/login/login.component';
 import {HomeOperarioComponent} from './core/registration/views/home-operario/home-operario.component';
 import {HomeAdminComponent} from './core/registration/views/home-admin/home-admin.component';
 import {
-  ActivityDetailViewComponent
-} from './features/planning/components/activity-detail-view/activity-detail-view.component';
+  ActivityDetailViewComponent} from './features/planning/components/activity-detail-view/activity-detail-view.component';
 import {
   ExecutionHistoryViewComponent
 } from './features/planning/components/execution-history-view/execution-history-view.component';
@@ -29,7 +29,6 @@ import {CompanySettingsComponent} from './features/security/pages/company-settin
 import {PasswordRecoveryComponent} from './features/security/pages/password-recovery/password-recovery.component';
 import {SelectRoleComponent} from './features/security/pages/select-role/select-role.component';
 import {UserManagementComponent} from './features/security/pages/user-management/user-management.component';
-import {ActivitiesListComponent} from './features/executions/activities-list/activities-list.component';
 export const routes: Routes = [
   {
     path: '',
@@ -40,6 +39,7 @@ export const routes: Routes = [
         { path: 'employee-management', component: EmployeeManagementComponent},
         { path: 'location-management', component: LocationManagementComponent},
         { path: 'teams-management', component: TeamManagementComponent},
+      {path: 'activity-management', component: ActivityManagementComponent},
         { path: 'routes-first-try', component: LoginComponent},
         { path: 'register', component: RegisterComponent},
         { path: 'login', component: LoginComponent},
@@ -56,7 +56,6 @@ export const routes: Routes = [
         { path: 'password-recovery', component: PasswordRecoveryComponent},
         { path: 'select-role', component: SelectRoleComponent},
         { path: 'user-management', component: UserManagementComponent},
-        { path: 'activities-list', component: ActivitiesListComponent},
         { path: '**', component: PageNotFoundComponent}
     ]
   },

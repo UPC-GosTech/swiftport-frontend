@@ -38,6 +38,18 @@ export class MenuService {
       route: '/teams-management'
     },
     {
+      id: 'planning',
+      label: 'Planning',
+      icon: 'schedule',
+      route: '/planning'
+    },
+    {
+      id: 'activity-management',
+      label: 'Activity Management',
+      icon: 'schedule',
+      route: '/activity-management'
+    },
+    {
       id: 'users',
       label: 'Users',
       icon: 'people',

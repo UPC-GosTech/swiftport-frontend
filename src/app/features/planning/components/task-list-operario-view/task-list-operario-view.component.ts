@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {Employee} from '../../../resources/models/employee.entity';
 import {TableComponent} from "../../../../shared/components/table/table.component";
 import {Columns} from '../../../../shared/components/table/table.models';
-import {Task} from '../../model/task/task.entity';
+import {Task} from '../../model/task.entity';
 
 @Component({
   selector: 'app-task-list-operario-view',
@@ -87,10 +87,10 @@ export class TaskListOperarioViewComponent {
 
   loadingTest = false;
   tableData : any[] = this.tasks.map(tasks => ({
-    activity: tasks.requirement_id,
-    name: tasks.task_name,
-    taskId: tasks.task_id,
-    schedule: tasks.created_at,
-    equipment: tasks.requirement_id
+    activity: tasks.activityId,
+    name: tasks.taskName,
+    taskId: tasks.taskId,
+    schedule: tasks.createdAt,
+    equipment: tasks.locationId
   }));
 }
