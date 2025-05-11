@@ -14,6 +14,12 @@ export class MenuService {
       route: '/dashboard'
     },
     {
+      id: 'equipments-management',
+      label: 'Equipments Management',
+      icon: 'equipment',
+      route: '/equipments-management'
+    },
+    {
       id: 'users',
       label: 'Users',
       icon: 'people',

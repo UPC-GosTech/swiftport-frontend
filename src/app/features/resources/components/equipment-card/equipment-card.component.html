@@ -1,0 +1,38 @@
+<div class="equipment-card" [ngClass]="equipment.status === 'Disponible' ? 'available' : 'maintenance'">
+  <div class="thumbnail">
+    <!-- Placeholder para imagen -->
+    <div class="image-placeholder">
+      <span>{{ equipment.type.charAt(0) }}</span>
+    </div>
+  </div>
+  
+  <div class="info">
+    <h3>{{ equipment.plateNumber }}</h3>
+    <p class="model">{{ equipment.type }}</p>
+    <p class="status">Estado: <span [ngClass]="equipment.status === 'Disponible' ? 'available-text' : 'maintenance-text'">{{ equipment.status }}</span></p>
+    <p class="capacity">Capacidad de carga: {{ equipment.capacityLoad }} kg</p>
+    <p class="passengers">Capacidad de pasajeros: {{ equipment.capacityPassengers }}</p>
+  </div>
+  
+  <div class="actions">
+    <div class="button-row">
+      <app-button
+        [label]="'Editar'"
+        [color]="'primary'"
+        (click)="onEdit()"
+      ></app-button>
+      <app-button
+        [label]="'Subir fotos'"
+        [color]="'secondary'"
+        (click)="onUploadPhoto()"
+      ></app-button>
+    </div>
+    <div class="button-row">
+      <app-button
+        [label]="equipment.status === 'Disponible' ? 'A mantenimiento' : 'Disponible'"
+        [color]="equipment.status === 'Disponible' ? 'danger' : 'primary'"
+        (click)="onStatusChange()"
+      ></app-button>
+    </div>
+  </div>
+</div> 

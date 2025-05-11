@@ -5,13 +5,14 @@ import {RegisterComponent} from './core/registration/views/register/register.com
 import {AccountCreationComponent} from './core/registration/views/account-creation/account-creation.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import {PaymentInformationComponent} from './core/registration/views/payment-information/payment-information.component';
-
+import { EquipmentManagementComponent } from './features/resources/pages/equipment-management/equipment-management.component';
 export const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
     children: [
         { path: 'demo',             component: ComponentsDemoComponent},
+        {path: 'equipments-management', component: EquipmentManagementComponent}
     ]
   },
   { path: 'register',         component: RegisterComponent },
