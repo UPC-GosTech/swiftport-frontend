@@ -6,13 +6,15 @@ import {AccountCreationComponent} from './core/registration/views/account-creati
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import {PaymentInformationComponent} from './core/registration/views/payment-information/payment-information.component';
 import { EquipmentManagementComponent } from './features/resources/pages/equipment-management/equipment-management.component';
+import { EmployeeManagementComponent } from './features/resources/pages/employee-management/employee-management.component';
 export const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
     children: [
         { path: 'demo',             component: ComponentsDemoComponent},
-        {path: 'equipments-management', component: EquipmentManagementComponent}
+        { path: 'equipments-management', component: EquipmentManagementComponent},
+        { path: 'employee-management', component: EmployeeManagementComponent}
     ]
   },
   { path: 'register',         component: RegisterComponent },
