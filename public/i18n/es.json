@@ -24,6 +24,15 @@
     "able": "Disponible",
     "picture": "Subir foto"
   },
+  "equipment-card": {
+    "status": "Estado: ",
+    "charge": "Capacidad de carga: ",
+    "passengers": "Capacidad de pasajeros: ",
+    "edit": "Editar",
+    "picture": "Subir fotos",
+    "maintain": "A mantenimiento",
+    "able": "Disponible"
+  },
   "employee-management": {
     "employee": "Gestión de Empleados",
     "filter": "Filtrar por cargo: ",

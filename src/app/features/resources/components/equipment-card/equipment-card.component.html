@@ -5,34 +5,34 @@
       <span>{{ equipment.type.charAt(0) }}</span>
     </div>
   </div>
-  
+
   <div class="info">
     <h3>{{ equipment.plateNumber }}</h3>
     <p class="model">{{ equipment.type }}</p>
-    <p class="status">Estado: <span [ngClass]="equipment.status === 'Disponible' ? 'available-text' : 'maintenance-text'">{{ equipment.status }}</span></p>
-    <p class="capacity">Capacidad de carga: {{ equipment.capacityLoad }} kg</p>
-    <p class="passengers">Capacidad de pasajeros: {{ equipment.capacityPassengers }}</p>
+    <p class="status">{{ 'equipment-card.status' | translate }} <span [ngClass]="equipment.status === 'Disponible' ? 'available-text' : 'maintenance-text'">{{ equipment.status }}</span></p>
+    <p class="capacity">{{ 'equipment-card.charge' | translate }} {{ equipment.capacityLoad }} kg</p>
+    <p class="passengers">{{ 'equipment-card.passengers' | translate }} {{ equipment.capacityPassengers }}</p>
   </div>
-  
+
   <div class="actions">
     <div class="button-row">
       <app-button
-        [label]="'Editar'"
+        [label]="'equipment-card.edit' | translate"
         [color]="'primary'"
         (click)="onEdit()"
       ></app-button>
       <app-button
-        [label]="'Subir fotos'"
+        [label]="'equipment-card.picture' | translate"
         [color]="'secondary'"
         (click)="onUploadPhoto()"
       ></app-button>
     </div>
     <div class="button-row">
       <app-button
-        [label]="equipment.status === 'Disponible' ? 'A mantenimiento' : 'Disponible'"
+        [label]="equipment.status === 'Disponible' ? ('equipment-card.maintain' | translate) : ('equipment-card.able' | translate)"
         [color]="equipment.status === 'Disponible' ? 'danger' : 'primary'"
         (click)="onStatusChange()"
       ></app-button>
     </div>
   </div>
-</div> 
+</div>
