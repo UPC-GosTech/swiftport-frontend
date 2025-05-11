@@ -1,8 +1,8 @@
 import {ChangeDetectorRef, Component, Input} from '@angular/core';
 import {SegmentedTaskComponent} from '../segmented-task/segmented-task.component';
 import {DatePipe, NgForOf, NgIf} from '@angular/common';
-import { Task } from '../../model/task/task.entity';
-import {Activity} from '../../model/activity/activity.entity';
+import { Task } from '../../model/task.entity';
+import { Activity } from '../../model/activity.entity';
 import {ButtonComponent} from '../../../../shared/components/button/button.component';
 import {InputComponent} from '../../../../shared/components/input/input.component';
 import {FormsModule} from '@angular/forms';
@@ -48,7 +48,7 @@ export class ActivityDetailViewComponent {
     if (this.destinationLocationIdInput.trim() !== '') this.activity.destinationLocationId = Number(this.destinationLocationIdInput);
     if (this.estimatedDurationIdInput.trim() !== '') this.activity.estimatedDuration = Number(this.estimatedDurationIdInput);
     if (this.scheduledDateInput.trim() !== '') this.activity.scheduledDate = new Date(this.scheduledDateInput);
-    if (this.statusInput.trim() !== '') this.activity.status = this.statusInput;
+    if (this.statusInput.trim() !== '') this.activity.status = this.statusInput as 'Pendiente' | 'En progreso' | 'Finalizada' | 'Cancelada';
     if (this.descriptionInput.trim() !== '') this.activity.description = this.descriptionInput;
     console.log(this.activity);
   }
