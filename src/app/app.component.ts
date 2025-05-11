@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import { ThemeService } from './core/services/theme.service';
 import {TranslateService} from '@ngx-translate/core';
-import { IncidentReportComponent } from './features/planning/pages/incident-report/incident-report.component'; // Ajusta ruta si es necesario
+import { IncidentReportComponent } from './features/planning/pages/incident-report/incident-report.component';
+import {ProfileViewComponent} from './profile-view/profile-view.component'; // Ajusta ruta si es necesario
 
 
 
@@ -10,7 +11,9 @@ import { IncidentReportComponent } from './features/planning/pages/incident-repo
   selector: 'app-root',
   standalone: true,
   imports: [
-    IncidentReportComponent // ✅ Aquí lo agregas directamente
+    IncidentReportComponent,
+    ProfileViewComponent,
+    // ✅ Aquí lo agregas directamente
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
