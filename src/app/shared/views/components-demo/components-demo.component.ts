@@ -12,11 +12,12 @@ import {
 import {
   TaskSchedulingDialogComponent
 } from '../../../features/planning/components/task-scheduling-dialog/task-scheduling-dialog.component';
+import {SegmentedTaskComponent} from '../../../features/planning/components/segmented-task/segmented-task.component';
 
 @Component({
   selector: 'app-components-demo',
   standalone: true,
-  imports: [TableComponent, CallbackPipe, SelectorComponent, ButtonComponent, InputComponent, FormsModule, TaskExecutionViewComponent, TaskSchedulingDialogComponent],
+  imports: [TableComponent, CallbackPipe, SelectorComponent, ButtonComponent, InputComponent, FormsModule, TaskExecutionViewComponent, TaskSchedulingDialogComponent, SegmentedTaskComponent],
   templateUrl: './components-demo.component.html',
   styleUrl: './components-demo.component.scss'
 })
