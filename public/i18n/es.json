@@ -16,5 +16,12 @@
     "maintain": "A mantenimiento",
     "able": "Disponible",
     "picture": "Subir foto"
+  },
+  "employee-management": {
+    "employee": "Gestión de Empleados",
+    "filter": "Filtrar por cargo: ",
+    "add": "Agregar Empleado",
+    "edit": "Editar",
+    "delete": "Eliminar"
   }
 }

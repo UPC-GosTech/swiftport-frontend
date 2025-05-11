@@ -9,6 +9,7 @@ import { SelectorComponent } from '../../../../shared/components/selector/select
 import { FormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { EmployeeFormDialogComponent } from '../../components/employee-form-dialog/employee-form-dialog.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-employee-management',
@@ -19,7 +20,8 @@ import { EmployeeFormDialogComponent } from '../../components/employee-form-dial
     ButtonComponent,
     SelectorComponent,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    TranslatePipe
   ],
   templateUrl: './employee-management.component.html',
   styleUrl: './employee-management.component.scss'
@@ -29,11 +31,11 @@ export class EmployeeManagementComponent implements OnInit {
   employeeData: Employee[] = [];
   filteredEmployees: Employee[] = [];
   positions: Position[] = [];
-  
+
   // Filter options
   positionFilter: string = 'all';
   positionOptions: string[] = ['all'];
-  
+
   // Table configuration
   columns: Columns[] = [
     {
@@ -65,9 +67,9 @@ export class EmployeeManagementComponent implements OnInit {
       hide: { visible: true, label: 'Acciones' }
     }
   ];
-  
+
   constructor(private dialog: MatDialog) {}
-  
+
   ngOnInit(): void {
     // Simulate getting positions
     this.positions = [
@@ -76,76 +78,76 @@ export class EmployeeManagementComponent implements OnInit {
       new Position(3, 'Supervisor', 'Supervisor de obra'),
       new Position(4, 'Técnico', 'Técnico especializado')
     ];
-    
+
     // Set position filter options
     this.positionOptions = ['all', ...this.positions.map(p => p.name)];
-    
+
     // Simulate getting employees
     this.employeeData = [
       new Employee(
-        1, 
-        'Juan', 
-        'Pérez', 
-        '45678912', 
-        'juan.perez@example.com', 
-        '987654321', 
-        'ACTIVE', 
+        1,
+        'Juan',
+        'Pérez',
+        '45678912',
+        'juan.perez@example.com',
+        '987654321',
+        'ACTIVE',
         [this.positions[0]]
       ),
       new Employee(
-        2, 
-        'María', 
-        'García', 
-        '12345678', 
-        'maria.garcia@example.com', 
-        '123456789', 
-        'ACTIVE', 
+        2,
+        'María',
+        'García',
+        '12345678',
+        'maria.garcia@example.com',
+        '123456789',
+        'ACTIVE',
         [this.positions[1]]
       ),
       new Employee(
-        3, 
-        'Carlos', 
-        'López', 
-        '87654321', 
-        'carlos.lopez@example.com', 
-        '456789123', 
-        'ACTIVE', 
+        3,
+        'Carlos',
+        'López',
+        '87654321',
+        'carlos.lopez@example.com',
+        '456789123',
+        'ACTIVE',
         [this.positions[2]]
       ),
       new Employee(
-        4, 
-        'Ana', 
-        'Martínez', 
-        '56789123', 
-        'ana.martinez@example.com', 
-        '321654987', 
-        'ACTIVE', 
+        4,
+        'Ana',
+        'Martínez',
+        '56789123',
+        'ana.martinez@example.com',
+        '321654987',
+        'ACTIVE',
         [this.positions[0], this.positions[3]]
       )
     ];
-    
+
     this.applyFilters();
   }
-  
+
   applyFilters(): void {
     let filtered : Employee[] = [...this.employeeData];
-    
+
     // Apply position filter
     if (this.positionFilter !== 'all') {
       filtered = filtered.filter(employee =>
         employee.positions.some(position => position.name === this.positionFilter)
       );
     }
-    
+
     // Process data for display
     this.filteredEmployees = filtered;
   }
-  
+
   onPositionFilterChange(position: string): void {
     this.positionFilter = position;
     this.applyFilters();
   }
-  
+
   openAddDialog(): void {
     const dialogRef = this.dialog.open(EmployeeFormDialogComponent, {
       width: '500px',
@@ -155,19 +157,19 @@ export class EmployeeManagementComponent implements OnInit {
         positions: this.positions
       }
     });
-    
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         // Generate a new ID (this would be handled by the backend in a real app)
         const newId = Math.max(...this.employeeData.map(e => e.id), 0) + 1;
         result.id = newId;
-        
+
         this.employeeData.push(result);
         this.applyFilters();
       }
     });
   }
-  
+
   openEditDialog(employee: Employee): void {
     const dialogRef = this.dialog.open(EmployeeFormDialogComponent, {
       width: '500px',
@@ -177,7 +179,7 @@ export class EmployeeManagementComponent implements OnInit {
         positions: this.positions
       }
     });
-    
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const index = this.employeeData.findIndex(e => e.id === result.id);
@@ -188,7 +190,7 @@ export class EmployeeManagementComponent implements OnInit {
       }
     });
   }
-  
+
   deleteEmployee(employee: Employee): void {
     if (confirm(`¿Estás seguro de eliminar a ${employee.fullName}?`)) {
       const index = this.employeeData.findIndex(e => e.id === employee.id);
