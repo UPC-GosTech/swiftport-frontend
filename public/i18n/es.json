@@ -18,6 +18,14 @@
     "update": "Actualizar",
     "add": "Agregar"
   },
+  "zone-form-dialog": {
+    "name": "Nombre",
+    "n2": "El nombre es requerido",
+    "description": "Descripción",
+    "cancel": "Cancelar",
+    "update": "Actualizar",
+    "add": "Agregar"
+  },
   "zone-card": {
     "locations": "Ubicaciones",
     "edit": "Editar",
