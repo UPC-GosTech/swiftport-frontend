@@ -26,6 +26,12 @@ export class MenuService {
       route: '/employee-management'
     },
     {
+      id: 'location-management',
+      label: 'Gestión de Zonas',
+      icon: 'place',
+      route: '/location-management'
+    },
+    {
       id: 'users',
       label: 'Users',
       icon: 'people',

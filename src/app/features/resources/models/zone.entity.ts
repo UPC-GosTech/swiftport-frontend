@@ -1,2 +1,23 @@
+import { Location } from "./location.entity";
+
 export class Zone {
+    id: number;
+    name: string;
+    description: string;
+    locations: Location[];
+    active: boolean;
+    
+    constructor(
+        id: number,
+        name: string,
+        description: string,
+        locations: Location[] = [],
+        active: boolean = true
+    ) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.locations = locations;
+        this.active = active;
+    }
 }

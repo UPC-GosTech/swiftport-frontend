@@ -7,6 +7,8 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
 import {PaymentInformationComponent} from './core/registration/views/payment-information/payment-information.component';
 import { EquipmentManagementComponent } from './features/resources/pages/equipment-management/equipment-management.component';
 import { EmployeeManagementComponent } from './features/resources/pages/employee-management/employee-management.component';
+import { LocationManagementComponent } from './features/resources/pages/location-management/location-management.component';
+
 export const routes: Routes = [
   {
     path: '',
@@ -14,7 +16,8 @@ export const routes: Routes = [
     children: [
         { path: 'demo',             component: ComponentsDemoComponent},
         { path: 'equipments-management', component: EquipmentManagementComponent},
-        { path: 'employee-management', component: EmployeeManagementComponent}
+        { path: 'employee-management', component: EmployeeManagementComponent},
+        { path: 'location-management', component: LocationManagementComponent},
     ]
   },
   { path: 'register',         component: RegisterComponent },
