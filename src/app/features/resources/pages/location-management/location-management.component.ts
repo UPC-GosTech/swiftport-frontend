@@ -12,24 +12,26 @@ import { ZoneCardComponent } from '../../components/zone-card/zone-card.componen
 import { ZoneFormDialogComponent } from '../../components/zone-form-dialog/zone-form-dialog.component';
 import { LocationFormDialogComponent } from '../../components/location-form-dialog/location-form-dialog.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-location-management',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDialogModule,
-    MatProgressSpinnerModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ZoneCardComponent,
-    ZoneFormDialogComponent,
-    LocationFormDialogComponent,
-    ButtonComponent
-  ],
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDialogModule,
+        MatProgressSpinnerModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ZoneCardComponent,
+        ZoneFormDialogComponent,
+        LocationFormDialogComponent,
+        ButtonComponent,
+        TranslatePipe
+    ],
   templateUrl: './location-management.component.html',
   styleUrl: './location-management.component.scss'
 })

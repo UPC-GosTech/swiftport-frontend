@@ -1,0 +1,9 @@
+{
+  "location-management": {
+    "zones": "hey my friend",
+    "add": "Agregar Zona",
+    "loading": "Cargando zonas...",
+    "not-found": "No se encontraron zonas",
+    "create": "Crear tu primera zona"
+  }
+}
