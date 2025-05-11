@@ -6,6 +6,18 @@
     "not-found": "No se encontraron zonas",
     "create": "Crear tu primera zona"
   },
+  "location-form-dialog": {
+    "name": "Nombre",
+    "n2": "El nombre es requerido",
+    "description": "Descripción",
+    "l1": "Latitud",
+    "l2": "La latitud es requerida",
+    "l3": "Longitud",
+    "l4": "La longitud es requerida",
+    "cancel": "Cancelar",
+    "update": "Actualizar",
+    "add": "Agregar"
+  },
   "zone-card": {
     "locations": "Ubicaciones",
     "edit": "Editar",

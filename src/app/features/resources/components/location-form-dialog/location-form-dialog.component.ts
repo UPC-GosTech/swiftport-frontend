@@ -9,6 +9,7 @@ import { Location } from '../../models/location.entity';
 import { ZoneService } from '../../services/zone.service';
 import { Coordinate } from '../../models/coordinate.entity';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-location-form-dialog',
@@ -20,28 +21,29 @@ import { ButtonComponent } from '../../../../shared/components/button/button.com
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    ButtonComponent
+    ButtonComponent,
+    TranslatePipe
   ],
   templateUrl: './location-form-dialog.component.html',
   styleUrls: ['./location-form-dialog.component.scss']
 })
 export class LocationFormDialogComponent implements OnInit {
   locationForm!: FormGroup;
-  
+
   constructor(
     private fb: FormBuilder,
     private zoneService: ZoneService,
     public dialogRef: MatDialogRef<LocationFormDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { 
+    @Inject(MAT_DIALOG_DATA) public data: {
       zoneId: number,
-      location?: Location 
+      location?: Location
     }
   ) {}
-  
+
   ngOnInit(): void {
     this.initForm();
   }
-  
+
   initForm(): void {
     this.locationForm = this.fb.group({
       name: [this.data.location?.name || '', Validators.required],
@@ -50,13 +52,13 @@ export class LocationFormDialogComponent implements OnInit {
       longitude: [this.data.location?.ubication?.longitude || 0, Validators.required]
     });
   }
-  
+
   onSubmit(): void {
     if (this.locationForm.invalid) return;
-    
+
     const { name, description, latitude, longitude } = this.locationForm.value;
     const coordinate = new Coordinate(latitude, longitude);
-    
+
     if (this.data.location) {
       // Update existing location
       const updatedLocation = new Location(
@@ -66,7 +68,7 @@ export class LocationFormDialogComponent implements OnInit {
         description,
         coordinate
       );
-      
+
       this.zoneService.updateLocation(updatedLocation)
         .subscribe({
           next: (location) => this.dialogRef.close(location),
@@ -81,8 +83,8 @@ export class LocationFormDialogComponent implements OnInit {
         });
     }
   }
-  
+
   onCancel(): void {
     this.dialogRef.close();
   }
-} 
+}
