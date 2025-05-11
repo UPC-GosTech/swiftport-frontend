@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import {InputComponent} from '../../../../shared/components/input/input.component';
 import {ButtonComponent} from '../../../../shared/components/button/button.component';
 
@@ -12,6 +13,9 @@ import {ButtonComponent} from '../../../../shared/components/button/button.compo
   styleUrl: './account-creation.component.scss'
 })
 export class AccountCreationComponent {
+
+  constructor(private router: Router) {}
+
   email: string = '';
   placeholderEmail: string = 'Ingrese su email...';
   name: string = '';
@@ -43,6 +47,7 @@ export class AccountCreationComponent {
     this.onNameChange(this.name);
     this.onP1Change(this.password1);
     this.onP2Change(this.password2);
+    this.router.navigate(['/home-admin']);
   }
 
 }

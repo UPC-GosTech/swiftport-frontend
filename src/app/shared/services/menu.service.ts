@@ -77,6 +77,11 @@ export class MenuService {
       label: 'Components Demo',
       icon: 'construction',
       route: '/demo'
+    },
+    {
+      id: 'routes-first-try',
+      label: 'Probando routeo',
+      route: '/routes-first-try'
     }
   ];
 
@@ -85,4 +90,4 @@ export class MenuService {
   getMenuItems(): Observable<SidebarMenuItem[]> {
     return of(this.defaultMenuItems);
   }
-} 
+}

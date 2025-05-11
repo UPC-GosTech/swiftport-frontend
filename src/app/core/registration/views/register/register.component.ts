@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {PaymentCardComponent} from '../../../../features/billing/payment-card/payment-card.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -10,6 +11,9 @@ import {PaymentCardComponent} from '../../../../features/billing/payment-card/pa
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
+
+  constructor(private router: Router) {}
+
   basic = {
     title: 'Plan Básico',
     items: [
@@ -45,5 +49,6 @@ export class RegisterComponent {
 
   onTitleSaved(title: string): void {
     console.log('Título guardado:', title);
+    this.router.navigate(['/payment']);
   }
 }

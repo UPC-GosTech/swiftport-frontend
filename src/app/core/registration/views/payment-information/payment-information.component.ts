@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import {InputComponent} from '../../../../shared/components/input/input.component';
 import {SelectorComponent} from '../../../../shared/components/selector/selector.component';
 import {ButtonComponent} from '../../../../shared/components/button/button.component';
@@ -14,6 +15,9 @@ import {ButtonComponent} from '../../../../shared/components/button/button.compo
   styleUrl: './payment-information.component.scss'
 })
 export class PaymentInformationComponent {
+
+  constructor(private router: Router) {}
+
   name: string = '';
   placeholderName: string = 'Nombre completo';
   company: string = '';
@@ -74,5 +78,6 @@ export class PaymentInformationComponent {
     this.onCardTypeChange(this.cardType);
     this.onMonthChange(this.month);
     this.onYearChange(this.year);
+    this.router.navigate(['/account']);
   }
 }
