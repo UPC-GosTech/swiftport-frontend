@@ -1,22 +1,24 @@
 export class Task {
-  task_id: number;
-  task_name: string;
-  requirement_id: number;
+  taskId: number;
+  taskName: string;
+  activityId: number;
+  locationId: number;
   description: string;
   status: string;
   progress: number;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
 
   constructor() {
-    this.task_id = 0;
-    this.task_name = '';
-    this.requirement_id = 0;
+    this.taskId = 0;
+    this.taskName = '';
+    this.activityId = 0;
+    this.locationId = 0;
     this.description = '';
     this.status = '';
     this.progress = 0;
-    this.created_at = '';
-    this.updated_at = '';
+    this.createdAt = '';
+    this.updatedAt = '';
   }
 
 }
