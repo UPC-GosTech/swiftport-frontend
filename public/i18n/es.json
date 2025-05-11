@@ -6,6 +6,13 @@
     "not-found": "No se encontraron zonas",
     "create": "Crear tu primera zona"
   },
+  "zone-card": {
+    "locations": "Ubicaciones",
+    "edit": "Editar",
+    "activate": "Activar",
+    "deactivate": "Desactivar",
+    "add": "Agregar Ubicación"
+  },
   "equipment-management": {
     "equipment": "Gestión de equipamiento",
     "filter": "Filtrar por estado: ",
@@ -23,5 +30,18 @@
     "add": "Agregar Empleado",
     "edit": "Editar",
     "delete": "Eliminar"
+  },
+  "employee-form-dialog": {
+    "add": "Agregar empleado",
+    "edit": "Editar empleado",
+    "name": "Nombre",
+    "last-name": "Apellido",
+    "phone": "Teléfono",
+    "status": "Estado",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "charges": "Cargos",
+    "cancel": "Cancelar",
+    "save": "Guardar"
   }
 }
