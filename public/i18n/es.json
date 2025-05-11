@@ -33,6 +33,15 @@
     "maintain": "A mantenimiento",
     "able": "Disponible"
   },
+  "equipment-form-dialog": {
+    "plate": "Placa",
+    "model": "Modelo/Tipo",
+    "charge": "Capacidad de carga (kg) ",
+    "passengers": "Capacidad de pasajeros ",
+    "status": "Estado",
+    "cancel": "Cancelar",
+    "save": "Guardar"
+  },
   "employee-management": {
     "employee": "Gestión de Empleados",
     "filter": "Filtrar por cargo: ",
