@@ -20,6 +20,12 @@ export class MenuService {
       route: '/equipments-management'
     },
     {
+      id: 'employee-management',
+      label: 'Employee Management',
+      icon: 'people',
+      route: '/employee-management'
+    },
+    {
       id: 'users',
       label: 'Users',
       icon: 'people',
