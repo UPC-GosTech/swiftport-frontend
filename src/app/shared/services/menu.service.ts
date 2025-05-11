@@ -32,6 +32,12 @@ export class MenuService {
       route: '/location-management'
     },
     {
+      id: 'teams-management',
+      label: 'Gestión de Equipos',
+      icon: 'group',
+      route: '/teams-management'
+    },
+    {
       id: 'users',
       label: 'Users',
       icon: 'people',

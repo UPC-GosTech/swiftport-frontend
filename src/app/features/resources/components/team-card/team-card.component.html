@@ -1,0 +1,73 @@
+<mat-expansion-panel 
+  [expanded]="isExpanded" 
+  (opened)="isExpanded = true" 
+  (closed)="isExpanded = false"
+  class="team-card"
+  [ngClass]="{'inactive': team.status === 'INACTIVE'}">
+  
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ team.name }}
+      <mat-chip-listbox class="status-chip-list">
+        <mat-chip [color]="statusColor" highlighted>{{ statusBadge }}</mat-chip>
+      </mat-chip-listbox>
+    </mat-panel-title>
+    <mat-panel-description>
+      <span class="zone-badge">{{ team.zone.name }}</span>
+      <span class="members-badge">
+        <mat-icon>people</mat-icon> {{ memberCount }}
+      </span>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <div class="team-content">
+    <div class="team-info">
+      <p><strong>Fecha:</strong> {{ formatDate(team.date) }}</p>
+      <p><strong>Zona:</strong> {{ team.zone.name }}</p>
+      <p *ngIf="team.zone.locations && team.zone.locations.length > 0">
+        <strong>Ubicación:</strong> {{ team.zone.locations[0].name }}
+      </p>
+      <p><strong>Estado:</strong> {{ statusBadge }}</p>
+    </div>
+
+    <div class="team-members">
+      <h3>Miembros del Equipo</h3>
+      <mat-divider></mat-divider>
+      
+      <div class="member-list">
+        <div *ngIf="team.members?.length === 0" class="no-members">
+          No hay miembros asignados a este equipo.
+        </div>
+        
+        <div *ngFor="let member of team.members" class="member-item">
+          <div class="member-info">
+            <div class="member-name">{{ member.employee.fullName }}</div>
+            <div class="member-position">
+              <strong>Cargo:</strong> {{ member.position.name }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="team-actions">
+      <app-button
+        [label]="'Editar'"
+        [color]="'primary'"
+        (clicked)="onEdit()">
+      </app-button>
+      
+      <app-button
+        [label]="'Editar Miembros'"
+        [color]="'primary'"
+        (clicked)="onEditMembers()">
+      </app-button>
+      
+      <app-button
+        [label]="statusActionLabel"
+        [color]="buttonStatusColor"
+        (clicked)="onToggleStatus()">
+      </app-button>
+    </div>
+  </div>
+</mat-expansion-panel> 
