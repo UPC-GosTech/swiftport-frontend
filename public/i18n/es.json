@@ -5,5 +5,16 @@
     "loading": "Cargando zonas",
     "not-found": "No se encontraron zonas",
     "create": "Crear tu primera zona"
+  },
+  "equipment-management": {
+    "equipment": "Gestión de equipamiento",
+    "filter": "Filtrar por estado: ",
+    "cards": "Ver en tarjetas",
+    "table": "Ver en tabla",
+    "add": "Agregar equipamiento",
+    "edit": "Editar",
+    "maintain": "A mantenimiento",
+    "able": "Disponible",
+    "picture": "Subir foto"
   }
 }

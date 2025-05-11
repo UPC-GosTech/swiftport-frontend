@@ -10,6 +10,7 @@ import { EquipmentCardComponent } from '../../components/equipment-card/equipmen
 import { EquipmentFormDialogComponent } from '../../components/equipment-form-dialog/equipment-form-dialog.component';
 import { EquipmentListComponent } from '../../components/equipment-list/equipment-list.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-equipment-management',
@@ -23,7 +24,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
     EquipmentCardComponent,
     EquipmentFormDialogComponent,
     EquipmentListComponent,
-    MatDialogModule
+    MatDialogModule,
+    TranslatePipe
   ],
   templateUrl: './equipment-management.component.html',
   styleUrl: './equipment-management.component.scss'
@@ -31,15 +33,15 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 export class EquipmentManagementComponent implements OnInit {
   // Estado para alternar entre vista de tabla y tarjetas
   viewMode: 'table' | 'cards' = 'table';
-  
+
   // Filtros
   statusFilter: string = 'Todos';
   statusOptions: string[] = ['Todos', 'Disponible', 'Mantenimiento'];
-  
+
   // Datos de equipamiento (mock)
   equipmentData: Equipment[] = [];
   filteredEquipment: Equipment[] = [];
-  
+
   // Configuración de columnas para la tabla
   columns: Columns[] = [
     {
@@ -91,9 +93,9 @@ export class EquipmentManagementComponent implements OnInit {
       sortable: false
     }
   ];
-  
+
   constructor(private dialog: MatDialog) {}
-  
+
   ngOnInit(): void {
     // Inicializar con datos de prueba
     this.equipmentData = [
@@ -122,15 +124,15 @@ export class EquipmentManagementComponent implements OnInit {
         status: 'Disponible'
       }
     ];
-    
+
     this.applyFilters();
   }
-  
+
   // Método para alternar el modo de vista
   toggleViewMode(): void {
     this.viewMode = this.viewMode === 'table' ? 'cards' : 'table';
   }
-  
+
   // Aplicar filtros
   applyFilters(): void {
     this.filteredEquipment = this.equipmentData.filter(equip => {
@@ -140,13 +142,13 @@ export class EquipmentManagementComponent implements OnInit {
       return equip.status === this.statusFilter;
     });
   }
-  
+
   // Métodos para manejar acciones
   onStatusFilterChange(status: string): void {
     this.statusFilter = status;
     this.applyFilters();
   }
-  
+
   openAddDialog(): void {
     const dialogRef = this.dialog.open(EquipmentFormDialogComponent, {
       width: '500px',
@@ -162,7 +164,7 @@ export class EquipmentManagementComponent implements OnInit {
       }
     });
   }
-  
+
   openEditDialog(equipment: Equipment): void {
     const dialogRef = this.dialog.open(EquipmentFormDialogComponent, {
       width: '500px',
@@ -178,7 +180,7 @@ export class EquipmentManagementComponent implements OnInit {
       }
     });
   }
-  
+
   saveEquipment(equipment: Equipment): void {
     if (equipment.id === 0) {
       // Agregar nuevo equipo
@@ -192,10 +194,10 @@ export class EquipmentManagementComponent implements OnInit {
         this.equipmentData[index] = equipment;
       }
     }
-    
+
     this.applyFilters();
   }
-  
+
   changeStatus(equipment: Equipment, newStatus: string): void {
     const index = this.equipmentData.findIndex(e => e.id === equipment.id);
     if (index !== -1) {
@@ -203,11 +205,11 @@ export class EquipmentManagementComponent implements OnInit {
       this.applyFilters();
     }
   }
-  
+
   handleStatusChange(event: { equipment: Equipment, newStatus: string }): void {
     this.changeStatus(event.equipment, event.newStatus);
   }
-  
+
   uploadPhoto(equipment: Equipment): void {
     // Implementación para subir fotos
     console.log('Subir foto para:', equipment);
