@@ -6,8 +6,8 @@
     (statusChange)="onStatusChange(equipment)"
     (uploadPhoto)="onUploadPhoto(equipment)"
   ></app-equipment-card>
-  
+
   <div *ngIf="equipmentList.length === 0" class="no-equipment">
-    <p>No hay equipamiento disponible con los filtros seleccionados.</p>
+    <p>{{ 'equipment-form-dialog.list' | translate }}</p>
   </div>
 </div>

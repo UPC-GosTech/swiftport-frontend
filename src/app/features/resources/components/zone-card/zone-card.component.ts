@@ -7,18 +7,20 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatListModule } from '@angular/material/list';
 import { Zone } from '../../models/zone.entity';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-zone-card',
   standalone: true,
   imports: [
-    CommonModule, 
-    MatCardModule, 
-    MatButtonModule, 
+    CommonModule,
+    MatCardModule,
+    MatButtonModule,
     MatIconModule,
     MatBadgeModule,
     MatListModule,
-    ButtonComponent
+    ButtonComponent,
+    TranslatePipe
   ],
   templateUrl: './zone-card.component.html',
   styleUrls: ['./zone-card.component.scss']
@@ -26,9 +28,9 @@ import { ButtonComponent } from '../../../../shared/components/button/button.com
 export class ZoneCardComponent {
   @Input() zone!: Zone;
   @Input() isSelected = false;
-  
+
   @Output() select = new EventEmitter<number>();
   @Output() edit = new EventEmitter<Zone>();
   @Output() toggleActive = new EventEmitter<number>();
   @Output() addLocation = new EventEmitter<number>();
-} 
+}

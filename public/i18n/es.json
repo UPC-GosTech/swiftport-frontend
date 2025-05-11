@@ -1,0 +1,86 @@
+{
+  "location-management": {
+    "zones": "Gestión de zonas",
+    "add": "Agregar Zona",
+    "loading": "Cargando zonas",
+    "not-found": "No se encontraron zonas",
+    "create": "Crear tu primera zona"
+  },
+  "location-form-dialog": {
+    "name": "Nombre",
+    "n2": "El nombre es requerido",
+    "description": "Descripción",
+    "l1": "Latitud",
+    "l2": "La latitud es requerida",
+    "l3": "Longitud",
+    "l4": "La longitud es requerida",
+    "cancel": "Cancelar",
+    "update": "Actualizar",
+    "add": "Agregar"
+  },
+  "zone-form-dialog": {
+    "name": "Nombre",
+    "n2": "El nombre es requerido",
+    "description": "Descripción",
+    "cancel": "Cancelar",
+    "update": "Actualizar",
+    "add": "Agregar"
+  },
+  "zone-card": {
+    "locations": "Ubicaciones",
+    "edit": "Editar",
+    "activate": "Activar",
+    "deactivate": "Desactivar",
+    "add": "Agregar Ubicación"
+  },
+  "equipment-management": {
+    "equipment": "Gestión de equipamiento",
+    "filter": "Filtrar por estado: ",
+    "cards": "Ver en tarjetas",
+    "table": "Ver en tabla",
+    "add": "Agregar equipamiento",
+    "edit": "Editar",
+    "maintain": "A mantenimiento",
+    "able": "Disponible",
+    "picture": "Subir foto"
+  },
+  "equipment-card": {
+    "status": "Estado: ",
+    "charge": "Capacidad de carga: ",
+    "passengers": "Capacidad de pasajeros: ",
+    "edit": "Editar",
+    "picture": "Subir fotos",
+    "maintain": "A mantenimiento",
+    "able": "Disponible"
+  },
+  "equipment-form-dialog": {
+    "plate": "Placa",
+    "model": "Modelo/Tipo",
+    "charge": "Capacidad de carga (kg) ",
+    "passengers": "Capacidad de pasajeros ",
+    "status": "Estado",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "list": "No hay equipamiento disponible con los filtros seleccionados."
+  },
+  "employee-management": {
+    "employee": "Gestión de Empleados",
+    "filter": "Filtrar por cargo: ",
+    "add": "Agregar Empleado",
+    "edit": "Editar",
+    "delete": "Eliminar"
+  },
+  "employee-form-dialog": {
+    "add": "Agregar empleado",
+    "edit": "Editar empleado",
+    "name": "Nombre",
+    "last-name": "Apellido",
+    "phone": "Teléfono",
+    "status": "Estado",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "charges": "Cargos",
+    "cancel": "Cancelar",
+    "save": "Guardar"
+  }
+}

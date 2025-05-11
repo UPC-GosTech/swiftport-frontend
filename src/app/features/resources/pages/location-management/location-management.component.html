@@ -1,8 +1,8 @@
 <div class="location-management-container">
   <div class="header">
-    <h1>Gestión de Zonas</h1>
-    <app-button 
-      [label]="'Agregar Zona'"
+    <h1>{{ 'location-management.zones' | translate }}</h1>
+    <app-button
+      [label]="'location-management.add' | translate"
       [color]="'primary'"
       (clicked)="openZoneFormDialog()">
     </app-button>
@@ -10,14 +10,14 @@
 
   <div *ngIf="loading" class="loading-container">
     <mat-spinner diameter="40"></mat-spinner>
-    <p>Cargando zonas...</p>
+    <p>{{ 'location-management.loading' | translate }}</p>
   </div>
 
   <div *ngIf="!loading && zones.length === 0" class="empty-state">
     <mat-icon>location_off</mat-icon>
-    <p>No se encontraron zonas</p>
-    <app-button 
-      [label]="'Crear tu primera zona'"
+    <p>{{ 'location-management.not-found' | translate }}</p>
+    <app-button
+      [label]="'location-management.create' | translate"
       [color]="'primary'"
       (clicked)="openZoneFormDialog()">
     </app-button>
