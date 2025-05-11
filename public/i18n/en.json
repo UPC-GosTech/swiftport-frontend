@@ -1,12 +1,27 @@
 {
   "location-management": {
-    "zones": "hey my friend",
-    "add": "Agregar Zona",
-    "loading": "Cargando zonas...",
-    "not-found": "No se encontraron zonas",
-    "create": "Crear tu primera zona"
+    "zones": "Zone Management",
+    "add": "Add Zone",
+    "loading": "Loading zones",
+    "not-found": "No zones found",
+    "create": "Create your first zone"
   },
   "equipment-management": {
-
+    "equipment": "Equipment Management",
+    "filter": "Filter by status: ",
+    "cards": "View in cards",
+    "table": "View in table",
+    "add": "Add equipment",
+    "edit": "Edit",
+    "maintain": "To maintenance",
+    "able": "Available",
+    "picture": "Upload picture"
+  },
+  "employee-management": {
+    "employee": "Employee Management",
+    "filter": "Filter by position: ",
+    "add": "Add Employee",
+    "edit": "Edit",
+    "delete": "Delete"
   }
 }
