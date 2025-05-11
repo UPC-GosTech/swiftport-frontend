@@ -40,7 +40,8 @@
     "passengers": "Capacidad de pasajeros ",
     "status": "Estado",
     "cancel": "Cancelar",
-    "save": "Guardar"
+    "save": "Guardar",
+    "list": "No hay equipamiento disponible con los filtros seleccionados."
   },
   "employee-management": {
     "employee": "Gestión de Empleados",
