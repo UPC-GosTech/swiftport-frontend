@@ -1,0 +1,82 @@
+<mat-card class="activity-card" [ngClass]="getPriorityClass(activity.priority)">
+  <mat-card-header (click)="onToggleExpand()" class="card-header">
+    <div class="header-content">
+      <div class="title-section">
+        <mat-card-title>{{ activity.title }}</mat-card-title>
+        <div class="status-badges">
+          <span class="status-badge" [ngClass]="getStatusClass(activity.status)">
+            <mat-icon class="badge-icon">{{ getStatusIcon(activity.status) }}</mat-icon>
+            {{ activity.status }}
+          </span>
+          <span class="priority-badge" [ngClass]="getPriorityClass(activity.priority)">
+            <mat-icon class="badge-icon">{{ getPriorityIcon(activity.priority) }}</mat-icon>
+            {{ activity.priority }}
+          </span>
+          <span class="duration-indicator">
+            <mat-icon class="badge-icon">schedule</mat-icon>
+            {{ formatDuration(activity.estimatedDuration) }}
+          </span>
+        </div>
+      </div>
+      <div class="actions">
+        <button mat-icon-button matTooltip="Editar actividad" (click)="onEditActivity(); $event.stopPropagation()">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Eliminar actividad" color="warn" (click)="onDeleteActivity(); $event.stopPropagation()">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <mat-icon class="expand-icon" [ngClass]="{'expanded': expanded}">
+          {{ expanded ? 'expand_less' : 'expand_more' }}
+        </mat-icon>
+      </div>
+    </div>
+  </mat-card-header>
+
+  <div *ngIf="expanded" class="expanded-content">
+    <mat-card-content>
+      <div class="activity-details">
+        <div class="detail-row">
+          <span class="detail-label">Descripción</span>
+          <span class="detail-value">{{ activity.description }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Fecha programada</span>
+          <span class="detail-value">{{ activity.scheduledDate | date:'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Duración estimada</span>
+          <span class="detail-value">{{ formatDuration(activity.estimatedDuration) }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Equipo asignado</span>
+          <span class="detail-value">{{ activity.assignedCrewId || 'No asignado' }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Vehículo</span>
+          <span class="detail-value">{{ activity.vehicleId || 'No asignado' }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Notas del supervisor</span>
+          <span class="detail-value">{{ activity.supervisorNotes || 'Sin notas' }}</span>
+        </div>
+      </div>
+
+      <mat-divider class="section-divider"></mat-divider>
+      
+      <div class="tasks-section">
+        <div class="section-header">
+          <h3>Tareas</h3>
+          <button mat-mini-fab color="primary" matTooltip="Agregar tarea" (click)="onAddTask()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+        
+        <app-task-list 
+          [activityId]="activity.id" 
+          (editTask)="onEditTask($event)" 
+          (deleteTask)="onDeleteTask($event)">
+        </app-task-list>
+      </div>
+    </mat-card-content>
+  </div>
+</mat-card> 
