@@ -1,6 +1,15 @@
 <div class="general-container">
   <h1>Bienvenido {{ operario.firstName }}</h1>
-  <div class="days-container">
-
+  <div>
+    Sergio's days divider
+  </div>
+  <div class="table-container">
+    <app-table
+      [columns]="columns"
+      [dataSource]="tableData"
+      [loading]="loadingTest"
+      [showPaginator]="true"
+      [selectable]="false"
+    ></app-table>
   </div>
 </div>
