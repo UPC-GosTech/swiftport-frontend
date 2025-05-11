@@ -53,8 +53,8 @@
         {{ errorMessage }}
       </div>
 
-      <button type="submit" class="login-btn" [disabled]="isLoading">
-        🔐 Login
+      <button type="submit" class="login-btn" [disabled]="isLoading" (click)="onSumit()">
+        <span *ngIf="!isLoading" style="margin-left: 8px;">🔐 Login</span>
         <span *ngIf="isLoading" style="margin-left: 8px;">Cargando...</span>
       </button>
 

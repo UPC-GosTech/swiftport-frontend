@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CurrencyPipe, CommonModule } from '@angular/common';
 
@@ -12,7 +13,7 @@ interface BillingRecord {
   selector: 'app-company-settings',
   standalone: true,
   templateUrl: './company-settings.component.html',
-  styleUrls: ['./company-settings.component.css'],
+  styleUrls: ['./company-settings.component.scss'],
   imports: [ReactiveFormsModule, CommonModule]
 })
 export class CompanySettingsComponent implements OnInit {
@@ -26,7 +27,7 @@ export class CompanySettingsComponent implements OnInit {
     { date: '15 de Mayo, 2025', amount: 150.00, status: 'Pagado' }
   ];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     this.settingsForm = this.fb.group({
@@ -69,5 +70,9 @@ export class CompanySettingsComponent implements OnInit {
   isInvalid(field: string): boolean {
     const control = this.settingsForm.get(field);
     return control ? control.invalid && (control.touched || this.submitted) : false;
+  }
+
+  onHome() {
+    this.router.navigate(['/home-admin']);
   }
 }
