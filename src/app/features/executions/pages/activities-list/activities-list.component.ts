@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import {ButtonComponent} from '../../../shared/components/button/button.component';
+import {ButtonComponent} from '../../../../shared/components/button/button.component';
 import {FormBuilder} from '@angular/forms';
 
 @Component({
