@@ -30,7 +30,7 @@ import {PasswordRecoveryComponent} from './features/security/pages/password-reco
 import {SelectRoleComponent} from './features/security/pages/select-role/select-role.component';
 import {UserManagementComponent} from './features/security/pages/user-management/user-management.component';
 import { TaskPlanningComponent } from './features/planning/pages/task-planning/task-planning.component';
-import {ActivitiesListComponent} from './features/executions/activities-list/activities-list.component';
+import {ActivitiesListComponent} from './features/executions/pages/activities-list/activities-list.component';
 export const routes: Routes = [
   {
     path: '',
