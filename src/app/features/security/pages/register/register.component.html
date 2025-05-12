@@ -1,0 +1,71 @@
+<div class="container">
+  <img src="assets/logo-swiftport.png" alt="SwiftPort Logo" class="logo" />
+
+  <div class="form">
+    <h1 class="title">SwiftPort</h1>
+    <p class="subtitle">Tu operación en orden, en todo momento</p>
+
+    <form (ngSubmit)="onRegister()" #registerForm="ngForm" novalidate>
+
+      <!-- Email -->
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="email"
+        required
+        #emailInput="ngModel"
+        [class.invalid-input]="emailInput.invalid && (emailInput.touched || submitted)"
+      />
+      <small *ngIf="emailInput.errors?.['required'] && (emailInput.touched || submitted)" class="field-error">
+        El email es obligatorio.
+      </small>
+
+      <!-- Contraseña -->
+      <label for="password">Contraseña</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="password"
+        required
+        minlength="6"
+        #passwordInput="ngModel"
+        [class.invalid-input]="passwordInput.invalid && (passwordInput.touched || submitted)"
+      />
+      <small *ngIf="passwordInput.errors?.['required'] && (passwordInput.touched || submitted)" class="field-error">
+        La contraseña es obligatoria.
+      </small>
+      <small *ngIf="passwordInput.errors?.['minlength'] && (passwordInput.touched || submitted)" class="field-error">
+        Mínimo 6 caracteres.
+      </small>
+
+      <!-- Repetir contraseña -->
+      <label for="repeatPassword">Repetir contraseña</label>
+      <input
+        type="password"
+        id="repeatPassword"
+        name="repeatPassword"
+        [(ngModel)]="repeatPassword"
+        required
+        #repeatPasswordInput="ngModel"
+        [class.invalid-input]="repeatPasswordInput.invalid && (repeatPasswordInput.touched || submitted)"
+      />
+      <small *ngIf="repeatPasswordInput.errors?.['required'] && (repeatPasswordInput.touched || submitted)" class="field-error">
+        Repite la contraseña.
+      </small>
+
+      <!-- Error general -->
+      <div *ngIf="errorMessage" class="error-msg">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Botón -->
+      <button type="submit" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Registrar</span>
+        <span *ngIf="isLoading">Registrando...</span>
+      </button>
+    </form>
+  </div>
+</div>

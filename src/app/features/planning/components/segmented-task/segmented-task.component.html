@@ -1,0 +1,27 @@
+<div class="general-container">
+  <h3>{{ task.taskName }}</h3>
+  <div class="data-container">
+    <h5>ID: {{ task.taskId }}</h5>
+  </div>
+  <div class="data-container">
+    <h5>Descripción</h5>
+    <p>{{ task.description }}</p>
+  </div>
+  <div class="data-container">
+    <h5>Progress: {{ task.progress }}%</h5>
+  </div>
+  <div class="data-container">
+    <div class="progress-bar-chart-graph-line">
+      <div
+        class="progress-bar-chart-graph-line-portion"
+        id="portion-used"
+        [style.width]="usedPortionValue + '%'"
+      ></div>
+      <div
+        class="progress-bar-chart-graph-line-portion"
+        id="portion-available"
+        [style.width]="availablePortionValue + '%'"
+      ></div>
+    </div>
+  </div>
+</div>

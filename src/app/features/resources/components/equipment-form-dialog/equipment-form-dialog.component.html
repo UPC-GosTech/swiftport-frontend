@@ -1,0 +1,51 @@
+<h2 mat-dialog-title>{{ isNewEquipment ? 'Agregar equipamiento' : 'Editar equipamiento' }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="equipmentForm">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>{{ 'equipment-form-dialog.plate' | translate }}</mat-label>
+      <input matInput formControlName="plateNumber" placeholder="Ej. ABC-123">
+      <mat-error *ngIf="equipmentForm.get('plateNumber')?.invalid">{{ getErrorMessage('plateNumber') }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>{{ 'equipment-form-dialog.model' | translate }}</mat-label>
+      <input matInput formControlName="type" placeholder="Ej. Excavadora">
+      <mat-error *ngIf="equipmentForm.get('type')?.invalid">{{ getErrorMessage('type') }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>{{ 'equipment-form-dialog.charge' | translate }}</mat-label>
+      <input matInput type="number" formControlName="capacityLoad" placeholder="Ej. 1500">
+      <mat-error *ngIf="equipmentForm.get('capacityLoad')?.invalid">{{ getErrorMessage('capacityLoad') }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>{{ 'equipment-form-dialog.passengers' | translate }}</mat-label>
+      <input matInput type="number" formControlName="capacityPassengers" placeholder="Ej. 2">
+      <mat-error *ngIf="equipmentForm.get('capacityPassengers')?.invalid">{{ getErrorMessage('capacityPassengers') }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>{{ 'equipment-form-dialog.status' | translate }}</mat-label>
+      <mat-select formControlName="status">
+        <mat-option *ngFor="let option of statusOptions" [value]="option">{{ option }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="equipmentForm.get('status')?.invalid">{{ getErrorMessage('status') }}</mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <app-button
+    [label]="'equipment-form-dialog.cancel' | translate"
+    [color]="'secondary'"
+    (click)="onCancel()"
+  ></app-button>
+  <app-button
+    [label]="'equipment-form-dialog.save' | translate"
+    [color]="'primary'"
+    [disabled]="equipmentForm.invalid"
+    (click)="onSave()"
+  ></app-button>
+</mat-dialog-actions>

@@ -1,0 +1,71 @@
+<h2 mat-dialog-title>{{ isNewEmployee ? ('employee-form-dialog.add' | translate) : ('employee-form-dialog.edit' | translate) }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="employeeForm">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>DNI</mat-label>
+      <input matInput formControlName="dni" placeholder="Ej. 12345678">
+      <mat-error *ngIf="employeeForm.get('dni')?.invalid">{{ getErrorMessage('dni') }}</mat-error>
+    </mat-form-field>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>{{ 'employee-form-dialog.name' | translate }}</mat-label>
+        <input matInput formControlName="firstName" placeholder="Ej. Juan">
+        <mat-error *ngIf="employeeForm.get('firstName')?.invalid">{{ getErrorMessage('firstName') }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>{{ 'employee-form-dialog.last-name' | translate }}</mat-label>
+        <input matInput formControlName="lastName" placeholder="Ej. Pérez">
+        <mat-error *ngIf="employeeForm.get('lastName')?.invalid">{{ getErrorMessage('lastName') }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="Ej. correo@dominio.com">
+      <mat-error *ngIf="employeeForm.get('email')?.invalid">{{ getErrorMessage('email') }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>{{ 'employee-form-dialog.phone' | translate }}</mat-label>
+      <input matInput formControlName="phone" placeholder="Ej. 987654321">
+      <mat-error *ngIf="employeeForm.get('phone')?.invalid">{{ getErrorMessage('phone') }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>{{ 'employee-form-dialog.status' | translate }}</mat-label>
+      <mat-select formControlName="status">
+        <mat-option *ngFor="let option of statusOptions" [value]="option">
+          {{ option === 'ACTIVE' ? ('employee-form-dialog.active' | translate) : ('employee-form-dialog.inactive' | translate) }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="employeeForm.get('status')?.invalid">{{ getErrorMessage('status') }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>{{ 'employee-form-dialog.charges' | translate }}</mat-label>
+      <mat-select formControlName="positions" multiple>
+        <mat-option *ngFor="let position of data.positions" [value]="position.id">
+          {{ position.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="employeeForm.get('positions')?.invalid">{{ getErrorMessage('positions') }}</mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <app-button
+    [label]="'employee-form-dialog.cancel' | translate"
+    [color]="'secondary'"
+    (clicked)="onCancel()"
+  ></app-button>
+  <app-button
+    [label]="'employee-form-dialog.save' | translate"
+    [color]="'primary'"
+    [disabled]="employeeForm.invalid"
+    (clicked)="onSave()"
+  ></app-button>
+</mat-dialog-actions>

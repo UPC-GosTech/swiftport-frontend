@@ -1,0 +1,67 @@
+<div class="login-wrapper">
+  <div class="login-logo">
+    <img src="assets/logo-switfport.png" alt="SwiftPort Logo" />
+  </div>
+
+  <div class="login-container">
+    <h1>SwiftPort</h1>
+    <p>Tu operación en orden, en todo momento</p>
+
+    <form (ngSubmit)="onLogin()" #loginForm="ngForm" novalidate>
+
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        placeholder="Email"
+        [(ngModel)]="email"
+        name="email"
+        required
+        #emailInput="ngModel"
+        [class.invalid-input]="emailInput.invalid && (emailInput.touched || submitted)"
+      />
+      <small *ngIf="emailInput.errors?.['required'] && (emailInput.touched || submitted)" class="field-error">
+        El email es obligatorio.
+      </small>
+      <small *ngIf="emailInput.errors?.['email'] && (emailInput.touched || submitted)" class="field-error">
+        Ingrese un email válido.
+      </small>
+
+      <label for="password">Contraseña</label>
+      <input
+        type="password"
+        id="password"
+        placeholder="Contraseña"
+        [(ngModel)]="password"
+        name="password"
+        required
+        minlength="6"
+        #passInput="ngModel"
+        [class.invalid-input]="passInput.invalid && (passInput.touched || submitted)"
+      />
+      <small *ngIf="passInput.errors?.['required'] && (passInput.touched || submitted)" class="field-error">
+        La contraseña es obligatoria.
+      </small>
+      <small *ngIf="passInput.errors?.['minlength'] && (passInput.touched || submitted)" class="field-error">
+        Mínimo 6 caracteres.
+      </small>
+
+      <a class="forgot-password" (click)="goToRecovery()">¿Olvidaste tu contraseña?</a>
+
+      <!-- Mensaje de error general -->
+      <div *ngIf="errorMessage" class="error-msg">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" class="login-btn" [disabled]="isLoading" (click)="onSumit()">
+        <span *ngIf="!isLoading" style="margin-left: 8px;">🔐 Login</span>
+        <span *ngIf="isLoading" style="margin-left: 8px;">Cargando...</span>
+      </button>
+
+      <button type="button" class="register-btn" (click)="onRegister()">
+        📝 Register
+      </button>
+
+    </form>
+  </div>
+</div>

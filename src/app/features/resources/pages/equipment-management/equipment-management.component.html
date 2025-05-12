@@ -1,0 +1,74 @@
+<div class="equipment-management-container">
+  <div class="header">
+    <h1>{{ 'equipment-management.equipment' | translate }}</h1>
+
+    <div class="actions">
+      <div class="filters">
+        <span>{{ 'equipment-management.filter' | translate }}</span>
+        <app-selector
+          [options]="statusOptions"
+          [color]="'secondary'"
+          [size]="'medium'"
+          [(ngModel)]="statusFilter"
+          (selectionChange)="onStatusFilterChange($event)"
+        ></app-selector>
+      </div>
+
+      <div class="view-controls">
+        <app-button
+          [label]="viewMode === 'table' ? ('equipment-management.cards' | translate) : ('equipment-management.table' | translate)"
+          [color]="'primary'"
+          (click)="toggleViewMode()"
+        ></app-button>
+
+        <app-button
+          [label]="'equipment-management.add' | translate"
+          [color]="'primary'"
+          (click)="openAddDialog()"
+        ></app-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- Vista de tabla -->
+    <div *ngIf="viewMode === 'table'" class="table-view">
+      <app-table
+        [columns]="columns"
+        [dataSource]="filteredEquipment"
+        [showPaginator]="true"
+        [customColumns]="tableActions"
+      ></app-table>
+
+      <ng-template #tableActions let-column="column" let-row="row">
+        <div *ngIf="column === 'actions'" class="action-buttons">
+          <app-button
+            [label]="'equipment-management.edit' | translate"
+            [color]="'primary'"
+            (click)="openEditDialog(row)"
+          ></app-button>
+          <app-button
+            [label]="row.status === 'Disponible' ? ('equipment-management.maintain' | translate) : 'equipment-management.able' | translate"
+            [color]="row.status === 'Disponible' ? 'danger' : 'primary'"
+            (click)="changeStatus(row, row.status === 'Disponible' ? 'Mantenimiento' : 'Disponible')"
+          ></app-button>
+          <app-button
+            [label]="'equipment-management.picture' | translate"
+            [color]="'secondary'"
+            (click)="uploadPhoto(row)"
+          ></app-button>
+        </div>
+      </ng-template>
+    </div>
+
+    <!-- Vista de tarjetas -->
+    <div *ngIf="viewMode === 'cards'" class="cards-view">
+      <app-equipment-list
+        [equipmentList]="filteredEquipment"
+        (edit)="openEditDialog($event)"
+        (statusChange)="handleStatusChange($event)"
+        (uploadPhoto)="uploadPhoto($event)"
+      ></app-equipment-list>
+    </div>
+  </div>
+</div>

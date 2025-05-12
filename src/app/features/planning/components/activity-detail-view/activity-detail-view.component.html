@@ -1,0 +1,98 @@
+<div class="general-container">
+  <h1>Detalles de la actividad "{{ activity.title }}"</h1>
+  <div class="information-container">
+    <div class="activity-container">
+      <div class="fields-group">
+        <div class="field">
+          <h5>Activity ID</h5>
+          <p>{{ activity.id }}</p>
+        </div>
+        <div class="field">
+          <h5>Origin Location ID</h5>
+          <p *ngIf="!showInputs">{{ activity.originLocationId }}</p>
+          <app-input class="input-option" *ngIf="showInputs"
+            [type]="'text'"
+            [(ngModel)]="originLocationIdInput"
+            [placeholder]="activity.originLocationId.toString()"
+            (valueChange)="onOriginLocationIdChange($event)"
+          ></app-input>
+        </div>
+        <div class="field">
+          <h5>Destination Location ID</h5>
+          <p *ngIf="!showInputs">{{ activity.destinationLocationId }}</p>
+          <app-input class="input-option" *ngIf="showInputs"
+            [type]="'text'"
+            [(ngModel)]="destinationLocationIdInput"
+            [placeholder]="activity.destinationLocationId.toString()"
+            (valueChange)="onDestinationLocationIdChange($event)"
+          ></app-input>
+        </div>
+      </div>
+      <div class="fields-group">
+        <div class="field">
+          <h5>Estimated duration</h5>
+          <p *ngIf="!showInputs">{{ activity.estimatedDuration }}</p>
+          <app-input class="input-option" *ngIf="showInputs"
+            [type]="'text'"
+            [(ngModel)]="estimatedDurationIdInput"
+            [placeholder]="activity.estimatedDuration.toString()"
+            (valueChange)="onEstimatedDurationChange($event)"
+          ></app-input>
+        </div>
+        <div class="field">
+          <h5>Scheduled date</h5>
+          <p *ngIf="!showInputs">{{ activity.scheduledDate | date: 'longDate' }}</p>
+          <app-input class="input-option" *ngIf="showInputs"
+            [type]="'date'"
+            [(ngModel)]="scheduledDateInput"
+            [placeholder]="activity.scheduledDate.toString()"
+            (valueChange)="onScheduledDateChange($event)"
+          ></app-input>
+        </div>
+        <div class="field">
+          <h5>Status</h5>
+          <p *ngIf="!showInputs">{{ activity.status }}</p>
+          <app-input class="input-option" *ngIf="showInputs"
+            [type]="'text'"
+            [(ngModel)]="statusInput"
+            [placeholder]="activity.status.toString()"
+            (valueChange)="onStatusChange($event)"
+          ></app-input>
+        </div>
+      </div>
+      <div class="field">
+        <h5>Description</h5>
+        <p *ngIf="!showInputs">{{ activity.description }}</p>
+        <app-input class="input-option" *ngIf="showInputs"
+          [type]="'text'"
+          [(ngModel)]="descriptionInput"
+          [placeholder]="activity.description.toString()"
+          (valueChange)="onDescriptionChange($event)"
+        ></app-input>
+      </div>
+      <div class="buttons-container">
+        <app-button class="button"
+          [color]="'primary'"
+          [label]="'Ir a TaskSegmentationView'"
+          (click)="toTaskSegmentationView()"
+        ></app-button>
+        <app-button *ngIf="!showInputs" class="button"
+          [color]="'primary'"
+          [label]="'Editar Actividad'"
+          (click)="onEnableInputs()"
+        ></app-button>
+        <app-button *ngIf="showInputs" class="button"
+          [color]="'primary'"
+          [label]="'Guardar Cambios'"
+          (click)="onEditActivity()"
+        ></app-button>
+      </div>
+    </div>
+    <div class="segmented-tasks-container">
+      <h2>Lista de tareas</h2>
+      <div class="tasks-list" *ngFor="let task of tasks">
+        <app-segmented-task [task]="task"></app-segmented-task>
+      </div>
+    </div>
+  </div>
+</div>

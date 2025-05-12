@@ -1,0 +1,60 @@
+<div class="general-container">
+  <div class="header-container">
+    <h3>Asignar tarea</h3>
+  </div>
+  <div class="form-container">
+    <div class="double-field">
+      <div class="field-container">
+        <p>Hora de inicio asignada</p>
+        <app-input
+          [type]="'time'"
+          [(ngModel)]="startTime"
+          (valueChange)="onStartTimeChange($event)"
+          [placeholder]="'HH:MM'"
+          [disabled]="startTimeDisabled"
+        ></app-input>
+      </div>
+      <div class="field-container">
+        <p>Hora de fin asignada</p>
+        <app-input
+          [type]="'time'"
+          [(ngModel)]="endTime"
+          (valueChange)="onEndTimeChange($event)"
+          [placeholder]="'HH:MM'"
+          [disabled]="endTimeDisabled"
+        ></app-input>
+      </div>
+    </div>
+    <div class="double-field">
+      <div class="field-container">
+        <p>Cuadrilla</p>
+        <app-selector
+          [options]="squadList"
+          [color]="'secondary'"
+          [size]="'large'"
+          (selectionChange)="onSquadChange($event)"
+        ></app-selector>
+      </div>
+      <div class="field-container">
+        <p>Maquinaria</p>
+        <app-selector
+          [options]="machineList"
+          [color]="'secondary'"
+          [size]="'large'"
+          (selectionChange)="onMachineChange($event)"
+        ></app-selector>
+      </div>
+    </div>
+  </div>
+  <div class="button-container">
+    <app-button class="button"
+                [color]="'primary'"
+                [label]="'Guardar'"
+                [disabled]="onDisabledButton()"
+                (click)="onSaveInformation()"
+    ></app-button>
+  </div>
+  <div class="message-container" *ngIf="OnSolapamiento()">
+    <p>Hay solapamiento de equipo</p>
+  </div>
+</div>

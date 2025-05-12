@@ -14,6 +14,42 @@ export class MenuService {
       route: '/dashboard'
     },
     {
+      id: 'equipments-management',
+      label: 'Equipments Management',
+      icon: 'equipment',
+      route: '/equipments-management'
+    },
+    {
+      id: 'employee-management',
+      label: 'Employee Management',
+      icon: 'people',
+      route: '/employee-management'
+    },
+    {
+      id: 'location-management',
+      label: 'Gestión de Zonas',
+      icon: 'place',
+      route: '/location-management'
+    },
+    {
+      id: 'teams-management',
+      label: 'Gestión de Equipos',
+      icon: 'group',
+      route: '/teams-management'
+    },
+    {
+      id: 'planning',
+      label: 'Planning',
+      icon: 'schedule',
+      route: '/planning'
+    },
+    {
+      id: 'activity-management',
+      label: 'Activity Management',
+      icon: 'schedule',
+      route: '/activity-management'
+    },
+    {
       id: 'users',
       label: 'Users',
       icon: 'people',
@@ -41,6 +77,11 @@ export class MenuService {
       label: 'Components Demo',
       icon: 'construction',
       route: '/demo'
+    },
+    {
+      id: 'routes-first-try',
+      label: 'Probando routeo',
+      route: '/routes-first-try'
     }
   ];
 
@@ -49,4 +90,4 @@ export class MenuService {
   getMenuItems(): Observable<SidebarMenuItem[]> {
     return of(this.defaultMenuItems);
   }
-} 
+}
