@@ -29,6 +29,7 @@ import {CompanySettingsComponent} from './features/security/pages/company-settin
 import {PasswordRecoveryComponent} from './features/security/pages/password-recovery/password-recovery.component';
 import {SelectRoleComponent} from './features/security/pages/select-role/select-role.component';
 import {UserManagementComponent} from './features/security/pages/user-management/user-management.component';
+import { TaskPlanningComponent } from './features/planning/pages/task-planning/task-planning.component';
 import {ActivitiesListComponent} from './features/executions/activities-list/activities-list.component';
 export const routes: Routes = [
   {
@@ -40,6 +41,8 @@ export const routes: Routes = [
         { path: 'employee-management', component: EmployeeManagementComponent},
         { path: 'location-management', component: LocationManagementComponent},
         { path: 'teams-management', component: TeamManagementComponent},
+      {path: 'activity-management', component: ActivityManagementComponent},
+      {path: 'task-planning', component: TaskPlanningComponent},
         { path: 'activity-management', component: ActivityManagementComponent},
         { path: 'activities-list', component: ActivitiesListComponent},
         { path: 'routes-first-try', component: LoginComponent},

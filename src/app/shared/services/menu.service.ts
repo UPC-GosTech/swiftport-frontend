@@ -50,6 +50,12 @@ export class MenuService {
       route: '/activity-management'
     },
     {
+      id: 'task-planning',
+      label: 'Task Planning',
+      icon: 'schedule',
+      route: '/task-planning'
+    },
+    {
       id: 'users',
       label: 'Users',
       icon: 'people',

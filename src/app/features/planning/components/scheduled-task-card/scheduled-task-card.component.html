@@ -1,0 +1,20 @@
+<div class="scheduled-task" 
+  [class.scheduled]="schedule.status === 'programmed'"
+  [class.completed]="schedule.status === 'completed'"
+  [class.pending]="schedule.status === 'pending'"
+  [class.cancelled]="schedule.status === 'cancelled'"
+  [style.height.px]="(schedule.endTime.getHours() - schedule.startTime.getHours()) * 60"
+  [style.top.px]="(schedule.startTime.getMinutes() / 60) * 60"
+  draggable="true"
+  (dragstart)="onDragStart($event)"
+  (click)="editScheduling.emit(schedule)">
+  
+  <div class="task-info">
+    <h4>{{ schedule.task.taskName }}</h4>
+    <p>{{ schedule.startTime | date:'HH:mm' }} - {{ schedule.endTime | date:'HH:mm' }}</p>
+    <p *ngIf="schedule.teamId > 0">Equipo: {{ schedule.teamId }}</p>
+    <p *ngIf="schedule.equipmentsIds && schedule.equipmentsIds.length > 0" class="equipment">
+      Equipos: {{ schedule.equipmentsIds.length }}
+    </p>
+  </div>
+</div> 
