@@ -6,14 +6,14 @@ export class Activity {
   destinationLocationId: number;
   scheduledDate: Date;
   estimatedDuration: number;
-  actualStartTime: Date;
-  actualEndTime: Date;
+  actualStartTime: Date | null;
+  actualEndTime: Date | null;
   priority: 'Alta' | 'Media' | 'Baja';
   status: 'Pendiente' | 'En progreso' | 'Finalizada' | 'Cancelada';
   assignedCrewId: string;
   vehicleId: string;
   incidentReportIds: string[];
-  supervisorNotes: string;
+  supervisorNotes: string | null;
   attachments?: string[];
   createdAt?: Date;
   updatedAt?: Date;

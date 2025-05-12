@@ -14,9 +14,586 @@
   "activity": [
     {
       "id": 12345,
-      "title": "Traslado de mercancia",
+      "title": "Traslado de mercancía",
       "description": "Se debe cargar, etiquetar y registrar la llegada de una carga al almacén 1042",
-      "originLocationId": 1001
+      "originLocationId": 1001,
+      "destinationLocationId": 1016,
+      "scheduledDate": "2025-12-12",
+      "estimatedDuration": 4.5,
+      "actualStartTime": "2025-12-13",
+      "actualEndTime": null,
+      "priority": "Media",
+      "status": "En progreso",
+      "assignedCrewId": "215-AWD",
+      "vehicleId": "293-A31",
+      "incidentReportIds": ["I012", "I063"],
+      "supervisorNotes": "La actividad se encuentra en proceso, faltan herramientas para el cumplimiento de la tercera tarea",
+      "attachments": ["contrato.pdf", "registro_de_empleados.pdf"],
+      "createdAt": "2025-04-12",
+      "updatedAt": "2025-05-12"
+    },
+    {
+      "id": 12346,
+      "title": "Inspección de seguridad",
+      "description": "Inspección de seguridad en las instalaciones del almacén 1021",
+      "originLocationId": 1002,
+      "destinationLocationId": 1021,
+      "scheduledDate": "2025-12-13",
+      "estimatedDuration": 3,
+      "actualStartTime": "2025-12-13",
+      "actualEndTime": null,
+      "priority": "Alta",
+      "status": "Pendiente",
+      "assignedCrewId": "305-BWD",
+      "vehicleId": "215-A51",
+      "incidentReportIds": ["I071", "I088"],
+      "supervisorNotes": "Se requiere equipo adicional para la evaluación completa",
+      "attachments": ["informe_de_seguridad.pdf"],
+      "createdAt": "2025-04-15",
+      "updatedAt": "2025-05-10"
+    },
+    {
+      "id": 12347,
+      "title": "Mantenimiento de vehículos",
+      "description": "Mantenimiento preventivo de los vehículos de la flota 2003 y 2005",
+      "originLocationId": 1003,
+      "destinationLocationId": 1010,
+      "scheduledDate": "2025-12-14",
+      "estimatedDuration": 5,
+      "actualStartTime": "2025-12-14",
+      "actualEndTime": null,
+      "priority": "Alta",
+      "status": "Pendiente",
+      "assignedCrewId": "210-BNF",
+      "vehicleId": "2005-B34",
+      "incidentReportIds": ["I032", "I076"],
+      "supervisorNotes": "Las piezas de repuesto aún no han llegado",
+      "attachments": ["orden_de_compra.pdf"],
+      "createdAt": "2025-04-18",
+      "updatedAt": "2025-05-09"
+    },
+    {
+      "id": 12348,
+      "title": "Revisión de inventarios",
+      "description": "Revisión y actualización del inventario del almacén principal",
+      "originLocationId": 1005,
+      "destinationLocationId": 1006,
+      "scheduledDate": "2025-12-15",
+      "estimatedDuration": 6,
+      "actualStartTime": "2025-12-15",
+      "actualEndTime": null,
+      "priority": "Media",
+      "status": "Pendiente",
+      "assignedCrewId": "305-GRD",
+      "vehicleId": "2021-CB1",
+      "incidentReportIds": ["I014", "I099"],
+      "supervisorNotes": "Falta de personal para completar la tarea rápidamente",
+      "attachments": ["inventario_anterior.pdf"],
+      "createdAt": "2025-04-20",
+      "updatedAt": "2025-05-11"
+    },
+    {
+      "id": 12349,
+      "title": "Carga y despacho",
+      "description": "Se debe cargar la mercancía para el despacho a la tienda 501",
+      "originLocationId": 1004,
+      "destinationLocationId": 1051,
+      "scheduledDate": "2025-12-16",
+      "estimatedDuration": 3,
+      "actualStartTime": "2025-12-16",
+      "actualEndTime": null,
+      "priority": "Baja",
+      "status": "Pendiente",
+      "assignedCrewId": "210-CFS",
+      "vehicleId": "401-TB1",
+      "incidentReportIds": ["I054", "I021"],
+      "supervisorNotes": "No hay suficientes espacios para almacenar toda la carga",
+      "attachments": ["orden_de_despacho.pdf"],
+      "createdAt": "2025-04-25",
+      "updatedAt": "2025-05-12"
+    },
+    {
+      "id": 12350,
+      "title": "Reemplazo de equipos",
+      "description": "Reemplazo de equipos electrónicos defectuosos en la oficina principal",
+      "originLocationId": 1001,
+      "destinationLocationId": 1015,
+      "scheduledDate": "2025-12-17",
+      "estimatedDuration": 2,
+      "actualStartTime": "2025-12-17",
+      "actualEndTime": null,
+      "priority": "Alta",
+      "status": "Pendiente",
+      "assignedCrewId": "415-AQW",
+      "vehicleId": "303-D45",
+      "incidentReportIds": ["I022", "I044"],
+      "supervisorNotes": "Aún falta verificar el funcionamiento del equipo reemplazado",
+      "attachments": ["informe_tecnico.pdf"],
+      "createdAt": "2025-04-28",
+      "updatedAt": "2025-05-10"
+    },
+    {
+      "id": 12351,
+      "title": "Evaluación de riesgos",
+      "description": "Realizar una evaluación de riesgos en el área de producción",
+      "originLocationId": 1022,
+      "destinationLocationId": 1043,
+      "scheduledDate": "2025-12-18",
+      "estimatedDuration": 5,
+      "actualStartTime": "2025-12-18",
+      "actualEndTime": null,
+      "priority": "Alta",
+      "status": "Pendiente",
+      "assignedCrewId": "305-KGD",
+      "vehicleId": "234-X12",
+      "incidentReportIds": ["I017", "I067"],
+      "supervisorNotes": "Necesitamos más personal para realizar una evaluación exhaustiva",
+      "attachments": ["documento_de_riesgos.pdf"],
+      "createdAt": "2025-04-30",
+      "updatedAt": "2025-05-07"
+    },
+    {
+      "id": 12352,
+      "title": "Inventario de materiales",
+      "description": "Realizar el inventario de materiales en el almacén 1007",
+      "originLocationId": 1015,
+      "destinationLocationId": 1007,
+      "scheduledDate": "2025-12-19",
+      "estimatedDuration": 7,
+      "actualStartTime": "2025-12-19",
+      "actualEndTime": null,
+      "priority": "Baja",
+      "status": "Pendiente",
+      "assignedCrewId": "410-ZYT",
+      "vehicleId": "556-A32",
+      "incidentReportIds": ["I033", "I070"],
+      "supervisorNotes": "La tarea llevará más tiempo debido a la cantidad de materiales",
+      "attachments": ["informe_inventario.pdf"],
+      "createdAt": "2025-05-03",
+      "updatedAt": "2025-05-10"
+    },
+    {
+      "id": 12353,
+      "title": "Desarrollo de software",
+      "description": "Desarrollo y prueba de nuevas funcionalidades para el sistema de gestión de almacenes",
+      "originLocationId": 1023,
+      "destinationLocationId": 1018,
+      "scheduledDate": "2025-12-20",
+      "estimatedDuration": 10,
+      "actualStartTime": "2025-12-20",
+      "actualEndTime": null,
+      "priority": "Alta",
+      "status": "Pendiente",
+      "assignedCrewId": "215-GLK",
+      "vehicleId": "800-VX1",
+      "incidentReportIds": ["I004", "I091"],
+      "supervisorNotes": "Hay que realizar pruebas adicionales antes de lanzarlo al público",
+      "attachments": ["plan_de_desarrollo.pdf"],
+      "createdAt": "2025-05-05",
+      "updatedAt": "2025-05-09"
+    },
+    {
+      "id": 12354,
+      "title": "Reparación de maquinaria",
+      "description": "Reparación de la máquina cortadora en la planta 501",
+      "originLocationId": 1024,
+      "destinationLocationId": 1045,
+      "scheduledDate": "2025-12-21",
+      "estimatedDuration": 8,
+      "actualStartTime": "2025-12-21",
+      "actualEndTime": null,
+      "priority": "Alta",
+      "status": "Pendiente",
+      "assignedCrewId": "315-MNB",
+      "vehicleId": "204-G34",
+      "incidentReportIds": ["I015", "I072"],
+      "supervisorNotes": "Esperamos recibir las piezas de repuesto en los próximos días",
+      "attachments": ["orden_reparacion.pdf"],
+      "createdAt": "2025-05-07",
+      "updatedAt": "2025-05-11"
+    },
+    {
+      "id": 12355,
+      "title": "Almacenaje de productos",
+      "description": "Proceso de almacenaje de los productos nuevos en el almacén 1051",
+      "originLocationId": 1006,
+      "destinationLocationId": 1051,
+      "scheduledDate": "2025-12-22",
+      "estimatedDuration": 4,
+      "actualStartTime": "2025-12-22",
+      "actualEndTime": null,
+      "priority": "Media",
+      "status": "Pendiente",
+      "assignedCrewId": "305-JKF",
+      "vehicleId": "302-B45",
+      "incidentReportIds": ["I009", "I060"],
+      "supervisorNotes": "Se debe hacer un espacio en el almacén para los nuevos productos",
+      "attachments": ["plan_almacenaje.pdf"],
+      "createdAt": "2025-05-10",
+      "updatedAt": "2025-05-12"
+    },
+    {
+      "id": 12356,
+      "title": "Revisión de documentación",
+      "description": "Revisión de la documentación para el cumplimiento de las normativas de seguridad",
+      "originLocationId": 1001,
+      "destinationLocationId": 1008,
+      "scheduledDate": "2025-12-23",
+      "estimatedDuration": 3,
+      "actualStartTime": "2025-12-23",
+      "actualEndTime": null,
+      "priority": "Baja",
+      "status": "Pendiente",
+      "assignedCrewId": "205-FSG",
+      "vehicleId": "213-X44",
+      "incidentReportIds": ["I022", "I080"],
+      "supervisorNotes": "Requiere verificación del cumplimiento de todos los requisitos",
+      "attachments": ["documento_normativo.pdf"],
+      "createdAt": "2025-05-12",
+      "updatedAt": "2025-05-12"
+    },
+    {
+      "id": 12357,
+      "title": "Auditoría interna",
+      "description": "Auditoría interna para la revisión de procesos en la planta 405",
+      "originLocationId": 1002,
+      "destinationLocationId": 1045,
+      "scheduledDate": "2025-12-24",
+      "estimatedDuration": 5,
+      "actualStartTime": "2025-12-24",
+      "actualEndTime": null,
+      "priority": "Alta",
+      "status": "Pendiente",
+      "assignedCrewId": "215-TFL",
+      "vehicleId": "400-X92",
+      "incidentReportIds": ["I021", "I047"],
+      "supervisorNotes": "Se necesita la colaboración de varios departamentos para completar la auditoría",
+      "attachments": ["plan_auditoria.pdf"],
+      "createdAt": "2025-05-12",
+      "updatedAt": "2025-05-12"
+    }
+  ],
+  "employee": [
+    {
+      "id": 101,
+      "firstName": "Carlos",
+      "lastName": "Gomez",
+      "dni": "12345678",
+      "email": "carlos.gomez@example.com",
+      "phone": "987654321",
+      "status": "ACTIVE",
+      "positions": [
+        {
+          "id": 1,
+          "name": "Admin",
+          "description": "In charge of the company"
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "firstName": "Ana",
+      "lastName": "Martinez",
+      "dni": "23456789",
+      "email": "ana.martinez@example.com",
+      "phone": "912345678",
+      "status": "ACTIVE",
+      "positions": [
+        {
+          "id": 2,
+          "name": "Operario",
+          "description": "Executes the tasks"
+        }
+      ]
+    },
+    {
+      "id": 103,
+      "firstName": "Pedro",
+      "lastName": "Lopez",
+      "dni": "34567890",
+      "email": "pedro.lopez@example.com",
+      "phone": "923456789",
+      "status": "ACTIVE",
+      "positions": [
+        {
+          "id": 2,
+          "name": "Operario",
+          "description": "Executes the tasks"
+        }
+      ]
+    },
+    {
+      "id": 104,
+      "firstName": "Maria",
+      "lastName": "Hernandez",
+      "dni": "45678901",
+      "email": "maria.hernandez@example.com",
+      "phone": "934567890",
+      "status": "INACTIVE",
+      "positions": [
+        {
+          "id": 1,
+          "name": "Admin",
+          "description": "In charge of the company"
+        }
+      ]
+    },
+    {
+      "id": 105,
+      "firstName": "Luis",
+      "lastName": "Perez",
+      "dni": "56789012",
+      "email": "luis.perez@example.com",
+      "phone": "945678901",
+      "status": "ACTIVE",
+      "positions": [
+        {
+          "id": 2,
+          "name": "Operario",
+          "description": "Executes the tasks"
+        }
+      ]
+    },
+    {
+      "id": 106,
+      "firstName": "Elena",
+      "lastName": "Sanchez",
+      "dni": "67890123",
+      "email": "elena.sanchez@example.com",
+      "phone": "956789012",
+      "status": "ACTIVE",
+      "positions": [
+        {
+          "id": 1,
+          "name": "Admin",
+          "description": "In charge of the company"
+        }
+      ]
+    },
+    {
+      "id": 107,
+      "firstName": "Juan",
+      "lastName": "Martinez",
+      "dni": "78901234",
+      "email": "juan.martinez@example.com",
+      "phone": "967890123",
+      "status": "ACTIVE",
+      "positions": [
+        {
+          "id": 2,
+          "name": "Operario",
+          "description": "Executes the tasks"
+        }
+      ]
+    },
+    {
+      "id": 108,
+      "firstName": "Patricia",
+      "lastName": "Gonzalez",
+      "dni": "89012345",
+      "email": "patricia.gonzalez@example.com",
+      "phone": "978901234",
+      "status": "ACTIVE",
+      "positions": [
+        {
+          "id": 1,
+          "name": "Admin",
+          "description": "In charge of the company"
+        }
+      ]
+    },
+    {
+      "id": 109,
+      "firstName": "Fernando",
+      "lastName": "Ramirez",
+      "dni": "90123456",
+      "email": "fernando.ramirez@example.com",
+      "phone": "989012345",
+      "status": "ACTIVE",
+      "positions": [
+        {
+          "id": 2,
+          "name": "Operario",
+          "description": "Executes the tasks"
+        }
+      ]
+    },
+    {
+      "id": 110,
+      "firstName": "Isabel",
+      "lastName": "Diaz",
+      "dni": "01234567",
+      "email": "isabel.diaz@example.com",
+      "phone": "990123456",
+      "status": "INACTIVE",
+      "positions": [
+        {
+          "id": 1,
+          "name": "Admin",
+          "description": "In charge of the company"
+        }
+      ]
+    },
+    {
+      "id": 111,
+      "firstName": "Javier",
+      "lastName": "Torres",
+      "dni": "12345679",
+      "email": "javier.torres@example.com",
+      "phone": "991234567",
+      "status": "ACTIVE",
+      "positions": [
+        {
+          "id": 2,
+          "name": "Operario",
+          "description": "Executes the tasks"
+        }
+      ]
+    },
+    {
+      "id": 112,
+      "firstName": "Raul",
+      "lastName": "Alvarez",
+      "dni": "23456780",
+      "email": "raul.alvarez@example.com",
+      "phone": "992345678",
+      "status": "ACTIVE",
+      "positions": [
+        {
+          "id": 1,
+          "name": "Admin",
+          "description": "In charge of the company"
+        }
+      ]
+    },
+    {
+      "id": 113,
+      "firstName": "Sofia",
+      "lastName": "Morales",
+      "dni": "34567891",
+      "email": "sofia.morales@example.com",
+      "phone": "993456789",
+      "status": "ACTIVE",
+      "positions": [
+        {
+          "id": 2,
+          "name": "Operario",
+          "description": "Executes the tasks"
+        }
+      ]
+    },
+    {
+      "id": 114,
+      "firstName": "David",
+      "lastName": "Martín",
+      "dni": "45678902",
+      "email": "david.martin@example.com",
+      "phone": "994567890",
+      "status": "INACTIVE",
+      "positions": [
+        {
+          "id": 1,
+          "name": "Admin",
+          "description": "In charge of the company"
+        }
+      ]
+    },
+    {
+      "id": 115,
+      "firstName": "Lucia",
+      "lastName": "Jimenez",
+      "dni": "56789013",
+      "email": "lucia.jimenez@example.com",
+      "phone": "995678901",
+      "status": "ACTIVE",
+      "positions": [
+        {
+          "id": 2,
+          "name": "Operario",
+          "description": "Executes the tasks"
+        }
+      ]
+    },
+    {
+      "id": 116,
+      "firstName": "Jose",
+      "lastName": "Fernandez",
+      "dni": "67890124",
+      "email": "jose.fernandez@example.com",
+      "phone": "996789012",
+      "status": "ACTIVE",
+      "positions": [
+        {
+          "id": 1,
+          "name": "Admin",
+          "description": "In charge of the company"
+        }
+      ]
+    },
+    {
+      "id": 117,
+      "firstName": "Carmen",
+      "lastName": "Ruiz",
+      "dni": "78901235",
+      "email": "carmen.ruiz@example.com",
+      "phone": "997890123",
+      "status": "ACTIVE",
+      "positions": [
+        {
+          "id": 2,
+          "name": "Operario",
+          "description": "Executes the tasks"
+        }
+      ]
+    },
+    {
+      "id": 118,
+      "firstName": "Marta",
+      "lastName": "Gomez",
+      "dni": "89012346",
+      "email": "marta.gomez@example.com",
+      "phone": "998901234",
+      "status": "INACTIVE",
+      "positions": [
+        {
+          "id": 1,
+          "name": "Admin",
+          "description": "In charge of the company"
+        }
+      ]
+    },
+    {
+      "id": 119,
+      "firstName": "Antonio",
+      "lastName": "Serrano",
+      "dni": "90123457",
+      "email": "antonio.serrano@example.com",
+      "phone": "999012345",
+      "status": "ACTIVE",
+      "positions": [
+        {
+          "id": 2,
+          "name": "Operario",
+          "description": "Executes the tasks"
+        }
+      ]
+    },
+    {
+      "id": 120,
+      "firstName": "Raquel",
+      "lastName": "Castro",
+      "dni": "01234568",
+      "email": "raquel.castro@example.com",
+      "phone": "900123456",
+      "status": "ACTIVE",
+      "positions": [
+        {
+          "id": 1,
+          "name": "Admin",
+          "description": "In charge of the company"
+        }
+      ]
     }
   ]
+
 }
