@@ -1,0 +1,141 @@
+// Estilos para el componente de reprogramación
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  background-color: white;
+  padding: 10px;
+  width: 300px;
+  z-index: 1000;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+// Estilos para prioridades
+.priority-high {
+  border-left: 4px solid #ef4444;
+}
+
+.priority-medium {
+  border-left: 4px solid #f59e0b;
+}
+
+.priority-low {
+  border-left: 4px solid #3b82f6;
+}
+
+// Estilos para el calendario
+::ng-deep .cal-event {
+  cursor: move !important;
+  border-radius: 6px !important;
+  border-left-width: 4px !important;
+  padding: 8px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+::ng-deep .cal-event:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+::ng-deep .cal-event-title {
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  line-height: 1.3 !important;
+  margin-bottom: 4px !important;
+}
+
+// Añadir estos estilos para la animación de cola
+.pending-activities-container {
+  position: relative;
+  min-height: 200px;
+}
+
+.pending-activity-item {
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  position: relative;
+  z-index: 1;
+}
+
+.pending-activity-item.cdk-drag-preview {
+  z-index: 1000;
+}
+
+.pending-activity-item.cdk-drag-placeholder {
+  opacity: 0.3;
+  background-color: #f0f0f0;
+  border: 1px dashed #ccc;
+}
+
+// Cuando un elemento está siendo arrastrado, los demás suben
+.pending-activities-container.dragging .pending-activity-item:not(.cdk-drag-preview):not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+// Estilos para el calendario para mejorar la visualización del drop
+::ng-deep .cal-day-view {
+  position: relative;
+  z-index: 1;
+  min-height: 600px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  padding: 10px;
+}
+
+::ng-deep .cal-day-view .cal-hour-segment:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+// Aumentar el tamaño de los segmentos de hora para facilitar el drop
+::ng-deep .cal-hour-segment {
+  height: 45px !important;
+  border-left: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+::ng-deep .cal-hour {
+  font-weight: 500 !important;
+}
+
+// Mejorar la visualización del drop
+::ng-deep .cal-day-view .cal-hour-segment.drop-active {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+  border: 2px dashed #4285f4 !important;
+  border-radius: 4px !important;
+}
+
+// Mejoras para los segmentos de hora
+::ng-deep .cal-day-view .cal-day-column {
+  border-left: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+::ng-deep .cal-day-view .cal-hour:not(:last-child) .cal-hour-segment {
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.05) !important;
+}
+
+// Mejoras para el indicador de hora actual
+::ng-deep .cal-day-view .cal-hour-segment.cal-after-hour-start {
+  border-top: none !important;
+}
+
+// Estilos para prioridades en eventos
+::ng-deep .cal-event.priority-high {
+  border-left-color: #ef4444 !important;
+}
+
+::ng-deep .cal-event.priority-medium {
+  border-left-color: #f59e0b !important;
+}
+
+::ng-deep .cal-event.priority-low {
+  border-left-color: #3b82f6 !important;
+}

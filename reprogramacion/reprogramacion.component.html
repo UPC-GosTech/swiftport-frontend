@@ -1,0 +1,142 @@
+<div
+    class="absolute inset-0 flex flex-col min-w-0 bg-card dark:bg-transparent overflow-y-auto"
+>
+<ng-container *ngIf="viewDate">
+    <div class="flex flex-col sm:flex-row flex-0 justify-center sm:items-center sm:justify-between p-6 border-b gap-4">
+        <div class="text-4xl font-extrabold tracking-tight">Reprogramación de Actividades</div>
+        <div class="flex items-center gap-4">
+            <button mat-icon-button class="flex items-center" (click)="previousDay()">
+                <mat-icon>chevron_left</mat-icon>
+            </button>
+
+            <mat-form-field appearance="fill" class="m-0">
+                <input matInput [matDatepicker]="picker" [(ngModel)]="myDate" (dateChange)="onDateChange()">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <button mat-icon-button class="flex items-center" (click)="nextDay()">
+                <mat-icon>chevron_right</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row flex-auto overflow-hidden">
+        <div class="w-full md:w-80 border-r bg-gray-50 dark:bg-gray-800 overflow-y-auto">
+            <div class="p-4">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold">Actividades Pendientes</h2>
+                    <button mat-icon-button [matMenuTriggerFor]="filterMenu">
+                        <mat-icon>filter_list</mat-icon>
+                    </button>
+                    <mat-menu #filterMenu="matMenu">
+                        <button mat-menu-item (click)="filterPendingActivities('all')">Todas</button>
+                        <button mat-menu-item (click)="filterPendingActivities('high')">Prioridad Alta</button>
+                        <button mat-menu-item (click)="filterPendingActivities('medium')">Prioridad Media</button>
+                        <button mat-menu-item (click)="filterPendingActivities('low')">Prioridad Baja</button>
+                    </mat-menu>
+                </div>
+
+                <mat-form-field appearance="outline" class="w-full mb-4">
+                    <mat-label>Buscar actividad</mat-label>
+                    <input matInput [(ngModel)]="searchTerm" (input)="searchActivities()">
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+
+                <div class="space-y-3 pending-activities-container"
+                     cdkDropList
+                     #pendingList="cdkDropList"
+                     [cdkDropListConnectedTo]="[calendarDropList]"
+                     [cdkDropListData]="filteredPendingActivities">
+                    <div *ngFor="let activity of filteredPendingActivities" 
+                         class="bg-white dark:bg-gray-700 rounded-lg shadow p-3 cursor-move pending-activity-item"
+                         [class.border-l-4]="true"
+                         [class.border-red-500]="activity.priority === 'high'"
+                         [class.border-yellow-500]="activity.priority === 'medium'"
+                         [class.border-blue-500]="activity.priority === 'low'"
+                         cdkDrag
+                         [cdkDragData]="activity"
+                         (cdkDragStarted)="onDragStarted($event, activity)"
+                         (cdkDragEnded)="onDragEnded($event, activity)">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-medium">{{activity.code}}</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">{{activity.description}}</p>
+                            </div>
+                            <div class="flex flex-col items-end">
+                                <span class="text-xs px-2 py-1 rounded-full"
+                                      [class.bg-red-100]="activity.priority === 'high'"
+                                      [class.text-red-800]="activity.priority === 'high'"
+                                      [class.bg-yellow-100]="activity.priority === 'medium'"
+                                      [class.text-yellow-800]="activity.priority === 'medium'"
+                                      [class.bg-blue-100]="activity.priority === 'low'"
+                                      [class.text-blue-800]="activity.priority === 'low'">
+                                    {{getPriorityLabel(activity.priority)}}
+                                </span>
+                                <span class="text-xs mt-1">{{activity.requestedBy}}</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between mt-2 text-xs text-gray-500">
+                            <span>{{activity.company}}</span>
+                            <span>{{activity.requestDate | date:'dd/MM/yyyy'}}</span>
+                        </div>
+                    </div>
+
+                    <div *ngIf="filteredPendingActivities.length === 0" class="text-center py-4 text-gray-500">
+                        No hay actividades pendientes
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-4" 
+             cdkDropList 
+             #calendarDropList="cdkDropList"
+             [cdkDropListConnectedTo]="[pendingList]"
+             (cdkDropListDropped)="onActivityDropped($event)"
+             [cdkDropListData]="[]">
+            <mwl-calendar-day-view
+                [viewDate]="viewDate"
+                [events]="events"
+                [hourSegments]="4"
+                [dayStartHour]="6"
+                [dayEndHour]="20"
+                [refresh]="refresh"
+                (eventTimesChanged)="eventTimesChanged($event)"
+                (eventClicked)="onClickEvent($event.event)"
+                [snapDraggedEvents]="true"
+                [hourSegmentHeight]="20"
+                [eventTitleTemplate]="customEventTitle">
+            </mwl-calendar-day-view>
+        </div>
+    </div>
+</ng-container>
+</div>
+
+<!-- Template personalizado para los eventos -->
+<ng-template #customEventTitle let-event="event">
+  <div class="flex flex-col w-full">
+    <div class="font-medium text-gray-900 dark:text-white">{{ event.title }}</div>
+    <div class="flex justify-between items-center mt-2" *ngIf="event.meta">
+      <div class="flex items-center text-xs text-gray-600 dark:text-gray-300">
+        <mat-icon class="text-sm mr-1 h-4 w-4">business</mat-icon>
+        <span>{{ event.meta.company }}</span>
+      </div>
+      <div class="flex items-center text-xs text-gray-600 dark:text-gray-300">
+        <mat-icon class="text-sm mr-1 h-4 w-4">person</mat-icon>
+        <span>{{ event.meta.requestedBy }}</span>
+      </div>
+    </div>
+    <div class="mt-1 text-xs text-gray-500 dark:text-gray-400" *ngIf="event.meta">
+      <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
+            [ngClass]="{
+              'bg-red-100 text-red-800': event.meta.priority === 'high',
+              'bg-yellow-100 text-yellow-800': event.meta.priority === 'medium',
+              'bg-blue-100 text-blue-800': event.meta.priority === 'low'
+            }">
+        {{ getPriorityLabel(event.meta.priority) }}
+      </span>
+      <span class="ml-2">{{ event.start | date:'HH:mm' }} - {{ event.end | date:'HH:mm' }}</span>
+    </div>
+  </div>
+</ng-template>

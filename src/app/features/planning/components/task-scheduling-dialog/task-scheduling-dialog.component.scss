@@ -63,3 +63,30 @@
     text-align: center;
   }
 }
+
+.form-row {
+  margin-bottom: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.date-time-row {
+  display: flex;
+  gap: 16px;
+}
+
+.date-field {
+  flex: 3;
+}
+
+.time-field {
+  flex: 2;
+}
+
+:host ::ng-deep {
+  .mat-form-field-wrapper {
+    margin-bottom: 0;
+  }
+}

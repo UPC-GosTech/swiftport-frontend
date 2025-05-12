@@ -13,10 +13,17 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "importHelpers": true,
     "target": "ES2022",
-    "module": "ES2022"
+    "module": "ES2022",
+    "baseUrl": "./",
+    "paths": {
+      "angular-calendar": ["node_modules/angular-calendar"],
+      "angular-calendar/*": ["node_modules/angular-calendar/*"],
+      "date-fns": ["node_modules/date-fns"],
+      "date-fns/*": ["node_modules/date-fns/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
