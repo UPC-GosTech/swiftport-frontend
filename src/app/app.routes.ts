@@ -64,7 +64,6 @@ export const routes: Routes = [
   { path: 'register',         component: RegisterComponent },
   { path: 'account',          component: AccountCreationComponent},
   { path: 'payment',          component: PaymentInformationComponent},
-  { path: '',                 redirectTo: 'register', pathMatch: 'full'},
   { path: 'demo',             component: ComponentsDemoComponent},
   { path: '**',               component: PageNotFoundComponent }
 ];
