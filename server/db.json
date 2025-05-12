@@ -594,6 +594,289 @@
         }
       ]
     }
+  ],
+  "equipment": [
+    {
+      "id": 1001,
+      "plateNumber": "ABC-1234",
+      "type": "Camión",
+      "capacityLoad": 15000,
+      "capacityPassengers": 2,
+      "status": "Activo"
+    },
+    {
+      "id": 1002,
+      "plateNumber": "DEF-5678",
+      "type": "Camioneta",
+      "capacityLoad": 5000,
+      "capacityPassengers": 5,
+      "status": "Activo"
+    },
+    {
+      "id": 1003,
+      "plateNumber": "GHI-9012",
+      "type": "Furgón",
+      "capacityLoad": 8000,
+      "capacityPassengers": 3,
+      "status": "Inactivo"
+    },
+    {
+      "id": 1004,
+      "plateNumber": "JKL-3456",
+      "type": "Excavadora",
+      "capacityLoad": 20000,
+      "capacityPassengers": 1,
+      "status": "Activo"
+    },
+    {
+      "id": 1005,
+      "plateNumber": "MNO-7890",
+      "type": "Grúa",
+      "capacityLoad": 30000,
+      "capacityPassengers": 2,
+      "status": "Inactivo"
+    },
+    {
+      "id": 1006,
+      "plateNumber": "PQR-2345",
+      "type": "Camión",
+      "capacityLoad": 12000,
+      "capacityPassengers": 2,
+      "status": "Activo"
+    },
+    {
+      "id": 1007,
+      "plateNumber": "STU-6789",
+      "type": "Motocicleta",
+      "capacityLoad": 200,
+      "capacityPassengers": 2,
+      "status": "Activo"
+    },
+    {
+      "id": 1008,
+      "plateNumber": "VWX-0123",
+      "type": "Camioneta",
+      "capacityLoad": 4000,
+      "capacityPassengers": 4,
+      "status": "Activo"
+    },
+    {
+      "id": 1009,
+      "plateNumber": "YZA-4567",
+      "type": "Camión",
+      "capacityLoad": 15000,
+      "capacityPassengers": 2,
+      "status": "Activo"
+    },
+    {
+      "id": 1010,
+      "plateNumber": "BCD-8901",
+      "type": "Furgón",
+      "capacityLoad": 6000,
+      "capacityPassengers": 2,
+      "status": "Activo"
+    },
+    {
+      "id": 1011,
+      "plateNumber": "EFG-2345",
+      "type": "Excavadora",
+      "capacityLoad": 25000,
+      "capacityPassengers": 1,
+      "status": "Inactivo"
+    },
+    {
+      "id": 1012,
+      "plateNumber": "HIJ-6789",
+      "type": "Grúa",
+      "capacityLoad": 35000,
+      "capacityPassengers": 2,
+      "status": "Activo"
+    },
+    {
+      "id": 1013,
+      "plateNumber": "KLM-0123",
+      "type": "Camión",
+      "capacityLoad": 17000,
+      "capacityPassengers": 2,
+      "status": "Activo"
+    },
+    {
+      "id": 1014,
+      "plateNumber": "NOP-4567",
+      "type": "Motocicleta",
+      "capacityLoad": 150,
+      "capacityPassengers": 2,
+      "status": "Inactivo"
+    },
+    {
+      "id": 1015,
+      "plateNumber": "QRS-8901",
+      "type": "Camioneta",
+      "capacityLoad": 5500,
+      "capacityPassengers": 5,
+      "status": "Activo"
+    },
+    {
+      "id": 1016,
+      "plateNumber": "TUV-2345",
+      "type": "Camión",
+      "capacityLoad": 13000,
+      "capacityPassengers": 2,
+      "status": "Inactivo"
+    },
+    {
+      "id": 1017,
+      "plateNumber": "WXY-6789",
+      "type": "Excavadora",
+      "capacityLoad": 18000,
+      "capacityPassengers": 1,
+      "status": "Activo"
+    },
+    {
+      "id": 1018,
+      "plateNumber": "ZAB-0123",
+      "type": "Grúa",
+      "capacityLoad": 32000,
+      "capacityPassengers": 2,
+      "status": "Activo"
+    },
+    {
+      "id": 1019,
+      "plateNumber": "CDE-4567",
+      "type": "Camioneta",
+      "capacityLoad": 7000,
+      "capacityPassengers": 4,
+      "status": "Activo"
+    },
+    {
+      "id": 1020,
+      "plateNumber": "FGH-8901",
+      "type": "Furgón",
+      "capacityLoad": 10000,
+      "capacityPassengers": 3,
+      "status": "Inactivo"
+    }
   ]
-
+  "location": [
+    {
+      "id": 1001,
+      "zoneId": 1,
+      "name": "Zona de Excavación Cerro",
+      "description": "Zona minera dedicada a la extracción de minerales metálicos.",
+      "ubication": {
+        "latitude": -10.6824,
+        "longitude": -76.1963
+      }
+    },
+    {
+      "id": 1002,
+      "zoneId": 2,
+      "name": "Monte de Extracción",
+      "description": "Zona minera, conocida por la extracción de cobre.",
+      "ubication": {
+        "latitude": -16.4090,
+        "longitude": -71.5375
+      }
+    },
+    {
+      "id": 1003,
+      "zoneId": 3,
+      "name": "Zona de Extracción Antamina",
+      "description": "Área minera rica en cobre y zinc.",
+      "ubication": {
+        "latitude": -9.3170,
+        "longitude": -77.1723
+      }
+    },
+    {
+      "id": 1004,
+      "zoneId": 4,
+      "name": "Monte Minero Junín",
+      "description": "Zona de minería, rica en oro y plata.",
+      "ubication": {
+        "latitude": -11.9919,
+        "longitude": -75.2049
+      }
+    },
+    {
+      "id": 1005,
+      "zoneId": 5,
+      "name": "Área de Explotación Ica",
+      "description": "Zona minera, conocida por la minería de oro.",
+      "ubication": {
+        "latitude": -13.3710,
+        "longitude": -75.7911
+      }
+    },
+    {
+      "id": 1006,
+      "zoneId": 6,
+      "name": "Zona de Explotación Puno",
+      "description": "Área minera rica en cobre y oro.",
+      "ubication": {
+        "latitude": -15.8402,
+        "longitude": -69.3249
+      }
+    },
+    {
+      "id": 1007,
+      "zoneId": 7,
+      "name": "Monte de Excavación Moquegua",
+      "description": "Zona minera conocida por su producción de cobre y zinc.",
+      "ubication": {
+        "latitude": -17.0933,
+        "longitude": -70.9333
+      }
+    },
+    {
+      "id": 1008,
+      "zoneId": 8,
+      "name": "Zona de Explotación Tacna",
+      "description": "Zona minera rica en recursos como el cobre y zinc.",
+      "ubication": {
+        "latitude": -18.0137,
+        "longitude": -70.2587
+      }
+    },
+    {
+      "id": 1009,
+      "zoneId": 9,
+      "name": "Monte de Excavación Sur",
+      "description": "Zona minera productora de oro y minerales metálicos.",
+      "ubication": {
+        "latitude": -14.4321,
+        "longitude": -72.7439
+      }
+    },
+    {
+      "id": 1010,
+      "zoneId": 10,
+      "name": "Zona Minera Norte",
+      "description": "Área minera con grandes yacimientos de plata y cobre.",
+      "ubication": {
+        "latitude": -11.3156,
+        "longitude": -75.5972
+      }
+    },
+    {
+      "id": 1011,
+      "zoneId": 11,
+      "name": "Área de Excavación Andina",
+      "description": "Zona minera ubicada en las alturas, conocida por sus depósitos de metales.",
+      "ubication": {
+        "latitude": -13.6234,
+        "longitude": -71.2289
+      }
+    },
+    {
+      "id": 1012,
+      "zoneId": 12,
+      "name": "Zona de Minería Alta",
+      "description": "Zona minera productora de recursos como el cobre y el zinc.",
+      "ubication": {
+        "latitude": -14.7523,
+        "longitude": -74.8393
+      }
+    }
+  ]
 }
