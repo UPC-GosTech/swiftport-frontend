@@ -24,9 +24,10 @@
     border: 1px solid var(--secondary);
     outline: none;
 
-    // Estilos al poner foco en el select
     &:focus {
-      border-color: var(--warning);
+      outline: none;
+      box-shadow: none;
+      border-color: var(--secondary) !important;
     }
   }
 
@@ -65,4 +66,11 @@
     font-size: 1.125rem;
     width: 100%;
   }
+
+  .selector-container select:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: var(--secondary) !important;
+  }
+
 }
