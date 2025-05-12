@@ -10,8 +10,8 @@
   flex-direction: column;
   width: 240px;
   height: 100%;
-  background-color: var(--background);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--primary);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   transition: width 0.3s ease;
   overflow: hidden;
 
@@ -34,7 +34,7 @@
 
   &__header {
     padding: v.$spacing-md;
-    border-bottom: 1px solid var(--secondary);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     min-height: 64px;
     display: flex;
     align-items: center;
@@ -45,7 +45,7 @@
     align-items: center;
     font-weight: v.$font-weight-bold;
     font-size: v.$font-size-lg;
-    color: var(--primary);
+    color: var(--text-inverted);
     white-space: nowrap;
     overflow: hidden;
   }
@@ -72,7 +72,7 @@
     display: flex;
     align-items: center;
     padding: v.$spacing-sm v.$spacing-md;
-    color: var(--text-primary);
+    color: var(--text-inverted);
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.2s;
@@ -81,18 +81,18 @@
     text-overflow: ellipsis;
 
     &:hover, &.active {
-      background-color: var(--surface);
-      color: var(--primary);
+      background-color: rgba(255, 255, 255, 0.2);
+      color: var(--background);
     }
 
     &.active {
-      border-left: 3px solid var(--primary);
+      border-left: 3px solid var(--background);
     }
   }
 
   &__menu-parent {
     &.expanded {
-      background-color: var(--surface);
+      background-color: rgba(255, 255, 255, 0.1);
     }
   }
 
@@ -132,19 +132,19 @@
     display: flex;
     align-items: center;
     padding: v.$spacing-sm v.$spacing-md v.$spacing-sm v.$spacing-lg;
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.2s;
     font-size: v.$font-size-sm;
 
     &:hover, &.active {
-      background-color: var(--surface);
-      color: var(--primary);
+      background-color: rgba(255, 255, 255, 0.2);
+      color: var(--background);
     }
 
     &.active {
-      border-left: 3px solid var(--primary);
+      border-left: 3px solid var(--background);
     }
   }
 
@@ -155,7 +155,7 @@
 
   &__footer {
     padding: v.$spacing-md;
-    border-top: 1px solid var(--secondary);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
     display: flex;
     justify-content: flex-end;
   }
@@ -168,11 +168,11 @@
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    color: var(--text-primary);
+    color: var(--text-inverted);
     
     &:hover {
-      background-color: var(--surface);
-      color: var(--primary);
+      background-color: rgba(255, 255, 255, 0.2);
+      color: var(--background);
     }
   }
 }
