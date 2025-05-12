@@ -1,4 +1,22 @@
 {
-  "profiles": [],
-  "users": []
+  "positions": [
+    {
+      "id": 1,
+      "name": "Admin",
+      "description": "In charge of the company"
+    },
+    {
+      "id": 2,
+      "name": "Operario",
+      "description": "Executes the tasks"
+    }
+  ],
+  "activity": [
+    {
+      "id": 12345,
+      "title": "Traslado de mercancia",
+      "description": "Se debe cargar, etiquetar y registrar la llegada de una carga al almacén 1042",
+      "originLocationId": 1001
+    }
+  ]
 }
