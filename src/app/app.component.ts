@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import { ThemeService } from './core/services/theme.service';
 import {TranslateService} from '@ngx-translate/core';
+import { IncidentReportComponent } from './features/planning/pages/incident-report/incident-report.component';
+import {ProfileViewComponent} from './profile-view/profile-view.component'; // Ajusta ruta si es necesario
+
 import {AccountCreationComponent} from './core/registration/views/account-creation/account-creation.component';
 import {PaymentInformationComponent} from './core/registration/views/payment-information/payment-information.component';
 import {RegisterComponent} from './core/registration/views/register/register.component';
@@ -31,6 +34,8 @@ import {UserManagementComponent} from './features/security/pages/user-management
   selector: 'app-root',
   standalone: true,
   imports: [
+    IncidentReportComponent,
+    ProfileViewComponent,
     RouterOutlet,
     AccountCreationComponent,
     PaymentInformationComponent,
@@ -58,8 +63,7 @@ export class AppComponent {
     { path: '/register', title: 'Register' },
     { path: '/account', title: 'Account' },
     { path: '/payment', title: 'Payment' },
-  ]
-
+  ];
 
   constructor(private themeService: ThemeService, private translate: TranslateService) {
     this.translate.addLangs(['en', 'es']);
@@ -73,5 +77,5 @@ export class AppComponent {
   toggleTheme(): void {
     this.themeService.toggleTheme();
   }
-
 }
+

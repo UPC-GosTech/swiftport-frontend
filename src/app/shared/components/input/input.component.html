@@ -1,9 +1,11 @@
 <div class="input-container">
   <input
     [type]="type"
-    [(ngModel)]="value"
-    (input)="onInputChange(value)"
+    [ngModel]="value"
+    (ngModelChange)="onInputChange($event)"
+    (blur)="onBlur()"
     [placeholder]="placeholder"
     [disabled]="disabled"
+    [attr.maxlength]="maxLength || null"
   />
 </div>
