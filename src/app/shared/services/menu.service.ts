@@ -29,7 +29,7 @@ export class MenuService {
     {
       id: 'management',
       label: 'Management',
-      icon: 'monitoring',
+      icon: 'computer',
       children: [
         {
           id: 'equipments-management',
@@ -85,7 +85,7 @@ export class MenuService {
     {
       id: 'execution-history',
       label: 'Execution History',
-      icon: 'order_play',
+      icon: 'scoreboard',
       route: '/execution-history'
     },
     {
@@ -151,80 +151,6 @@ export class MenuService {
       label: 'Components Demo',
       icon: 'construction',
       route: '/demo'
-    }
-  ];
-
-  private defaultMenuItems: SidebarMenuItem[] = [
-    {
-      id: 'dashboard',
-      label: 'Dashboard',
-      icon: 'dashboard',
-      route: '/dashboard'
-    },
-    {
-      id: 'equipments-management',
-      label: 'Equipment Management',
-      icon: 'construction',
-      route: '/equipments-management'
-    },
-    {
-      id: 'employee-management',
-      label: 'Employee Management',
-      icon: 'people',
-      route: '/employee-management'
-    },
-    {
-      id: 'location-management',
-      label: 'Location Management',
-      icon: 'place',
-      route: '/location-management'
-    },
-    {
-      id: 'teams-management',
-      label: 'Teams Management',
-      icon: 'group',
-      route: '/teams-management'
-    },
-    {
-      id: 'activities',
-      label: 'Activities',
-      icon: 'schedule',
-      route: '/activities-list'
-    },
-    {
-      id: 'activity-management',
-      label: 'Activity Management',
-      icon: 'schedule',
-      route: '/activity-management'
-    },
-    {
-      id: 'task-planning',
-      label: 'Task Planning',
-      icon: 'schedule',
-      route: '/task-planning'
-    },
-    {
-      id: 'users',
-      label: 'Users',
-      icon: 'people',
-      route: '/users'
-    },
-    {
-      id: 'settings',
-      label: 'Settings',
-      icon: 'settings',
-      route: '/settings'
-    },
-    {
-      id: 'demo',
-      label: 'Components Demo',
-      icon: 'construction',
-      route: '/demo'
-    },
-    {
-      id: 'routes-first-try',
-      label: 'Probando routeo',
-      route: '/routes-first-try'
     }
   ];
 
