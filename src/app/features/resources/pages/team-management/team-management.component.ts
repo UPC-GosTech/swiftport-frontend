@@ -59,7 +59,7 @@ export class TeamManagementComponent implements OnInit {
   }
 
   loadZones(): void {
-    this.zoneService.getZones().subscribe(zones => {
+    this.zoneService.getAllZones().subscribe((zones: Zone[]) => {
       this.zones = zones;
     });
   }

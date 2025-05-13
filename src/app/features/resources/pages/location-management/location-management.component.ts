@@ -12,7 +12,9 @@ import { ZoneCardComponent } from '../../components/zone-card/zone-card.componen
 import { ZoneFormDialogComponent } from '../../components/zone-form-dialog/zone-form-dialog.component';
 import { LocationFormDialogComponent } from '../../components/location-form-dialog/location-form-dialog.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
-import {TranslatePipe} from "@ngx-translate/core";
+import { TranslatePipe } from "@ngx-translate/core";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-location-management',
@@ -30,7 +32,8 @@ import {TranslatePipe} from "@ngx-translate/core";
         ZoneFormDialogComponent,
         LocationFormDialogComponent,
         ButtonComponent,
-        TranslatePipe
+        TranslatePipe,
+        ConfirmDialogComponent
     ],
   templateUrl: './location-management.component.html',
   styleUrl: './location-management.component.scss'
@@ -42,7 +45,8 @@ export class LocationManagementComponent implements OnInit {
 
   constructor(
     private zoneService: ZoneService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -51,7 +55,7 @@ export class LocationManagementComponent implements OnInit {
 
   loadZones(): void {
     this.loading = true;
-    this.zoneService.getZones().subscribe({
+    this.zoneService.getAllZones().subscribe({
       next: (zones) => {
         this.zones = zones;
         this.loading = false;
@@ -98,9 +102,44 @@ export class LocationManagementComponent implements OnInit {
   }
 
   toggleZoneActive(id: number): void {
-    this.zoneService.toggleZoneActive(id).subscribe({
-      next: () => this.loadZones(),
-      error: (error) => console.error('Error toggling zone active state:', error)
+    let zone = this.zones.find(z => z.id === id);
+    if (zone) {
+      zone.active = !zone.active;
+      this.zoneService.updateZone(zone).subscribe({
+        next: () => this.loadZones(),
+        error: (error) => console.error('Error toggling zone active state:', error)
+      });
+    }
+  }
+
+  deleteZone(id: number): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: {
+        title: 'Eliminar Zona',
+        message: '¿Estás seguro de que deseas eliminar esta zona? Esta acción no se puede deshacer.'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.zoneService.deleteZone(id).subscribe({
+          next: (success) => {
+            if (success) {
+              this.loadZones();
+              this.snackBar.open('Zona eliminada con éxito', 'Cerrar', {
+                duration: 3000
+              });
+            }
+          },
+          error: (error) => {
+            console.error('Error deleting zone:', error);
+            this.snackBar.open('Error al eliminar la zona', 'Cerrar', {
+              duration: 3000
+            });
+          }
+        });
+      }
     });
   }
 }

@@ -70,7 +70,7 @@ export class TeamFormDialogComponent implements OnInit {
 
   loadData(): void {
     forkJoin({
-      zones: this.zoneService.getZones(),
+      zones: this.zoneService.getAllZones(),
       employees: this.employeeService.getAllEmployees()
     }).subscribe(result => {
       this.zones = result.zones;

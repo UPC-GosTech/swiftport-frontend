@@ -8,16 +8,16 @@ export class Zone {
     active: boolean;
     
     constructor(
-        id: number,
-        name: string,
-        description: string,
+        id?: number,
+        name?: string,
+        description?: string,
         locations: Location[] = [],
-        active: boolean = true
+        active?: boolean
     ) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
+        this.id = id ?? 0;
+        this.name = name ?? '';
+        this.description = description ?? '';
         this.locations = locations;
-        this.active = active;
+        this.active = active ?? true;
     }
 }
