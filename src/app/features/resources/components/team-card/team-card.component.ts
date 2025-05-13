@@ -11,6 +11,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { Team } from '../../models/team.entity';
 import { TeamMember } from '../../models/team-member.entity';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-team-card',
@@ -25,7 +26,8 @@ import { ButtonComponent } from '../../../../shared/components/button/button.com
     MatTooltipModule,
     MatBadgeModule,
     MatDividerModule,
-    ButtonComponent
+    ButtonComponent,
+    TranslatePipe
   ],
   templateUrl: './team-card.component.html',
   styleUrl: './team-card.component.scss'
@@ -55,7 +57,7 @@ export class TeamCardComponent {
   // Helper method to format the date
   formatDate(date: Date): string {
     if (!date) return '';
-    
+
     const d = new Date(date);
     return d.toLocaleDateString('es-ES', {
       year: 'numeric',
@@ -73,7 +75,7 @@ export class TeamCardComponent {
   get statusColor(): string {
     return this.team.status === 'ACTIVE' ? 'primary' : 'warn';
   }
-  
+
   // Helper method to get status color for our ButtonComponent
   get buttonStatusColor(): 'primary' | 'secondary' | 'danger' {
     return this.team.status === 'ACTIVE' ? 'danger' : 'primary';
@@ -87,4 +89,4 @@ export class TeamCardComponent {
   get memberCount(): number {
     return this.team.members?.length || 0;
   }
-} 
+}
