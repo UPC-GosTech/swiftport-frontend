@@ -82,5 +82,18 @@
     "charges": "Positions",
     "cancel": "Cancel",
     "save": "Save"
+  },
+  "user-management": {
+    "title": "User Management",
+    "all": "All roles",
+    "search": "Search by name or email",
+    "name": "Name",
+    "status": "Status",
+    "actions": "Actions",
+    "page": "Page",
+    "of": "of",
+    "previous": "Previous",
+    "next": "Next",
+    "create": "Create User"
   }
 }

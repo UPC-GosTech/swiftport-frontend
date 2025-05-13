@@ -82,5 +82,18 @@
     "charges": "Cargos",
     "cancel": "Cancelar",
     "save": "Guardar"
+  },
+  "user-management": {
+    "title": "Gestión de Usuarios",
+    "all": "Todos los roles",
+    "search": "Buscar por nombre o email",
+    "name": "Nombre",
+    "status": "Estado",
+    "actions": "Acciones",
+    "page": "Página",
+    "of": "de",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "create": "Crear Usuario"
   }
 }
