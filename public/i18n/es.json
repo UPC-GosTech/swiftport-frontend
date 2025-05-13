@@ -82,5 +82,17 @@
     "charges": "Cargos",
     "cancel": "Cancelar",
     "save": "Guardar"
+  },
+  "login-container": {
+    "slogan": "Tu operación en orden, en todo momento",
+    "email-required": "El email es obligatorio.",
+    "email-valid": "Ingrese un email válido.",
+    "characters": "Mínimo 6 caracteres.",
+    "password": "Contraseña",
+    "password-required": "La contraseña es obligatoria.",
+    "password-missing": "¿Olvidaste tu contraseña?",
+    "login": "INGRESAR",
+    "register": "REGISTRARSE",
+    "loading": "Cargando..."
   }
 }

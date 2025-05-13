@@ -82,5 +82,18 @@
     "charges": "Positions",
     "cancel": "Cancel",
     "save": "Save"
+  },
+  "login-container": {
+    "slogan": "Your operation in order, at all times",
+    "email-required": "Email is required.",
+    "email-valid": "Enter a valid email.",
+    "characters": "Min. 6 characters.",
+    "password": "Password",
+    "password-required": "Password is required.",
+    "password-missing": "Forgot your password?",
+    "login": "LOGIN",
+    "register": "REGISTER",
+    "loading": "Loading..."
+
   }
 }

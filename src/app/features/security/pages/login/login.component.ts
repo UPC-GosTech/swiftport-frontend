@@ -4,13 +4,14 @@ import { FormsModule } from '@angular/forms';
 import {NgIf} from '@angular/common';
 import { UserSession } from '../../models/userSession.entity';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  imports: [FormsModule, NgIf]
+  imports: [FormsModule, NgIf, TranslatePipe]
 })
 export class LoginComponent {
   email: string = '';

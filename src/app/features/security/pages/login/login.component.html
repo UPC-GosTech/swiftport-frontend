@@ -5,7 +5,7 @@
 
   <div class="login-container">
     <h1>SwiftPort</h1>
-    <p>Tu operación en orden, en todo momento</p>
+    <p>{{ 'login-container.slogan' | translate }}</p>
 
     <form (ngSubmit)="onLogin()" #loginForm="ngForm" novalidate>
 
@@ -21,17 +21,17 @@
         [class.invalid-input]="emailInput.invalid && (emailInput.touched || submitted)"
       />
       <small *ngIf="emailInput.errors?.['required'] && (emailInput.touched || submitted)" class="field-error">
-        El email es obligatorio.
+        {{ 'login-container.email-required' | translate }}
       </small>
       <small *ngIf="emailInput.errors?.['email'] && (emailInput.touched || submitted)" class="field-error">
-        Ingrese un email válido.
+        {{ 'login-container.email-valid' | translate }}
       </small>
 
-      <label for="password">Contraseña</label>
+      <label for="password">{{ 'login-container.password' | translate }}</label>
       <input
         type="password"
         id="password"
-        placeholder="Contraseña"
+        [placeholder] ="'login-container.password' | translate"
         [(ngModel)]="password"
         name="password"
         required
@@ -40,13 +40,13 @@
         [class.invalid-input]="passInput.invalid && (passInput.touched || submitted)"
       />
       <small *ngIf="passInput.errors?.['required'] && (passInput.touched || submitted)" class="field-error">
-        La contraseña es obligatoria.
+        {{ 'login-container.password-required' | translate }}
       </small>
       <small *ngIf="passInput.errors?.['minlength'] && (passInput.touched || submitted)" class="field-error">
-        Mínimo 6 caracteres.
+        {{ 'login-container.characters' | translate }}
       </small>
 
-      <a class="forgot-password" (click)="goToRecovery()">¿Olvidaste tu contraseña?</a>
+      <a class="forgot-password" (click)="goToRecovery()">{{ 'login-container.password-missing' | translate }}</a>
 
       <!-- Mensaje de error general -->
       <div *ngIf="errorMessage" class="error-msg">
@@ -54,12 +54,12 @@
       </div>
 
       <button type="submit" class="login-btn" [disabled]="isLoading" (click)="onSumit()">
-        <span *ngIf="!isLoading" style="margin-left: 8px;">🔐 Login</span>
-        <span *ngIf="isLoading" style="margin-left: 8px;">Cargando...</span>
+        <span *ngIf="!isLoading" style="margin-left: 8px;">🔐 {{ 'login-container.login' | translate }}</span>
+        <span *ngIf="isLoading" style="margin-left: 8px;">{{ 'login-container.loading' | translate }}</span>
       </button>
 
       <button type="button" class="register-btn" (click)="onRegister()">
-        📝 Register
+        📝 {{ 'login-container.register' | translate }}
       </button>
 
     </form>
