@@ -22,8 +22,6 @@ import { EquipmentService } from '../../../../shared/services/equipment.service'
     ButtonComponent,
     SelectorComponent,
     FormsModule,
-    EquipmentCardComponent,
-    EquipmentFormDialogComponent,
     EquipmentListComponent,
     MatDialogModule,
     TranslatePipe
