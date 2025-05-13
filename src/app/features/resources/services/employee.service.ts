@@ -2,11 +2,22 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Employee } from '../models/employee.entity';
 import { Position } from '../models/position.entity';
+import {environment} from '../../../../environments/environment';
+import {BaseService} from '../../../shared/services/base.service';
+import {Equipment} from '../models/equipment.entity';
+
+const equipmentEndPoint = environment.equipmentEndPoint;
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeService {
+export class EmployeeService extends BaseService<Equipment> {
+
+  constructor() {
+    super();
+    this.resourceEndpoint = equipmentEndPoint;
+  }
+
   // Simulated data storage - Replace with API calls in production
   private employees: Employee[] = [
     new Employee(1, 'Juan', 'Pérez', '12345678', 'juan@example.com', '123456789', 'ACTIVE', [
@@ -25,8 +36,6 @@ export class EmployeeService {
       new Position(5, 'Seguridad', 'Control de seguridad')
     ])
   ];
-
-  constructor() { }
 
   getEmployees(): Observable<Employee[]> {
     return of(this.employees);
@@ -70,4 +79,4 @@ export class EmployeeService {
     this.employees = this.employees.filter(e => e.id !== id);
     return of(initialLength !== this.employees.length);
   }
-} 
+}
