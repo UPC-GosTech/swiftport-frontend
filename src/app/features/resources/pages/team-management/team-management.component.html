@@ -1,17 +1,17 @@
 <div class="team-management-container">
   <div class="page-header">
-    <h1>Gestión de Equipos</h1>
-    <app-button 
-      [label]="'Crear Equipo'" 
-      [color]="'primary'" 
+    <h1>{{ 'team-management.title' | translate }}</h1>
+    <app-button
+      [label]="'team-management.create' | translate"
+      [color]="'primary'"
       (clicked)="openCreateTeamDialog()">
     </app-button>
   </div>
 
   <!-- Date Navigator -->
   <div class="date-navigator-wrapper">
-    <app-date-navigator 
-      [selectedDate]="selectedDate" 
+    <app-date-navigator
+      [selectedDate]="selectedDate"
       (dateChange)="onDateChange($event)">
     </app-date-navigator>
   </div>
@@ -19,9 +19,9 @@
   <!-- Filters -->
   <div class="filters-container">
     <mat-form-field appearance="fill">
-      <mat-label>Filtrar por Zona</mat-label>
+      <mat-label>{{ 'team-management.filter' | translate }}</mat-label>
       <mat-select [(ngModel)]="selectedZoneId" (selectionChange)="onZoneFilterChange()">
-        <mat-option [value]="null">Todas las zonas</mat-option>
+        <mat-option [value]="null">{{ 'team-management.all' | translate }}</mat-option>
         <mat-option *ngFor="let zone of zones" [value]="zone.id">
           {{ zone.name }}
         </mat-option>
@@ -29,14 +29,15 @@
     </mat-form-field>
 
     <button mat-button color="primary" *ngIf="selectedZoneId" (click)="clearZoneFilter()">
-      <mat-icon>clear</mat-icon> Limpiar filtro
+      <mat-icon>clear</mat-icon>
+      {{ 'team-management.clean' | translate }}
     </button>
   </div>
 
   <!-- Team List -->
   <div class="teams-list" *ngIf="filteredTeams.length > 0">
-    <app-team-card 
-      *ngFor="let team of filteredTeams" 
+    <app-team-card
+      *ngFor="let team of filteredTeams"
       [team]="team"
       (edit)="openEditTeamDialog($event)"
       (editMembers)="openEditMembersDialog($event)"
@@ -47,11 +48,11 @@
   <!-- Empty State -->
   <div class="empty-state" *ngIf="filteredTeams.length === 0">
     <mat-icon>groups</mat-icon>
-    <h3>No hay equipos para mostrar</h3>
-    <p>No se encontraron equipos para la fecha y filtros seleccionados.</p>
-    <app-button 
-      [label]="'Crear Equipo'" 
-      [color]="'primary'" 
+    <h3>{{ 'team-management.no-teams' | translate }}</h3>
+    <p>{{ 'team-management.no-filter' | translate }}</p>
+    <app-button
+      [label]="'team-management.create' | translate"
+      [color]="'primary'"
       (clicked)="openCreateTeamDialog()">
     </app-button>
   </div>

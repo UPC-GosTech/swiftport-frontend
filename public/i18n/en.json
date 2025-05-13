@@ -95,5 +95,14 @@
     "previous": "Previous",
     "next": "Next",
     "create": "Create User"
+  },
+  "team-management": {
+    "title": "Team Management",
+    "filter": "Filter by Zone",
+    "all": "All zones",
+    "clean": "Clear filter",
+    "no-teams": "No teams to display",
+    "no-filter": "No teams found for the selected date and filters.",
+    "create": "Create Team"
   }
 }
