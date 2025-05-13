@@ -602,7 +602,7 @@
       "type": "Camión",
       "capacityLoad": 15000,
       "capacityPassengers": 2,
-      "status": "Activo"
+      "status": "Disponible"
     },
     {
       "id": 1002,
@@ -610,7 +610,7 @@
       "type": "Camioneta",
       "capacityLoad": 5000,
       "capacityPassengers": 5,
-      "status": "Activo"
+      "status": "Disponible"
     },
     {
       "id": 1003,
@@ -618,7 +618,7 @@
       "type": "Furgón",
       "capacityLoad": 8000,
       "capacityPassengers": 3,
-      "status": "Inactivo"
+      "status": "Disponible"
     },
     {
       "id": 1004,
@@ -626,7 +626,7 @@
       "type": "Excavadora",
       "capacityLoad": 20000,
       "capacityPassengers": 1,
-      "status": "Activo"
+      "status": "Disponible"
     },
     {
       "id": 1005,
@@ -634,7 +634,7 @@
       "type": "Grúa",
       "capacityLoad": 30000,
       "capacityPassengers": 2,
-      "status": "Inactivo"
+      "status": "Disponible"
     },
     {
       "id": 1006,
@@ -642,7 +642,7 @@
       "type": "Camión",
       "capacityLoad": 12000,
       "capacityPassengers": 2,
-      "status": "Activo"
+      "status": "Disponible"
     },
     {
       "id": 1007,
@@ -650,7 +650,7 @@
       "type": "Motocicleta",
       "capacityLoad": 200,
       "capacityPassengers": 2,
-      "status": "Activo"
+      "status": "Disponible"
     },
     {
       "id": 1008,
@@ -658,7 +658,7 @@
       "type": "Camioneta",
       "capacityLoad": 4000,
       "capacityPassengers": 4,
-      "status": "Activo"
+      "status": "Disponible"
     },
     {
       "id": 1009,
@@ -666,7 +666,7 @@
       "type": "Camión",
       "capacityLoad": 15000,
       "capacityPassengers": 2,
-      "status": "Activo"
+      "status": "Disponible"
     },
     {
       "id": 1010,
@@ -674,7 +674,7 @@
       "type": "Furgón",
       "capacityLoad": 6000,
       "capacityPassengers": 2,
-      "status": "Activo"
+      "status": "Disponible"
     },
     {
       "id": 1011,
@@ -682,7 +682,7 @@
       "type": "Excavadora",
       "capacityLoad": 25000,
       "capacityPassengers": 1,
-      "status": "Inactivo"
+      "status": "Disponible"
     },
     {
       "id": 1012,
@@ -690,7 +690,7 @@
       "type": "Grúa",
       "capacityLoad": 35000,
       "capacityPassengers": 2,
-      "status": "Activo"
+      "status": "Disponible"
     },
     {
       "id": 1013,
@@ -698,7 +698,7 @@
       "type": "Camión",
       "capacityLoad": 17000,
       "capacityPassengers": 2,
-      "status": "Activo"
+      "status": "Mantenimiento"
     },
     {
       "id": 1014,
@@ -706,7 +706,7 @@
       "type": "Motocicleta",
       "capacityLoad": 150,
       "capacityPassengers": 2,
-      "status": "Inactivo"
+      "status": "Mantenimiento"
     },
     {
       "id": 1015,
@@ -714,7 +714,7 @@
       "type": "Camioneta",
       "capacityLoad": 5500,
       "capacityPassengers": 5,
-      "status": "Activo"
+      "status": "Mantenimiento"
     },
     {
       "id": 1016,
@@ -722,7 +722,7 @@
       "type": "Camión",
       "capacityLoad": 13000,
       "capacityPassengers": 2,
-      "status": "Inactivo"
+      "status": "Mantenimiento"
     },
     {
       "id": 1017,
@@ -730,7 +730,7 @@
       "type": "Excavadora",
       "capacityLoad": 18000,
       "capacityPassengers": 1,
-      "status": "Activo"
+      "status": "Mantenimiento"
     },
     {
       "id": 1018,
@@ -738,7 +738,7 @@
       "type": "Grúa",
       "capacityLoad": 32000,
       "capacityPassengers": 2,
-      "status": "Activo"
+      "status": "Mantenimiento"
     },
     {
       "id": 1019,
@@ -746,7 +746,7 @@
       "type": "Camioneta",
       "capacityLoad": 7000,
       "capacityPassengers": 4,
-      "status": "Activo"
+      "status": "Mantenimiento"
     },
     {
       "id": 1020,
@@ -754,7 +754,7 @@
       "type": "Furgón",
       "capacityLoad": 10000,
       "capacityPassengers": 3,
-      "status": "Inactivo"
+      "status": "Mantenimiento"
     }
   ],
   "location": [
