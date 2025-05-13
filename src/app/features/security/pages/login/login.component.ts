@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import {NgIf} from '@angular/common';
+import { UserSession } from '../../models/userSession.entity';
+import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +19,7 @@ export class LoginComponent {
   isLoading: boolean = false;
   submitted: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private localStorageService: LocalStorageService) {}
 
   onLogin(): void {
     this.submitted = true;
@@ -63,11 +65,26 @@ export class LoginComponent {
   }
 
   onSumit() {
+    let userSession: UserSession = {
+      jwt: '',
+      userId: '',
+      userName: '',
+      email: this.email,
+      role: 'operario',
+      createdAt: 0,
+      expiresAt: 0,
+      companyId: '',
+      permissions: []
+    };
     if (this.password.length >= 6) {
-      this.router.navigate(['/swiftport'], { state: { usertype: 'operario'}});
+      userSession.role = 'operario';
+      this.localStorageService.setItem('userSession', userSession);
+      this.router.navigate(['/swiftport']);
     }
     else {
-      this.router.navigate(['/swiftport'], { state: { usertype: 'admin'}});
+      userSession.role = 'admin';
+      this.localStorageService.setItem('userSession', userSession);
+      this.router.navigate(['/swiftport']);
     }
   }
 }

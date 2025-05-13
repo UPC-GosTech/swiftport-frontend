@@ -4,6 +4,8 @@ import { SidebarComponent } from '../../shared/components/sidebar/sidebar.compon
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { CommonModule } from '@angular/common';
 import {MenuService} from '../../shared/services/menu.service';
+import { LocalStorageService } from 'src/app/core/services/local-storage.service';
+import { UserSession } from '../../features/security/models/userSession.entity';
 
 @Component({
   selector: 'app-main-layout',
@@ -19,16 +21,14 @@ export class MainLayoutComponent implements OnInit {
 
   constructor(
     private menuService: MenuService,
-    private router: Router
+    private router: Router,
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit() {
-    const navigation = this.router.getCurrentNavigation();
-    console.log(navigation);
-    if (navigation?.extras.state) {
-      this.userType = navigation.extras.state[0];
-    }
-    console.log('aaa', this.userType);
+    const userSession: UserSession = this.localStorageService.getItem('userSession');
+    this.userType = userSession.role;
+    console.log('userType', this.userType);
   }
 
   toggleSidebar(): void {
