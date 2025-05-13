@@ -6,7 +6,7 @@ export class Equipment {
     capacityPassengers: number;
     status: string;
 
-    constructor() {
+    constructor(equipment: {id?: number, plateNumber?: string, type?: string, capacityLoad?: number, capacityPassengers?: number, status?: string}) {
         this.id = 0;
         this.plateNumber = '';
         this.type = '';
