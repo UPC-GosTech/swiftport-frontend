@@ -8,6 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import {TranslatePipe} from "@ngx-translate/core";
+import { EquipmentService} from '../../../../shared/services/equipment.service';
 
 export interface DialogData {
   equipment: Equipment;
@@ -38,7 +39,8 @@ export class EquipmentFormDialogComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<EquipmentFormDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private equipmentService: EquipmentService
   ) {}
 
   ngOnInit(): void {
@@ -63,11 +65,22 @@ export class EquipmentFormDialogComponent implements OnInit {
 
   onSave(): void {
     if (this.equipmentForm.valid) {
-      this.dialogRef.close(this.equipmentForm.value);
+      const newEquipment = this.equipmentForm.value;  // Obtén los valores del formulario
+
+      this.equipmentService.addEquipment(newEquipment).subscribe(
+        (savedEquipment) => {
+          // Si el equipo se guarda correctamente en la API, cerramos el diálogo y pasamos los datos guardados
+          this.dialogRef.close(savedEquipment);
+        },
+        (error) => {
+          console.error('Error al guardar el equipo:', error);
+        }
+      );
     } else {
-      this.markFormGroupTouched(this.equipmentForm);
+      this.markFormGroupTouched(this.equipmentForm);  // Marcar todos los campos como tocados si hay errores
     }
   }
+
 
   onCancel(): void {
     this.dialogRef.close();
