@@ -125,20 +125,7 @@ export class MenuService {
       id: 'activities',
       label: 'Activities',
       icon: 'moving',
-      children: [
-        {
-          id: 'activities-list',
-          label: 'Activities List',
-          icon: 'list',
-          route: '/swiftport/activities-list'
-        },
-        {
-          id: 'activities-management',
-          label: 'Activities Management',
-          icon: 'dataset',
-          route: '/swiftport/activity-management'
-        }
-      ]
+      route: '/swiftport/activity-management'
     },
     {
       id: 'task-list-operario',

@@ -485,22 +485,6 @@
       ]
     },
     {
-      "id": 111,
-      "firstName": "Javier",
-      "lastName": "Torres",
-      "dni": "12345679",
-      "email": "javier.torres@example.com",
-      "phone": "991234567",
-      "status": "ACTIVE",
-      "positions": [
-        {
-          "id": 2,
-          "name": "Operario",
-          "description": "Executes the tasks"
-        }
-      ]
-    },
-    {
       "id": 112,
       "firstName": "Raul",
       "lastName": "Alvarez",
@@ -813,6 +797,14 @@
       "capacityLoad": 4,
       "capacityPassengers": 1,
       "status": "Disponible"
+    },
+    {
+      "id": 1024,
+      "plateNumber": "345678",
+      "type": "carrito",
+      "capacityLoad": 4,
+      "capacityPassengers": 1,
+      "status": "Mantenimiento"
     }
   ],
   "location": [

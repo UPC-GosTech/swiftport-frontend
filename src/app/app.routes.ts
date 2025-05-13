@@ -49,7 +49,6 @@ export const routes: Routes = [
       { path: 'employee-management',          component: EmployeeManagementComponent},
       { path: 'location-management',          component: LocationManagementComponent},
       { path: 'teams-management',             component: TeamManagementComponent},
-      { path: 'activities-list',              component: ActivityListComponent},
       { path: 'activity-management',          component: ActivityManagementComponent},
       { path: 'task-planning',                component: TaskPlanningComponent},
       { path: 'users',                        component: UserManagementComponent},

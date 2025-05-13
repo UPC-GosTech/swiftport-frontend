@@ -104,5 +104,14 @@
     "no-teams": "No teams to display",
     "no-filter": "No teams found for the selected date and filters.",
     "create": "Create Team"
+  },
+  "team-card": {
+    "date": "Date: ",
+    "location": "Location: ",
+    "status": "Status: ",
+    "members": "Team Members",
+    "mo-members": "No members assigned to this team.",
+    "edit": "Edit",
+    "edit-m": "Edit Members"
   }
 }
