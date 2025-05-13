@@ -33,7 +33,7 @@ import {ProfileViewComponent} from './profile-view/profile-view.component';
 import {HomeComponent} from './core/registration/views/home/home.component';
 import {ActivityListComponent} from './features/planning/components/activity-list/activity-list.component';
 export const routes: Routes = [
-  { path: 'a',                  component: LoginComponent},
+  { path: '',                  component: LoginComponent},
   { path: 'login',              component: LoginComponent},
   { path: 'register',           component: RegisterComponent },
   { path: 'payment',            component: PaymentInformationComponent},
