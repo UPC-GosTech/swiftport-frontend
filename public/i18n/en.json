@@ -94,7 +94,9 @@
     "password-missing": "Forgot your password?",
     "login": "LOGIN",
     "register": "REGISTER",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "fill": "Please fill in all fields.",
+    "invalid": "Incorrect email or password."
   },
   "password-recovery": {
     "recover-password": "Password Recovery",
@@ -103,5 +105,12 @@
     "email-example": "example@email.com",
     "sent-link": "SEND LINK",
     "back-login": "BACK TO LOGIN"
+  },
+  "register-container": {
+    "slogan": "Your operation in order, at all times\"",
+    "email": "Email",
+    "password": "Password",
+    "password-repeat": "Repeat password",
+    "register": "REGISTER"
   }
 }

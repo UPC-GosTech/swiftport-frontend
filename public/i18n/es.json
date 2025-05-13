@@ -94,7 +94,9 @@
     "password-missing": "¿Olvidaste tu contraseña?",
     "login": "INGRESAR",
     "register": "REGISTRARSE",
-    "loading": "Cargando..."
+    "loading": "Cargando...",
+    "fill": "Por favor, complete todos los campos.",
+    "invalid": "Email o contraseña incorrectos."
   },
   "password-recovery": {
     "recover-password": "Recuperar Contraseña",
@@ -103,5 +105,15 @@
     "email-example": "ejemplo@correo.com",
     "sent-link": "ENVIAR ENLACE",
     "back-login": "VOLVER AL LOGIN"
+  },
+  "register-container": {
+    "slogan": "Tu operación en orden, en todo momento",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "password-repeat": "Repetir contraseña",
+    "register": "REGISTRARSE"
+  },
+  "payment-view": {
+
   }
 }
