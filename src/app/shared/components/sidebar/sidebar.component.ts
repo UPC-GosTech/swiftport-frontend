@@ -23,18 +23,28 @@ export interface SidebarMenuItem {
 export class SidebarComponent implements OnInit, OnDestroy {
   @Input() isOpen = true;
   @Input() menuItems: SidebarMenuItem[] = [];
-  
+  @Input() userType: string = '';
+
   private destroy$ = new Subject<void>();
 
   constructor(private menuService: MenuService) {}
 
   ngOnInit(): void {
     if (this.menuItems.length === 0) {
-      this.menuService.getMenuItems()
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(items => {
-          this.menuItems = items;
-        });
+      console.log('eee', this.userType);
+      if (this.userType === 'operario') {
+        this.menuService.getOperarioMenuItems()
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(items => {
+            this.menuItems = items;
+          });
+      } else {
+        this.menuService.getAdminMenuItems()
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(items => {
+            this.menuItems = items;
+          });
+      }
     }
   }
 

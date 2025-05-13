@@ -40,7 +40,7 @@ export const routes: Routes = [
   { path: 'account',            component: AccountCreationComponent},
   { path: 'password-recovery',  component: PasswordRecoveryComponent},
   {
-    path: '',
+    path: 'swiftport',
     component: MainLayoutComponent,
     children: [
       { path: 'profile',                      component: ProfileViewComponent},

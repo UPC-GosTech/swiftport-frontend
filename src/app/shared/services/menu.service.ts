@@ -230,7 +230,11 @@ export class MenuService {
 
   constructor() { }
 
-  getMenuItems(): Observable<SidebarMenuItem[]> {
-    return of(this.defaultMenuItems);
+  getOperarioMenuItems(): Observable<SidebarMenuItem[]> {
+    return of(this.operarioMenuItems);
+  }
+
+  getAdminMenuItems(): Observable<SidebarMenuItem[]> {
+    return of(this.adminMenuItems);
   }
 }
