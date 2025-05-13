@@ -85,6 +85,7 @@
   },
   "login-container": {
     "slogan": "Your operation in order, at all times",
+    "email": "Email",
     "email-required": "Email is required.",
     "email-valid": "Enter a valid email.",
     "characters": "Min. 6 characters.",
@@ -94,6 +95,13 @@
     "login": "LOGIN",
     "register": "REGISTER",
     "loading": "Loading..."
-
+  },
+  "password-recovery": {
+    "recover-password": "Password Recovery",
+    "link-sent": "We'll send you a link to reset your password.",
+    "email": "Email",
+    "email-example": "example@email.com",
+    "sent-link": "SEND LINK",
+    "back-login": "BACK TO LOGIN"
   }
 }

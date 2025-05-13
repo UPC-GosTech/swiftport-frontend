@@ -9,11 +9,11 @@
 
     <form (ngSubmit)="onLogin()" #loginForm="ngForm" novalidate>
 
-      <label for="email">Email</label>
+      <label for="email">{{ 'login-container.email' | translate }}</label>
       <input
         type="email"
         id="email"
-        placeholder="Email"
+        [placeholder]="'login-container.email' | translate"
         [(ngModel)]="email"
         name="email"
         required
