@@ -79,12 +79,12 @@ export class LoginComponent {
     if (this.password.length >= 6) {
       userSession.role = 'operario';
       this.localStorageService.setItem('userSession', userSession);
-      this.router.navigate(['/swiftport']);
+      this.router.navigate(['/swiftport/home']);
     }
     else {
       userSession.role = 'admin';
       this.localStorageService.setItem('userSession', userSession);
-      this.router.navigate(['/swiftport']);
+      this.router.navigate(['/swiftport/home']);
     }
   }
 }

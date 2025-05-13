@@ -11,8 +11,6 @@ import { LocationManagementComponent } from './features/resources/pages/location
 import { TeamManagementComponent } from './features/resources/pages/team-management/team-management.component';
 import { ActivityManagementComponent } from './features/planning/pages/activity-management/activity-management.component';
 import {LoginComponent} from './features/security/pages/login/login.component';
-import {HomeOperarioComponent} from './core/registration/views/home-operario/home-operario.component';
-import {HomeAdminComponent} from './core/registration/views/home-admin/home-admin.component';
 import {
   ActivityDetailViewComponent} from './features/planning/components/activity-detail-view/activity-detail-view.component';
 import {
@@ -32,6 +30,7 @@ import {UserManagementComponent} from './features/security/pages/user-management
 import { TaskPlanningComponent } from './features/planning/pages/task-planning/task-planning.component';
 import {ActivitiesListComponent} from './features/executions/pages/activities-list/activities-list.component';
 import {ProfileViewComponent} from './profile-view/profile-view.component';
+import {HomeComponent} from './core/registration/views/home/home.component';
 export const routes: Routes = [
   { path: 'a',                  component: LoginComponent},
   { path: 'login',              component: LoginComponent},
@@ -54,8 +53,7 @@ export const routes: Routes = [
       { path: 'task-planning',                component: TaskPlanningComponent},
       { path: 'users',                        component: UserManagementComponent},
       { path: 'activity-management',          component: ActivityManagementComponent},
-      { path: 'home-operario',                component: HomeOperarioComponent},
-      { path: 'home-admin',                   component: HomeAdminComponent},
+      { path: 'home',                         component: HomeComponent},
       { path: 'execution-history',            component: ExecutionHistoryViewComponent},
       { path: 'task-list-operario',           component: TaskListOperarioViewComponent},
       { path: 'company-settings',             component: CompanySettingsComponent},
