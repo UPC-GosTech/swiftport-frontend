@@ -10,6 +10,9 @@ import { FormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { EmployeeFormDialogComponent } from '../../components/employee-form-dialog/employee-form-dialog.component';
 import {TranslatePipe} from '@ngx-translate/core';
+import {EquipmentService} from '../../../../shared/services/equipment.service';
+import {EmployeeService} from '../../services/employee.service';
+import {Equipment} from '../../models/equipment.entity';
 
 @Component({
   selector: 'app-employee-management',
@@ -30,7 +33,18 @@ export class EmployeeManagementComponent implements OnInit {
   // Data sources
   employeeData: Employee[] = [];
   filteredEmployees: Employee[] = [];
-  positions: Position[] = [];
+  positions: Position[] = [
+    {
+      "id": 1,
+      "name": "Admin",
+      "description": "In charge of the company"
+    },
+    {
+      "id": 2,
+      "name": "Operario",
+      "description": "Executes the tasks"
+    }
+  ];
 
   // Filter options
   positionFilter: string = 'all';
@@ -46,15 +60,15 @@ export class EmployeeManagementComponent implements OnInit {
       hide: { visible: true, label: 'DNI' }
     },
     {
-      header: { key: 'fullName', label: 'Nombre' },
-      cell: 'fullName',
+      header: { key: 'fullName', label: 'Apellido' },
+      cell: 'lastName',
       type: 'text',
       sortable: true,
       hide: { visible: true, label: 'Nombre' }
     },
     {
       header: { key: 'positionNames', label: 'Cargo' },
-      cell: 'positionNames',
+      cell: 'positions[0].name',
       type: 'text',
       sortable: true,
       hide: { visible: true, label: 'Cargo' }
@@ -68,64 +82,22 @@ export class EmployeeManagementComponent implements OnInit {
     }
   ];
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private employeeService: EmployeeService) {}
+
+  getAllEmployees(): void {
+    this.employeeService.getAll().subscribe(
+      (response: Employee[]) => {
+        this.employeeData = response;  // Asignar los equipos obtenidos
+        this.applyFilters();  // Aplicar filtros si es necesario
+      },
+      (error) => {
+        console.error( error);
+      }
+    );
+  }
 
   ngOnInit(): void {
-    // Simulate getting positions
-    this.positions = [
-      new Position(1, 'Conductor', 'Conductor de vehículos'),
-      new Position(2, 'Operador', 'Operador de maquinaria'),
-      new Position(3, 'Supervisor', 'Supervisor de obra'),
-      new Position(4, 'Técnico', 'Técnico especializado')
-    ];
-
-    // Set position filter options
-    this.positionOptions = ['all', ...this.positions.map(p => p.name)];
-
-    // Simulate getting employees
-    this.employeeData = [
-      new Employee(
-        1,
-        'Juan',
-        'Pérez',
-        '45678912',
-        'juan.perez@example.com',
-        '987654321',
-        'ACTIVE',
-        [this.positions[0]]
-      ),
-      new Employee(
-        2,
-        'María',
-        'García',
-        '12345678',
-        'maria.garcia@example.com',
-        '123456789',
-        'ACTIVE',
-        [this.positions[1]]
-      ),
-      new Employee(
-        3,
-        'Carlos',
-        'López',
-        '87654321',
-        'carlos.lopez@example.com',
-        '456789123',
-        'ACTIVE',
-        [this.positions[2]]
-      ),
-      new Employee(
-        4,
-        'Ana',
-        'Martínez',
-        '56789123',
-        'ana.martinez@example.com',
-        '321654987',
-        'ACTIVE',
-        [this.positions[0], this.positions[3]]
-      )
-    ];
-
+    this.getAllEmployees();
     this.applyFilters();
   }
 
@@ -192,12 +164,14 @@ export class EmployeeManagementComponent implements OnInit {
   }
 
   deleteEmployee(employee: Employee): void {
-    if (confirm(`¿Estás seguro de eliminar a ${employee.fullName}?`)) {
-      const index = this.employeeData.findIndex(e => e.id === employee.id);
-      if (index !== -1) {
-        this.employeeData.splice(index, 1);
-        this.applyFilters();
+    this.employeeService.deleteEmployee(employee.id).subscribe(
+      () => {
+        this.employeeData = this.employeeData.filter(e => e.id !== employee.id);
+        this.applyFilters();  // Aplicar los filtros para actualizar la vista
+      },
+      (error) => {
+        console.error('Error al eliminar el equipo:', error);
       }
-    }
+    );
   }
 }

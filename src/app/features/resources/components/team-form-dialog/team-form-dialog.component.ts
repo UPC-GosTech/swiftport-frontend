@@ -71,18 +71,18 @@ export class TeamFormDialogComponent implements OnInit {
   loadData(): void {
     forkJoin({
       zones: this.zoneService.getZones(),
-      employees: this.employeeService.getActiveEmployees()
+      employees: this.employeeService.getAllEmployees()
     }).subscribe(result => {
       this.zones = result.zones;
       this.employees = result.employees;
-      
+
       // Extract locations from all zones
       this.zones.forEach(zone => {
         if (zone.locations && zone.locations.length > 0) {
           this.locations = [...this.locations, ...zone.locations];
         }
       });
-      
+
       // Extract available positions from employees
       const positionSet = new Set<string>();
       this.employees.forEach(employee => {
@@ -90,16 +90,16 @@ export class TeamFormDialogComponent implements OnInit {
           positionSet.add(JSON.stringify(position));
         });
       });
-      
+
       this.positions = Array.from(positionSet).map(p => JSON.parse(p));
-      
+
       // If editing, populate the team members and update filtered locations
       if (this.data.team) {
         this.teamMembers.clear();
         this.data.team.members.forEach(member => {
           this.teamMembers.push(this.createMemberFormGroup(member));
         });
-        
+
         // Set initial filtered locations
         if (this.data.team.zone) {
           this.onZoneChange(this.data.team.zone.id);
@@ -110,7 +110,7 @@ export class TeamFormDialogComponent implements OnInit {
 
   initForm(): void {
     this.isEditMode = !!this.data.team;
-    
+
     this.teamForm = this.fb.group({
       name: [this.data.team?.name || '', Validators.required],
       zoneId: [this.data.team?.zone?.id || '', Validators.required],
@@ -127,10 +127,10 @@ export class TeamFormDialogComponent implements OnInit {
   onZoneChange(zoneId: number): void {
     // Reset location control
     this.teamForm.get('locationId')?.setValue('');
-    
+
     // Filter locations by selected zone
     this.filteredLocations = this.locations.filter(location => location.zoneId === zoneId);
-    
+
     // If there's only one location, select it automatically
     if (this.filteredLocations.length === 1) {
       this.teamForm.get('locationId')?.setValue(this.filteredLocations[0].id);
@@ -170,7 +170,7 @@ export class TeamFormDialogComponent implements OnInit {
 
   formatDate(date: Date): string {
     if (!date) return '';
-    
+
     const d = new Date(date);
     return d.toLocaleDateString('es-ES', {
       year: 'numeric',
@@ -188,13 +188,13 @@ export class TeamFormDialogComponent implements OnInit {
     const formValues = this.teamForm.value;
     const selectedZone = this.zones.find(z => z.id === formValues.zoneId)!;
     const selectedLocation = this.locations.find(l => l.id === formValues.locationId);
-    
+
     // Update zone with selected location if available
     let zoneWithLocation = {...selectedZone};
     if (selectedLocation) {
       zoneWithLocation.locations = [selectedLocation];
     }
-    
+
     // Create TeamMember objects
     const teamMembers: TeamMember[] = formValues.teamMembers.map((member: any) => {
       const employee = this.employees.find(e => e.id === member.employeeId)!;
@@ -203,7 +203,7 @@ export class TeamFormDialogComponent implements OnInit {
     });
 
     // Create the Team object with the date from DateNavigator
-    const team: Team = this.data.team ? 
+    const team: Team = this.data.team ?
       new Team(
         this.data.team.id,
         formValues.name,
@@ -211,7 +211,7 @@ export class TeamFormDialogComponent implements OnInit {
         zoneWithLocation,
         this.data.team.status,
         teamMembers
-      ) : 
+      ) :
       new Team(
         0, // ID will be assigned by the service
         formValues.name,
@@ -232,7 +232,7 @@ export class TeamFormDialogComponent implements OnInit {
   markFormGroupTouched(formGroup: FormGroup): void {
     Object.values(formGroup.controls).forEach(control => {
       control.markAsTouched();
-      
+
       if ((control as FormGroup)?.controls) {
         this.markFormGroupTouched(control as FormGroup);
       }

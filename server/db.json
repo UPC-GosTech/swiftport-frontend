@@ -341,22 +341,6 @@
   ],
   "employee": [
     {
-      "id": 101,
-      "firstName": "Carlos",
-      "lastName": "Gomez",
-      "dni": "12345678",
-      "email": "carlos.gomez@example.com",
-      "phone": "987654321",
-      "status": "ACTIVE",
-      "positions": [
-        {
-          "id": 1,
-          "name": "Admin",
-          "description": "In charge of the company"
-        }
-      ]
-    },
-    {
       "id": 102,
       "firstName": "Ana",
       "lastName": "Martinez",
