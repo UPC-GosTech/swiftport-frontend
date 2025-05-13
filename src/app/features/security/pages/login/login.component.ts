@@ -63,9 +63,11 @@ export class LoginComponent {
   }
 
   onSumit() {
-    if (this.email === 'operario' && this.password.length >= 6) {
-      this.router.navigate(['/home-operario']);
+    if (this.password.length >= 6) {
+      this.router.navigate(['/swiftport'], { state: { usertype: 'operario'}});
     }
-    else this.router.navigate(['/home-admin']);
+    else {
+      this.router.navigate(['/swiftport'], { state: { usertype: 'admin'}});
+    }
   }
 }
