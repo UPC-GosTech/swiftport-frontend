@@ -17,6 +17,7 @@ import { EmployeeService } from '../../services/employee.service';
 import { Team } from '../../models/team.entity';
 import { Zone } from '../../models/zone.entity';
 import { TeamMember } from '../../models/team-member.entity';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-team-management',
@@ -32,7 +33,8 @@ import { TeamMember } from '../../models/team-member.entity';
     FormsModule,
     DateNavigatorComponent,
     ButtonComponent,
-    TeamCardComponent
+    TeamCardComponent,
+    TranslatePipe
   ],
   templateUrl: './team-management.component.html',
   styleUrl: './team-management.component.scss'
@@ -86,18 +88,18 @@ export class TeamManagementComponent implements OnInit {
   applyFilters(): void {
     // Start with all teams and then apply filters
     let filtered = [...this.teams];
-    
+
     // Filter by date
     filtered = filtered.filter(team => {
       const teamDate = new Date(team.date);
       return teamDate.toDateString() === this.selectedDate.toDateString();
     });
-    
+
     // Filter by zone if selected
     if (this.selectedZoneId) {
       filtered = filtered.filter(team => team.zone.id === this.selectedZoneId);
     }
-    
+
     this.filteredTeams = filtered;
   }
 

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {NgForOf} from '@angular/common';
+import {TranslatePipe} from '@ngx-translate/core';
 
 interface Usuario {
   nombre: string;
@@ -14,7 +15,8 @@ interface Usuario {
   templateUrl: './user-management.component.html',
   imports: [
     FormsModule,
-    NgForOf
+    NgForOf,
+    TranslatePipe
   ],
   styleUrls: ['./user-management.component.scss']
 })

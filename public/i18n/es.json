@@ -82,5 +82,36 @@
     "charges": "Cargos",
     "cancel": "Cancelar",
     "save": "Guardar"
+  },
+  "user-management": {
+    "title": "Gestión de Usuarios",
+    "all": "Todos los roles",
+    "search": "Buscar por nombre o email",
+    "name": "Nombre",
+    "status": "Estado",
+    "actions": "Acciones",
+    "page": "Página",
+    "of": "de",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "create": "Crear Usuario"
+  },
+  "team-management": {
+    "title": "Gestión de Equipos",
+    "filter": "Filtrar por Zona",
+    "all": "Todas las zonas",
+    "clean": "Limpiar filtro",
+    "no-teams": "No hay equipos para mostrar",
+    "no-filter": "No se encontraron equipos para la fecha y filtros seleccionados.",
+    "create": "Crear Equipo"
+  },
+  "team-card": {
+    "date": "Fecha: ",
+    "location": "Ubicación: ",
+    "status": "Estado: ",
+    "members": "Miembros del Equipo",
+    "mo-members": "No hay miembros asignados a este equipo.",
+    "edit": "Editar",
+    "edit-m": "Editar Miembros"
   }
 }

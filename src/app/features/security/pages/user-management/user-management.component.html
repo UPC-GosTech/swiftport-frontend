@@ -1,12 +1,12 @@
 <div class="user-management-container">
   <div class="header">
-    <h2>Gestión de Usuarios</h2>
+    <h2>{{ 'user-management.title' | translate }}</h2>
     <div class="filters">
       <select [(ngModel)]="selectedRole" (change)="filterUsers()">
-        <option value="">Todos los roles</option>
+        <option value="">{{ 'user-management.all' | translate }}</option>
         <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
       </select>
-      <input type="text" placeholder="Buscar por nombre o email" [(ngModel)]="searchTerm" (input)="filterUsers()">
+      <input type="text" placeholder="{{'user-management.search' | translate}}" [(ngModel)]="searchTerm" (input)="filterUsers()">
     </div>
   </div>
 
@@ -14,11 +14,11 @@
     <table class="user-table">
       <thead>
       <tr>
-        <th>Nombre</th>
+        <th>{{'user-management.name' | translate}}</th>
         <th>Email</th>
         <th>Rol</th>
-        <th>Estado</th>
-        <th>Acciones</th>
+        <th>{{'user-management.status' | translate}}</th>
+        <th>{{'user-management.actions' | translate}}</th>
       </tr>
       </thead>
       <tbody>
@@ -43,12 +43,12 @@
   </div>
 
   <div class="pagination">
-    <button (click)="prevPage()" [disabled]="currentPage === 1">← Anterior</button>
-    <span>Página {{ currentPage }} de {{ totalPages }}</span>
-    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente →</button>
+    <button (click)="prevPage()" [disabled]="currentPage === 1">← {{'user-management.previous' | translate}}</button>
+    <span>{{'user-management.page' | translate}} {{ currentPage }} {{'user-management.of' | translate}} {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">{{'user-management.next' | translate}} →</button>
   </div>
 
   <div class="footer">
-    <button class="create-btn" (click)="openCreateModal()">➕ Crear Usuario</button>
+    <button class="create-btn" (click)="openCreateModal()">➕ {{'user-management.create' | translate}}</button>
   </div>
 </div>
