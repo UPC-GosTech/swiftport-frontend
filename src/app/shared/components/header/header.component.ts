@@ -28,7 +28,7 @@ export class HeaderComponent {
       const currentUrl = this.location.path();
       this.previousEndpoint = currentUrl.split('?')[0];
       console.log("Endpoint de la ruta anterior:", this.previousEndpoint);
-      this.router.navigate(['/profile']);
+      this.router.navigate(['/swiftport/profile']);
       this.enter = false;
     } else {
       this.router.navigate([this.previousEndpoint]);

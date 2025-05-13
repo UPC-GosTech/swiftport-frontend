@@ -9,22 +9,22 @@ export class MenuService {
 
   private adminMenuItems: SidebarMenuItem[] = [
     {
-      id: 'home-admin',
+      id: 'home',
       label: 'Home',
       icon: 'home',
-      route: '/home-admin',
+      route: '/swiftport/home',
     },
     {
       id: 'dashboard',
       label: 'Dashboard',
       icon: 'dashboard',
-      route: '/dashboard'
+      route: '/swiftport/dashboard'
     },
     {
       id: 'users',
       label: 'Users',
       icon: 'groups',
-      route: '/users'
+      route: '/swiftport/users'
     },
     {
       id: 'management',
@@ -35,25 +35,25 @@ export class MenuService {
           id: 'equipments-management',
           label: 'Equipment Management',
           icon: 'construction',
-          route: '/equipments-management'
+          route: '/swiftport/equipments-management'
         },
         {
           id: 'employee-management',
           label: 'Employee Management',
           icon: 'people',
-          route: '/employee-management'
+          route: '/swiftport/employee-management'
         },
         {
           id: 'location-management',
           label: 'Location Management',
           icon: 'place',
-          route: '/location-management'
+          route: '/swiftport/location-management'
         },
         {
           id: 'teams-management',
           label: 'Teams Management',
           icon: 'group',
-          route: '/teams-management'
+          route: '/swiftport/teams-management'
         }
       ]
     },
@@ -66,13 +66,13 @@ export class MenuService {
           id: 'activities-list',
           label: 'Activities List',
           icon: 'list',
-          route: '/activities-list'
+          route: '/swiftport/activities-list'
         },
         {
           id: 'activities-management',
           label: 'Activities Management',
           icon: 'dataset',
-          route: '/activity-management'
+          route: '/swiftport/activity-management'
         }
       ]
     },
@@ -80,46 +80,46 @@ export class MenuService {
       id: 'task-planning',
       label: 'Task Planning',
       icon: 'view_timeline',
-      route: '/task-planning'
+      route: '/swiftport/task-planning'
     },
     {
       id: 'execution-history',
       label: 'Execution History',
       icon: 'scoreboard',
-      route: '/execution-history'
+      route: '/swiftport/execution-history'
     },
     {
       id: 'settings',
       label: 'Settings',
       icon: 'settings',
-      route: '/settings'
+      route: '/swiftport/company-settings'
     },
     {
       id: 'demo',
       label: 'Components Demo',
       icon: 'construction',
-      route: '/demo'
+      route: '/swiftport/demo'
     }
   ];
 
   private operarioMenuItems: SidebarMenuItem[] = [
     {
-      id: 'home-operario',
+      id: 'home',
       label: 'Home',
       icon: 'home',
-      route: '/home-operario',
+      route: '/swiftport/home',
     },
     {
       id: 'equipments-management',
       label: 'Equipment Management',
       icon: 'construction',
-      route: '/equipments-management'
+      route: '/swiftport/equipments-management'
     },
     {
       id: 'location-management',
       label: 'Location Management',
       icon: 'place',
-      route: '/location-management'
+      route: '/swiftport/location-management'
     },
     {
       id: 'activities',
@@ -130,13 +130,13 @@ export class MenuService {
           id: 'activities-list',
           label: 'Activities List',
           icon: 'list',
-          route: '/activities-list'
+          route: '/swiftport/activities-list'
         },
         {
           id: 'activities-management',
           label: 'Activities Management',
           icon: 'dataset',
-          route: '/activity-management'
+          route: '/swiftport/activity-management'
         }
       ]
     },
@@ -144,13 +144,13 @@ export class MenuService {
       id: 'task-list-operario',
       label: 'Task List',
       icon: 'list',
-      route: '/task-list-operario'
+      route: '/swiftport/task-list-operario'
     },
     {
       id: 'demo',
       label: 'Components Demo',
       icon: 'construction',
-      route: '/demo'
+      route: '/swiftport/demo'
     }
   ];
 

@@ -31,6 +31,7 @@ import { TaskPlanningComponent } from './features/planning/pages/task-planning/t
 import {ActivitiesListComponent} from './features/executions/pages/activities-list/activities-list.component';
 import {ProfileViewComponent} from './profile-view/profile-view.component';
 import {HomeComponent} from './core/registration/views/home/home.component';
+import {ActivityListComponent} from './features/planning/components/activity-list/activity-list.component';
 export const routes: Routes = [
   { path: 'a',                  component: LoginComponent},
   { path: 'login',              component: LoginComponent},
@@ -48,7 +49,7 @@ export const routes: Routes = [
       { path: 'employee-management',          component: EmployeeManagementComponent},
       { path: 'location-management',          component: LocationManagementComponent},
       { path: 'teams-management',             component: TeamManagementComponent},
-      { path: 'activities-list',              component: ActivitiesListComponent},
+      { path: 'activities-list',              component: ActivityListComponent},
       { path: 'activity-management',          component: ActivityManagementComponent},
       { path: 'task-planning',                component: TaskPlanningComponent},
       { path: 'users',                        component: UserManagementComponent},
