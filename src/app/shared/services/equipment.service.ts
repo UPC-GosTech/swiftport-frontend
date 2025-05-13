@@ -25,13 +25,11 @@ export class EquipmentService extends BaseService<Equipment>{
     return this.getAll();  // Usando el método heredado de BaseService
   }
 
-  // Método para obtener un equipo por su ID
   getEquipmentById(id: number): Observable<Equipment> {
-    return this.getById(id);  // Usando el método heredado de BaseService
+    return this.getById(id);
   }
 
-  // Método para agregar un nuevo equipo
   addEquipment(equipment: Equipment): Observable<Equipment> {
-    return this.create(equipment);  // Usando el método heredado de BaseService
+    return this.create(equipment);
   }
 }

@@ -581,22 +581,6 @@
       ]
     },
     {
-      "id": 117,
-      "firstName": "Carmen",
-      "lastName": "Ruiz",
-      "dni": "78901235",
-      "email": "carmen.ruiz@example.com",
-      "phone": "997890123",
-      "status": "ACTIVE",
-      "positions": [
-        {
-          "id": 2,
-          "name": "Operario",
-          "description": "Executes the tasks"
-        }
-      ]
-    },
-    {
       "id": 118,
       "firstName": "Marta",
       "lastName": "Gomez",
@@ -821,6 +805,14 @@
       "capacityLoad": 121212,
       "capacityPassengers": 3,
       "status": "Mantenimiento"
+    },
+    {
+      "id": 1023,
+      "plateNumber": "123123",
+      "type": "camion",
+      "capacityLoad": 4,
+      "capacityPassengers": 1,
+      "status": "Disponible"
     }
   ],
   "location": [
