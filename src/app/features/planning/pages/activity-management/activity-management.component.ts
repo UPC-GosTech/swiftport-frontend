@@ -41,16 +41,14 @@ import { DateNavigatorComponent } from '../../../../shared/components/date-navig
 export class ActivityManagementComponent implements OnInit {
   activities: Activity[] = [];
   filteredActivities: Activity[] = [];
-  
-  // Date filter
+
   selectedDate: Date = new Date();
-  
-  // Pagination
+
   pageSize = 5;
   pageSizeOptions: number[] = [5, 10, 25];
   pageIndex = 0;
   totalActivities = 0;
-  
+
   // Filters
   statusFilter: string = '';
   priorityFilter: string = '';
@@ -63,8 +61,6 @@ export class ActivityManagementComponent implements OnInit {
   }
 
   loadActivities(): void {
-    // In a real app, you would fetch from a service
-    // Mock data for demonstration
     this.activities = Array(15).fill(0).map((_, index) => ({
       id: index + 1,
       title: `Actividad ${index + 1}`,
@@ -85,13 +81,13 @@ export class ActivityManagementComponent implements OnInit {
       createdAt: new Date(),
       updatedAt: new Date()
     }));
-    
+
     this.applyFilters();
   }
 
   applyFilters(): void {
     let filtered = [...this.activities];
-    
+
     // Filter by date (comparing only year, month, and day)
     if (this.selectedDate) {
       filtered = filtered.filter(activity => {
@@ -103,28 +99,28 @@ export class ActivityManagementComponent implements OnInit {
         );
       });
     }
-    
+
     if (this.statusFilter) {
       filtered = filtered.filter(activity => activity.status === this.statusFilter);
     }
-    
+
     if (this.priorityFilter) {
       filtered = filtered.filter(activity => activity.priority === this.priorityFilter);
     }
-    
+
     if (this.searchQuery) {
       const query = this.searchQuery.toLowerCase();
-      filtered = filtered.filter(activity => 
-        activity.title.toLowerCase().includes(query) || 
+      filtered = filtered.filter(activity =>
+        activity.title.toLowerCase().includes(query) ||
         activity.description.toLowerCase().includes(query)
       );
     }
-    
+
     this.totalActivities = filtered.length;
-    
+
     // Apply pagination
     this.filteredActivities = filtered.slice(
-      this.pageIndex * this.pageSize, 
+      this.pageIndex * this.pageSize,
       (this.pageIndex + 1) * this.pageSize
     );
   }
@@ -162,7 +158,7 @@ export class ActivityManagementComponent implements OnInit {
     this.snackBar.open(`Eliminando actividad ID: ${activityId}`, 'Cerrar', {
       duration: 3000
     });
-    
+
     // Mock deletion
     this.activities = this.activities.filter(a => a.id !== activityId);
     this.applyFilters();

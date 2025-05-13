@@ -38,10 +38,10 @@ export class MenuService {
       route: '/teams-management'
     },
     {
-      id: 'planning',
-      label: 'Planning',
+      id: 'activities',
+      label: 'Activities',
       icon: 'schedule',
-      route: '/planning'
+      route: '/activities-list'
     },
     {
       id: 'activity-management',
@@ -59,18 +59,7 @@ export class MenuService {
       id: 'users',
       label: 'Users',
       icon: 'people',
-      children: [
-        {
-          id: 'users-list',
-          label: 'All Users',
-          route: '/users'
-        },
-        {
-          id: 'users-add',
-          label: 'Add User',
-          route: '/users/add'
-        }
-      ]
+      route: '/users'
     },
     {
       id: 'settings',

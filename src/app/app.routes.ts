@@ -31,42 +31,39 @@ import {SelectRoleComponent} from './features/security/pages/select-role/select-
 import {UserManagementComponent} from './features/security/pages/user-management/user-management.component';
 import { TaskPlanningComponent } from './features/planning/pages/task-planning/task-planning.component';
 import {ActivitiesListComponent} from './features/executions/pages/activities-list/activities-list.component';
+import {ProfileViewComponent} from './profile-view/profile-view.component';
 export const routes: Routes = [
+  { path: 'a',                  component: LoginComponent},
+  { path: 'login',              component: LoginComponent},
+  { path: 'register',           component: RegisterComponent },
+  { path: 'payment',            component: PaymentInformationComponent},
+  { path: 'account',            component: AccountCreationComponent},
+  { path: 'password-recovery',  component: PasswordRecoveryComponent},
   {
     path: '',
     component: MainLayoutComponent,
     children: [
-        { path: 'demo',             component: ComponentsDemoComponent},
-        { path: 'equipments-management', component: EquipmentManagementComponent},
-        { path: 'employee-management', component: EmployeeManagementComponent},
-        { path: 'location-management', component: LocationManagementComponent},
-        { path: 'teams-management', component: TeamManagementComponent},
-      {path: 'activity-management', component: ActivityManagementComponent},
-      {path: 'task-planning', component: TaskPlanningComponent},
-        { path: 'activity-management', component: ActivityManagementComponent},
-        { path: 'activities-list', component: ActivitiesListComponent},
-        { path: 'routes-first-try', component: LoginComponent},
-        { path: 'register', component: RegisterComponent},
-        { path: 'login', component: LoginComponent},
-        { path: 'payment', component: PaymentInformationComponent},
-        { path: 'account', component: AccountCreationComponent},
-        { path: 'home-operario', component: HomeOperarioComponent},
-        { path: 'home-admin', component: HomeAdminComponent},
-        { path: 'activity-details', component: ActivityDetailViewComponent},
+      { path: 'profile',                      component: ProfileViewComponent},
+      { path: 'dashboard',                    component: ReportsViewComponent},
+      { path: 'equipments-management',        component: EquipmentManagementComponent},
+      { path: 'employee-management',          component: EmployeeManagementComponent},
+      { path: 'location-management',          component: LocationManagementComponent},
+      { path: 'teams-management',             component: TeamManagementComponent},
+      { path: 'activities-list',              component: ActivitiesListComponent},
+      { path: 'activity-management',          component: ActivityManagementComponent},
+      { path: 'task-planning',                component: TaskPlanningComponent},
+      { path: 'users',                        component: UserManagementComponent},
+      { path: 'activity-management',          component: ActivityManagementComponent},
+      { path: 'home-operario',                component: HomeOperarioComponent},
+      { path: 'home-admin',                   component: HomeAdminComponent},
+      { path: 'demo', component: ComponentsDemoComponent},
         { path: 'execution-history', component: ExecutionHistoryViewComponent},
-        { path: 'reports', component: ReportsViewComponent},
-        { path: 'task-execution', component: TaskExecutionViewComponent},
+        //{ path: 'task-execution', component: TaskExecutionViewComponent},
         { path: 'task-list-operario', component: TaskListOperarioViewComponent},
         { path: 'company-settings', component: CompanySettingsComponent},
-        { path: 'password-recovery', component: PasswordRecoveryComponent},
-        { path: 'select-role', component: SelectRoleComponent},
-        { path: 'user-management', component: UserManagementComponent},
         { path: '**', component: PageNotFoundComponent}
     ]
   },
-  { path: 'register',         component: RegisterComponent },
-  { path: 'account',          component: AccountCreationComponent},
-  { path: 'payment',          component: PaymentInformationComponent},
-  { path: 'demo',             component: ComponentsDemoComponent},
-  { path: '**',               component: PageNotFoundComponent }
+  { path: 'demo',               component: ComponentsDemoComponent},
+  { path: '**',                 component: PageNotFoundComponent }
 ];

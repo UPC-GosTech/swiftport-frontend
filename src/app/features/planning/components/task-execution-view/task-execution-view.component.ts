@@ -3,6 +3,7 @@ import {InputComponent} from "../../../../shared/components/input/input.componen
 import {FormsModule} from '@angular/forms';
 import {SelectorComponent} from '../../../../shared/components/selector/selector.component';
 import {ButtonComponent} from '../../../../shared/components/button/button.component';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-task-execution-view',
@@ -28,6 +29,8 @@ export class TaskExecutionViewComponent {
   machine: string = '';
   squadList = ['squad 1', 'squad 2', 'squad 3'];
   squad: string = '';
+
+  constructor(public dialogRef: MatDialogRef<TaskExecutionViewComponent>) {}
 
   onStartTimeChange(value: string): void {
     this.startTime = value;
@@ -59,5 +62,6 @@ export class TaskExecutionViewComponent {
 
   onSaveInformation(): void {
     console.log('Save information');
+    this.dialogRef.close();
   }
 }
