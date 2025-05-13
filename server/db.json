@@ -26,9 +26,15 @@
       "status": "En progreso",
       "assignedCrewId": "215-AWD",
       "vehicleId": "293-A31",
-      "incidentReportIds": ["I012", "I063"],
+      "incidentReportIds": [
+        "I012",
+        "I063"
+      ],
       "supervisorNotes": "La actividad se encuentra en proceso, faltan herramientas para el cumplimiento de la tercera tarea",
-      "attachments": ["contrato.pdf", "registro_de_empleados.pdf"],
+      "attachments": [
+        "contrato.pdf",
+        "registro_de_empleados.pdf"
+      ],
       "createdAt": "2025-04-12",
       "updatedAt": "2025-05-12"
     },
@@ -46,9 +52,14 @@
       "status": "Pendiente",
       "assignedCrewId": "305-BWD",
       "vehicleId": "215-A51",
-      "incidentReportIds": ["I071", "I088"],
+      "incidentReportIds": [
+        "I071",
+        "I088"
+      ],
       "supervisorNotes": "Se requiere equipo adicional para la evaluación completa",
-      "attachments": ["informe_de_seguridad.pdf"],
+      "attachments": [
+        "informe_de_seguridad.pdf"
+      ],
       "createdAt": "2025-04-15",
       "updatedAt": "2025-05-10"
     },
@@ -66,9 +77,14 @@
       "status": "Pendiente",
       "assignedCrewId": "210-BNF",
       "vehicleId": "2005-B34",
-      "incidentReportIds": ["I032", "I076"],
+      "incidentReportIds": [
+        "I032",
+        "I076"
+      ],
       "supervisorNotes": "Las piezas de repuesto aún no han llegado",
-      "attachments": ["orden_de_compra.pdf"],
+      "attachments": [
+        "orden_de_compra.pdf"
+      ],
       "createdAt": "2025-04-18",
       "updatedAt": "2025-05-09"
     },
@@ -86,9 +102,14 @@
       "status": "Pendiente",
       "assignedCrewId": "305-GRD",
       "vehicleId": "2021-CB1",
-      "incidentReportIds": ["I014", "I099"],
+      "incidentReportIds": [
+        "I014",
+        "I099"
+      ],
       "supervisorNotes": "Falta de personal para completar la tarea rápidamente",
-      "attachments": ["inventario_anterior.pdf"],
+      "attachments": [
+        "inventario_anterior.pdf"
+      ],
       "createdAt": "2025-04-20",
       "updatedAt": "2025-05-11"
     },
@@ -106,9 +127,14 @@
       "status": "Pendiente",
       "assignedCrewId": "210-CFS",
       "vehicleId": "401-TB1",
-      "incidentReportIds": ["I054", "I021"],
+      "incidentReportIds": [
+        "I054",
+        "I021"
+      ],
       "supervisorNotes": "No hay suficientes espacios para almacenar toda la carga",
-      "attachments": ["orden_de_despacho.pdf"],
+      "attachments": [
+        "orden_de_despacho.pdf"
+      ],
       "createdAt": "2025-04-25",
       "updatedAt": "2025-05-12"
     },
@@ -126,9 +152,14 @@
       "status": "Pendiente",
       "assignedCrewId": "415-AQW",
       "vehicleId": "303-D45",
-      "incidentReportIds": ["I022", "I044"],
+      "incidentReportIds": [
+        "I022",
+        "I044"
+      ],
       "supervisorNotes": "Aún falta verificar el funcionamiento del equipo reemplazado",
-      "attachments": ["informe_tecnico.pdf"],
+      "attachments": [
+        "informe_tecnico.pdf"
+      ],
       "createdAt": "2025-04-28",
       "updatedAt": "2025-05-10"
     },
@@ -146,9 +177,14 @@
       "status": "Pendiente",
       "assignedCrewId": "305-KGD",
       "vehicleId": "234-X12",
-      "incidentReportIds": ["I017", "I067"],
+      "incidentReportIds": [
+        "I017",
+        "I067"
+      ],
       "supervisorNotes": "Necesitamos más personal para realizar una evaluación exhaustiva",
-      "attachments": ["documento_de_riesgos.pdf"],
+      "attachments": [
+        "documento_de_riesgos.pdf"
+      ],
       "createdAt": "2025-04-30",
       "updatedAt": "2025-05-07"
     },
@@ -166,9 +202,14 @@
       "status": "Pendiente",
       "assignedCrewId": "410-ZYT",
       "vehicleId": "556-A32",
-      "incidentReportIds": ["I033", "I070"],
+      "incidentReportIds": [
+        "I033",
+        "I070"
+      ],
       "supervisorNotes": "La tarea llevará más tiempo debido a la cantidad de materiales",
-      "attachments": ["informe_inventario.pdf"],
+      "attachments": [
+        "informe_inventario.pdf"
+      ],
       "createdAt": "2025-05-03",
       "updatedAt": "2025-05-10"
     },
@@ -186,9 +227,14 @@
       "status": "Pendiente",
       "assignedCrewId": "215-GLK",
       "vehicleId": "800-VX1",
-      "incidentReportIds": ["I004", "I091"],
+      "incidentReportIds": [
+        "I004",
+        "I091"
+      ],
       "supervisorNotes": "Hay que realizar pruebas adicionales antes de lanzarlo al público",
-      "attachments": ["plan_de_desarrollo.pdf"],
+      "attachments": [
+        "plan_de_desarrollo.pdf"
+      ],
       "createdAt": "2025-05-05",
       "updatedAt": "2025-05-09"
     },
@@ -206,9 +252,14 @@
       "status": "Pendiente",
       "assignedCrewId": "315-MNB",
       "vehicleId": "204-G34",
-      "incidentReportIds": ["I015", "I072"],
+      "incidentReportIds": [
+        "I015",
+        "I072"
+      ],
       "supervisorNotes": "Esperamos recibir las piezas de repuesto en los próximos días",
-      "attachments": ["orden_reparacion.pdf"],
+      "attachments": [
+        "orden_reparacion.pdf"
+      ],
       "createdAt": "2025-05-07",
       "updatedAt": "2025-05-11"
     },
@@ -226,9 +277,14 @@
       "status": "Pendiente",
       "assignedCrewId": "305-JKF",
       "vehicleId": "302-B45",
-      "incidentReportIds": ["I009", "I060"],
+      "incidentReportIds": [
+        "I009",
+        "I060"
+      ],
       "supervisorNotes": "Se debe hacer un espacio en el almacén para los nuevos productos",
-      "attachments": ["plan_almacenaje.pdf"],
+      "attachments": [
+        "plan_almacenaje.pdf"
+      ],
       "createdAt": "2025-05-10",
       "updatedAt": "2025-05-12"
     },
@@ -246,9 +302,14 @@
       "status": "Pendiente",
       "assignedCrewId": "205-FSG",
       "vehicleId": "213-X44",
-      "incidentReportIds": ["I022", "I080"],
+      "incidentReportIds": [
+        "I022",
+        "I080"
+      ],
       "supervisorNotes": "Requiere verificación del cumplimiento de todos los requisitos",
-      "attachments": ["documento_normativo.pdf"],
+      "attachments": [
+        "documento_normativo.pdf"
+      ],
       "createdAt": "2025-05-12",
       "updatedAt": "2025-05-12"
     },
@@ -266,9 +327,14 @@
       "status": "Pendiente",
       "assignedCrewId": "215-TFL",
       "vehicleId": "400-X92",
-      "incidentReportIds": ["I021", "I047"],
+      "incidentReportIds": [
+        "I021",
+        "I047"
+      ],
       "supervisorNotes": "Se necesita la colaboración de varios departamentos para completar la auditoría",
-      "attachments": ["plan_auditoria.pdf"],
+      "attachments": [
+        "plan_auditoria.pdf"
+      ],
       "createdAt": "2025-05-12",
       "updatedAt": "2025-05-12"
     }
@@ -755,6 +821,22 @@
       "capacityLoad": 10000,
       "capacityPassengers": 3,
       "status": "Mantenimiento"
+    },
+    {
+      "id": 1021,
+      "plateNumber": "123456",
+      "type": "Rum rum",
+      "capacityLoad": 439,
+      "capacityPassengers": 2,
+      "status": "Mantenimiento"
+    },
+    {
+      "id": 1022,
+      "plateNumber": "123432",
+      "type": "Tractor",
+      "capacityLoad": 121212,
+      "capacityPassengers": 3,
+      "status": "Mantenimiento"
     }
   ],
   "location": [
@@ -774,7 +856,7 @@
       "name": "Monte de Extracción",
       "description": "Zona minera, conocida por la extracción de cobre.",
       "ubication": {
-        "latitude": -16.4090,
+        "latitude": -16.409,
         "longitude": -71.5375
       }
     },
@@ -784,7 +866,7 @@
       "name": "Zona de Extracción Antamina",
       "description": "Área minera rica en cobre y zinc.",
       "ubication": {
-        "latitude": -9.3170,
+        "latitude": -9.317,
         "longitude": -77.1723
       }
     },
@@ -804,7 +886,7 @@
       "name": "Área de Explotación Ica",
       "description": "Zona minera, conocida por la minería de oro.",
       "ubication": {
-        "latitude": -13.3710,
+        "latitude": -13.371,
         "longitude": -75.7911
       }
     },
@@ -1123,7 +1205,7 @@
           "name": "Monte de Extracción",
           "description": "Zona minera, conocida por la extracción de cobre.",
           "ubication": {
-            "latitude": -16.4090,
+            "latitude": -16.409,
             "longitude": -71.5375
           }
         }
@@ -1141,7 +1223,7 @@
           "name": "Zona de Extracción Antamina",
           "description": "Área minera rica en cobre y zinc.",
           "ubication": {
-            "latitude": -9.3170,
+            "latitude": -9.317,
             "longitude": -77.1723
           }
         },
@@ -1189,7 +1271,7 @@
           "name": "Área de Explotación Ica",
           "description": "Zona minera, conocida por la minería de oro.",
           "ubication": {
-            "latitude": -13.3710,
+            "latitude": -13.371,
             "longitude": -75.7911
           }
         }
@@ -1521,7 +1603,7 @@
             "name": "Monte de Extracción",
             "description": "Zona minera, conocida por la extracción de cobre.",
             "ubication": {
-              "latitude": -16.4090,
+              "latitude": -16.409,
               "longitude": -71.5375
             }
           }
@@ -1619,7 +1701,7 @@
             "name": "Zona de Extracción Antamina",
             "description": "Área minera rica en cobre y zinc.",
             "ubication": {
-              "latitude": -9.3170,
+              "latitude": -9.317,
               "longitude": -77.1723
             }
           },
@@ -1771,7 +1853,7 @@
             "name": "Área de Explotación Ica",
             "description": "Zona minera, conocida por la minería de oro.",
             "ubication": {
-              "latitude": -13.3710,
+              "latitude": -13.371,
               "longitude": -75.7911
             }
           }

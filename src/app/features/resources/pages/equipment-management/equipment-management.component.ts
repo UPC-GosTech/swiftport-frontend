@@ -11,6 +11,7 @@ import { EquipmentFormDialogComponent } from '../../components/equipment-form-di
 import { EquipmentListComponent } from '../../components/equipment-list/equipment-list.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import {TranslatePipe} from '@ngx-translate/core';
+import { EquipmentService } from '../../../../shared/services/equipment.service';
 
 @Component({
   selector: 'app-equipment-management',
@@ -94,37 +95,22 @@ export class EquipmentManagementComponent implements OnInit {
     }
   ];
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private equipmentService: EquipmentService) {}
+
+  getAllEquipments(): void {
+    this.equipmentService.getAll().subscribe(
+      (response: Equipment[]) => {
+        this.equipmentData = response;  // Asignar los equipos obtenidos
+        this.applyFilters();  // Aplicar filtros si es necesario
+      },
+      (error) => {
+        console.error('Error al obtener los equipos:', error);
+      }
+    );
+  }
 
   ngOnInit(): void {
-    // Inicializar con datos de prueba
-    this.equipmentData = [
-      {
-        id: 1,
-        plateNumber: 'ABC-123',
-        type: 'Excavadora',
-        capacityLoad: 1500,
-        capacityPassengers: 2,
-        status: 'Disponible'
-      },
-      {
-        id: 2,
-        plateNumber: 'XYZ-789',
-        type: 'Bulldozer',
-        capacityLoad: 2500,
-        capacityPassengers: 1,
-        status: 'Mantenimiento'
-      },
-      {
-        id: 3,
-        plateNumber: 'DEF-456',
-        type: 'Camión Volquete',
-        capacityLoad: 5000,
-        capacityPassengers: 3,
-        status: 'Disponible'
-      }
-    ];
-
+    this.getAllEquipments();
     this.applyFilters();
   }
 
@@ -153,7 +139,7 @@ export class EquipmentManagementComponent implements OnInit {
     const dialogRef = this.dialog.open(EquipmentFormDialogComponent, {
       width: '500px',
       data: {
-        equipment: new Equipment(),
+        equipment: new Equipment({}),
         title: 'Agregar equipamiento'
       }
     });
@@ -182,20 +168,16 @@ export class EquipmentManagementComponent implements OnInit {
   }
 
   saveEquipment(equipment: Equipment): void {
-    if (equipment.id === 0) {
-      // Agregar nuevo equipo
-      const newId = Math.max(...this.equipmentData.map(e => e.id), 0) + 1;
-      equipment.id = newId;
-      this.equipmentData.push(equipment);
-    } else {
-      // Actualizar equipo existente
-      const index = this.equipmentData.findIndex(e => e.id === equipment.id);
-      if (index !== -1) {
-        this.equipmentData[index] = equipment;
+    this.equipmentService.addEquipment(equipment).subscribe(
+      (savedEquipment) => {
+        this.equipmentData.push(savedEquipment);
+        this.applyFilters();
+        this.getAllEquipments();
+      },
+      (error) => {
+        console.error(error);
       }
-    }
-
-    this.applyFilters();
+    );
   }
 
   changeStatus(equipment: Equipment, newStatus: string): void {
