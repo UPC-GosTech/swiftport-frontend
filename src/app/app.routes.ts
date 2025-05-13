@@ -56,12 +56,11 @@ export const routes: Routes = [
       { path: 'activity-management',          component: ActivityManagementComponent},
       { path: 'home-operario',                component: HomeOperarioComponent},
       { path: 'home-admin',                   component: HomeAdminComponent},
-      { path: 'demo', component: ComponentsDemoComponent},
-        { path: 'execution-history', component: ExecutionHistoryViewComponent},
-        //{ path: 'task-execution', component: TaskExecutionViewComponent},
-        { path: 'task-list-operario', component: TaskListOperarioViewComponent},
-        { path: 'company-settings', component: CompanySettingsComponent},
-        { path: '**', component: PageNotFoundComponent}
+      { path: 'execution-history',            component: ExecutionHistoryViewComponent},
+      { path: 'task-list-operario',           component: TaskListOperarioViewComponent},
+      { path: 'company-settings',             component: CompanySettingsComponent},
+      { path: 'demo',                         component: ComponentsDemoComponent},
+      { path: '**',                           component: PageNotFoundComponent}
     ]
   },
   { path: 'demo',               component: ComponentsDemoComponent},
