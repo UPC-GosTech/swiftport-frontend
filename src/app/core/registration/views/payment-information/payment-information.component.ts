@@ -3,13 +3,15 @@ import { Router } from '@angular/router';
 import {InputComponent} from '../../../../shared/components/input/input.component';
 import {SelectorComponent} from '../../../../shared/components/selector/selector.component';
 import {ButtonComponent} from '../../../../shared/components/button/button.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-payment-information',
   imports: [
     InputComponent,
     SelectorComponent,
-    ButtonComponent
+    ButtonComponent,
+    TranslatePipe
   ],
   templateUrl: './payment-information.component.html',
   styleUrl: './payment-information.component.scss'

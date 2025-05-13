@@ -114,6 +114,24 @@
     "register": "REGISTRARSE"
   },
   "payment-view": {
-
+    "bank-info": "Ingrese la informacion bancaria",
+    "full-name": "Nombre completo",
+    "company-name": "Nombre de la empresa",
+    "card-number": "Numero de la tarjeta",
+    "card-type": "Tipo de tarjeta",
+    "month":"Mes",
+    "year": "Año",
+    "ruc": "Numero de RUC",
+    "save": "Guardar"
+  },
+  "account-creation": {
+    "email": "Correo electrónico",
+    "email-input": "Ingrese su email...",
+    "name": "Nombre",
+    "name-input": "Ingrese su nombre...",
+    "password": "Password",
+    "password-input": "Ingrese su contraseña",
+    "password-repeat": "Repita su contraseña",
+    "register": "Registrarse"
   }
 }

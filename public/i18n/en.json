@@ -112,5 +112,26 @@
     "password": "Password",
     "password-repeat": "Repeat password",
     "register": "REGISTER"
+  },
+  "payment-view": {
+    "bank-info": "Enter your bank information",
+    "full-name": "Full name",
+    "company-name": "Company name",
+    "card-number": "Card number",
+    "card-type": "Card type",
+    "month":"Month",
+    "year": "Year",
+    "ruc": "RUC number",
+    "save": "Save"
+  },
+  "account-creation": {
+    "email": "Email",
+    "email-input": "Enter your email...",
+    "name": "Name",
+    "name-input": "Enter your name...",
+    "password": "Password",
+    "password-input": "Enter your password",
+    "password-repeat": "Repeat your password",
+    "register": "Register"
   }
 }
