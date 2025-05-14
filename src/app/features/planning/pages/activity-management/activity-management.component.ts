@@ -15,6 +15,9 @@ import { Activity } from '../../model/activity.entity';
 import { Task } from '../../model/task.entity';
 import { ActivityListComponent } from '../../components/activity-list/activity-list.component';
 import { DateNavigatorComponent } from '../../../../shared/components/date-navigator/date-navigator.component';
+import { ActivityService } from '../../services/activity.service';
+import { TaskService } from '../../services/task.service';
+import { DialogService } from '../../../../shared/services/dialog.service';
 
 @Component({
   selector: 'app-activity-management',
@@ -54,35 +57,31 @@ export class ActivityManagementComponent implements OnInit {
   priorityFilter: string = '';
   searchQuery: string = '';
 
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(
+    private snackBar: MatSnackBar,
+    private activityService: ActivityService,
+    private taskService: TaskService,
+    private dialogService: DialogService
+  ) {}
 
   ngOnInit(): void {
     this.loadActivities();
   }
 
   loadActivities(): void {
-    this.activities = Array(15).fill(0).map((_, index) => ({
-      id: index + 1,
-      title: `Actividad ${index + 1}`,
-      description: `Descripción de la actividad ${index + 1}`,
-      originLocationId: Math.floor(Math.random() * 100) + 1,
-      destinationLocationId: Math.floor(Math.random() * 100) + 1,
-      scheduledDate: new Date(Date.now() + (Math.random() - 0.5) * 14 * 24 * 60 * 60 * 1000),
-      estimatedDuration: Math.floor(Math.random() * 180) + 30,
-      actualStartTime: new Date(),
-      actualEndTime: new Date(),
-      priority: ['Alta', 'Media', 'Baja'][Math.floor(Math.random() * 3)] as 'Alta' | 'Media' | 'Baja',
-      status: ['Pendiente', 'En progreso', 'Finalizada', 'Cancelada'][Math.floor(Math.random() * 4)] as 'Pendiente' | 'En progreso' | 'Finalizada' | 'Cancelada',
-      assignedCrewId: `Equipo-${Math.floor(Math.random() * 10) + 1}`,
-      vehicleId: `Vehículo-${Math.floor(Math.random() * 5) + 1}`,
-      incidentReportIds: [],
-      supervisorNotes: 'Sin notas adicionales',
-      attachments: [],
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }));
-
-    this.applyFilters();
+    this.activityService.getAllActivities().subscribe({
+      next: (activities) => {
+        console.log(activities);
+        this.activities = activities;
+        this.applyFilters();
+      },
+      error: (error) => {
+        this.snackBar.open('Error al cargar las actividades', 'Cerrar', {
+          duration: 3000
+        });
+        console.error('Error loading activities:', error);
+      }
+    });
   }
 
   applyFilters(): void {
@@ -147,46 +146,80 @@ export class ActivityManagementComponent implements OnInit {
   }
 
   onEditActivity(activity: Activity): void {
-    // In a real app, this would open a dialog or navigate to edit page
+    // TODO: Implement edit dialog
     this.snackBar.open(`Editando actividad: ${activity.title}`, 'Cerrar', {
       duration: 3000
     });
   }
 
   onDeleteActivity(activityId: number): void {
-    // In a real app, this would show a confirmation dialog and then delete
-    this.snackBar.open(`Eliminando actividad ID: ${activityId}`, 'Cerrar', {
-      duration: 3000
+    this.dialogService.confirm({
+      title: 'Confirmar eliminación',
+      message: '¿Está seguro que desea eliminar esta actividad?',
+      confirmText: 'Eliminar',
+      cancelText: 'Cancelar'
+    }).subscribe(confirmed => {
+      if (confirmed) {
+        this.activityService.deleteActivity(activityId).subscribe({
+          next: () => {
+            this.snackBar.open('Actividad eliminada exitosamente', 'Cerrar', {
+              duration: 3000
+            });
+            this.loadActivities(); // Reload the list
+          },
+          error: (error) => {
+            this.snackBar.open('Error al eliminar la actividad', 'Cerrar', {
+              duration: 3000
+            });
+            console.error('Error deleting activity:', error);
+          }
+        });
+      }
     });
-
-    // Mock deletion
-    this.activities = this.activities.filter(a => a.id !== activityId);
-    this.applyFilters();
   }
 
   onEditTask(task: Task): void {
-    // In a real app, this would open a dialog or navigate to edit page
+    // TODO: Implement edit dialog
     this.snackBar.open(`Editando tarea: ${task.taskName}`, 'Cerrar', {
       duration: 3000
     });
   }
 
   onDeleteTask(taskId: number): void {
-    // In a real app, this would show a confirmation dialog and then delete
-    this.snackBar.open(`Eliminando tarea ID: ${taskId}`, 'Cerrar', {
-      duration: 3000
+    this.dialogService.confirm({
+      title: 'Confirmar eliminación',
+      message: '¿Está seguro que desea eliminar esta tarea?',
+      confirmText: 'Eliminar',
+      cancelText: 'Cancelar'
+    }).subscribe(confirmed => {
+      if (confirmed) {
+        this.taskService.deleteTask(taskId).subscribe({
+          next: () => {
+            this.snackBar.open('Tarea eliminada exitosamente', 'Cerrar', {
+              duration: 3000
+            });
+            this.loadActivities(); // Reload to update task lists
+          },
+          error: (error) => {
+            this.snackBar.open('Error al eliminar la tarea', 'Cerrar', {
+              duration: 3000
+            });
+            console.error('Error deleting task:', error);
+          }
+        });
+      }
     });
   }
 
   onAddTask(activityId: number): void {
-    // In a real app, this would open a dialog to create a new task
+    // TODO: Implement add task dialog
     this.snackBar.open(`Agregando tarea a actividad ID: ${activityId}`, 'Cerrar', {
       duration: 3000
     });
   }
 
   createActivity(): void {
-    // In a real app, this would open a dialog or navigate to create page
+    // TODO: Implement create dialog
     this.snackBar.open('Creando nueva actividad', 'Cerrar', {
       duration: 3000
     });

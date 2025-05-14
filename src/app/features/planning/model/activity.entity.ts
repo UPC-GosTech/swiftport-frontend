@@ -1,3 +1,5 @@
+import { Task } from "./task.entity";
+
 export class Activity {
   id: number;
   title: string;
@@ -17,9 +19,13 @@ export class Activity {
   attachments?: string[];
   createdAt?: Date;
   updatedAt?: Date;
+  tasksIds: number[];
+  zoneOriginId: number;
+  zoneDestinationId: number;
+  tasks: Task[];
 
-  constructor() {
-    this.id = 0;
+  constructor(id?: number) {
+    this.id = id || 0;
     this.title = '';
     this.description = '';
     this.originLocationId = 0;
@@ -37,6 +43,10 @@ export class Activity {
     this.attachments = [];
     this.createdAt = new Date();
     this.updatedAt = new Date();
+    this.tasksIds = [];
+    this.zoneOriginId = 0;
+    this.zoneDestinationId = 0;
+    this.tasks = [];
   }
 }
 

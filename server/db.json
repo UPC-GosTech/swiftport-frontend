@@ -21,6 +21,8 @@
       "id": 12345,
       "title": "Traslado de mercancía",
       "description": "Se debe cargar, etiquetar y registrar la llegada de una carga al almacén 1042",
+      "zoneOriginId": 1001,
+      "zoneDestinationId": 1006,
       "originLocationId": 1001,
       "destinationLocationId": 1016,
       "scheduledDate": "2025-12-12",
@@ -41,12 +43,15 @@
         "registro_de_empleados.pdf"
       ],
       "createdAt": "2025-04-12",
-      "updatedAt": "2025-05-12"
+      "updatedAt": "2025-05-12",
+      "tasksIds": [1001, 1014]
     },
     {
       "id": 12346,
       "title": "Inspección de seguridad",
       "description": "Inspección de seguridad en las instalaciones del almacén 1021",
+      "zoneOriginId": 1002,
+      "zoneDestinationId": 1002,
       "originLocationId": 1002,
       "destinationLocationId": 1021,
       "scheduledDate": "2025-12-13",
@@ -66,12 +71,15 @@
         "informe_de_seguridad.pdf"
       ],
       "createdAt": "2025-04-15",
-      "updatedAt": "2025-05-10"
+      "updatedAt": "2025-05-10",
+      "tasksIds": [1002, 1015]
     },
     {
       "id": 12347,
       "title": "Mantenimiento de vehículos",
       "description": "Mantenimiento preventivo de los vehículos de la flota 2003 y 2005",
+      "zoneOriginId": 1003,
+      "zoneDestinationId": 1005,
       "originLocationId": 1003,
       "destinationLocationId": 1010,
       "scheduledDate": "2025-12-14",
@@ -91,12 +99,15 @@
         "orden_de_compra.pdf"
       ],
       "createdAt": "2025-04-18",
-      "updatedAt": "2025-05-09"
+      "updatedAt": "2025-05-09",
+      "tasksIds": [1003, 1016]
     },
     {
       "id": 12348,
       "title": "Revisión de inventarios",
       "description": "Revisión y actualización del inventario del almacén principal",
+      "zoneOriginId": 1005,
+      "zoneDestinationId": 1001,
       "originLocationId": 1005,
       "destinationLocationId": 1006,
       "scheduledDate": "2025-12-15",
@@ -116,12 +127,15 @@
         "inventario_anterior.pdf"
       ],
       "createdAt": "2025-04-20",
-      "updatedAt": "2025-05-11"
+      "updatedAt": "2025-05-11",
+      "tasksIds": [1004, 1017]
     },
     {
       "id": 12349,
       "title": "Carga y despacho",
       "description": "Se debe cargar la mercancía para el despacho a la tienda 501",
+      "zoneOriginId": 1004,
+      "zoneDestinationId": 1006,
       "originLocationId": 1004,
       "destinationLocationId": 1051,
       "scheduledDate": "2025-12-16",
@@ -141,12 +155,15 @@
         "orden_de_despacho.pdf"
       ],
       "createdAt": "2025-04-25",
-      "updatedAt": "2025-05-12"
+      "updatedAt": "2025-05-12",
+      "tasksIds": [1005, 1018]
     },
     {
       "id": 12350,
       "title": "Reemplazo de equipos",
       "description": "Reemplazo de equipos electrónicos defectuosos en la oficina principal",
+      "zoneOriginId": 1001,
+      "zoneDestinationId": 1001,
       "originLocationId": 1001,
       "destinationLocationId": 1015,
       "scheduledDate": "2025-12-17",
@@ -166,12 +183,15 @@
         "informe_tecnico.pdf"
       ],
       "createdAt": "2025-04-28",
-      "updatedAt": "2025-05-10"
+      "updatedAt": "2025-05-10",
+      "tasksIds": [1006, 1019]
     },
     {
       "id": 12351,
       "title": "Evaluación de riesgos",
       "description": "Realizar una evaluación de riesgos en el área de producción",
+      "zoneOriginId": 1002,
+      "zoneDestinationId": 1004,
       "originLocationId": 1022,
       "destinationLocationId": 1043,
       "scheduledDate": "2025-12-18",
@@ -191,12 +211,15 @@
         "documento_de_riesgos.pdf"
       ],
       "createdAt": "2025-04-30",
-      "updatedAt": "2025-05-07"
+      "updatedAt": "2025-05-07",
+      "tasksIds": [1007, 1020]
     },
     {
       "id": 12352,
       "title": "Inventario de materiales",
       "description": "Realizar el inventario de materiales en el almacén 1007",
+      "zoneOriginId": 1015,
+      "zoneDestinationId": 1002,
       "originLocationId": 1015,
       "destinationLocationId": 1007,
       "scheduledDate": "2025-12-19",
@@ -216,12 +239,15 @@
         "informe_inventario.pdf"
       ],
       "createdAt": "2025-05-03",
-      "updatedAt": "2025-05-10"
+      "updatedAt": "2025-05-10",
+      "tasksIds": [1008]
     },
     {
       "id": 12353,
       "title": "Desarrollo de software",
       "description": "Desarrollo y prueba de nuevas funcionalidades para el sistema de gestión de almacenes",
+      "zoneOriginId": 1023,
+      "zoneDestinationId": 1003,
       "originLocationId": 1023,
       "destinationLocationId": 1018,
       "scheduledDate": "2025-12-20",
@@ -241,12 +267,15 @@
         "plan_de_desarrollo.pdf"
       ],
       "createdAt": "2025-05-05",
-      "updatedAt": "2025-05-09"
+      "updatedAt": "2025-05-09",
+      "tasksIds": [1009]
     },
     {
       "id": 12354,
       "title": "Reparación de maquinaria",
       "description": "Reparación de la máquina cortadora en la planta 501",
+      "zoneOriginId": 1024,
+      "zoneDestinationId": 1004,
       "originLocationId": 1024,
       "destinationLocationId": 1045,
       "scheduledDate": "2025-12-21",
@@ -266,12 +295,15 @@
         "orden_reparacion.pdf"
       ],
       "createdAt": "2025-05-07",
-      "updatedAt": "2025-05-11"
+      "updatedAt": "2025-05-11",
+      "tasksIds": [1010]
     },
     {
       "id": 12355,
       "title": "Almacenaje de productos",
       "description": "Proceso de almacenaje de los productos nuevos en el almacén 1051",
+      "zoneOriginId": 1006,
+      "zoneDestinationId": 1006,
       "originLocationId": 1006,
       "destinationLocationId": 1051,
       "scheduledDate": "2025-12-22",
@@ -291,12 +323,15 @@
         "plan_almacenaje.pdf"
       ],
       "createdAt": "2025-05-10",
-      "updatedAt": "2025-05-12"
+      "updatedAt": "2025-05-12",
+      "tasksIds": [1011]
     },
     {
       "id": 12356,
       "title": "Revisión de documentación",
       "description": "Revisión de la documentación para el cumplimiento de las normativas de seguridad",
+      "zoneOriginId": 1001,
+      "zoneDestinationId": 1003,
       "originLocationId": 1001,
       "destinationLocationId": 1008,
       "scheduledDate": "2025-12-23",
@@ -316,12 +351,15 @@
         "documento_normativo.pdf"
       ],
       "createdAt": "2025-05-12",
-      "updatedAt": "2025-05-12"
+      "updatedAt": "2025-05-12",
+      "tasksIds": [1012]
     },
     {
       "id": 12357,
       "title": "Auditoría interna",
       "description": "Auditoría interna para la revisión de procesos en la planta 405",
+      "zoneOriginId": 1002,
+      "zoneDestinationId": 1004,
       "originLocationId": 1002,
       "destinationLocationId": 1045,
       "scheduledDate": "2025-12-24",
@@ -341,7 +379,8 @@
         "plan_auditoria.pdf"
       ],
       "createdAt": "2025-05-12",
-      "updatedAt": "2025-05-12"
+      "updatedAt": "2025-05-12",
+      "tasksIds": [1013]
     }
   ],
   "employee": [
@@ -1344,6 +1383,15 @@
       "membersId": [
         790966
       ]
+    }
+  ],
+  "task-scheduling": [
+    {
+      "id": 1,
+      "taskId": 1001,
+      "teamId": 1001,
+      "date": "2025-05-01",
+      "status": "ACTIVE"
     }
   ]
 }
