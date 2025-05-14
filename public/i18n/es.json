@@ -174,5 +174,34 @@
     "password-input": "Ingrese su contraseña",
     "password-repeat": "Repita su contraseña",
     "register": "Registrarse"
+  },
+  "home": {
+    "welcome": "Bienvenido a Swiftport",
+    "subtitle": "Tu plataforma integral de gestión logística",
+    "quick-access": "Acceso Rápido",
+    "activities-management": {
+      "title": "Gestión de Actividades",
+      "description": "Gestiona y realiza seguimiento de todas tus actividades logísticas"
+    },
+    "task-planning": {
+      "title": "Planificación de Tareas",
+      "description": "Planifica y programa tus tareas logísticas"
+    },
+    "equipment-management": {
+      "title": "Gestión de Equipos",
+      "description": "Gestiona tus equipos y recursos logísticos"
+    },
+    "team-management": {
+      "title": "Gestión de Equipos de Trabajo",
+      "description": "Organiza y gestiona tus equipos logísticos"
+    },
+    "location-management": {
+      "title": "Gestión de Ubicaciones",
+      "description": "Gestiona tus ubicaciones e instalaciones logísticas"
+    },
+    "execution-history": {
+      "title": "Historial de Ejecución",
+      "description": "Visualiza el historial de tareas y actividades completadas"
+    }
   }
 }
