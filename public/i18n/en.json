@@ -114,5 +114,56 @@
     "edit": "Edit",
     "edit-m": "Edit Members",
     "position": "Position: "
+  },
+  "login-container": {
+    "slogan": "Your operation in order, at all times",
+    "email": "Email",
+    "email-required": "Email is required.",
+    "email-valid": "Enter a valid email.",
+    "characters": "Min. 6 characters.",
+    "password": "Password",
+    "password-required": "Password is required.",
+    "password-missing": "Forgot your password?",
+    "login": "LOGIN",
+    "register": "REGISTER",
+    "loading": "Loading...",
+    "fill": "Please fill in all fields.",
+    "invalid": "Incorrect email or password."
+  },
+  "password-recovery": {
+    "recover-password": "Password Recovery",
+    "link-sent": "We'll send you a link to reset your password.",
+    "email": "Email",
+    "email-example": "example@email.com",
+    "sent-link": "SEND LINK",
+    "back-login": "BACK TO LOGIN"
+  },
+  "register-container": {
+    "slogan": "Your operation in order, at all times\"",
+    "email": "Email",
+    "password": "Password",
+    "password-repeat": "Repeat password",
+    "register": "REGISTER"
+  },
+  "payment-view": {
+    "bank-info": "Enter your bank information",
+    "full-name": "Full name",
+    "company-name": "Company name",
+    "card-number": "Card number",
+    "card-type": "Card type",
+    "month": "Month",
+    "year": "Year",
+    "ruc": "RUC number",
+    "save": "Save"
+  },
+  "account-creation": {
+    "email": "Email",
+    "email-input": "Enter your email...",
+    "name": "Name",
+    "name-input": "Enter your name...",
+    "password": "Password",
+    "password-input": "Enter your password",
+    "password-repeat": "Repeat your password",
+    "register": "Register"
   }
 }

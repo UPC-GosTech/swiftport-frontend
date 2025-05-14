@@ -114,5 +114,56 @@
     "edit": "Editar",
     "edit-m": "Editar Miembros",
     "position": "Cargo: "
+  },
+  "login-container": {
+    "slogan": "Tu operación en orden, en todo momento",
+    "email": "Correo electrónico",
+    "email-required": "El email es obligatorio.",
+    "email-valid": "Ingrese un email válido.",
+    "characters": "Mínimo 6 caracteres.",
+    "password": "Contraseña",
+    "password-required": "La contraseña es obligatoria.",
+    "password-missing": "¿Olvidaste tu contraseña?",
+    "login": "INGRESAR",
+    "register": "REGISTRARSE",
+    "loading": "Cargando...",
+    "fill": "Por favor, complete todos los campos.",
+    "invalid": "Email o contraseña incorrectos."
+  },
+  "password-recovery": {
+    "recover-password": "Recuperar Contraseña",
+    "link-sent": "Te enviaremos un enlace para restablecer tu contraseña.",
+    "email": "Correo electrónico",
+    "email-example": "ejemplo@correo.com",
+    "sent-link": "ENVIAR ENLACE",
+    "back-login": "VOLVER AL LOGIN"
+  },
+  "register-container": {
+    "slogan": "Tu operación en orden, en todo momento",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "password-repeat": "Repetir contraseña",
+    "register": "REGISTRARSE"
+  },
+  "payment-view": {
+    "bank-info": "Ingrese la informacion bancaria",
+    "full-name": "Nombre completo",
+    "company-name": "Nombre de la empresa",
+    "card-number": "Numero de la tarjeta",
+    "card-type": "Tipo de tarjeta",
+    "month": "Mes",
+    "year": "Año",
+    "ruc": "Numero de RUC",
+    "save": "Guardar"
+  },
+  "account-creation": {
+    "email": "Correo electrónico",
+    "email-input": "Ingrese su email...",
+    "name": "Nombre",
+    "name-input": "Ingrese su nombre...",
+    "password": "Password",
+    "password-input": "Ingrese su contraseña",
+    "password-repeat": "Repita su contraseña",
+    "register": "Registrarse"
   }
 }
