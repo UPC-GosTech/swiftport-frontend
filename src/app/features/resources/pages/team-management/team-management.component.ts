@@ -121,15 +121,7 @@ export class TeamManagementComponent implements OnInit {
   }
 
   createTeam(team: Team): void {
-    this.teamService.createTeam(
-      team.name,
-      team.date,
-      team.zone,
-      team.members
-    ).subscribe(newTeam => {
-      this.teams.push(newTeam);
-      this.applyFilters();
-    });
+
   }
 
   openEditTeamDialog(team: Team): void {

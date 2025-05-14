@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import {TranslatePipe} from "@ngx-translate/core";
+import { TranslatePipe } from "@ngx-translate/core";
 
 export interface DialogData {
   employee: Employee;
@@ -36,6 +36,7 @@ export class EmployeeFormDialogComponent implements OnInit {
   employeeForm!: FormGroup;
   statusOptions: string[] = ['ACTIVE', 'INACTIVE'];
   isNewEmployee: boolean = true;
+  isSubmitting: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -58,10 +59,10 @@ export class EmployeeFormDialogComponent implements OnInit {
   createForm(): void {
     this.employeeForm = this.fb.group({
       id: [0],
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
+      firstName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      lastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
       dni: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(100)]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       status: ['ACTIVE', [Validators.required]],
       positions: [[], [Validators.required, Validators.minLength(1)]]
@@ -69,23 +70,34 @@ export class EmployeeFormDialogComponent implements OnInit {
   }
 
   getErrorMessage(field: string): string {
-    if (this.employeeForm.get(field)?.hasError('required')) {
+    const control = this.employeeForm.get(field);
+    if (!control) return '';
+
+    if (control.hasError('required')) {
       return 'Este campo es obligatorio';
     }
 
-    if (field === 'dni' && this.employeeForm.get(field)?.hasError('pattern')) {
+    if (control.hasError('minlength')) {
+      return `Mínimo ${control.errors?.['minlength'].requiredLength} caracteres`;
+    }
+
+    if (control.hasError('maxlength')) {
+      return `Máximo ${control.errors?.['maxlength'].requiredLength} caracteres`;
+    }
+
+    if (field === 'dni' && control.hasError('pattern')) {
       return 'El DNI debe tener 8 dígitos';
     }
 
-    if (field === 'email' && this.employeeForm.get(field)?.hasError('email')) {
+    if (field === 'email' && control.hasError('email')) {
       return 'Ingrese un email válido';
     }
 
-    if (field === 'phone' && this.employeeForm.get(field)?.hasError('pattern')) {
+    if (field === 'phone' && control.hasError('pattern')) {
       return 'El teléfono debe tener 9 dígitos';
     }
 
-    if (field === 'positions' && this.employeeForm.get(field)?.hasError('minLength')) {
+    if (field === 'positions' && control.hasError('minLength')) {
       return 'Debe seleccionar al menos un cargo';
     }
 
@@ -93,7 +105,9 @@ export class EmployeeFormDialogComponent implements OnInit {
   }
 
   onSave(): void {
-    if (this.employeeForm.valid) {
+    if (this.employeeForm.valid && !this.isSubmitting) {
+      this.isSubmitting = true;
+      
       const formValue = this.employeeForm.value;
 
       // Convert position IDs to position objects
@@ -119,7 +133,9 @@ export class EmployeeFormDialogComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.dialogRef.close();
+    if (!this.isSubmitting) {
+      this.dialogRef.close();
+    }
   }
 
   // Helper method to mark all form controls as touched

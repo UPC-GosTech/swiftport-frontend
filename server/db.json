@@ -346,30 +346,6 @@
   ],
   "employee": [
     {
-      "id": 101,
-      "firstName": "Carlos",
-      "lastName": "Rodriguez",
-      "dni": "12345678",
-      "email": "carlos.rodriguez@example.com",
-      "phone": "901234567",
-      "status": "ACTIVE",
-      "positionsId": [
-        3
-      ]
-    },
-    {
-      "id": 102,
-      "firstName": "Ana",
-      "lastName": "Martinez",
-      "dni": "23456789",
-      "email": "ana.martinez@example.com",
-      "phone": "912345678",
-      "status": "ACTIVE",
-      "positionsId": [
-        2
-      ]
-    },
-    {
       "id": 103,
       "firstName": "Pedro",
       "lastName": "Lopez",
@@ -378,6 +354,7 @@
       "phone": "923456789",
       "status": "ACTIVE",
       "positionsId": [
+        1,
         2
       ]
     },
@@ -454,102 +431,6 @@
       ]
     },
     {
-      "id": 110,
-      "firstName": "Isabel",
-      "lastName": "Diaz",
-      "dni": "01234567",
-      "email": "isabel.diaz@example.com",
-      "phone": "990123456",
-      "status": "INACTIVE",
-      "positionsId": [
-        1
-      ]
-    },
-    {
-      "id": 112,
-      "firstName": "Raul",
-      "lastName": "Alvarez",
-      "dni": "23456780",
-      "email": "raul.alvarez@example.com",
-      "phone": "992345678",
-      "status": "ACTIVE",
-      "positionsId": [
-        1
-      ]
-    },
-    {
-      "id": 113,
-      "firstName": "Sofia",
-      "lastName": "Morales",
-      "dni": "34567891",
-      "email": "sofia.morales@example.com",
-      "phone": "993456789",
-      "status": "ACTIVE",
-      "positionsId": [
-        2
-      ]
-    },
-    {
-      "id": 114,
-      "firstName": "David",
-      "lastName": "Martín",
-      "dni": "45678902",
-      "email": "david.martin@example.com",
-      "phone": "994567890",
-      "status": "INACTIVE",
-      "positionsId": [
-        1
-      ]
-    },
-    {
-      "id": 115,
-      "firstName": "Lucia",
-      "lastName": "Jimenez",
-      "dni": "56789013",
-      "email": "lucia.jimenez@example.com",
-      "phone": "995678901",
-      "status": "ACTIVE",
-      "positionsId": [
-        2
-      ]
-    },
-    {
-      "id": 116,
-      "firstName": "Jose",
-      "lastName": "Fernandez",
-      "dni": "67890124",
-      "email": "jose.fernandez@example.com",
-      "phone": "996789012",
-      "status": "ACTIVE",
-      "positionsId": [
-        1
-      ]
-    },
-    {
-      "id": 118,
-      "firstName": "Marta",
-      "lastName": "Gomez",
-      "dni": "89012346",
-      "email": "marta.gomez@example.com",
-      "phone": "998901234",
-      "status": "INACTIVE",
-      "positionsId": [
-        1
-      ]
-    },
-    {
-      "id": 119,
-      "firstName": "Antonio",
-      "lastName": "Serrano",
-      "dni": "90123457",
-      "email": "antonio.serrano@example.com",
-      "phone": "999012345",
-      "status": "ACTIVE",
-      "positionsId": [
-        2
-      ]
-    },
-    {
       "id": 120,
       "firstName": "Raquel",
       "lastName": "Castro",
@@ -559,6 +440,41 @@
       "status": "ACTIVE",
       "positionsId": [
         1
+      ]
+    },
+    {
+      "id": 121,
+      "firstName": "Natalia",
+      "lastName": "Román",
+      "dni": "21121254",
+      "email": "sergioiglesias7pe@mail.com",
+      "phone": "980313131",
+      "status": "ACTIVE",
+      "positions": [
+        {
+          "id": 1,
+          "name": "Admin",
+          "description": "In charge of the company"
+        },
+        {
+          "id": 2,
+          "name": "Operario",
+          "description": "Executes the tasks"
+        }
+      ]
+    },
+    {
+      "id": 122,
+      "firstName": "Sergio",
+      "lastName": "Sisi",
+      "dni": "74423261",
+      "email": "a@gmail.com",
+      "phone": "980378785",
+      "status": "ACTIVE",
+      "positionsId": [
+        1,
+        2,
+        3
       ]
     }
   ],
@@ -754,6 +670,14 @@
       "capacityLoad": 4,
       "capacityPassengers": 1,
       "status": "Mantenimiento"
+    },
+    {
+      "id": 1025,
+      "plateNumber": "12345",
+      "type": "TurboMax",
+      "capacityLoad": 123,
+      "capacityPassengers": 9,
+      "status": "Disponible"
     }
   ],
   "location": [
@@ -895,6 +819,26 @@
       "ubication": {
         "latitude": 100,
         "longitude": 100
+      }
+    },
+    {
+      "id": 1015,
+      "zoneId": 1001,
+      "name": "Sisi",
+      "description": "Ñamñam",
+      "ubication": {
+        "latitude": 100,
+        "longitude": 10
+      }
+    },
+    {
+      "id": 1016,
+      "zoneId": 1006,
+      "name": "Location 1",
+      "description": "Sisi",
+      "ubication": {
+        "latitude": 100,
+        "longitude": 50
       }
     }
   ],
@@ -1123,7 +1067,7 @@
   "zone": [
     {
       "id": 1001,
-      "name": "Zona Minera Cerro y Monte",
+      "name": "Zona Minera Cerro y Monte de Oro",
       "description": "Zona minera combinada de Cerro de Pasco y Monte de Extracción, conocida por la extracción de cobre y minerales metálicos.",
       "active": true
     },
@@ -1153,20 +1097,8 @@
     },
     {
       "id": 1006,
-      "name": "Ñañam",
-      "description": "Fv vv",
-      "active": true
-    },
-    {
-      "id": 1008,
-      "name": "ad",
-      "description": "asd",
-      "active": true
-    },
-    {
-      "id": 1012,
-      "name": "sisi",
-      "description": "niamniam",
+      "name": "Prueba1",
+      "description": "Me gusta comer",
       "active": true
     }
   ],
