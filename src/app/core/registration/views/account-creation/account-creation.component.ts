@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {InputComponent} from '../../../../shared/components/input/input.component';
 import {ButtonComponent} from '../../../../shared/components/button/button.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-account-creation',
   imports: [
     InputComponent,
-    ButtonComponent
+    ButtonComponent,
+    TranslatePipe
   ],
   templateUrl: './account-creation.component.html',
   styleUrl: './account-creation.component.scss'

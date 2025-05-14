@@ -3,32 +3,32 @@
     <img src="" alt="el logo q no hay">
   </div>
   <div class="information-container">
-    <h1>Ingrese la informacion bancaria</h1>
+    <h1>{{ 'payment-view.bank-info' | translate }}</h1>
     <div class="data-container">
       <div class="field">
-        <p>Nombre completo</p>
+        <p>{{ 'payment-view.full-name' | translate }}</p>
         <app-input
           [(value)]="name"
-          [placeholder]="placeholderName">
+          [placeholder]=" 'payment-view.full-name' | translate ">
         </app-input>
       </div>
       <div class="field">
-        <p>Nombre de la empresa</p>
+        <p>{{ 'payment-view.company-name' | translate }}</p>
         <app-input
           [(value)]="company"
-          [placeholder]="placeholderCompany">
+          [placeholder]=" 'payment-view.company-name' | translate ">
         </app-input>
       </div>
       <div class="two-inputs">
         <div class="field">
-          <p>Numero de la tarjeta</p>
+          <p>{{ 'payment-view.card-number' | translate }}</p>
           <app-input
             [(value)]="cardnumber"
-            [placeholder]="placeholderCardnumber">
+            [placeholder]=" 'payment-view.card-number' | translate ">
           </app-input>
         </div>
         <div class="field">
-          <p>Tipo de tarjeta</p>
+          <p>{{ 'payment-view.card-type' | translate }}</p>
           <app-selector
             [options]="cardTypeList"
             [color]="'secondary'"
@@ -39,7 +39,7 @@
       </div>
       <div class="two-inputs">
         <div class="field">
-          <p>Mes</p>
+          <p>{{ 'payment-view.month' | translate }}</p>
           <app-selector
             [options]="monthList"
             [color]="'secondary'"
@@ -48,7 +48,7 @@
           </app-selector>
         </div>
         <div class="field">
-          <p>Año</p>
+          <p>{{ 'payment-view.year' | translate }}</p>
           <app-selector
             [options]="yearList"
             [color]="'secondary'"
@@ -59,23 +59,23 @@
       </div>
       <div class="two-inputs">
         <div class="field">
-          <p>CVV</p>
+          <p>{{ 'payment-view.cvv' | translate }}</p>
           <app-input
             [(value)]="cvv"
             [placeholder]="placeholderCvv">
           </app-input>
         </div>
         <div class="field">
-          <p>Numero de RUC</p>
+          <p>{{ 'payment-view.ruc' | translate }}</p>
           <app-input
             [(value)]="ruc"
-            [placeholder]="placeholderRuc">
+            [placeholder]=" 'payment-view.ruc' | translate ">
           </app-input>
         </div>
       </div>
     </div>
     <div class="button-container">
-      <app-button class="button" [color]="'primary'" [label]="'Guardar'" (click)="onSaveInformation()"></app-button>
+      <app-button class="button" [color]="'primary'" [label]="'payment-view.save' | translate" (click)="onSaveInformation()"></app-button>
     </div>
   </div>
 </div>

@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import {NgIf} from '@angular/common';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-password-recovery',
   standalone: true,
   templateUrl: './password-recovery.component.html',
   styleUrls: ['./password-recovery.component.scss'],
-  imports: [FormsModule, NgIf]
+  imports: [FormsModule, NgIf, TranslatePipe]
 })
 export class PasswordRecoveryComponent {
   email: string = '';
