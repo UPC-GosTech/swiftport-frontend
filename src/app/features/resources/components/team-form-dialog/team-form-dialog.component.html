@@ -28,20 +28,6 @@
         </mat-error>
       </mat-form-field>
       
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Ubicación</mat-label>
-        <mat-select formControlName="locationId" required>
-          <mat-option *ngIf="filteredLocations.length === 0" disabled>
-            Seleccione una zona primero
-          </mat-option>
-          <mat-option *ngFor="let location of filteredLocations" [value]="location.id">
-            {{ location.name }}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="teamForm.get('locationId')?.hasError('required')">
-          La ubicación es requerida
-        </mat-error>
-      </mat-form-field>
     </div>
     
     <div class="team-members-section">

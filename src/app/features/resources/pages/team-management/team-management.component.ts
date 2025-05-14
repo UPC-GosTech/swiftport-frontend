@@ -65,8 +65,9 @@ export class TeamManagementComponent implements OnInit {
   }
 
   loadTeams(): void {
-    this.teamService.getTeams().subscribe(teams => {
+    this.teamService.getAllTeams().subscribe(teams => {
       this.teams = teams;
+      console.log(this.teams);
       this.applyFilters();
     });
   }
@@ -121,7 +122,14 @@ export class TeamManagementComponent implements OnInit {
   }
 
   createTeam(team: Team): void {
-
+    console.log("team", team);
+    this.teamService.createTeam(team).subscribe(createdTeam => {
+      if (createdTeam) {
+        console.log("createdTeam", createdTeam);
+        this.teams.push(createdTeam);
+        this.applyFilters();
+      }
+    });
   }
 
   openEditTeamDialog(team: Team): void {
@@ -191,6 +199,13 @@ export class TeamManagementComponent implements OnInit {
           this.applyFilters();
         }
       }
+    });
+  }
+
+  deleteTeam(team: Team): void {
+    this.teamService.deleteTeam(team.id).subscribe(() => {
+      this.teams = this.teams.filter(t => t.id !== team.id);
+      this.applyFilters();
     });
   }
 

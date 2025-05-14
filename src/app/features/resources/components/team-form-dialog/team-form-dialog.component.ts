@@ -10,13 +10,13 @@ import { MatDividerModule } from '@angular/material/divider';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { Team } from '../../models/team.entity';
 import { Zone } from '../../models/zone.entity';
-import { Location } from '../../models/location.entity';
 import { Employee } from '../../models/employee.entity';
 import { Position } from '../../models/position.entity';
 import { TeamMember } from '../../models/team-member.entity';
 import { ZoneService } from '../../services/zone.service';
 import { EmployeeService } from '../../services/employee.service';
-import { Observable, forkJoin } from 'rxjs';
+import { TeamMemberService } from '../../services/team-member.service';
+import { Observable, forkJoin, map } from 'rxjs';
 
 export interface TeamDialogData {
   team?: Team;
@@ -46,8 +46,6 @@ export class TeamFormDialogComponent implements OnInit {
   zones: Zone[] = [];
   employees: Employee[] = [];
   positions: Position[] = [];
-  locations: Location[] = [];
-  filteredLocations: Location[] = [];
   isEditMode = false;
   teamMembers: FormArray;
   selectedDate: Date;
@@ -56,11 +54,13 @@ export class TeamFormDialogComponent implements OnInit {
     private fb: FormBuilder,
     private zoneService: ZoneService,
     private employeeService: EmployeeService,
+    private teamMemberService: TeamMemberService,
     public dialogRef: MatDialogRef<TeamFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: TeamDialogData
   ) {
     this.teamMembers = this.fb.array([]);
     this.selectedDate = data.selectedDate;
+    this.isEditMode = !!data.team;
   }
 
   ngOnInit(): void {
@@ -76,13 +76,6 @@ export class TeamFormDialogComponent implements OnInit {
       this.zones = result.zones;
       this.employees = result.employees;
 
-      // Extract locations from all zones
-      this.zones.forEach(zone => {
-        if (zone.locations && zone.locations.length > 0) {
-          this.locations = [...this.locations, ...zone.locations];
-        }
-      });
-
       // Extract available positions from employees
       const positionSet = new Set<string>();
       this.employees.forEach(employee => {
@@ -93,48 +86,22 @@ export class TeamFormDialogComponent implements OnInit {
 
       this.positions = Array.from(positionSet).map(p => JSON.parse(p));
 
-      // If editing, populate the team members and update filtered locations
-      if (this.data.team) {
+      // If editing, populate the team members
+      if (this.isEditMode && this.data.team) {
         this.teamMembers.clear();
         this.data.team.members.forEach(member => {
           this.teamMembers.push(this.createMemberFormGroup(member));
         });
-
-        // Set initial filtered locations
-        if (this.data.team.zone) {
-          this.onZoneChange(this.data.team.zone.id);
-        }
       }
     });
   }
 
   initForm(): void {
-    this.isEditMode = !!this.data.team;
-
     this.teamForm = this.fb.group({
       name: [this.data.team?.name || '', Validators.required],
       zoneId: [this.data.team?.zone?.id || '', Validators.required],
-      locationId: [this.data.team?.zone?.locations?.[0]?.id || '', Validators.required],
       teamMembers: this.teamMembers
     });
-
-    // Add zone change listener
-    this.teamForm.get('zoneId')?.valueChanges.subscribe(zoneId => {
-      this.onZoneChange(zoneId);
-    });
-  }
-
-  onZoneChange(zoneId: number): void {
-    // Reset location control
-    this.teamForm.get('locationId')?.setValue('');
-
-    // Filter locations by selected zone
-    this.filteredLocations = this.locations.filter(location => location.zoneId === zoneId);
-
-    // If there's only one location, select it automatically
-    if (this.filteredLocations.length === 1) {
-      this.teamForm.get('locationId')?.setValue(this.filteredLocations[0].id);
-    }
   }
 
   createMemberFormGroup(member?: TeamMember): FormGroup {
@@ -150,7 +117,18 @@ export class TeamFormDialogComponent implements OnInit {
   }
 
   removeTeamMember(index: number): void {
-    this.teamMembers.removeAt(index);
+    const memberForm = this.teamMembers.at(index);
+    const memberId = memberForm.get('id')?.value;
+
+    if (memberId) {
+      // If the member exists in the database, delete it
+      this.teamMemberService.deleteTeamMember(memberId).subscribe(() => {
+        this.teamMembers.removeAt(index);
+      });
+    } else {
+      // If it's a new member that hasn't been saved yet, just remove from form
+      this.teamMembers.removeAt(index);
+    }
   }
 
   getEmployeeNameById(id: number): string {
@@ -187,41 +165,40 @@ export class TeamFormDialogComponent implements OnInit {
 
     const formValues = this.teamForm.value;
     const selectedZone = this.zones.find(z => z.id === formValues.zoneId)!;
-    const selectedLocation = this.locations.find(l => l.id === formValues.locationId);
 
-    // Update zone with selected location if available
-    let zoneWithLocation = {...selectedZone};
-    if (selectedLocation) {
-      zoneWithLocation.locations = [selectedLocation];
-    }
-
-    // Create TeamMember objects
+    // First create all team members
     const teamMembers: TeamMember[] = formValues.teamMembers.map((member: any) => {
       const employee = this.employees.find(e => e.id === member.employeeId)!;
       const position = this.positions.find(p => p.id === member.positionId)!;
       return new TeamMember(member.id || 0, employee, position);
     });
 
-    // Create the Team object with the date from DateNavigator
-    const team: Team = this.data.team ?
-      new Team(
-        this.data.team.id,
-        formValues.name,
-        this.selectedDate,
-        zoneWithLocation,
-        this.data.team.status,
-        teamMembers
-      ) :
-      new Team(
-        0, // ID will be assigned by the service
-        formValues.name,
-        this.selectedDate,
-        zoneWithLocation,
-        'ACTIVE',
-        teamMembers
-      );
-
-    this.dialogRef.close(team);
+    // Create all team members in parallel and wait for all to complete
+    forkJoin(
+      teamMembers.map(member => 
+        this.teamMemberService.createTeamMember(member).pipe(
+          map(id => {
+            member.id = id;
+            return member;
+          })
+        )
+      )
+    ).pipe(
+      map(updatedMembers => {
+        console.log("updatedMembers", updatedMembers);
+        // Create the Team with the updated members
+        return new Team(
+          this.isEditMode ? this.data.team!.id : 0,
+          formValues.name,
+          this.selectedDate,
+          selectedZone,
+          this.isEditMode ? this.data.team!.status : 'ACTIVE',
+          updatedMembers
+        );
+      })
+    ).subscribe(team => {
+      this.dialogRef.close(team);
+    });
   }
 
   onCancel(): void {

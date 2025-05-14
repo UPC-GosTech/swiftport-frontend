@@ -1,106 +1,138 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, map, switchMap } from 'rxjs';
 import { Team } from '../models/team.entity';
-import { Zone } from '../models/zone.entity';
-import { Employee } from '../models/employee.entity';
+import { TeamResponse } from 'server/models/team.response';
+import { environment } from '../../../../environments/environment';
+import { BaseService } from '../../../shared/services/base.service';
+import { TeamAssembler } from '../mappers/team.assembler';
+import { ZoneService } from './zone.service';
+import { TeamMemberService } from './team-member.service';
 import { TeamMember } from '../models/team-member.entity';
-import { Position } from '../models/position.entity';
+
+const teamEndPoint = environment.team;
 
 @Injectable({
   providedIn: 'root'
 })
-export class TeamService {
-  // Simulated data storage - Replace with API calls in production
-  private teams: Team[] = [
-    new Team(1, 'Alpha Team', new Date(), new Zone(1, 'Terminal A', 'Terminal principal de pasajeros', []), 'ACTIVE', []),
-    new Team(2, 'Bravo Team', new Date(), new Zone(2, 'Terminal B', 'Terminal internacional', []), 'ACTIVE', []),
-    new Team(3, 'Charlie Team', new Date(), new Zone(3, 'Área de Carga', 'Manejo y almacenamiento de carga', []), 'INACTIVE', [])
-  ];
-
-  constructor() {
-    // Initialize with some team members for testing
-    this.teams[0].members = [
-      new TeamMember(1, 
-        new Employee(1, 'Juan', 'Pérez', '12345678', 'juan@example.com', '123456789'),
-        new Position(1, 'Supervisor', 'Supervisión de operaciones')
-      ),
-      new TeamMember(2,
-        new Employee(2, 'María', 'López', '87654321', 'maria@example.com', '987654321'),
-        new Position(2, 'Técnico', 'Mantenimiento técnico')
-      )
-    ];
-    
-    this.teams[1].members = [
-      new TeamMember(3,
-        new Employee(3, 'Carlos', 'Rodríguez', '45678912', 'carlos@example.com', '456789123'),
-        new Position(3, 'Operador', 'Operación de equipos')
-      ),
-      new TeamMember(4,
-        new Employee(4, 'Ana', 'Martínez', '78912345', 'ana@example.com', '789123456'),
-        new Position(4, 'Asistente', 'Asistencia administrativa')
-      )
-    ];
+export class TeamService extends BaseService<TeamResponse> {
+  constructor(
+    private zoneService: ZoneService,
+    private teamMemberService: TeamMemberService
+  ) {
+    super();
+    this.resourceEndpoint = teamEndPoint;
   }
 
-  getTeams(): Observable<Team[]> {
-    return of(this.teams);
-  }
-
-  getTeamsByDate(date: Date): Observable<Team[]> {
-    // Filter teams by the specified date (based on the date property)
-    const filteredTeams = this.teams.filter(team => 
-      team.date.getFullYear() === date.getFullYear() &&
-      team.date.getMonth() === date.getMonth() &&
-      team.date.getDate() === date.getDate()
+  getAllTeams(): Observable<Team[]> {
+    return this.getAll().pipe(
+      switchMap(teamResponses => {
+        // First convert responses to entities
+        const teams = teamResponses.map(teamResponse => 
+          TeamAssembler.toEntity(teamResponse)
+        );
+        
+        // Then get zones and team members for each team
+        return this.zoneService.getAllZones().pipe(
+          switchMap(zones => {
+            return this.teamMemberService.getAllTeamMembers().pipe(
+              map(teamMembers => {
+                // Assign zones and team members to each team
+                return teams.map((team, index) => {
+                  team.zone = zones.find(zone => zone.id === team.zone.id) || team.zone;
+                  // Use the memberIds from the response
+                  team.members = teamMembers.filter(member => 
+                    teamResponses[index].membersId.includes(member.id)
+                  );
+                  return team;
+                });
+              })
+            );
+          })
+        );
+      })
     );
-    return of(filteredTeams);
-  }
-
-  getTeamsByZone(zoneId: number): Observable<Team[]> {
-    return of(this.teams.filter(team => team.zone.id === zoneId));
   }
 
   getTeamById(id: number): Observable<Team | undefined> {
-    return of(this.teams.find(team => team.id === id));
+    return this.getById(id).pipe(
+      switchMap(teamResponse => {
+        if (!teamResponse) {
+          return new Observable<undefined>(subscriber => subscriber.next(undefined));
+        }
+        
+        const team = TeamAssembler.toEntity(teamResponse);
+        
+        // Get zone and team members for the team
+        return this.zoneService.getZoneById(team.zone.id).pipe(
+          switchMap(zone => {
+            if (zone) {
+              team.zone = zone;
+            }
+            
+            return this.teamMemberService.getAllTeamMembers().pipe(
+              map(teamMembers => {
+                team.members = teamMembers.filter(member => 
+                  teamResponse.membersId.includes(member.id)
+                );
+                return team;
+              })
+            );
+          })
+        );
+      })
+    );
   }
 
-  createTeam(name: string, date: Date, zone: Zone, members: TeamMember[]): Observable<Team> {
-    const newId = Math.max(...this.teams.map(t => t.id), 0) + 1;
-    const newTeam = new Team(newId, name, date, zone, 'ACTIVE', members);
-    this.teams.push(newTeam);
-    return of(newTeam);
+  createTeam(team: Team): Observable<Team> {
+    const teamResponse = TeamAssembler.toResponse(team);
+    console.log("teamResponse", teamResponse);
+    teamResponse.id = this.generateId();
+    return this.create(teamResponse).pipe(
+      map(createdResponse => {
+        team.id = createdResponse.id;
+        return team;
+      }
+      )
+    );
   }
 
-  updateTeam(team: Team): Observable<Team | undefined> {
-    const index = this.teams.findIndex(t => t.id === team.id);
-    if (index !== -1) {
-      this.teams[index] = team;
-      return of(this.teams[index]);
-    }
-    return of(undefined);
-  }
-
-  updateTeamMembers(teamId: number, members: TeamMember[]): Observable<Team | undefined> {
-    const index = this.teams.findIndex(t => t.id === teamId);
-    if (index !== -1) {
-      this.teams[index].members = members;
-      return of(this.teams[index]);
-    }
-    return of(undefined);
-  }
-
-  toggleTeamStatus(id: number): Observable<Team | undefined> {
-    const index = this.teams.findIndex(t => t.id === id);
-    if (index !== -1) {
-      this.teams[index].status = this.teams[index].status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
-      return of(this.teams[index]);
-    }
-    return of(undefined);
+  updateTeam(team: Team): Observable<Team> {
+    const teamResponse = TeamAssembler.toResponse(team);
+    console.log("teamResponse", teamResponse);
+    return this.update(teamResponse.id, teamResponse).pipe(
+      map(updatedResponse => {
+        team.id = updatedResponse.id;
+        return team;
+      }
+      )
+    );
   }
 
   deleteTeam(id: number): Observable<boolean> {
-    const initialLength = this.teams.length;
-    this.teams = this.teams.filter(t => t.id !== id);
-    return of(initialLength !== this.teams.length);
+    return this.delete(id);
+  }
+
+  updateTeamMembers(teamId: number, members: TeamMember[]): Observable<Team | undefined> {
+    return this.getTeamById(teamId).pipe(
+      switchMap(team => {
+        if (!team) {
+          return new Observable<undefined>(subscriber => subscriber.next(undefined));
+        }
+        team.members = members;
+        return this.updateTeam(team);
+      })
+    );
+  }
+
+  toggleTeamStatus(id: number): Observable<Team | undefined> {
+    return this.getTeamById(id).pipe(
+      switchMap(team => {
+        if (!team) {
+          return new Observable<undefined>(subscriber => subscriber.next(undefined));
+        }
+        team.status = team.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
+        return this.updateTeam(team);
+      })
+    );
   }
 } 

@@ -32,6 +32,10 @@ export abstract class BaseService<T> {
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 
+  protected generateId(): number {
+    return Math.floor(Math.random() * 1000000);
+  }
+
   /**
    * Constructs the full resource URL path
    * @returns The complete URL for the resource endpoint

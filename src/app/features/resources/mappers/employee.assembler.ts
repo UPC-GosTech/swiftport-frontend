@@ -17,6 +17,7 @@ export class EmployeeAssembler {
   }
 
   static toEntity(dto: EmployeeResponse, positions: Position[] = []): Employee {
+    console.log("dto", dto);
     return new Employee(
       dto.id,
       dto.firstName,

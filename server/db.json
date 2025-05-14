@@ -1125,6 +1125,136 @@
       "id": 10,
       "employeeId": 110,
       "positionId": 1
+    },
+    {
+      "id": 51199,
+      "employeeId": 105,
+      "positionId": 2
+    },
+    {
+      "id": 727062,
+      "employeeId": 108,
+      "positionId": 3
+    },
+    {
+      "id": 864645,
+      "employeeId": 105,
+      "positionId": 2
+    },
+    {
+      "id": 244585,
+      "employeeId": 108,
+      "positionId": 3
+    },
+    {
+      "id": 734919,
+      "employeeId": 108,
+      "positionId": 3
+    },
+    {
+      "id": 689763,
+      "employeeId": 108,
+      "positionId": 3
+    },
+    {
+      "id": 683020,
+      "employeeId": 109,
+      "positionId": 2
+    },
+    {
+      "id": 999150,
+      "employeeId": 109,
+      "positionId": 2
+    },
+    {
+      "id": 771225,
+      "employeeId": 105,
+      "positionId": 2
+    },
+    {
+      "id": 248292,
+      "employeeId": 105,
+      "positionId": 2
+    },
+    {
+      "id": 396225,
+      "employeeId": 105,
+      "positionId": 2
+    },
+    {
+      "id": 647515,
+      "employeeId": 108,
+      "positionId": 3
+    },
+    {
+      "id": 562423,
+      "employeeId": 105,
+      "positionId": 2
+    },
+    {
+      "id": 165761,
+      "employeeId": 108,
+      "positionId": 3
+    },
+    {
+      "id": 700162,
+      "employeeId": 108,
+      "positionId": 3
+    },
+    {
+      "id": 43199,
+      "employeeId": 108,
+      "positionId": 3
+    },
+    {
+      "id": 382311,
+      "employeeId": 108,
+      "positionId": 3
+    },
+    {
+      "id": 671011,
+      "employeeId": 108,
+      "positionId": 3
+    },
+    {
+      "id": 398588,
+      "employeeId": 108,
+      "positionId": 3
+    },
+    {
+      "id": 790966,
+      "employeeId": 108,
+      "positionId": 3
+    },
+    {
+      "id": 81289,
+      "employeeId": 108,
+      "positionId": 3
+    },
+    {
+      "id": 941944,
+      "employeeId": 108,
+      "positionId": 3
+    },
+    {
+      "id": 858672,
+      "employeeId": 108,
+      "positionId": 3
+    },
+    {
+      "id": 701223,
+      "employeeId": 107,
+      "positionId": 2
+    },
+    {
+      "id": 457860,
+      "employeeId": 108,
+      "positionId": 3
+    },
+    {
+      "id": 90883,
+      "employeeId": 107,
+      "positionId": 2
     }
   ],
   "team": [
@@ -1156,13 +1286,63 @@
     {
       "id": 1003,
       "name": "Equipo Ica y Junín",
-      "date": "2025-05-03",
+      "date": "2025-05-03T00:00:00.000Z",
       "zoneId": 1003,
       "status": "Activo",
       "membersId": [
-        8,
-        9,
-        10
+        0,
+        0
+      ]
+    },
+    {
+      "id": 842980,
+      "name": "asd",
+      "date": "2025-05-14T01:42:01.854Z",
+      "zoneId": 1004,
+      "status": "ACTIVE",
+      "membersId": [
+        0
+      ]
+    },
+    {
+      "id": 496526,
+      "name": "Niamniam",
+      "date": "2025-05-14T01:52:07.136Z",
+      "zoneId": 1002,
+      "status": "ACTIVE",
+      "membersId": [
+        562423,
+        165761
+      ]
+    },
+    {
+      "id": 840698,
+      "name": "q",
+      "date": "2025-05-14T01:56:35.801Z",
+      "zoneId": 1006,
+      "status": "ACTIVE",
+      "membersId": [
+        43199
+      ]
+    },
+    {
+      "id": 709891,
+      "name": "Mimi",
+      "date": "2025-05-14T01:57:41.444Z",
+      "zoneId": 1005,
+      "status": "ACTIVE",
+      "membersId": [
+        671011
+      ]
+    },
+    {
+      "id": 30097,
+      "name": "asdasd",
+      "date": "2025-05-14T01:59:20.957Z",
+      "zoneId": 1006,
+      "status": "ACTIVE",
+      "membersId": [
+        790966
       ]
     }
   ]

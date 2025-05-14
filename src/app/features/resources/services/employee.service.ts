@@ -27,7 +27,6 @@ export class EmployeeService extends BaseService<EmployeeResponse> {
         const employees = employeeResponses.map(employeeResponse => 
           EmployeeAssembler.toEntity(employeeResponse)
         );
-        console.log(employees);
         
         // Then get the positions for each employee
         return this.positionService.getAllPositions().pipe(
@@ -41,7 +40,6 @@ export class EmployeeService extends BaseService<EmployeeResponse> {
                   employeeResponse.positionsId?.includes(position.id) ?? false
                 );
               }
-              console.log(employee);
               return employee;
             });
           })
