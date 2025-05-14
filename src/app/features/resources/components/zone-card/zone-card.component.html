@@ -53,5 +53,13 @@
         (clicked)="addLocation.emit(zone.id)">
       </app-button>
     </div>
+
+    <div (click)="$event.stopPropagation()">
+      <app-button
+        [label]="'zone-card.delete' | translate"
+        [color]="'danger'"
+        (clicked)="delete.emit(zone.id)">
+      </app-button>
+    </div>
   </mat-card-actions>
 </mat-card>

@@ -10,6 +10,7 @@ import { ZoneService } from '../../services/zone.service';
 import { Coordinate } from '../../models/coordinate.entity';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import {TranslatePipe} from '@ngx-translate/core';
+import { LocationService } from '../../services/location.service';
 
 @Component({
   selector: 'app-location-form-dialog',
@@ -33,6 +34,7 @@ export class LocationFormDialogComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private zoneService: ZoneService,
+    private locationService: LocationService,
     public dialogRef: MatDialogRef<LocationFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
       zoneId: number,
@@ -69,14 +71,14 @@ export class LocationFormDialogComponent implements OnInit {
         coordinate
       );
 
-      this.zoneService.updateLocation(updatedLocation)
+      this.locationService.updateLocation(updatedLocation)
         .subscribe({
           next: (location) => this.dialogRef.close(location),
           error: (error) => console.error('Error updating location:', error)
         });
     } else {
       // Create new location
-      this.zoneService.addLocation(this.data.zoneId, name, description, coordinate)
+      this.locationService.createLocation(new Location(0, this.data.zoneId, name, description, coordinate))
         .subscribe({
           next: (location) => this.dialogRef.close(location),
           error: (error) => console.error('Error creating location:', error)

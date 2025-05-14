@@ -59,14 +59,15 @@ export class TeamManagementComponent implements OnInit {
   }
 
   loadZones(): void {
-    this.zoneService.getZones().subscribe(zones => {
+    this.zoneService.getAllZones().subscribe((zones: Zone[]) => {
       this.zones = zones;
     });
   }
 
   loadTeams(): void {
-    this.teamService.getTeams().subscribe(teams => {
+    this.teamService.getAllTeams().subscribe(teams => {
       this.teams = teams;
+      console.log(this.teams);
       this.applyFilters();
     });
   }
@@ -121,14 +122,13 @@ export class TeamManagementComponent implements OnInit {
   }
 
   createTeam(team: Team): void {
-    this.teamService.createTeam(
-      team.name,
-      team.date,
-      team.zone,
-      team.members
-    ).subscribe(newTeam => {
-      this.teams.push(newTeam);
-      this.applyFilters();
+    console.log("team", team);
+    this.teamService.createTeam(team).subscribe(createdTeam => {
+      if (createdTeam) {
+        console.log("createdTeam", createdTeam);
+        this.teams.push(createdTeam);
+        this.applyFilters();
+      }
     });
   }
 
@@ -199,6 +199,13 @@ export class TeamManagementComponent implements OnInit {
           this.applyFilters();
         }
       }
+    });
+  }
+
+  deleteTeam(team: Team): void {
+    this.teamService.deleteTeam(team.id).subscribe(() => {
+      this.teams = this.teams.filter(t => t.id !== team.id);
+      this.applyFilters();
     });
   }
 

@@ -1,37 +1,51 @@
-<h2 mat-dialog-title>{{ isNewEquipment ? 'Agregar equipamiento' : 'Editar equipamiento' }}</h2>
+<h2 mat-dialog-title>{{ isNewEquipment ? ('equipment-form-dialog.add' | translate) : ('equipment-form-dialog.edit' | translate) }}</h2>
 
 <mat-dialog-content>
-  <form [formGroup]="equipmentForm">
+  <form [formGroup]="equipmentForm" (ngSubmit)="onSave()">
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>{{ 'equipment-form-dialog.plate' | translate }}</mat-label>
-      <input matInput formControlName="plateNumber" placeholder="Ej. ABC-123">
-      <mat-error *ngIf="equipmentForm.get('plateNumber')?.invalid">{{ getErrorMessage('plateNumber') }}</mat-error>
+      <input matInput formControlName="plateNumber" placeholder="Ej. ABC123" [attr.disabled]="isSubmitting">
+      <mat-error *ngIf="equipmentForm.get('plateNumber')?.invalid && equipmentForm.get('plateNumber')?.touched">
+        {{ getErrorMessage('plateNumber') }}
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="form-field">
-      <mat-label>{{ 'equipment-form-dialog.model' | translate }}</mat-label>
-      <input matInput formControlName="type" placeholder="Ej. Excavadora">
-      <mat-error *ngIf="equipmentForm.get('type')?.invalid">{{ getErrorMessage('type') }}</mat-error>
+      <mat-label>{{ 'equipment-form-dialog.type' | translate }}</mat-label>
+      <input matInput formControlName="type" placeholder="Ej. Camión" [attr.disabled]="isSubmitting">
+      <mat-error *ngIf="equipmentForm.get('type')?.invalid && equipmentForm.get('type')?.touched">
+        {{ getErrorMessage('type') }}
+      </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>{{ 'equipment-form-dialog.charge' | translate }}</mat-label>
-      <input matInput type="number" formControlName="capacityLoad" placeholder="Ej. 1500">
-      <mat-error *ngIf="equipmentForm.get('capacityLoad')?.invalid">{{ getErrorMessage('capacityLoad') }}</mat-error>
-    </mat-form-field>
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>{{ 'equipment-form-dialog.capacity-load' | translate }}</mat-label>
+        <input matInput type="number" formControlName="capacityLoad" placeholder="Ej. 1000" [attr.disabled]="isSubmitting">
+        <mat-error *ngIf="equipmentForm.get('capacityLoad')?.invalid && equipmentForm.get('capacityLoad')?.touched">
+          {{ getErrorMessage('capacityLoad') }}
+        </mat-error>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>{{ 'equipment-form-dialog.passengers' | translate }}</mat-label>
-      <input matInput type="number" formControlName="capacityPassengers" placeholder="Ej. 2">
-      <mat-error *ngIf="equipmentForm.get('capacityPassengers')?.invalid">{{ getErrorMessage('capacityPassengers') }}</mat-error>
-    </mat-form-field>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>{{ 'equipment-form-dialog.capacity-passengers' | translate }}</mat-label>
+        <input matInput type="number" formControlName="capacityPassengers" placeholder="Ej. 4" [attr.disabled]="isSubmitting">
+        <mat-error *ngIf="equipmentForm.get('capacityPassengers')?.invalid && equipmentForm.get('capacityPassengers')?.touched">
+          {{ getErrorMessage('capacityPassengers') }}
+        </mat-error>
+      </mat-form-field>
+    </div>
 
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>{{ 'equipment-form-dialog.status' | translate }}</mat-label>
-      <mat-select formControlName="status">
-        <mat-option *ngFor="let option of statusOptions" [value]="option">{{ option }}</mat-option>
+      <mat-select formControlName="status" [disabled]="isSubmitting">
+        <mat-option *ngFor="let option of statusOptions" [value]="option">
+          {{ option === 'Disponible' ? ('equipment-form-dialog.available' | translate) : ('equipment-form-dialog.maintenance' | translate) }}
+        </mat-option>
       </mat-select>
-      <mat-error *ngIf="equipmentForm.get('status')?.invalid">{{ getErrorMessage('status') }}</mat-error>
+      <mat-error *ngIf="equipmentForm.get('status')?.invalid && equipmentForm.get('status')?.touched">
+        {{ getErrorMessage('status') }}
+      </mat-error>
     </mat-form-field>
   </form>
 </mat-dialog-content>
@@ -40,12 +54,13 @@
   <app-button
     [label]="'equipment-form-dialog.cancel' | translate"
     [color]="'secondary'"
-    (click)="onCancel()"
+    [disabled]="isSubmitting"
+    (clicked)="onCancel()"
   ></app-button>
   <app-button
     [label]="'equipment-form-dialog.save' | translate"
     [color]="'primary'"
-    [disabled]="equipmentForm.invalid"
-    (click)="onSave()"
+    [disabled]="equipmentForm.invalid || isSubmitting"
+    (clicked)="onSave()"
   ></app-button>
 </mat-dialog-actions>

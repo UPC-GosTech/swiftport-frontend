@@ -48,22 +48,26 @@ export class ZoneFormDialogComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log('onSubmit', this.zoneForm.value);
     if (this.zoneForm.invalid) return;
 
     const { name, description } = this.zoneForm.value;
 
     if (this.data.zone) {
       // Update existing zone
-      this.zoneService.updateZone(this.data.zone.id, name, description)
+      this.zoneService.updateZone(new Zone(this.data.zone.id, name, description))
         .subscribe({
           next: (zone) => this.dialogRef.close(zone),
           error: (error) => console.error('Error updating zone:', error)
         });
     } else {
       // Create new zone
-      this.zoneService.createZone(name, description)
+      this.zoneService.createZone(new Zone(0, name, description))
         .subscribe({
-          next: (zone) => this.dialogRef.close(zone),
+          next: (zone) => {
+            console.log('zone', zone);
+            this.dialogRef.close(zone);
+          },
           error: (error) => console.error('Error creating zone:', error)
         });
     }

@@ -37,6 +37,7 @@ export class TeamCardComponent {
   @Output() edit = new EventEmitter<Team>();
   @Output() editMembers = new EventEmitter<Team>();
   @Output() toggleStatus = new EventEmitter<Team>();
+  @Output() delete = new EventEmitter<Team>();
 
   isExpanded = false;
 
@@ -52,6 +53,10 @@ export class TeamCardComponent {
 
   onToggleStatus(): void {
     this.toggleStatus.emit(this.team);
+  }
+
+  onDelete(): void {
+    this.delete.emit(this.team);
   }
 
   // Helper method to format the date

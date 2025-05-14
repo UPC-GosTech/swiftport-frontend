@@ -21,25 +21,14 @@ export class Employee {
     status: string = 'ACTIVE',
     positions: Position[] = []
   ) {
-    if (id !== undefined && firstName !== undefined && lastName !== undefined) {
-      this.id = id;
-      this.firstName = firstName;
-      this.lastName = lastName;
-      this.dni = dni || '';
-      this.email = email || '';
-      this.phone = phone || '';
-      this.status = status;
-      this.positions = positions;
-    } else {
-      this.id = 0;
-      this.firstName = '';
-      this.lastName = '';
-      this.dni = '';
-      this.email = '';
-      this.phone = '';
-      this.status = 'ACTIVE';
-      this.positions = [];
-    }
+    this.id = id || 0;
+    this.firstName = firstName || '';
+    this.lastName = lastName || '';
+    this.dni = dni || '';
+    this.email = email || '';
+    this.phone = phone || '';
+    this.status = status || 'ACTIVE';
+    this.positions = positions || [];
   }
 
   get fullName(): string {

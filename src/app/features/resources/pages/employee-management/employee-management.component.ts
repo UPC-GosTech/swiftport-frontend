@@ -9,10 +9,10 @@ import { SelectorComponent } from '../../../../shared/components/selector/select
 import { FormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { EmployeeFormDialogComponent } from '../../components/employee-form-dialog/employee-form-dialog.component';
-import {TranslatePipe} from '@ngx-translate/core';
-import {EquipmentService} from '../../../../shared/services/equipment.service';
-import {EmployeeService} from '../../services/employee.service';
-import {Equipment} from '../../models/equipment.entity';
+import { TranslatePipe } from '@ngx-translate/core';
+import { EmployeeService } from '../../services/employee.service';
+import { PositionService } from '../../services/position.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-employee-management',
@@ -33,18 +33,8 @@ export class EmployeeManagementComponent implements OnInit {
   // Data sources
   employeeData: Employee[] = [];
   filteredEmployees: Employee[] = [];
-  positions: Position[] = [
-    {
-      "id": 1,
-      "name": "Admin",
-      "description": "In charge of the company"
-    },
-    {
-      "id": 2,
-      "name": "Operario",
-      "description": "Executes the tasks"
-    }
-  ];
+  positions: Position[] = [];
+  loading: boolean = false;
 
   // Filter options
   positionFilter: string = 'all';
@@ -82,27 +72,53 @@ export class EmployeeManagementComponent implements OnInit {
     }
   ];
 
-  constructor(private dialog: MatDialog, private employeeService: EmployeeService) {}
-
-  getAllEmployees(): void {
-    this.employeeService.getAll().subscribe(
-      (response: Employee[]) => {
-        this.employeeData = response;  // Asignar los equipos obtenidos
-        this.applyFilters();  // Aplicar filtros si es necesario
-      },
-      (error) => {
-        console.error( error);
-      }
-    );
-  }
+  constructor(
+    private dialog: MatDialog, 
+    private employeeService: EmployeeService,
+    private positionService: PositionService
+  ) {}
 
   ngOnInit(): void {
-    this.getAllEmployees();
-    this.applyFilters();
+    this.loadData();
+  }
+
+  loadData(): void {
+    this.loading = true;
+    this.positionService.getAllPositions()
+      .pipe(
+        finalize(() => this.loading = false)
+      )
+      .subscribe({
+        next: (positions) => {
+          this.positions = positions;
+          this.positionOptions = ['all', ...positions.map(p => p.name)];
+          this.getAllEmployees();
+        },
+        error: (error) => {
+          console.error('Error loading positions:', error);
+        }
+      });
+  }
+
+  getAllEmployees(): void {
+    this.loading = true;
+    this.employeeService.getAllEmployees()
+      .pipe(
+        finalize(() => this.loading = false)
+      )
+      .subscribe({
+        next: (employees) => {
+          this.employeeData = employees;
+          this.applyFilters();
+        },
+        error: (error) => {
+          console.error('Error loading employees:', error);
+        }
+      });
   }
 
   applyFilters(): void {
-    let filtered : Employee[] = [...this.employeeData];
+    let filtered: Employee[] = [...this.employeeData];
 
     // Apply position filter
     if (this.positionFilter !== 'all') {
@@ -132,12 +148,20 @@ export class EmployeeManagementComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // Generate a new ID (this would be handled by the backend in a real app)
-        const newId = Math.max(...this.employeeData.map(e => e.id), 0) + 1;
-        result.id = newId;
-
-        this.employeeData.push(result);
-        this.applyFilters();
+        this.loading = true;
+        this.employeeService.createEmployee(result)
+          .pipe(
+            finalize(() => this.loading = false)
+          )
+          .subscribe({
+            next: (createdEmployee) => {
+              this.employeeData.push(createdEmployee);
+              this.applyFilters();
+            },
+            error: (error) => {
+              console.error('Error creating employee:', error);
+            }
+          });
       }
     });
   }
@@ -154,24 +178,43 @@ export class EmployeeManagementComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const index = this.employeeData.findIndex(e => e.id === result.id);
-        if (index !== -1) {
-          this.employeeData[index] = result;
-          this.applyFilters();
-        }
+        this.loading = true;
+        this.employeeService.updateEmployee(result)
+          .pipe(
+            finalize(() => this.loading = false)
+          )
+          .subscribe({
+            next: (updatedEmployee) => {
+              const index = this.employeeData.findIndex(e => e.id === updatedEmployee.id);
+              if (index !== -1) {
+                this.employeeData[index] = updatedEmployee;
+                this.applyFilters();
+              }
+            },
+            error: (error) => {
+              console.error('Error updating employee:', error);
+            }
+          });
       }
     });
   }
 
   deleteEmployee(employee: Employee): void {
-    this.employeeService.deleteEmployee(employee.id).subscribe(
-      () => {
-        this.employeeData = this.employeeData.filter(e => e.id !== employee.id);
-        this.applyFilters();  // Aplicar los filtros para actualizar la vista
-      },
-      (error) => {
-        console.error('Error al eliminar el equipo:', error);
-      }
-    );
+    if (confirm('¿Está seguro de que desea eliminar este empleado?')) {
+      this.loading = true;
+      this.employeeService.deleteEmployee(employee.id)
+        .pipe(
+          finalize(() => this.loading = false)
+        )
+        .subscribe({
+          next: () => {
+            this.employeeData = this.employeeData.filter(e => e.id !== employee.id);
+            this.applyFilters();
+          },
+          error: (error) => {
+            console.error('Error deleting employee:', error);
+          }
+        });
+    }
   }
 }

@@ -57,6 +57,11 @@
             [color]="'secondary'"
             (click)="uploadPhoto(row)"
           ></app-button>
+          <app-button
+            [label]="'equipment-management.delete' | translate"
+            [color]="'danger'"
+            (click)="deleteEquipment(row)"
+          ></app-button>
         </div>
       </ng-template>
     </div>

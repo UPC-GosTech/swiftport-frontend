@@ -10,8 +10,9 @@ import { EquipmentCardComponent } from '../../components/equipment-card/equipmen
 import { EquipmentFormDialogComponent } from '../../components/equipment-form-dialog/equipment-form-dialog.component';
 import { EquipmentListComponent } from '../../components/equipment-list/equipment-list.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import {TranslatePipe} from '@ngx-translate/core';
-import { EquipmentService } from '../../../../shared/services/equipment.service';
+import { TranslatePipe } from '@ngx-translate/core';
+import { EquipmentService } from '../../services/equipment.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-equipment-management',
@@ -34,12 +35,13 @@ export class EquipmentManagementComponent implements OnInit {
   viewMode: 'table' | 'cards' = 'table';
 
   // Filtros
-  statusFilter: string = 'Todos';
-  statusOptions: string[] = ['Todos', 'Disponible', 'Mantenimiento'];
+  statusFilter: string = 'all';
+  statusOptions: string[] = ['all', 'Disponible', 'Mantenimiento'];
 
   // Datos de equipamiento (mock)
   equipmentData: Equipment[] = [];
   filteredEquipment: Equipment[] = [];
+  loading: boolean = false;
 
   // Configuración de columnas para la tabla
   columns: Columns[] = [
@@ -71,6 +73,32 @@ export class EquipmentManagementComponent implements OnInit {
     },
     {
       header: {
+        key: 'capacityLoad',
+        label: 'Capacidad de Carga',
+      },
+      cell: 'capacityLoad',
+      type: 'text',
+      sortable: true,
+      hide: {
+        visible: true,
+        label: 'Capacidad de Carga',
+      }
+    },
+    {
+      header: {
+        key: 'capacityPassengers',
+        label: 'Capacidad de Pasajeros',
+      },
+      cell: 'capacityPassengers',
+      type: 'text',
+      sortable: true,
+      hide: {
+        visible: true,
+        label: 'Capacidad de Pasajeros',
+      }
+    },
+    {
+      header: {
         key: 'status',
         label: 'Estado',
       },
@@ -87,29 +115,37 @@ export class EquipmentManagementComponent implements OnInit {
         key: 'actions',
         label: 'Acciones',
       },
-      cell: 'id',
+      cell: 'actions',
       type: 'template',
-      sortable: false
+      sortable: false,
+      hide: {
+        visible: true,
+        label: 'Acciones',
+      }
     }
   ];
 
   constructor(private dialog: MatDialog, private equipmentService: EquipmentService) {}
 
-  getAllEquipments(): void {
-    this.equipmentService.getAll().subscribe(
-      (response: Equipment[]) => {
-        this.equipmentData = response;  // Asignar los equipos obtenidos
-        this.applyFilters();  // Aplicar filtros si es necesario
-      },
-      (error) => {
-        console.error('Error al obtener los equipos:', error);
-      }
-    );
+  ngOnInit(): void {
+    this.loadData();
   }
 
-  ngOnInit(): void {
-    this.getAllEquipments();
-    this.applyFilters();
+  loadData(): void {
+    this.loading = true;
+    this.equipmentService.getAllEquipment()
+      .pipe(
+        finalize(() => this.loading = false)
+      )
+      .subscribe({
+        next: (equipment: Equipment[]) => {
+          this.equipmentData = equipment;
+          this.applyFilters();
+        },
+        error: (error: any) => {
+          console.error('Error loading equipment:', error);
+        }
+      });
   }
 
   // Método para alternar el modo de vista
@@ -119,12 +155,14 @@ export class EquipmentManagementComponent implements OnInit {
 
   // Aplicar filtros
   applyFilters(): void {
-    this.filteredEquipment = this.equipmentData.filter(equip => {
-      if (this.statusFilter === 'Todos') {
-        return true;
-      }
-      return equip.status === this.statusFilter;
-    });
+    let filtered: Equipment[] = [...this.equipmentData];
+
+    // Apply status filter
+    if (this.statusFilter !== 'all') {
+      filtered = filtered.filter(equipment => equipment.status === this.statusFilter);
+    }
+
+    this.filteredEquipment = filtered;
   }
 
   // Métodos para manejar acciones
@@ -137,14 +175,34 @@ export class EquipmentManagementComponent implements OnInit {
     const dialogRef = this.dialog.open(EquipmentFormDialogComponent, {
       width: '500px',
       data: {
-        equipment: new Equipment({}),
-        title: 'Agregar equipamiento'
+        equipment: new Equipment({
+          id: 0,
+          plateNumber: '',
+          type: '',
+          capacityLoad: 0,
+          capacityPassengers: 0,
+          status: 'Disponible'
+        }),
+        title: 'Agregar equipo'
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.saveEquipment(result);
+        this.loading = true;
+        this.equipmentService.createEquipment(result)
+          .pipe(
+            finalize(() => this.loading = false)
+          )
+          .subscribe({
+            next: (createdEquipment: Equipment) => {
+              this.equipmentData.push(createdEquipment);
+              this.applyFilters();
+            },
+            error: (error: any) => {
+              console.error('Error creating equipment:', error);
+            }
+          });
       }
     });
   }
@@ -153,45 +211,81 @@ export class EquipmentManagementComponent implements OnInit {
     const dialogRef = this.dialog.open(EquipmentFormDialogComponent, {
       width: '500px',
       data: {
-        equipment: { ...equipment },
-        title: 'Editar equipamiento'
+        equipment: {...equipment},
+        title: 'Editar equipo'
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.saveEquipment(result);
+        this.loading = true;
+        this.equipmentService.updateEquipment(result)
+          .pipe(
+            finalize(() => this.loading = false)
+          )
+          .subscribe({
+            next: (updatedEquipment: Equipment) => {
+              const index = this.equipmentData.findIndex(e => e.id === updatedEquipment.id);
+              if (index !== -1) {
+                this.equipmentData[index] = updatedEquipment;
+                this.applyFilters();
+              }
+            },
+            error: (error: any) => {
+              console.error('Error updating equipment:', error);
+            }
+          });
       }
     });
   }
 
-  saveEquipment(equipment: Equipment): void {
-    this.equipmentService.addEquipment(equipment).subscribe(
-      (savedEquipment) => {
-        this.equipmentData.push(savedEquipment);
-        this.applyFilters();
-        this.getAllEquipments();
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
-  }
-
-  changeStatus(equipment: Equipment, newStatus: string): void {
-    const index = this.equipmentData.findIndex(e => e.id === equipment.id);
-    if (index !== -1) {
-      this.equipmentData[index].status = newStatus;
-      this.applyFilters();
+  deleteEquipment(equipment: Equipment): void {
+    if (confirm('¿Está seguro de que desea eliminar este equipo?')) {
+      this.loading = true;
+      this.equipmentService.deleteEquipment(equipment.id)
+        .pipe(
+          finalize(() => this.loading = false)
+        )
+        .subscribe({
+          next: () => {
+            this.equipmentData = this.equipmentData.filter(e => e.id !== equipment.id);
+            this.applyFilters();
+          },
+          error: (error: any) => {
+            console.error('Error deleting equipment:', error);
+          }
+        });
     }
-  }
-
-  handleStatusChange(event: { equipment: Equipment, newStatus: string }): void {
-    this.changeStatus(event.equipment, event.newStatus);
   }
 
   uploadPhoto(equipment: Equipment): void {
     // Implementación para subir fotos
     console.log('Subir foto para:', equipment);
   }
+
+  changeStatus(equipment: Equipment, newStatus: string): void {
+    const updatedEquipment = { ...equipment, status: newStatus };
+    this.loading = true;
+    this.equipmentService.updateEquipment(updatedEquipment)
+      .pipe(
+        finalize(() => this.loading = false)
+      )
+      .subscribe({
+        next: (result: Equipment) => {
+          const index = this.equipmentData.findIndex(e => e.id === result.id);
+          if (index !== -1) {
+            this.equipmentData[index] = result;
+            this.applyFilters();
+          }
+        },
+        error: (error: any) => {
+          console.error('Error updating equipment status:', error);
+        }
+      });
+  }
+
+  handleStatusChange(event: { equipment: Equipment, newStatus: string }): void {
+    this.changeStatus(event.equipment, event.newStatus);
+  }
+
 }

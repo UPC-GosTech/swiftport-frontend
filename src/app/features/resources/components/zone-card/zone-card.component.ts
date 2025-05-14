@@ -33,4 +33,5 @@ export class ZoneCardComponent {
   @Output() edit = new EventEmitter<Zone>();
   @Output() toggleActive = new EventEmitter<number>();
   @Output() addLocation = new EventEmitter<number>();
+  @Output() delete = new EventEmitter<number>();
 }
