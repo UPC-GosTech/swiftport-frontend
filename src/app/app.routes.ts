@@ -32,13 +32,20 @@ import {ActivitiesListComponent} from './features/executions/pages/activities-li
 import {ProfileViewComponent} from './profile-view/profile-view.component';
 import {HomeComponent} from './core/registration/views/home/home.component';
 import {ActivityListComponent} from './features/planning/components/activity-list/activity-list.component';
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 export const routes: Routes = [
-  { path: '',                  component: LoginComponent},
-  { path: 'login',              component: LoginComponent},
-  { path: 'register',           component: RegisterComponent },
-  { path: 'payment',            component: PaymentInformationComponent},
-  { path: 'account',            component: AccountCreationComponent},
-  { path: 'password-recovery',  component: PasswordRecoveryComponent},
+  {
+    path: '',
+    component: AuthLayoutComponent,
+    children: [
+      { path: '', component: LoginComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'payment', component: PaymentInformationComponent },
+      { path: 'account', component: AccountCreationComponent },
+      { path: 'password-recovery', component: PasswordRecoveryComponent },
+    ]
+  },
   {
     path: 'swiftport',
     component: MainLayoutComponent,
