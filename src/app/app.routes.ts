@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { ComponentsDemoComponent } from './shared/views/components-demo/components-demo.component';
 import {PageNotFoundComponent} from './public/pages/page-not-found/page-not-found.component';
-import {RegisterComponent} from './core/registration/views/register/register.component';
+import {RegisterComponent} from './features/security/pages/register/register.component';
 import {AccountCreationComponent} from './core/registration/views/account-creation/account-creation.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import {PaymentInformationComponent} from './core/registration/views/payment-information/payment-information.component';

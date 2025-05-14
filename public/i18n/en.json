@@ -139,11 +139,20 @@
     "back-login": "BACK TO LOGIN"
   },
   "register-container": {
-    "slogan": "Your operation in order, at all times\"",
+    "slogan": "Your operation in order, at all times",
     "email": "Email",
+    "email-required": "Email is required",
+    "email-invalid": "Please enter a valid email",
     "password": "Password",
+    "password-required": "Password is required",
+    "password-min": "Password must be at least 6 characters",
     "password-repeat": "Repeat password",
-    "register": "REGISTER"
+    "password-repeat-required": "Please repeat your password",
+    "password-mismatch": "Passwords do not match",
+    "register": "REGISTER",
+    "registering": "REGISTERING...",
+    "already-have-account": "Already have an account?",
+    "login": "LOGIN"
   },
   "payment-view": {
     "bank-info": "Enter your bank information",

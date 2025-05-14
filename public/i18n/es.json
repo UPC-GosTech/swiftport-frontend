@@ -141,9 +141,18 @@
   "register-container": {
     "slogan": "Tu operación en orden, en todo momento",
     "email": "Correo electrónico",
+    "email-required": "El correo electrónico es obligatorio",
+    "email-invalid": "Por favor ingresa un correo electrónico válido",
     "password": "Contraseña",
+    "password-required": "La contraseña es obligatoria",
+    "password-min": "La contraseña debe tener al menos 6 caracteres",
     "password-repeat": "Repetir contraseña",
-    "register": "REGISTRARSE"
+    "password-repeat-required": "Por favor repite tu contraseña",
+    "password-mismatch": "Las contraseñas no coinciden",
+    "register": "REGISTRAR",
+    "registering": "REGISTRANDO...",
+    "already-have-account": "¿Ya tienes una cuenta?",
+    "login": "INICIAR SESIÓN"
   },
   "payment-view": {
     "bank-info": "Ingrese la informacion bancaria",
