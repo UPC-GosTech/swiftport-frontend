@@ -4,6 +4,7 @@
   display: block;
   height: 100vh;
   width: 100%;
+  background-color: var(--background);
 }
 
 .main-layout {
@@ -11,20 +12,42 @@
   height: 100%;
   width: 100%;
   overflow: hidden;
+  position: relative;
   
   &__content {
     flex: 1;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    transition: margin-left 0.3s ease;
+    transition: margin-left v.$transition-normal;
+    background-color: var(--background);
+    position: relative;
   }
   
   &__main {
     flex: 1;
-    padding: v.$spacing-md;
+    padding: v.$container-padding;
     overflow: auto;
     background-color: var(--background);
+    position: relative;
+    
+    // Modern scrollbar
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--primary);
+      border-radius: v.$border-radius-full;
+      
+      &:hover {
+        background-color: var(--primary-dark);
+      }
+    }
   }
 }
 
@@ -36,11 +59,22 @@
   right: 0;
   bottom: 0;
   background-color: var(--overlay);
-  z-index: 999;
+  backdrop-filter: v.$glass-blur;
+  z-index: v.$z-index-modal-backdrop;
+  opacity: 0;
+  transition: opacity v.$transition-normal;
+  
+  &.active {
+    opacity: 1;
+  }
 }
 
 @media (max-width: 768px) {
   .sidebar-open .sidebar-overlay {
     display: block;
+  }
+  
+  .main-layout__content {
+    margin-left: 0;
   }
 }

@@ -24,35 +24,36 @@ export class RegisterComponent {
     this.submitted = true;
     this.errorMessage = '';
 
-    // Validaciones básicas
     if (!this.email || !this.password || !this.repeatPassword) {
-      this.errorMessage = 'Todos los campos son obligatorios.';
+      this.errorMessage = 'register-container.fill';
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(this.email)) {
-      this.errorMessage = 'Por favor ingrese un email válido.';
+      this.errorMessage = 'register-container.email-invalid';
       return;
     }
 
     if (this.password.length < 6) {
-      this.errorMessage = 'La contraseña debe tener al menos 6 caracteres.';
+      this.errorMessage = 'register-container.password-min';
       return;
     }
 
     if (this.password !== this.repeatPassword) {
-      this.errorMessage = 'Las contraseñas no coinciden.';
+      this.errorMessage = 'register-container.password-mismatch';
       return;
     }
 
-    // Simular registro exitoso
+    // Simulate successful registration
     this.isLoading = true;
     setTimeout(() => {
       this.isLoading = false;
-      console.log('Usuario registrado:', this.email);
-      alert('Registro exitoso. Ahora puedes iniciar sesión.');
       this.router.navigate(['/login']);
     }, 1200);
+  }
+
+  goToLogin(): void {
+    this.router.navigate(['/login']);
   }
 }

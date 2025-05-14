@@ -1,5 +1,18 @@
 @use '../../../../styles/variables' as v;
 
+// Colores institucionales
+$primary-orange: #f9a825;
+$primary-blue: #1a237e;
+$header-bg: $primary-orange;
+$header-text: #fff;
+$row-bg: #fff;
+$row-alt-bg: #f5f6fa;
+$row-hover-bg: #e3f2fd;
+$border-radius: 10px;
+$action-btn-bg: $primary-orange;
+$action-btn-text: #fff;
+$action-btn-hover-bg: darken($primary-orange, 10%);
+
 :host {
     display: block;
     width: 100%;
@@ -8,39 +21,50 @@
   :host ::ng-deep {
     .m-table {
       width: 100%;
-      border-collapse: collapse;
+      border-collapse: separate;
+      border-spacing: 0;
       min-width: 800px;
-      margin-bottom: v.$spacing-lg;
+      margin-bottom: 32px;
+      border-radius: $border-radius;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(26, 35, 126, 0.06);
   
       thead {
-        background-color: var(--primary);
-        color: var(--text-inverted);
+        background: $header-bg;
+        color: $header-text;
         
         th {
-          padding: v.$spacing-md;
+          padding: 16px 12px;
           text-align: center;
-          font-weight: v.$font-weight-bold;
-          font-size: v.$font-size-base;
+          font-weight: 600;
+          font-size: 16px;
           position: sticky;
           top: 0;
           z-index: 10;
-          background-color: var(--primary); 
+          background: $header-bg;
+          border: none;
         }
       }
   
       tbody {
         tr {
+          background: $row-bg;
+          transition: background 0.2s;
+          font-size: 15px;
+          color: $primary-blue;
+          border: none;
+  
           &:nth-child(even) {
-            background-color: var(--surface);
+            background: $row-alt-bg;
           }
           &:hover {
-            background-color: var(--secondary);
+            background: $row-hover-bg;
           }
   
           &.selectable {
             cursor: pointer;
             &:hover {
-              background-color: var(--secondary);
+              background: $row-hover-bg;
             }
           }
   
@@ -50,11 +74,12 @@
           }
   
           td {
-            padding: v.$spacing-sm v.$spacing-md;
-            border-bottom: 1px solid var(--secondary);
-            font-size: v.$font-size-sm;
+            padding: 14px 12px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 15px;
             text-align: center;
-            color: var(--text-primary);
+            color: $primary-blue;
+            border: none;
           }
         }
       }
@@ -136,4 +161,31 @@
     direction: ltr;
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
+}
+
+:host ::ng-deep .mat-button, :host ::ng-deep .mat-raised-button, :host ::ng-deep .action-btn {
+  background: $action-btn-bg;
+  color: $action-btn-text;
+  border-radius: 6px;
+  font-weight: 500;
+  box-shadow: none;
+  transition: background 0.2s;
+  &:hover {
+    background: $action-btn-hover-bg;
+  }
+}
+
+:host ::ng-deep .m-table, :host ::ng-deep .m-table thead, :host ::ng-deep .m-table tr {
+  border-radius: $border-radius;
+}
+
+@media (max-width: 900px) {
+  :host ::ng-deep .m-table th, :host ::ng-deep .m-table td {
+    padding: 10px 6px;
+    font-size: 14px;
+  }
+}
+
+:host ::ng-deep .m-table thead th {
+  color: #fff !important;
 }

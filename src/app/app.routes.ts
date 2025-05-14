@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { ComponentsDemoComponent } from './shared/views/components-demo/components-demo.component';
 import {PageNotFoundComponent} from './public/pages/page-not-found/page-not-found.component';
-import {RegisterComponent} from './core/registration/views/register/register.component';
+import {RegisterComponent} from './features/security/pages/register/register.component';
 import {AccountCreationComponent} from './core/registration/views/account-creation/account-creation.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import {PaymentInformationComponent} from './core/registration/views/payment-information/payment-information.component';
@@ -32,19 +32,27 @@ import {ActivitiesListComponent} from './features/executions/pages/activities-li
 import {ProfileViewComponent} from './profile-view/profile-view.component';
 import {HomeComponent} from './core/registration/views/home/home.component';
 import {ActivityListComponent} from './features/planning/components/activity-list/activity-list.component';
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { DashboardComponent } from './features/executions/pages/dashboard/dashboard.component';
 export const routes: Routes = [
-  { path: '',                  component: LoginComponent},
-  { path: 'login',              component: LoginComponent},
-  { path: 'register',           component: RegisterComponent },
-  { path: 'payment',            component: PaymentInformationComponent},
-  { path: 'account',            component: AccountCreationComponent},
-  { path: 'password-recovery',  component: PasswordRecoveryComponent},
+  {
+    path: '',
+    component: AuthLayoutComponent,
+    children: [
+      { path: '', component: LoginComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'payment', component: PaymentInformationComponent },
+      { path: 'account', component: AccountCreationComponent },
+      { path: 'password-recovery', component: PasswordRecoveryComponent },
+    ]
+  },
   {
     path: 'swiftport',
     component: MainLayoutComponent,
     children: [
       { path: 'profile',                      component: ProfileViewComponent},
-      { path: 'dashboard',                    component: ReportsViewComponent},
+      { path: 'dashboard',                    component: DashboardComponent},
       { path: 'equipments-management',        component: EquipmentManagementComponent},
       { path: 'employee-management',          component: EmployeeManagementComponent},
       { path: 'location-management',          component: LocationManagementComponent},
