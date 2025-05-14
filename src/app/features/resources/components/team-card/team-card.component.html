@@ -1,10 +1,10 @@
-<mat-expansion-panel 
-  [expanded]="isExpanded" 
-  (opened)="isExpanded = true" 
+<mat-expansion-panel
+  [expanded]="isExpanded"
+  (opened)="isExpanded = true"
   (closed)="isExpanded = false"
   class="team-card"
   [ngClass]="{'inactive': team.status === 'INACTIVE'}">
-  
+
   <mat-expansion-panel-header>
     <mat-panel-title>
       {{ team.name }}
@@ -22,28 +22,28 @@
 
   <div class="team-content">
     <div class="team-info">
-      <p><strong>Fecha:</strong> {{ formatDate(team.date) }}</p>
+      <p><strong>{{ 'team-card.date' | translate }}</strong> {{ formatDate(team.date) }}</p>
       <p><strong>Zona:</strong> {{ team.zone.name }}</p>
       <p *ngIf="team.zone.locations && team.zone.locations.length > 0">
-        <strong>Ubicación:</strong> {{ team.zone.locations[0].name }}
+        <strong>{{ 'team-card.location' | translate }}</strong> {{ team.zone.locations[0].name }}
       </p>
-      <p><strong>Estado:</strong> {{ statusBadge }}</p>
+      <p><strong>{{ 'team-card.status' | translate }}</strong> {{ statusBadge }}</p>
     </div>
 
     <div class="team-members">
-      <h3>Miembros del Equipo</h3>
+      <h3>{{ 'team-card.members' | translate }}</h3>
       <mat-divider></mat-divider>
-      
+
       <div class="member-list">
         <div *ngIf="team.members?.length === 0" class="no-members">
-          No hay miembros asignados a este equipo.
+          {{ 'team-card.no-members' | translate }}
         </div>
-        
+
         <div *ngFor="let member of team.members" class="member-item">
           <div class="member-info">
             <div class="member-name">{{ member.employee.fullName }}</div>
             <div class="member-position">
-              <strong>Cargo:</strong> {{ member.position.name }}
+              <strong>{{ 'team-card.position' | translate }}</strong> {{ member.position.name }}
             </div>
           </div>
         </div>
@@ -52,17 +52,17 @@
 
     <div class="team-actions">
       <app-button
-        [label]="'Editar'"
+        [label]="'team-card.edit' | translate"
         [color]="'primary'"
         (clicked)="onEdit()">
       </app-button>
-      
+
       <app-button
-        [label]="'Editar Miembros'"
+        [label]="'team-card.edit-m' | translate"
         [color]="'primary'"
         (clicked)="onEditMembers()">
       </app-button>
-      
+
       <app-button
         [label]="statusActionLabel"
         [color]="buttonStatusColor"
@@ -76,4 +76,4 @@
       </app-button>
     </div>
   </div>
-</mat-expansion-panel> 
+</mat-expansion-panel>

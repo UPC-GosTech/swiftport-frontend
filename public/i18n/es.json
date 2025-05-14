@@ -112,6 +112,7 @@
     "members": "Miembros del Equipo",
     "mo-members": "No hay miembros asignados a este equipo.",
     "edit": "Editar",
-    "edit-m": "Editar Miembros"
+    "edit-m": "Editar Miembros",
+    "position": "Cargo: "
   }
 }
