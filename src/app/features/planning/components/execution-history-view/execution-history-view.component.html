@@ -1,19 +1,38 @@
 <div class="general-container">
-  <h1>Vista de ejecucion</h1>
+  <h1>Historial de Ejecución de Tareas</h1>
+
+  <!-- Navegador de fechas -->
+  <app-date-navigator [selectedDate]="selectedDate" (dateChange)="onDateChange($event)"></app-date-navigator>
+
+  <!-- Gráfico de líneas -->
   <div class="diagram-container">
-    show diagram regarding the history execution
-    it should include two lines: 1 regarding the planned dates
-    and the 2nd regarding the real execution dates
+    <h3>Comparativo de Fechas Planificadas vs Reales</h3>
+    <canvas #historyChart></canvas>
   </div>
+
+  <!-- Tabla de ejecuciones -->
   <div class="history-container">
-    <div> search bar by dates </div>
-    <table>
-      <p> replace to sergio's table</p>
-      <p> Includes: Task related, date, comment</p>
-    </table>
+    <app-table
+      [columns]="columns"
+      [dataSource]="executions"
+      [customColumns]="statusTemplate"
+    ></app-table>
   </div>
+
+  <!-- Botones de exportar -->
   <div class="button-container">
-    <button>Export to PDF </button>
-    <button>Export to CSV </button>
+    <app-button label="Exportar a PDF" icon="picture_as_pdf" color="secondary" (clicked)="exportToPDF()"></app-button>
+    <app-button label="Exportar a CSV" icon="table_view" color="primary" (clicked)="exportToCSV()"></app-button>
   </div>
 </div>
+
+<ng-template #statusTemplate let-column="column" let-row="row">
+  <span *ngIf="column === 'status'" [ngClass]="{
+    'badge': true,
+    'badge-success': row.status === 'Completada',
+    'badge-warning': row.status === 'En progreso',
+    'badge-danger': row.status === 'Retrasada'
+  }">
+    {{ row.status }}
+  </span>
+</ng-template>
