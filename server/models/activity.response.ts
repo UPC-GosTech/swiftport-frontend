@@ -2,6 +2,8 @@ export interface ActivityResponse {
   id: number;
   title: string;
   description: string;
+  zoneOriginId: number;
+  zoneDestinationId: number;
   originLocationId: number;
   destinationLocationId: number;
   scheduledDate: string;
@@ -17,4 +19,5 @@ export interface ActivityResponse {
   attachments: string[];
   createdAt: string;
   updatedAt: string;
+  tasksIds: number[];
 } 

@@ -10,4 +10,5 @@ export const environment = {
   zoneEndPoint: '/zone',
   teamMemberEndPoint: '/team-member',
   team: '/team',
+  taskSchedulingEndPoint: '/task-scheduling',
 };
