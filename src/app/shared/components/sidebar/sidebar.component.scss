@@ -10,18 +10,33 @@
   flex-direction: column;
   width: 240px;
   height: 100%;
-  background-color: var(--primary);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  transition: width 0.3s ease;
+  background: linear-gradient(135deg, 
+    var(--primary) 0%,
+    color-mix(in srgb, var(--primary) 85%, black) 100%
+  );
+  box-shadow: v.$shadow-lg;
+  transition: all v.$transition-normal;
   overflow: hidden;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
+  }
 
   @media (max-width: 768px) {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: v.$z-index-fixed;
     transform: translateX(0);
-    transition: transform 0.3s ease, width 0.3s ease;
+    transition: transform v.$transition-normal, width v.$transition-normal;
   }
 
   &--collapsed {
@@ -34,10 +49,12 @@
 
   &__header {
     padding: v.$spacing-md;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     min-height: 64px;
     display: flex;
     align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: v.$glass-blur;
   }
 
   &__logo {
@@ -48,12 +65,32 @@
     color: var(--text-inverted);
     white-space: nowrap;
     overflow: hidden;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.5px;
   }
 
   &__content {
     flex: 1;
     overflow-y: auto;
     padding: v.$spacing-sm 0;
+    
+    // Modern scrollbar
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: v.$border-radius-full;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+    }
   }
 
   &__menu {
@@ -65,6 +102,7 @@
   &__menu-item {
     width: 100%;
     margin-bottom: v.$spacing-sm;
+    padding: 0 v.$spacing-sm;
   }
 
   &__menu-link,
@@ -75,24 +113,30 @@
     color: var(--text-inverted);
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all v.$transition-fast;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    border-radius: v.$border-radius-md;
+    font-weight: v.$font-weight-regular;
+    letter-spacing: 0.3px;
 
-    &:hover, &.active {
-      background-color: rgba(255, 255, 255, 0.2);
-      color: var(--background);
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+      transform: translateX(4px);
     }
 
     &.active {
-      border-left: 3px solid var(--background);
+      background-color: rgba(255, 255, 255, 0.2);
+      font-weight: v.$font-weight-bold;
+      box-shadow: v.$shadow-sm;
     }
   }
 
   &__menu-parent {
     &.expanded {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: v.$border-radius-md;
     }
   }
 
@@ -100,15 +144,27 @@
     margin-right: v.$spacing-sm;
     font-size: 20px;
     min-width: 20px;
+    opacity: 0.9;
+    transition: transform v.$transition-fast;
+    
+    .active & {
+      transform: scale(1.1);
+    }
   }
 
   &__menu-label {
     flex: 1;
     font-size: v.$font-size-sm;
+    transition: transform v.$transition-fast;
   }
 
   &__menu-expand {
     font-size: 18px;
+    transition: transform v.$transition-fast;
+    
+    .expanded & {
+      transform: rotate(180deg);
+    }
   }
 
   &__submenu {
@@ -117,7 +173,7 @@
     margin: 0;
     overflow: hidden;
     max-height: 0;
-    transition: max-height 0.3s ease;
+    transition: max-height v.$transition-normal;
 
     .expanded & {
       max-height: 500px;
@@ -135,29 +191,36 @@
     color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all v.$transition-fast;
     font-size: v.$font-size-sm;
+    border-radius: v.$border-radius-md;
+    margin: 0 v.$spacing-sm;
 
-    &:hover, &.active {
-      background-color: rgba(255, 255, 255, 0.2);
-      color: var(--background);
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      transform: translateX(4px);
     }
 
     &.active {
-      border-left: 3px solid var(--background);
+      background-color: rgba(255, 255, 255, 0.15);
+      font-weight: v.$font-weight-bold;
+      color: var(--text-inverted);
     }
   }
 
   &__submenu-icon {
     margin-right: v.$spacing-sm;
-    font-size: 18px;
+    font-size: 16px;
+    opacity: 0.8;
   }
 
   &__footer {
     padding: v.$spacing-md;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     justify-content: flex-end;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: v.$glass-blur;
   }
 
   &__collapse-btn {
@@ -165,14 +228,16 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    border-radius: v.$border-radius-full;
     color: var(--text-inverted);
+    transition: all v.$transition-fast;
+    background: rgba(255, 255, 255, 0.1);
     
     &:hover {
       background-color: rgba(255, 255, 255, 0.2);
-      color: var(--background);
+      transform: rotate(180deg);
     }
   }
 }
@@ -186,7 +251,14 @@
   right: 0;
   bottom: 0;
   background-color: var(--overlay);
-  z-index: 999;
+  backdrop-filter: v.$glass-blur;
+  z-index: v.$z-index-modal-backdrop;
+  opacity: 0;
+  transition: opacity v.$transition-normal;
+
+  &.active {
+    opacity: 1;
+  }
 
   @media (max-width: 768px) {
     display: block;
