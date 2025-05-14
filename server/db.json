@@ -346,19 +346,6 @@
   ],
   "employee": [
     {
-      "id": 103,
-      "firstName": "Pedro",
-      "lastName": "Lopez",
-      "dni": "34567890",
-      "email": "pedro.lopez@example.com",
-      "phone": "923456789",
-      "status": "ACTIVE",
-      "positionsId": [
-        1,
-        2
-      ]
-    },
-    {
       "id": 104,
       "firstName": "Maria",
       "lastName": "Hernandez",
@@ -462,26 +449,12 @@
           "description": "Executes the tasks"
         }
       ]
-    },
-    {
-      "id": 122,
-      "firstName": "Sergio",
-      "lastName": "Sisi",
-      "dni": "74423261",
-      "email": "a@gmail.com",
-      "phone": "980378785",
-      "status": "ACTIVE",
-      "positionsId": [
-        1,
-        2,
-        3
-      ]
     }
   ],
   "equipment": [
     {
       "id": 1001,
-      "plateNumber": "ABC-1234",
+      "plateNumber": "ABC123",
       "type": "Camión",
       "capacityLoad": 15000,
       "capacityPassengers": 2,
@@ -645,7 +618,7 @@
       "type": "Rum rum",
       "capacityLoad": 439,
       "capacityPassengers": 2,
-      "status": "Mantenimiento"
+      "status": "Disponible"
     },
     {
       "id": 1022,
@@ -653,7 +626,7 @@
       "type": "Tractor",
       "capacityLoad": 121212,
       "capacityPassengers": 3,
-      "status": "Mantenimiento"
+      "status": "Disponible"
     },
     {
       "id": 1023,
@@ -669,7 +642,7 @@
       "type": "carrito",
       "capacityLoad": 4,
       "capacityPassengers": 1,
-      "status": "Mantenimiento"
+      "status": "Disponible"
     },
     {
       "id": 1025,
