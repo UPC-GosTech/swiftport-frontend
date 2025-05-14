@@ -33,6 +33,7 @@ import {ProfileViewComponent} from './profile-view/profile-view.component';
 import {HomeComponent} from './core/registration/views/home/home.component';
 import {ActivityListComponent} from './features/planning/components/activity-list/activity-list.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { DashboardComponent } from './features/executions/pages/dashboard/dashboard.component';
 export const routes: Routes = [
   {
     path: '',
@@ -51,7 +52,7 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       { path: 'profile',                      component: ProfileViewComponent},
-      { path: 'dashboard',                    component: ReportsViewComponent},
+      { path: 'dashboard',                    component: DashboardComponent},
       { path: 'equipments-management',        component: EquipmentManagementComponent},
       { path: 'employee-management',          component: EmployeeManagementComponent},
       { path: 'location-management',          component: LocationManagementComponent},
