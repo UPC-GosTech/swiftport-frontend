@@ -1,25 +1,29 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-button',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './button.component.html',
-  styleUrls: ['./button.component.scss']
+  styleUrls: ['./button.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MatIconModule]
 })
 export class ButtonComponent {
-  @Input() label = 'Click me';
-  @Input() type: 'button' | 'submit' | 'reset' = 'button';
+  @Input() label?: string;
+  @Input() icon?: string;
+  @Input() iconPosition: 'left' | 'right' = 'left';
+  @Input() onlyIcon = false;
+  @Input() color: 'primary' | 'secondary' | 'danger' | 'neutral' = 'primary';
   @Input() disabled = false;
+  @Input() type: 'button' | 'submit' | 'reset' = 'button';
   @Input() loading = false;
-  @Input() color: 'primary' | 'secondary' | 'danger' = 'primary';
 
-  @Output() clicked = new EventEmitter<void>();
+  @Output() clicked = new EventEmitter<Event>();
 
-  handleClick(): void {
-    if (!this.disabled && !this.loading) {
-      this.clicked.emit();
+  onClick(event: Event) {
+    if (!this.disabled) {
+      this.clicked.emit(event);
     }
   }
 }
