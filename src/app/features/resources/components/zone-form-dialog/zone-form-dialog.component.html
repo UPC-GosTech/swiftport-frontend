@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>{{ data.zone ? 'Editar' : 'Crear' }} Zona</h2>
+<form [formGroup]="zoneForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>{{ 'zone-form-dialog.name' | translate }}</mat-label>
+      <input matInput formControlName="name" required>
+      <mat-error *ngIf="zoneForm.get('name')?.hasError('required')">
+        {{ 'zone-form-dialog.n2' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>{{ 'zone-form-dialog.description' | translate }}</mat-label>
+      <textarea matInput formControlName="description" rows="4"></textarea>
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-actions align="end" class="dialog-actions">
+    <app-button
+      [label]="'zone-form-dialog.cancel' | translate"
+      [color]="'secondary'"
+      (clicked)="onCancel()">
+    </app-button>
+
+    <app-button
+      [label]="data.zone ? ('zone-form-dialog.update' | translate) : ('zone-form-dialog.add' | translate)"
+      [color]="'primary'"
+      [disabled]="zoneForm.invalid"
+      [type]="'submit'">
+    </app-button>
+  </div>
+</form>

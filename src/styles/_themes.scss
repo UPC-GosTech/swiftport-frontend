@@ -1,0 +1,22 @@
+@use 'sass:map';
+@use 'variables' as v;
+
+// Mixin que transforma un mapa SCSS en variables CSS
+@mixin generate-css-vars($map) {
+  @each $key, $value in $map {
+    --#{$key}: #{$value};
+  }
+}
+
+// Tema Claro (default)
+:root,
+[data-theme='light'] {
+  @include generate-css-vars(v.$light-colors);
+  @include generate-css-vars(v.$light-text-colors);
+}
+
+//  Tema Oscuro
+[data-theme='dark'] {
+  @include generate-css-vars(v.$dark-colors);
+  @include generate-css-vars(v.$dark-text-colors);
+}

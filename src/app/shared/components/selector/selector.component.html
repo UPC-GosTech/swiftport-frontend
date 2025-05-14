@@ -1,0 +1,12 @@
+<div class="selector-container" [ngClass]="[color, size]">
+  <select
+    [disabled]="disabled"
+    [ngModel]="selectedOption"
+    (ngModelChange)="onSelectionChange($event)"
+    (blur)="onTouched()"
+  >
+    <option *ngFor="let option of options" [value]="option">
+      {{ option }}
+    </option>
+  </select>
+</div>

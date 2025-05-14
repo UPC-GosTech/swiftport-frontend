@@ -1,0 +1,207 @@
+{
+  "location-management": {
+    "zones": "Gestión de zonas",
+    "add": "Agregar Zona",
+    "loading": "Cargando zonas",
+    "not-found": "No se encontraron zonas",
+    "create": "Crear tu primera zona"
+  },
+  "location-form-dialog": {
+    "name": "Nombre",
+    "n2": "El nombre es requerido",
+    "description": "Descripción",
+    "l1": "Latitud",
+    "l2": "La latitud es requerida",
+    "l3": "Longitud",
+    "l4": "La longitud es requerida",
+    "cancel": "Cancelar",
+    "update": "Actualizar",
+    "add": "Agregar"
+  },
+  "zone-form-dialog": {
+    "name": "Nombre",
+    "n2": "El nombre es requerido",
+    "description": "Descripción",
+    "cancel": "Cancelar",
+    "update": "Actualizar",
+    "add": "Agregar"
+  },
+  "zone-card": {
+    "locations": "Ubicaciones",
+    "edit": "Editar",
+    "activate": "Activar",
+    "deactivate": "Desactivar",
+    "add": "Agregar Ubicación"
+  },
+  "equipment-management": {
+    "equipment": "Gestión de equipamiento",
+    "filter": "Filtrar por estado: ",
+    "cards": "Ver en tarjetas",
+    "table": "Ver en tabla",
+    "add": "Agregar equipamiento",
+    "edit": "Editar",
+    "maintain": "A mantenimiento",
+    "able": "Disponible",
+    "picture": "Subir foto"
+  },
+  "equipment-card": {
+    "status": "Estado: ",
+    "charge": "Capacidad de carga: ",
+    "passengers": "Capacidad de pasajeros: ",
+    "edit": "Editar",
+    "picture": "Subir fotos",
+    "maintain": "A mantenimiento",
+    "able": "Disponible"
+  },
+  "equipment-form-dialog": {
+    "plate": "Placa",
+    "model": "Modelo/Tipo",
+    "charge": "Capacidad de carga (kg) ",
+    "passengers": "Capacidad de pasajeros ",
+    "status": "Estado",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "list": "No hay equipamiento disponible con los filtros seleccionados."
+  },
+  "employee-management": {
+    "employee": "Gestión de Empleados",
+    "filter": "Filtrar por cargo: ",
+    "add": "Agregar Empleado",
+    "edit": "Editar",
+    "delete": "Eliminar"
+  },
+  "employee-form-dialog": {
+    "add": "Agregar empleado",
+    "edit": "Editar empleado",
+    "name": "Nombre",
+    "last-name": "Apellido",
+    "phone": "Teléfono",
+    "status": "Estado",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "charges": "Cargos",
+    "cancel": "Cancelar",
+    "save": "Guardar"
+  },
+  "user-management": {
+    "title": "Gestión de Usuarios",
+    "all": "Todos los roles",
+    "search": "Buscar por nombre o email",
+    "name": "Nombre",
+    "status": "Estado",
+    "actions": "Acciones",
+    "page": "Página",
+    "of": "de",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "create": "Crear Usuario"
+  },
+  "team-management": {
+    "title": "Gestión de Equipos",
+    "filter": "Filtrar por Zona",
+    "all": "Todas las zonas",
+    "clean": "Limpiar filtro",
+    "no-teams": "No hay equipos para mostrar",
+    "no-filter": "No se encontraron equipos para la fecha y filtros seleccionados.",
+    "create": "Crear Equipo"
+  },
+  "team-card": {
+    "date": "Fecha: ",
+    "location": "Ubicación: ",
+    "status": "Estado: ",
+    "members": "Miembros del Equipo",
+    "mo-members": "No hay miembros asignados a este equipo.",
+    "edit": "Editar",
+    "edit-m": "Editar Miembros",
+    "position": "Cargo: "
+  },
+  "login-container": {
+    "slogan": "Tu operación en orden, en todo momento",
+    "email": "Correo electrónico",
+    "email-required": "El email es obligatorio.",
+    "email-valid": "Ingrese un email válido.",
+    "characters": "Mínimo 6 caracteres.",
+    "password": "Contraseña",
+    "password-required": "La contraseña es obligatoria.",
+    "password-missing": "¿Olvidaste tu contraseña?",
+    "login": "INGRESAR",
+    "register": "REGISTRARSE",
+    "loading": "Cargando...",
+    "fill": "Por favor, complete todos los campos.",
+    "invalid": "Email o contraseña incorrectos."
+  },
+  "password-recovery": {
+    "recover-password": "Recuperar Contraseña",
+    "link-sent": "Te enviaremos un enlace para restablecer tu contraseña.",
+    "email": "Correo electrónico",
+    "email-example": "ejemplo@correo.com",
+    "sent-link": "ENVIAR ENLACE",
+    "back-login": "VOLVER AL LOGIN"
+  },
+  "register-container": {
+    "slogan": "Tu operación en orden, en todo momento",
+    "email": "Correo electrónico",
+    "email-required": "El correo electrónico es obligatorio",
+    "email-invalid": "Por favor ingresa un correo electrónico válido",
+    "password": "Contraseña",
+    "password-required": "La contraseña es obligatoria",
+    "password-min": "La contraseña debe tener al menos 6 caracteres",
+    "password-repeat": "Repetir contraseña",
+    "password-repeat-required": "Por favor repite tu contraseña",
+    "password-mismatch": "Las contraseñas no coinciden",
+    "register": "REGISTRAR",
+    "registering": "REGISTRANDO...",
+    "already-have-account": "¿Ya tienes una cuenta?",
+    "login": "INICIAR SESIÓN"
+  },
+  "payment-view": {
+    "bank-info": "Ingrese la informacion bancaria",
+    "full-name": "Nombre completo",
+    "company-name": "Nombre de la empresa",
+    "card-number": "Numero de la tarjeta",
+    "card-type": "Tipo de tarjeta",
+    "month": "Mes",
+    "year": "Año",
+    "ruc": "Numero de RUC",
+    "save": "Guardar"
+  },
+  "account-creation": {
+    "email": "Correo electrónico",
+    "email-input": "Ingrese su email...",
+    "name": "Nombre",
+    "name-input": "Ingrese su nombre...",
+    "password": "Password",
+    "password-input": "Ingrese su contraseña",
+    "password-repeat": "Repita su contraseña",
+    "register": "Registrarse"
+  },
+  "home": {
+    "welcome": "Bienvenido a Swiftport",
+    "subtitle": "Tu plataforma integral de gestión logística",
+    "quick-access": "Acceso Rápido",
+    "activities-management": {
+      "title": "Gestión de Actividades",
+      "description": "Gestiona y realiza seguimiento de todas tus actividades logísticas"
+    },
+    "task-planning": {
+      "title": "Planificación de Tareas",
+      "description": "Planifica y programa tus tareas logísticas"
+    },
+    "equipment-management": {
+      "title": "Gestión de Equipos",
+      "description": "Gestiona tus equipos y recursos logísticos"
+    },
+    "team-management": {
+      "title": "Gestión de Equipos de Trabajo",
+      "description": "Organiza y gestiona tus equipos logísticos"
+    },
+    "location-management": {
+      "title": "Gestión de Ubicaciones",
+      "description": "Gestiona tus ubicaciones e instalaciones logísticas"
+    },
+    "execution-history": {
+      "title": "Historial de Ejecución",
+      "description": "Visualiza el historial de tareas y actividades completadas"
+    }
+  }
+}

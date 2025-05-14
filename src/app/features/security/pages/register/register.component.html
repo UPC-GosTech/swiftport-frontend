@@ -1,0 +1,99 @@
+<div class="register-wrapper">
+  <div class="register-logo">
+    <img src="assets/logo-swiftport.png" alt="SwiftPort Logo" />
+  </div>
+
+  <div class="register-container">
+    <h1>SwiftPort</h1>
+    <p>{{ 'register-container.slogan' | translate }}</p>
+
+    <form (ngSubmit)="onRegister()" #registerForm="ngForm" novalidate>
+      <label for="email">{{ 'register-container.email' | translate }}</label>
+      <input
+        type="email"
+        id="email"
+        [placeholder]="'register-container.email' | translate"
+        name="email"
+        [(ngModel)]="email"
+        required
+        email
+        #emailInput="ngModel"
+        [class.invalid-input]="emailInput.invalid && (emailInput.touched || submitted)"
+      />
+      @if (emailInput.errors?.['required'] && (emailInput.touched || submitted)) {
+        <small class="error-msg">
+          {{ 'register-container.email-required' | translate }}
+        </small>
+      }
+      @if (emailInput.errors?.['email'] && (emailInput.touched || submitted)) {
+        <small class="error-msg">
+          {{ 'register-container.email-invalid' | translate }}
+        </small>
+      }
+
+      <label for="password">{{ 'register-container.password' | translate }}</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        [placeholder]="'register-container.password' | translate"
+        [(ngModel)]="password"
+        required
+        minlength="6"
+        #passwordInput="ngModel"
+        [class.invalid-input]="passwordInput.invalid && (passwordInput.touched || submitted)"
+      />
+      @if (passwordInput.errors?.['required'] && (passwordInput.touched || submitted)) {
+        <small class="error-msg">
+          {{ 'register-container.password-required' | translate }}
+        </small>
+      }
+      @if (passwordInput.errors?.['minlength'] && (passwordInput.touched || submitted)) {
+        <small class="error-msg">
+          {{ 'register-container.password-min' | translate }}
+        </small>
+      }
+
+      <label for="repeatPassword">{{ 'register-container.password-repeat' | translate }}</label>
+      <input
+        type="password"
+        id="repeatPassword"
+        name="repeatPassword"
+        [placeholder]="'register-container.password-repeat' | translate"
+        [(ngModel)]="repeatPassword"
+        required
+        #repeatPasswordInput="ngModel"
+        [class.invalid-input]="repeatPasswordInput.invalid && (repeatPasswordInput.touched || submitted)"
+      />
+      @if (repeatPasswordInput.errors?.['required'] && (repeatPasswordInput.touched || submitted)) {
+        <small class="error-msg">
+          {{ 'register-container.password-repeat-required' | translate }}
+        </small>
+      }
+      @if (password !== repeatPassword && repeatPasswordInput.touched) {
+        <small class="error-msg">
+          {{ 'register-container.password-mismatch' | translate }}
+        </small>
+      }
+
+      @if (errorMessage) {
+        <div class="error-msg">
+          {{ errorMessage | translate }}
+        </div>
+      }
+
+      <button type="submit" class="register-btn" [disabled]="isLoading || registerForm.invalid">
+        @if (!isLoading) {
+          <span>📝 {{ 'register-container.register' | translate }}</span>
+        }
+        @if (isLoading) {
+          <span>{{ 'register-container.registering' | translate }}</span>
+        }
+      </button>
+
+      <a class="login-link" (click)="goToLogin()">
+        🔐 {{ 'register-container.login' | translate }}
+      </a>
+    </form>
+  </div>
+</div>

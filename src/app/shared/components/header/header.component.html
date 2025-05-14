@@ -1,0 +1,17 @@
+<header class="header">
+  <div class="header__left">
+    <button class="header__menu-toggle" (click)="onToggleSidebar()" aria-label="Toggle menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div class="header__title">SwiftPort</div>
+  </div>
+
+  <div class="header__right">
+    <app-language-switcher class="header__language-switcher"></app-language-switcher>
+    <div class="header__user">
+      <button class="header__profile-button" (click)="onProfile()" aria-label="User profile">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </div>
+  </div>
+</header>

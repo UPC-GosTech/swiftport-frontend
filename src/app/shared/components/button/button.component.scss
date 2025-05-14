@@ -1,0 +1,101 @@
+$primary: #f9a825;
+$primary-dark: #c17900;
+$secondary: #1a237e;
+$secondary-dark: #10194a;
+$danger: #d32f2f;
+$danger-dark: #a31515;
+$neutral: #e0e0e0;
+$neutral-dark: #bdbdbd;
+$white: #fff;
+$radius: 8px;
+$transition: 0.2s;
+
+:host {
+  display: inline-block;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: $radius;
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  transition: background $transition, box-shadow $transition, color $transition;
+  box-shadow: 0 2px 8px rgba(26, 35, 126, 0.06);
+  min-width: 40px;
+  min-height: 40px;
+
+  &.primary {
+    background: $primary;
+    color: $white;
+    &:hover:not(:disabled), &:focus-visible:not(:disabled) {
+      background: $primary-dark;
+      box-shadow: 0 4px 12px rgba(249, 168, 37, 0.15);
+    }
+  }
+  &.secondary {
+    background: $secondary;
+    color: $white;
+    &:hover:not(:disabled), &:focus-visible:not(:disabled) {
+      background: $secondary-dark;
+      box-shadow: 0 4px 12px rgba(26, 35, 126, 0.15);
+    }
+  }
+  &.danger {
+    background: $danger;
+    color: $white;
+    &:hover:not(:disabled), &:focus-visible:not(:disabled) {
+      background: $danger-dark;
+      box-shadow: 0 4px 12px rgba(211, 47, 47, 0.15);
+    }
+  }
+  &.neutral {
+    background: $neutral;
+    color: $secondary;
+    &:hover:not(:disabled), &:focus-visible:not(:disabled) {
+      background: $neutral-dark;
+      color: $secondary-dark;
+      box-shadow: 0 4px 12px rgba(224, 224, 224, 0.15);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  // Solo ícono
+  &.only-icon {
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 50%;
+    justify-content: center;
+    font-size: 22px;
+    .label {
+      display: none;
+    }
+  }
+
+  .icon {
+    font-size: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .label {
+    display: inline-block;
+    line-height: 1.2;
+  }
+}

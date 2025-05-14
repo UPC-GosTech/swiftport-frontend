@@ -1,0 +1,27 @@
+<button
+  [type]="type"
+  [disabled]="disabled"
+  [class]="
+    'button ' +
+    color +
+    (onlyIcon ? ' only-icon' : '') +
+    (icon && iconPosition === 'left' && !onlyIcon ? ' icon-left' : '') +
+    (icon && iconPosition === 'right' && !onlyIcon ? ' icon-right' : '')
+  "
+  (click)="onClick($event)"
+>
+  <!-- Ícono a la izquierda -->
+  <ng-container *ngIf="icon && iconPosition === 'left'">
+    <mat-icon class="icon">{{ icon }}</mat-icon>
+  </ng-container>
+  <!-- Texto -->
+  <span class="label" *ngIf="label && !onlyIcon">{{ label }}</span>
+  <!-- Ícono a la derecha -->
+  <ng-container *ngIf="icon && iconPosition === 'right'">
+    <mat-icon class="icon">{{ icon }}</mat-icon>
+  </ng-container>
+  <!-- Solo ícono -->
+  <ng-container *ngIf="icon && onlyIcon">
+    <mat-icon class="icon">{{ icon }}</mat-icon>
+  </ng-container>
+</button>

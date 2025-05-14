@@ -1,0 +1,38 @@
+<div class="location-management-container">
+  <div class="header">
+    <h1>{{ 'location-management.zones' | translate }}</h1>
+    <app-button
+      [label]="'location-management.add' | translate"
+      [color]="'primary'"
+      (clicked)="openZoneFormDialog()">
+    </app-button>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>{{ 'location-management.loading' | translate }}</p>
+  </div>
+
+  <div *ngIf="!loading && zones.length === 0" class="empty-state">
+    <mat-icon>location_off</mat-icon>
+    <p>{{ 'location-management.not-found' | translate }}</p>
+    <app-button
+      [label]="'location-management.create' | translate"
+      [color]="'primary'"
+      (clicked)="openZoneFormDialog()">
+    </app-button>
+  </div>
+
+  <div class="zones-grid" *ngIf="!loading && zones.length > 0">
+    <app-zone-card
+      *ngFor="let zone of zones"
+      [zone]="zone"
+      [isSelected]="selectedZoneId === zone.id"
+      (select)="selectZone($event)"
+      (edit)="openZoneFormDialog($event)"
+      (toggleActive)="toggleZoneActive($event)"
+      (addLocation)="openLocationFormDialog($event)"
+      (delete)="deleteZone($event)">
+    </app-zone-card>
+  </div>
+</div>

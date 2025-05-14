@@ -1,0 +1,32 @@
+@use 'variables' as v;
+
+@mixin apply-material-themes($mat) {
+  $mat-primary-light: $mat.define-palette($mat.$blue-palette, 500);
+  $mat-primary-dark: $mat.define-palette($mat.$blue-palette, 200);
+  $mat-accent: $mat.define-palette($mat.$pink-palette, "A200");
+  $mat-warn: $mat.define-palette($mat.$red-palette);
+
+  $light-theme: $mat.define-light-theme((
+    color: (
+      primary: $mat-primary-light,
+      accent: $mat-accent,
+      warn: $mat-warn
+    ),
+    typography: $mat.define-typography-config()
+  ));
+
+  $dark-theme: $mat.define-dark-theme((
+    color: (
+      primary: $mat-primary-dark,
+      accent: $mat-accent,
+      warn: $mat-warn
+    ),
+    typography: $mat.define-typography-config()
+  ));
+
+  @include $mat.all-component-themes($light-theme);
+
+  [data-theme="dark"] {
+    @include $mat.all-component-colors($dark-theme);
+  }
+}

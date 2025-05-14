@@ -1,0 +1,207 @@
+{
+  "location-management": {
+    "zones": "Zone Management",
+    "add": "Add Zone",
+    "loading": "Loading zones",
+    "not-found": "No zones found",
+    "create": "Create your first zone"
+  },
+  "location-form-dialog": {
+    "name": "Name",
+    "n2": "Name is required",
+    "description": "Description",
+    "l1": "Latitude",
+    "l2": "Latitude is required",
+    "l3": "Longitude",
+    "l4": "Longitude is required",
+    "cancel": "Cancel",
+    "update": "Update",
+    "add": "Add"
+  },
+  "zone-form-dialog": {
+    "name": "Name",
+    "n2": "Name is required",
+    "description": "Description",
+    "cancel": "Cancel",
+    "update": "Update",
+    "add": "Add"
+  },
+  "zone-card": {
+    "locations": "Locations",
+    "edit": "Edit",
+    "activate": "Activate",
+    "deactivate": "Deactivate",
+    "add": "Add Location"
+  },
+  "equipment-management": {
+    "equipment": "Equipment Management",
+    "filter": "Filter by status: ",
+    "cards": "View in cards",
+    "table": "View in table",
+    "add": "Add equipment",
+    "edit": "Edit",
+    "maintain": "To maintenance",
+    "able": "Available",
+    "picture": "Upload picture"
+  },
+  "equipment-card": {
+    "status": "Status: ",
+    "charge": "Load capacity: ",
+    "passengers": "Passenger capacity: ",
+    "edit": "Edit",
+    "picture": "Upload pictures",
+    "maintain": "To maintenance",
+    "able": "Available"
+  },
+  "equipment-form-dialog": {
+    "plate": "Plate",
+    "model": "Model/Type",
+    "charge": "Load capacity (kg) ",
+    "passengers": "Passenger capacity ",
+    "status": "Status",
+    "cancel": "Cancel",
+    "save": "Save",
+    "list": "No equipment available with the selected filters."
+  },
+  "employee-management": {
+    "employee": "Employee Management",
+    "filter": "Filter by position: ",
+    "add": "Add Employee",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "employee-form-dialog": {
+    "add": "Add employee",
+    "edit": "Edit employee",
+    "name": "Name",
+    "last-name": "Last Name",
+    "phone": "Phone",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "charges": "Positions",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "user-management": {
+    "title": "User Management",
+    "all": "All roles",
+    "search": "Search by name or email",
+    "name": "Name",
+    "status": "Status",
+    "actions": "Actions",
+    "page": "Page",
+    "of": "of",
+    "previous": "Previous",
+    "next": "Next",
+    "create": "Create User"
+  },
+  "team-management": {
+    "title": "Team Management",
+    "filter": "Filter by Zone",
+    "all": "All zones",
+    "clean": "Clear filter",
+    "no-teams": "No teams to display",
+    "no-filter": "No teams found for the selected date and filters.",
+    "create": "Create Team"
+  },
+  "team-card": {
+    "date": "Date: ",
+    "location": "Location: ",
+    "status": "Status: ",
+    "members": "Team Members",
+    "mo-members": "No members assigned to this team.",
+    "edit": "Edit",
+    "edit-m": "Edit Members",
+    "position": "Position: "
+  },
+  "login-container": {
+    "slogan": "Your operation in order, at all times",
+    "email": "Email",
+    "email-required": "Email is required.",
+    "email-valid": "Enter a valid email.",
+    "characters": "Min. 6 characters.",
+    "password": "Password",
+    "password-required": "Password is required.",
+    "password-missing": "Forgot your password?",
+    "login": "LOGIN",
+    "register": "REGISTER",
+    "loading": "Loading...",
+    "fill": "Please fill in all fields.",
+    "invalid": "Incorrect email or password."
+  },
+  "password-recovery": {
+    "recover-password": "Password Recovery",
+    "link-sent": "We'll send you a link to reset your password.",
+    "email": "Email",
+    "email-example": "example@email.com",
+    "sent-link": "SEND LINK",
+    "back-login": "BACK TO LOGIN"
+  },
+  "register-container": {
+    "slogan": "Your operation in order, at all times",
+    "email": "Email",
+    "email-required": "Email is required",
+    "email-invalid": "Please enter a valid email",
+    "password": "Password",
+    "password-required": "Password is required",
+    "password-min": "Password must be at least 6 characters",
+    "password-repeat": "Repeat password",
+    "password-repeat-required": "Please repeat your password",
+    "password-mismatch": "Passwords do not match",
+    "register": "REGISTER",
+    "registering": "REGISTERING...",
+    "already-have-account": "Already have an account?",
+    "login": "LOGIN"
+  },
+  "payment-view": {
+    "bank-info": "Enter your bank information",
+    "full-name": "Full name",
+    "company-name": "Company name",
+    "card-number": "Card number",
+    "card-type": "Card type",
+    "month": "Month",
+    "year": "Year",
+    "ruc": "RUC number",
+    "save": "Save"
+  },
+  "account-creation": {
+    "email": "Email",
+    "email-input": "Enter your email...",
+    "name": "Name",
+    "name-input": "Enter your name...",
+    "password": "Password",
+    "password-input": "Enter your password",
+    "password-repeat": "Repeat your password",
+    "register": "Register"
+  },
+  "home": {
+    "welcome": "Welcome to Swiftport",
+    "subtitle": "Your comprehensive logistics management platform",
+    "quick-access": "Quick Access",
+    "activities-management": {
+      "title": "Activities Management",
+      "description": "Manage and track all your logistics activities"
+    },
+    "task-planning": {
+      "title": "Task Planning",
+      "description": "Plan and schedule your logistics tasks"
+    },
+    "equipment-management": {
+      "title": "Equipment Management",
+      "description": "Manage your logistics equipment and resources"
+    },
+    "team-management": {
+      "title": "Team Management",
+      "description": "Organize and manage your logistics teams"
+    },
+    "location-management": {
+      "title": "Location Management",
+      "description": "Manage your logistics locations and facilities"
+    },
+    "execution-history": {
+      "title": "Execution History",
+      "description": "View history of completed tasks and activities"
+    }
+  }
+}

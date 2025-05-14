@@ -1,0 +1,58 @@
+<div class="employee-management-container">
+  <div class="header">
+    <h1>{{ 'employee-management.employee' | translate }}</h1>
+
+    <div class="actions">
+      <div class="filters">
+        <span>{{ 'employee-management.filter' | translate }}</span>
+        <app-selector
+          [options]="positionOptions"
+          [color]="'secondary'"
+          [size]="'medium'"
+          [disabled]="loading"
+          (selectionChange)="onPositionFilterChange($event)"
+        ></app-selector>
+      </div>
+
+      <div class="view-controls">
+        <app-button
+          [label]="'employee-management.add' | translate"
+          [color]="'primary'"
+          [disabled]="loading"
+          (clicked)="openAddDialog()"
+        ></app-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="table-view" [class.loading]="loading">
+      <div class="loading-overlay" *ngIf="loading">
+        <div class="spinner"></div>
+      </div>
+      <app-table
+        [columns]="columns"
+        [dataSource]="filteredEmployees"
+        [showPaginator]="true"
+        [customColumns]="tableActions"
+      ></app-table>
+    </div>
+  </div>
+</div>
+
+<ng-template #tableActions let-column="column" let-row="row">
+    <div *ngIf="column === 'actions'" class="action-buttons">
+      <app-button
+        [label]="'employee-management.edit' | translate"
+        [color]="'primary'"
+        [disabled]="loading"
+        (clicked)="openEditDialog(row)"
+      ></app-button>
+      <app-button
+        [label]="'employee-management.delete' | translate"
+        [color]="'danger'"
+        [disabled]="loading"
+        (clicked)="deleteEmployee(row)"
+      ></app-button>
+    </div>
+</ng-template>
