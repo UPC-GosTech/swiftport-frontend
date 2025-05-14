@@ -21,3 +21,10 @@ export class Zone {
         this.active = active ?? true;
     }
 }
+
+export interface ZoneInfo {
+    id: number;
+    name: string;
+    description: string;
+    active: boolean;
+}
