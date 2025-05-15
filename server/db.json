@@ -414,6 +414,20 @@
       "tasksIds": [
         1013
       ]
+    },
+    {
+      "title": "123",
+      "description": "123",
+      "scheduledDate": "2025-05-15T06:48:12.784Z",
+      "actualStartTime": "",
+      "actualEndTime": null,
+      "priority": "medium",
+      "status": "pending",
+      "supervisorNotes": "",
+      "attachments": [],
+      "createdAt": "",
+      "updatedAt": "",
+      "id": 12358
     }
   ],
   "employee": [
@@ -1139,12 +1153,6 @@
       "name": "Zona de Minería Sur",
       "description": "Zona minera productora de oro y otros minerales, con varias ubicaciones clave.",
       "active": true
-    },
-    {
-      "id": 1006,
-      "name": "Prueba1",
-      "description": "Me gusta comer",
-      "active": true
     }
   ],
   "team-member": [
@@ -1327,6 +1335,16 @@
       "id": 90883,
       "employeeId": 107,
       "positionId": 2
+    },
+    {
+      "id": 825300,
+      "employeeId": 108,
+      "positionId": 3
+    },
+    {
+      "id": 683652,
+      "employeeId": 108,
+      "positionId": 3
     }
   ],
   "team": [
@@ -1391,10 +1409,10 @@
       "id": 840698,
       "name": "q",
       "date": "2025-05-14T01:56:35.801Z",
-      "zoneId": 1006,
+      "zoneId": 1005,
       "status": "ACTIVE",
       "membersId": [
-        43199
+        683652
       ]
     },
     {

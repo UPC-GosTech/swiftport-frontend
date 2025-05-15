@@ -6,6 +6,8 @@ export class Task {
   description: string;
   status: string;
   progress: number;
+  priority: 'low' | 'medium' | 'high';
+  dueDate: string;
   createdAt: string;
   updatedAt: string;
 
@@ -17,6 +19,8 @@ export class Task {
     this.description = '';
     this.status = '';
     this.progress = 0;
+    this.priority = 'medium';
+    this.dueDate = '';
     this.createdAt = '';
     this.updatedAt = '';
   }

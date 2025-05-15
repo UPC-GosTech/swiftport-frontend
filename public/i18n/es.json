@@ -29,6 +29,7 @@
   "zone-card": {
     "locations": "Ubicaciones",
     "edit": "Editar",
+    "delete": "Eliminar",
     "activate": "Activar",
     "deactivate": "Desactivar",
     "add": "Agregar Ubicación"
@@ -111,7 +112,7 @@
     "location": "Ubicación: ",
     "status": "Estado: ",
     "members": "Miembros del Equipo",
-    "mo-members": "No hay miembros asignados a este equipo.",
+    "no-members": "No hay miembros asignados a este equipo.",
     "edit": "Editar",
     "edit-m": "Editar Miembros",
     "position": "Cargo: "
