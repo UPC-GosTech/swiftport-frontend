@@ -141,7 +141,44 @@ export class MenuService {
     }
   ];
 
+  private supervisorMenuItems: SidebarMenuItem[] = [
+    {
+      id: 'home',
+      label: 'Home',
+      icon: 'home',
+      route: '/swiftport/home'
+    },
+    {
+      id: 'equipments-management',
+      label: 'Equipment Management',
+      icon: 'construction',
+      route: '/swiftport/equipments-management'
+    },
+    {
+      id: 'location-management',
+      label: 'Location Management',
+      icon: 'place',
+      route: '/swiftport/location-management'
+    },
+    {
+      id: 'activities',
+      label: 'Activities',
+      icon: 'moving',
+      route: '/swiftport/activity-management'
+    },
+    {
+      id: 'task-list-supervisor',
+      label: 'Task List',
+      icon: 'list',
+      route: '/swiftport/task-list-supervisor'
+    }
+  ];
+
   constructor() { }
+
+  getSupervisorMenuItems(): Observable<SidebarMenuItem[]> {
+    return of(this.supervisorMenuItems);
+  }
 
   getOperarioMenuItems(): Observable<SidebarMenuItem[]> {
     return of(this.operarioMenuItems);
