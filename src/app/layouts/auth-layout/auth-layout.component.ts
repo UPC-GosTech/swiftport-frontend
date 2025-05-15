@@ -24,15 +24,41 @@ export class AuthLayoutComponent implements AfterViewInit, OnDestroy {
 
   private particlesOptions: ISourceOptions = {
     background: { color: { value: 'transparent' } },
-    fpsLimit: 60,
+    fpsLimit: 120,
     particles: {
-      number: { value: 60, density: { enable: true } },
-      color: { value: ['#E6801A', '#E65A1A', '#FFD699'] },
+      number: { value: 150, density: { enable: true } },
+      color: { value: ['#E6801A', '#E65A1A', '#FFD699', '#FFE5CC'] },
       shape: { type: 'circle' },
-      opacity: { value: 0.5 },
-      size: { value: { min: 2, max: 4 } },
-      move: { enable: true, speed: 1, direction: 'none', outModes: { default: 'out' } },
-      links: { enable: true, color: '#E6801A', distance: 120, opacity: 0.2, width: 1 }
+      opacity: {
+        value: 0.7,
+        animation: {
+          enable: true,
+          speed: 5,
+          sync: false
+        }
+      },
+      size: {
+        value: { min: 2, max: 5 },
+        animation: {
+          enable: true,
+          speed: 2,
+          sync: false
+        }
+      },
+      move: {
+        enable: true,
+        speed: 2,
+        direction: 'none',
+        outModes: { default: 'out' },
+        attract: { enable: true, rotate: { x: 600, y: 600 } }
+      },
+      links: {
+        enable: true,
+        distance: 150,
+        color: '#E6801A',
+        opacity: 0.15,
+        width: 1
+      }
     },
     detectRetina: true
   };

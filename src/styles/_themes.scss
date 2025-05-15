@@ -11,12 +11,10 @@
 // Tema Claro (default)
 :root,
 [data-theme='light'] {
-  @include generate-css-vars(v.$light-colors);
-  @include generate-css-vars(v.$light-text-colors);
+  @include generate-css-vars(v.$palette-light);
 }
 
-//  Tema Oscuro
+// Tema Oscuro
 [data-theme='dark'] {
-  @include generate-css-vars(v.$dark-colors);
-  @include generate-css-vars(v.$dark-text-colors);
+  @include generate-css-vars(v.$palette-dark);
 }
