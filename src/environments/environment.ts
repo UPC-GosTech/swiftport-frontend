@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   serverBaseUrl: 'http://localhost:3000/api/v1',
+  mockBaseUrl: 'https://68237de265ba05803396f293.mockapi.io/api/v1',
   positionsEndPoint: '/positions',
   activityEndPoint: '/activity',
   employeeEndPoint: '/employee',

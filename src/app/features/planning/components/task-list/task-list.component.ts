@@ -51,7 +51,9 @@ export class TaskListComponent implements OnInit {
         status: 'Completado',
         progress: 100,
         createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
+        updatedAt: new Date().toISOString(),
+        priority: 'low',
+        dueDate: new Date().toISOString()
       },
       {
         taskId: 2,
@@ -62,7 +64,9 @@ export class TaskListComponent implements OnInit {
         status: 'En progreso',
         progress: 60,
         createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
+        updatedAt: new Date().toISOString(),
+        priority: 'medium',
+        dueDate: new Date().toISOString()
       },
       {
         taskId: 3,
@@ -73,7 +77,9 @@ export class TaskListComponent implements OnInit {
         status: 'Pendiente',
         progress: 0,
         createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
+        updatedAt: new Date().toISOString(),
+        priority: 'high',
+        dueDate: new Date().toISOString()
       }
     ];
 

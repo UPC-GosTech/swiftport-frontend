@@ -3,12 +3,14 @@ import { RouterOutlet } from '@angular/router';
 import { ThemeService } from './core/services/theme.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from './core/services/language.service';
+import { SnackbarComponent } from './shared/components/snackbar/snackbar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet
+    RouterOutlet,
+    SnackbarComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']

@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -14,6 +14,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { addHours, addDays, subDays } from 'date-fns';
 import { Subject } from 'rxjs';
+import { LocalStorageService } from '../../../../core/services/local-storage.service';
 
 import { DateNavigatorComponent } from '../../../../shared/components/date-navigator/date-navigator.component';
 import { TaskScheduling } from '../../model/taskScheduling.entity';
@@ -38,6 +39,22 @@ interface CalendarEventTimesChangedEvent {
   event: CalendarEvent;
   newStart: Date;
   newEnd?: Date;
+}
+
+interface StorageState {
+  taskSchedules: TaskScheduling[];
+  unscheduledTasks: Task[];
+  viewMode: 'calendar' | 'table';
+  searchTerm: string;
+  scheduledTasksSort: Sort;
+  unscheduledTasksSort: Sort;
+  selectedDate: string;
+  statusFilter: string;
+  priorityFilter: string;
+  startDate: string | null;
+  endDate: string | null;
+  showCompleted: boolean;
+  groupBy: 'none' | 'status' | 'priority';
 }
 
 @Component({
@@ -95,6 +112,19 @@ export class TaskPlanningComponent implements OnInit {
   scheduledTasksSort: Sort = { active: 'startTime', direction: SortDirection.ASC };
   unscheduledTasksSort: Sort = { active: 'taskName', direction: SortDirection.ASC };
 
+  // Filter properties
+  statusFilter: string = '';
+  priorityFilter: string = '';
+  startDate: Date | null = null;
+  endDate: Date | null = null;
+
+  // View settings
+  showCompleted: boolean = true;
+  groupBy: 'none' | 'status' | 'priority' = 'none';
+
+  private localStorageService = inject(LocalStorageService);
+  private readonly STORAGE_KEY = 'task_planning_state';
+
   constructor(
     private dialog: MatDialog, 
     private snackBar: MatSnackBar,
@@ -104,6 +134,7 @@ export class TaskPlanningComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadState();
     this.loadTasksForDate(this.selectedDate);
   }
   
@@ -189,55 +220,40 @@ export class TaskPlanningComponent implements OnInit {
     this.selectedDate = date;
     this.viewDate = new Date(date);
     this.loadTasksForDate(date);
+    this.saveState();
   }
   
   loadTasksForDate(date: Date): void {
     const newDate = new Date(date);
     
-    this.taskSchedules = [
-      Object.assign(new TaskScheduling(), {
-        id: '1',
-        task: Object.assign(new Task(), { 
-          taskId: 1, 
-          taskName: 'Carga de combustible', 
-          description: 'Carga de combustible para avión' 
-        }),
-        startTime: new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate(), 8, 0),
-        endTime: new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate(), 9, 30),
-        status: 'programmed',
-        teamId: 1,
-        equipmentsIds: [101, 102],
-        comments: 'Prioridad alta'
-      }),
-      Object.assign(new TaskScheduling(), {
-        id: '2',
-        task: Object.assign(new Task(), { 
-          taskId: 4, 
-          taskName: 'Revisión de vuelo', 
-          description: 'Revisión pre-vuelo de aeronave' 
-        }),
-        startTime: new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate(), 10, 0),
-        endTime: new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate(), 11, 0),
-        status: 'pending',
-        teamId: 2,
-        equipmentsIds: [103],
-        comments: 'Verificar instrumentos'
-      })
-    ];
+    // Load tasks from localStorage
+    const savedState = this.localStorageService.getItem<StorageState>(this.STORAGE_KEY, {
+      taskSchedules: [],
+      unscheduledTasks: [],
+      viewMode: 'calendar',
+      searchTerm: '',
+      scheduledTasksSort: { active: 'startTime', direction: SortDirection.ASC },
+      unscheduledTasksSort: { active: 'taskName', direction: SortDirection.ASC },
+      selectedDate: new Date().toISOString(),
+      statusFilter: '',
+      priorityFilter: '',
+      startDate: null,
+      endDate: null,
+      showCompleted: true,
+      groupBy: 'none'
+    });
+
+    // Filter tasks for the selected date
+    this.taskSchedules = savedState.taskSchedules.filter(schedule => {
+      const scheduleDate = new Date(schedule.startTime);
+      return (
+        scheduleDate.getFullYear() === newDate.getFullYear() &&
+        scheduleDate.getMonth() === newDate.getMonth() &&
+        scheduleDate.getDate() === newDate.getDate()
+      );
+    });
     
-    this.unscheduledTasks = [
-      Object.assign(new Task(), {
-        taskId: 2,
-        taskName: 'Revisión de equipaje',
-        description: 'Revisión de equipaje en zona 3'
-      }),
-      Object.assign(new Task(), {
-        taskId: 3,
-        taskName: 'Mantenimiento de pista',
-        description: 'Mantenimiento rutinario de pista'
-      })
-    ];
-    
+    this.unscheduledTasks = savedState.unscheduledTasks;
     this.filteredUnscheduledTasks = [...this.unscheduledTasks];
     
     this.generateCalendarEvents();
@@ -295,12 +311,20 @@ export class TaskPlanningComponent implements OnInit {
       event.dataTransfer.setData('schedulingId', scheduling.id);
       event.dataTransfer.setData('taskName', scheduling.task.taskName);
       event.dataTransfer.setData('startHour', scheduling.startTime.getHours().toString());
+      event.dataTransfer.effectAllowed = 'move';
     }
     this.draggingTask = true;
   }
 
   onDragEnd(): void {
     this.draggingTask = false;
+  }
+
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+    if (event.dataTransfer) {
+      event.dataTransfer.dropEffect = 'move';
+    }
   }
 
   onDrop(event: DragEvent, timeSlot: string): void {
@@ -338,10 +362,6 @@ export class TaskPlanningComponent implements OnInit {
     }
   }
 
-  onDragOver(event: DragEvent): void {
-    event.preventDefault();
-  }
-
   handleUnscheduledTaskDrop(event: DragEvent, timeSlot: string): void {
     const taskId = event.dataTransfer?.getData('taskId');
     if (taskId) {
@@ -370,7 +390,20 @@ export class TaskPlanningComponent implements OnInit {
             newTime: timeSlot
           }).subscribe(result => {
             if (result) {
-              this.rescheduleTask(scheduling, newHour);
+              const duration = scheduling.endTime.getTime() - scheduling.startTime.getTime();
+              const newStartTime = new Date(this.selectedDate);
+              newStartTime.setHours(newHour, 0, 0, 0);
+              const newEndTime = new Date(newStartTime.getTime() + duration);
+              
+              scheduling.startTime = newStartTime;
+              scheduling.endTime = newEndTime;
+              
+              this.generateCalendarEvents();
+              this.saveState();
+              
+              this.snackBar.open(`Tarea reprogramada para ${newHour}:00`, 'OK', {
+                duration: 3000
+              });
             }
           });
         }
@@ -400,6 +433,7 @@ export class TaskPlanningComponent implements OnInit {
     this.filteredUnscheduledTasks = this.filteredUnscheduledTasks.filter(t => t.taskId !== task.taskId);
     
     this.generateCalendarEvents();
+    this.saveState();
     
     this.snackBar.open(`Tarea "${task.taskName}" programada para ${timeSlot}`, 'OK', {
       duration: 3000
@@ -418,6 +452,7 @@ export class TaskPlanningComponent implements OnInit {
     scheduling.endTime = newEndTime;
     
     this.generateCalendarEvents();
+    this.saveState();
     
     this.snackBar.open(`Tarea reprogramada para ${newHour}:00`, 'OK', {
       duration: 3000
@@ -431,6 +466,7 @@ export class TaskPlanningComponent implements OnInit {
     this.filteredUnscheduledTasks.push(scheduling.task);
     
     this.generateCalendarEvents();
+    this.saveState();
     
     this.snackBar.open(`Tarea "${scheduling.task.taskName}" desprogramada`, 'OK', {
       duration: 3000
@@ -461,6 +497,7 @@ export class TaskPlanningComponent implements OnInit {
       calendarEvent.end = newEnd;
       
       this.refresh.next(undefined);
+      this.saveState();
       
       this.snackBar.open(`Tarea reprogramada: ${calendarEvent.title}`, 'OK', {
         duration: 3000
@@ -486,6 +523,7 @@ export class TaskPlanningComponent implements OnInit {
         task.description.toLowerCase().includes(searchTermLower)
       );
     }
+    this.saveState();
   }
   
   getStatusClass(status: string): string {
@@ -518,6 +556,7 @@ export class TaskPlanningComponent implements OnInit {
         }
         
         this.generateCalendarEvents();
+        this.saveState();
       }
     });
   }
@@ -532,10 +571,12 @@ export class TaskPlanningComponent implements OnInit {
 
   onSortScheduledChange(sort: Sort): void {
     this.scheduledTasksSort = sort;
+    this.saveState();
   }
 
   onSortUnscheduledChange(sort: Sort): void {
     this.unscheduledTasksSort = sort;
+    this.saveState();
   }
   
   getSchedulingById(id: string | number | undefined): TaskScheduling {
@@ -544,5 +585,137 @@ export class TaskPlanningComponent implements OnInit {
       throw new Error(`No se encontró la programación con ID ${id}`);
     }
     return scheduling;
+  }
+
+  private loadState() {
+    const savedState = this.localStorageService.getItem<StorageState>(this.STORAGE_KEY, {
+      taskSchedules: [],
+      unscheduledTasks: [],
+      viewMode: 'calendar',
+      searchTerm: '',
+      scheduledTasksSort: { active: 'startTime', direction: SortDirection.ASC },
+      unscheduledTasksSort: { active: 'taskName', direction: SortDirection.ASC },
+      selectedDate: new Date().toISOString(),
+      statusFilter: '',
+      priorityFilter: '',
+      startDate: null,
+      endDate: null,
+      showCompleted: true,
+      groupBy: 'none'
+    });
+
+    // Generate default tasks if storage is empty
+    if (savedState.taskSchedules.length === 0) {
+      const today = new Date();
+      savedState.taskSchedules = [
+        Object.assign(new TaskScheduling(), {
+          id: '1',
+          task: Object.assign(new Task(), {
+            taskId: 1,
+            taskName: 'Carga de combustible',
+            description: 'Carga de combustible para avión Boeing 737',
+            status: 'pending',
+            priority: 'high'
+          }),
+          startTime: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 8, 0),
+          endTime: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 9, 30),
+          status: 'programmed',
+          teamId: 1,
+          equipmentsIds: [101, 102],
+          comments: 'Prioridad alta - Verificar niveles de combustible'
+        }),
+        Object.assign(new TaskScheduling(), {
+          id: '2',
+          task: Object.assign(new Task(), {
+            taskId: 2,
+            taskName: 'Revisión de vuelo',
+            description: 'Revisión pre-vuelo de aeronave Airbus A320',
+            status: 'pending',
+            priority: 'high'
+          }),
+          startTime: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 10, 0),
+          endTime: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 11, 0),
+          status: 'programmed',
+          teamId: 2,
+          equipmentsIds: [103],
+          comments: 'Verificar instrumentos y sistemas'
+        }),
+        Object.assign(new TaskScheduling(), {
+          id: '3',
+          task: Object.assign(new Task(), {
+            taskId: 3,
+            taskName: 'Limpieza de cabina',
+            description: 'Limpieza y desinfección de cabina de pasajeros',
+            status: 'pending',
+            priority: 'medium'
+          }),
+          startTime: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 0),
+          endTime: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 13, 0),
+          status: 'programmed',
+          teamId: 3,
+          equipmentsIds: [104],
+          comments: 'Incluir desinfección de superficies de contacto'
+        })
+      ];
+
+      savedState.unscheduledTasks = [
+        Object.assign(new Task(), {
+          taskId: 4,
+          taskName: 'Revisión de equipaje',
+          description: 'Revisión de equipaje en zona 3',
+          status: 'pending',
+          priority: 'medium'
+        }),
+        Object.assign(new Task(), {
+          taskId: 5,
+          taskName: 'Mantenimiento de pista',
+          description: 'Mantenimiento rutinario de pista principal',
+          status: 'pending',
+          priority: 'high'
+        }),
+        Object.assign(new Task(), {
+          taskId: 6,
+          taskName: 'Control de seguridad',
+          description: 'Revisión de sistemas de seguridad del aeropuerto',
+          status: 'pending',
+          priority: 'high'
+        })
+      ];
+
+      // Save the default state
+      this.localStorageService.setItem(this.STORAGE_KEY, savedState);
+    }
+
+    this.viewMode = savedState.viewMode;
+    this.searchTerm = savedState.searchTerm;
+    this.scheduledTasksSort = savedState.scheduledTasksSort;
+    this.unscheduledTasksSort = savedState.unscheduledTasksSort;
+    this.selectedDate = new Date(savedState.selectedDate);
+    this.statusFilter = savedState.statusFilter;
+    this.priorityFilter = savedState.priorityFilter;
+    this.startDate = savedState.startDate ? new Date(savedState.startDate) : null;
+    this.endDate = savedState.endDate ? new Date(savedState.endDate) : null;
+    this.showCompleted = savedState.showCompleted;
+    this.groupBy = savedState.groupBy;
+  }
+
+  private saveState() {
+    const state: StorageState = {
+      taskSchedules: this.taskSchedules,
+      unscheduledTasks: this.unscheduledTasks,
+      viewMode: this.viewMode,
+      searchTerm: this.searchTerm,
+      scheduledTasksSort: this.scheduledTasksSort,
+      unscheduledTasksSort: this.unscheduledTasksSort,
+      selectedDate: this.selectedDate.toISOString(),
+      statusFilter: this.statusFilter,
+      priorityFilter: this.priorityFilter,
+      startDate: this.startDate?.toISOString() || null,
+      endDate: this.endDate?.toISOString() || null,
+      showCompleted: this.showCompleted,
+      groupBy: this.groupBy
+    };
+
+    this.localStorageService.setItem(this.STORAGE_KEY, state);
   }
 }

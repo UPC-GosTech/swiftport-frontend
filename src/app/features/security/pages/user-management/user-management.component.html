@@ -23,19 +23,20 @@
       </thead>
       <tbody>
       <tr *ngFor="let user of paginatedUsers">
-        <td>{{ user.nombre }}</td>
+        <td>{{ user.name }}</td>
         <td>{{ user.email }}</td>
-        <td>{{ user.rol }}</td>
+        <td>{{ user.role }}</td>
         <td>
-            <span class="status" [class.active]="user.estado === 'activo'" [class.inactive]="user.estado !== 'activo'">
-              {{ user.estado }}
+            <span class="status" [class.active]="user.status === 'active'" [class.inactive]="user.status !== 'active'">
+              {{ user.status }}
             </span>
         </td>
         <td>
           <button class="btn edit" (click)="editUser(user)">✏️</button>
           <button class="btn toggle" (click)="toggleEstado(user)">
-            {{ user.estado === 'activo' ? '🔒' : '🔓' }}
+            {{ user.status === 'active' ? '🔒' : '🔓' }}
           </button>
+          <button class="btn delete" (click)="deleteUser(user)">🗑️</button>
         </td>
       </tr>
       </tbody>

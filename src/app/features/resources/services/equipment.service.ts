@@ -15,6 +15,7 @@ export class EquipmentService extends BaseService<EquipmentResponse> {
 
   constructor() {
     super();
+    this.serverBaseUrl = environment.mockBaseUrl;
     this.resourceEndpoint = equipmentEndPoint;
   }
 
