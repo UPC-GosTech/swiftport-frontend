@@ -70,7 +70,13 @@
     "filter": "Filter by position: ",
     "add": "Add Employee",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "table": {
+      "dni": "DNI",
+      "last-name": "Last Name",
+      "position": "Position",
+      "actions": "Actions"
+    }
   },
   "employee-form-dialog": {
     "add": "Add employee",
@@ -175,7 +181,9 @@
     "password": "Password",
     "password-input": "Enter your password",
     "password-repeat": "Repeat your password",
-    "register": "Register"
+    "register": "Register",
+    "logo": "SwiftPort Logo",
+    "small-logo": "SwiftPort Small Logo"
   },
   "home": {
     "welcome": "Welcome to Swiftport",
@@ -204,6 +212,345 @@
     "execution-history": {
       "title": "Execution History",
       "description": "View history of completed tasks and activities"
+    }
+  },
+  "shared": {
+    "components": {
+      "table": {
+        "no-records": "No records available",
+        "loading": "Loading...",
+        "edit": "Edit"
+      },
+      "sidebar": {
+        "logo": "SwiftPort",
+        "logo-short": "SP"
+      },
+      "header": {
+        "title": "SwiftPort",
+        "menu": "Menu",
+        "account": "Account"
+      },
+      "confirmation-dialog": {
+        "close": "Close",
+        "confirm": "Confirm"
+      },
+      "reschedule-dialog": {
+        "title": "Reschedule Task",
+        "message": "Do you want to reschedule \"{{taskName}}\" from {{oldTime}} to {{newTime}}?",
+        "cancel": "Cancel",
+        "confirm": "Confirm"
+      },
+      "page-not-found": {
+        "title": "Page Not Found",
+        "message": "The path <b>{{path}}</b> is not valid.",
+        "register": "Register"
+      },
+      "profile": {
+        "change-photo": "Change photo"
+      }
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "update": "Update",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search",
+    "filter": "Filter",
+    "no-results": "No results found",
+    "required": "Required field",
+    "invalid": "Invalid field"
+  },
+  "settings": {
+    "title": "Subscription Panel",
+    "subtitle": "Manage your plan, status and payment method",
+    "current-plan": "Current Plan",
+    "status": "Status",
+    "select-status": "Select status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "plan-start": "Plan Start",
+    "next-payment": "Next Payment",
+    "payment-method": "Payment Method",
+    "payment-placeholder": "Ex. VISA **** 1234",
+    "view-plan": "View Plan",
+    "change-payment": "Change Payment Method",
+    "renew": "Renew Subscription",
+    "processing": "Processing...",
+    "back-home": "Back to Home",
+    "error-message": "Please check the marked fields before continuing.",
+    "required-field": "This field is required.",
+    "select-valid-status": "Please select a valid status.",
+    "date-required": "Date is required."
+  },
+  "demo": {
+    "styles": {
+      "title": "Style System",
+      "typography": {
+        "title": "Typography System",
+        "h1": "Heading 1",
+        "h1-desc": "Used for main page titles",
+        "h2": "Heading 2",
+        "h2-desc": "Used for section titles",
+        "h3": "Heading 3",
+        "h3-desc": "Used for subsection titles",
+        "h4": "Heading 4",
+        "h4-desc": "Used for card titles",
+        "h5": "Heading 5",
+        "h5-desc": "Used for small titles",
+        "h6": "Heading 6",
+        "h6-desc": "Used for smallest titles",
+        "body": "Body text - This is a paragraph of text to demonstrate the body text style. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "small": "Small text - Used for captions and secondary information"
+      },
+      "colors": {
+        "title": "Color System",
+        "primary": "Primary",
+        "accent": "Accent",
+        "secondary": "Secondary",
+        "success": "Success",
+        "error": "Error",
+        "warning": "Warning",
+        "info": "Info"
+      },
+      "components": {
+        "title": "Material Components",
+        "buttons": {
+          "title": "Buttons",
+          "primary": "Primary Button",
+          "accent": "Accent Button",
+          "warn": "Warn Button",
+          "stroked-primary": "Stroked Primary",
+          "stroked-accent": "Stroked Accent",
+          "stroked-warn": "Stroked Warn",
+          "flat-primary": "Flat Primary",
+          "flat-accent": "Flat Accent",
+          "flat-warn": "Flat Warn"
+        },
+        "cards": {
+          "title": "Cards",
+          "basic": {
+            "title": "Basic Card",
+            "subtitle": "With header and content",
+            "content": "This is a basic material card with header and content sections."
+          },
+          "actions": {
+            "title": "Card with Actions",
+            "subtitle": "Includes action buttons",
+            "content": "This card includes action buttons in the footer.",
+            "action1": "Action 1",
+            "action2": "Action 2"
+          }
+        }
+      }
+    },
+    "components": {
+      "test": "Test",
+      "click-me": "Click me",
+      "write-here": "Write here"
+    }
+  },
+  "execution-history": {
+    "title": "Task Execution History",
+    "chart-title": "Planned vs Real Dates Comparison",
+    "export-pdf": "Export to PDF",
+    "export-csv": "Export to CSV",
+    "table": {
+      "task": "Task",
+      "planned-date": "Planned Date",
+      "real-date": "Real Date",
+      "status": "Status",
+      "comment": "Comment"
+    },
+    "status": {
+      "completed": "Completed",
+      "in-progress": "In Progress",
+      "delayed": "Delayed"
+    }
+  },
+  "task-planning": {
+    "title": "Task Planning",
+    "view-mode": {
+      "calendar": "Calendar View",
+      "table": "Table View"
+    },
+    "search": {
+      "placeholder": "Search tasks...",
+      "no-results": "No tasks found"
+    },
+    "filters": {
+      "status": {
+        "title": "Filter by status",
+        "all": "All statuses",
+        "programmed": "Programmed",
+        "completed": "Completed",
+        "pending": "Pending",
+        "cancelled": "Cancelled"
+      },
+      "priority": {
+        "title": "Filter by priority",
+        "all": "All priorities",
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low"
+      },
+      "date-range": {
+        "title": "Date range",
+        "start": "Start date",
+        "end": "End date"
+      },
+      "show-completed": "Show completed",
+      "group-by": {
+        "title": "Group by",
+        "none": "No grouping",
+        "status": "Status",
+        "priority": "Priority",
+        "team": "Team"
+      }
+    },
+    "table": {
+      "task": "Task",
+      "start": "Start",
+      "end": "End",
+      "status": "Status",
+      "team": "Team",
+      "equipment": "Equipment",
+      "actions": "Actions"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "complete": "Complete",
+      "cancel": "Cancel"
+    },
+    "unscheduled": {
+      "title": "Unscheduled Tasks",
+      "drag": "Drag to schedule"
+    },
+    "scheduled": {
+      "title": "Scheduled Tasks"
+    },
+    "dialog": {
+      "title": "Schedule Task",
+      "edit-title": "Edit Scheduled Task",
+      "start-time": "Start time",
+      "end-time": "End time",
+      "team": "Team",
+      "equipment": "Equipment",
+      "comments": "Comments",
+      "save": "Save",
+      "cancel": "Cancel"
+    }
+  },
+  "activity-management": {
+    "title": "Activity Management",
+    "new-activity": "New Activity",
+    "search": {
+      "placeholder": "Search by title or description",
+      "label": "Search"
+    },
+    "filters": {
+      "status": {
+        "label": "Status",
+        "all": "All",
+        "pending": "Pending",
+        "in-progress": "In Progress",
+        "completed": "Completed",
+        "cancelled": "Cancelled"
+      },
+      "priority": {
+        "label": "Priority",
+        "all": "All",
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low"
+      },
+      "clear": "Clear filters"
+    },
+    "table": {
+      "title": "Title",
+      "description": "Description",
+      "status": "Status",
+      "priority": "Priority",
+      "duration": "Duration",
+      "date": "Date",
+      "actions": "Actions"
+    },
+    "actions": {
+      "edit": "Edit activity",
+      "delete": "Delete activity",
+      "add-task": "Add task",
+      "edit-task": "Edit task",
+      "delete-task": "Delete task"
+    },
+    "no-results": {
+      "message": "No activities found with the selected filters",
+      "clear": "Clear filters"
+    },
+    "messages": {
+      "create-success": "Activity created successfully",
+      "update-success": "Activity updated successfully",
+      "delete-success": "Activity deleted successfully",
+      "error-create": "Error creating activity",
+      "error-update": "Error updating activity",
+      "error-delete": "Error deleting activity",
+      "error-load": "Error loading activities",
+      "confirm-delete": "Are you sure you want to delete this activity?"
+    }
+  },
+  "dashboard": {
+    "title": "Logistics Dashboard",
+    "metrics": {
+      "active-shipments": {
+        "title": "Active Shipments",
+        "trend": "vs last week"
+      },
+      "on-time-delivery": {
+        "title": "On-Time Delivery",
+        "trend": "vs last week"
+      },
+      "resource-utilization": {
+        "title": "Resource Utilization",
+        "trend": "vs last week"
+      }
+    },
+    "resource-usage": {
+      "title": "Resource Usage Overview",
+      "time-period": {
+        "label": "Time Period",
+        "today": "Today",
+        "week": "This Week",
+        "month": "This Month"
+      }
+    },
+    "incidents": {
+      "title": "Recent Incidents",
+      "view-all": "View All",
+      "table": {
+        "description": "Description",
+        "severity": "Severity",
+        "status": "Status",
+        "location": "Location"
+      }
+    },
+    "team-performance": {
+      "title": "Team Performance",
+      "metrics": {
+        "tasks-completed": "Tasks Completed",
+        "efficiency": "Efficiency",
+        "trend": "Trend"
+      }
     }
   }
 }

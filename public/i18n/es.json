@@ -70,7 +70,13 @@
     "filter": "Filtrar por cargo: ",
     "add": "Agregar Empleado",
     "edit": "Editar",
-    "delete": "Eliminar"
+    "delete": "Eliminar",
+    "table": {
+      "dni": "DNI",
+      "last-name": "Apellido",
+      "position": "Cargo",
+      "actions": "Acciones"
+    }
   },
   "employee-form-dialog": {
     "add": "Agregar empleado",
@@ -175,7 +181,9 @@
     "password": "Password",
     "password-input": "Ingrese su contraseña",
     "password-repeat": "Repita su contraseña",
-    "register": "Registrarse"
+    "register": "Registrarse",
+    "logo": "Logo de SwiftPort",
+    "small-logo": "Logo pequeño de SwiftPort"
   },
   "home": {
     "welcome": "Bienvenido a Swiftport",
@@ -204,6 +212,345 @@
     "execution-history": {
       "title": "Historial de Ejecución",
       "description": "Visualiza el historial de tareas y actividades completadas"
+    }
+  },
+  "shared": {
+    "components": {
+      "table": {
+        "no-records": "No hay registros disponibles",
+        "loading": "Cargando...",
+        "edit": "Editar"
+      },
+      "sidebar": {
+        "logo": "SwiftPort",
+        "logo-short": "SP"
+      },
+      "header": {
+        "title": "SwiftPort",
+        "menu": "Menú",
+        "account": "Cuenta"
+      },
+      "confirmation-dialog": {
+        "close": "Cerrar",
+        "confirm": "Confirmar"
+      },
+      "reschedule-dialog": {
+        "title": "Reprogramar Tarea",
+        "message": "¿Desea reprogramar \"{{taskName}}\" de {{oldTime}} a {{newTime}}?",
+        "cancel": "Cancelar",
+        "confirm": "Confirmar"
+      },
+      "page-not-found": {
+        "title": "Página no encontrada",
+        "message": "La ruta <b>{{path}}</b> no es válida.",
+        "register": "Registrarse"
+      },
+      "profile": {
+        "change-photo": "Cambiar foto"
+      }
+    }
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "warning": "Advertencia",
+    "info": "Información",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Crear",
+    "update": "Actualizar",
+    "confirm": "Confirmar",
+    "back": "Volver",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "no-results": "No se encontraron resultados",
+    "required": "Campo requerido",
+    "invalid": "Campo inválido"
+  },
+  "settings": {
+    "title": "Panel de Suscripción",
+    "subtitle": "Administra tu plan, estado y forma de pago",
+    "current-plan": "Plan actual",
+    "status": "Estado",
+    "select-status": "Seleccionar estado",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "plan-start": "Inicio del plan",
+    "next-payment": "Próximo pago",
+    "payment-method": "Método de pago",
+    "payment-placeholder": "Ej. VISA **** 1234",
+    "view-plan": "Ver plan",
+    "change-payment": "Cambiar método de pago",
+    "renew": "Renovar suscripción",
+    "processing": "Procesando...",
+    "back-home": "Volver a Home",
+    "error-message": "Revisa los campos marcados antes de continuar.",
+    "required-field": "Este campo es obligatorio.",
+    "select-valid-status": "Selecciona un estado válido.",
+    "date-required": "Fecha requerida."
+  },
+  "demo": {
+    "styles": {
+      "title": "Sistema de Estilos",
+      "typography": {
+        "title": "Sistema de Tipografía",
+        "h1": "Encabezado 1",
+        "h1-desc": "Usado para títulos principales de página",
+        "h2": "Encabezado 2",
+        "h2-desc": "Usado para títulos de sección",
+        "h3": "Encabezado 3",
+        "h3-desc": "Usado para subtítulos",
+        "h4": "Encabezado 4",
+        "h4-desc": "Usado para títulos de tarjetas",
+        "h5": "Encabezado 5",
+        "h5-desc": "Usado para títulos pequeños",
+        "h6": "Encabezado 6",
+        "h6-desc": "Usado para títulos más pequeños",
+        "body": "Texto de cuerpo - Este es un párrafo de texto para demostrar el estilo de texto de cuerpo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "small": "Texto pequeño - Usado para subtítulos e información secundaria"
+      },
+      "colors": {
+        "title": "Sistema de Colores",
+        "primary": "Primario",
+        "accent": "Acento",
+        "secondary": "Secundario",
+        "success": "Éxito",
+        "error": "Error",
+        "warning": "Advertencia",
+        "info": "Información"
+      },
+      "components": {
+        "title": "Componentes Material",
+        "buttons": {
+          "title": "Botones",
+          "primary": "Botón Primario",
+          "accent": "Botón Acento",
+          "warn": "Botón Advertencia",
+          "stroked-primary": "Primario con Borde",
+          "stroked-accent": "Acento con Borde",
+          "stroked-warn": "Advertencia con Borde",
+          "flat-primary": "Primario Plano",
+          "flat-accent": "Acento Plano",
+          "flat-warn": "Advertencia Plano"
+        },
+        "cards": {
+          "title": "Tarjetas",
+          "basic": {
+            "title": "Tarjeta Básica",
+            "subtitle": "Con encabezado y contenido",
+            "content": "Esta es una tarjeta material básica con secciones de encabezado y contenido."
+          },
+          "actions": {
+            "title": "Tarjeta con Acciones",
+            "subtitle": "Incluye botones de acción",
+            "content": "Esta tarjeta incluye botones de acción en el pie.",
+            "action1": "Acción 1",
+            "action2": "Acción 2"
+          }
+        }
+      }
+    },
+    "components": {
+      "test": "Prueba",
+      "click-me": "Haz clic aquí",
+      "write-here": "Escribe aquí"
+    }
+  },
+  "execution-history": {
+    "title": "Historial de Ejecución de Tareas",
+    "chart-title": "Comparativo de Fechas Planificadas vs Reales",
+    "export-pdf": "Exportar a PDF",
+    "export-csv": "Exportar a CSV",
+    "table": {
+      "task": "Tarea",
+      "planned-date": "Fecha Planificada",
+      "real-date": "Fecha Real",
+      "status": "Estado",
+      "comment": "Comentario"
+    },
+    "status": {
+      "completed": "Completada",
+      "in-progress": "En progreso",
+      "delayed": "Retrasada"
+    }
+  },
+  "task-planning": {
+    "title": "Planificación de Tareas",
+    "view-mode": {
+      "calendar": "Vista Calendario",
+      "table": "Vista Tabla"
+    },
+    "search": {
+      "placeholder": "Buscar tareas...",
+      "no-results": "No se encontraron tareas"
+    },
+    "filters": {
+      "status": {
+        "title": "Filtrar por estado",
+        "all": "Todos los estados",
+        "programmed": "Programada",
+        "completed": "Completada",
+        "pending": "Pendiente",
+        "cancelled": "Cancelada"
+      },
+      "priority": {
+        "title": "Filtrar por prioridad",
+        "all": "Todas las prioridades",
+        "high": "Alta",
+        "medium": "Media",
+        "low": "Baja"
+      },
+      "date-range": {
+        "title": "Rango de fechas",
+        "start": "Fecha inicio",
+        "end": "Fecha fin"
+      },
+      "show-completed": "Mostrar completadas",
+      "group-by": {
+        "title": "Agrupar por",
+        "none": "Sin agrupar",
+        "status": "Estado",
+        "priority": "Prioridad",
+        "team": "Equipo"
+      }
+    },
+    "table": {
+      "task": "Tarea",
+      "start": "Inicio",
+      "end": "Fin",
+      "status": "Estado",
+      "team": "Equipo",
+      "equipment": "Equipos",
+      "actions": "Acciones"
+    },
+    "actions": {
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "complete": "Completar",
+      "cancel": "Cancelar"
+    },
+    "unscheduled": {
+      "title": "Tareas sin programar",
+      "drag": "Arrastra para programar"
+    },
+    "scheduled": {
+      "title": "Tareas programadas"
+    },
+    "dialog": {
+      "title": "Programar Tarea",
+      "edit-title": "Editar Tarea Programada",
+      "start-time": "Hora de inicio",
+      "end-time": "Hora de fin",
+      "team": "Equipo",
+      "equipment": "Equipos",
+      "comments": "Comentarios",
+      "save": "Guardar",
+      "cancel": "Cancelar"
+    }
+  },
+  "activity-management": {
+    "title": "Gestión de Actividades",
+    "new-activity": "Nueva Actividad",
+    "search": {
+      "placeholder": "Buscar por título o descripción",
+      "label": "Buscar"
+    },
+    "filters": {
+      "status": {
+        "label": "Estado",
+        "all": "Todos",
+        "pending": "Pendiente",
+        "in-progress": "En progreso",
+        "completed": "Finalizada",
+        "cancelled": "Cancelada"
+      },
+      "priority": {
+        "label": "Prioridad",
+        "all": "Todas",
+        "high": "Alta",
+        "medium": "Media",
+        "low": "Baja"
+      },
+      "clear": "Limpiar filtros"
+    },
+    "table": {
+      "title": "Título",
+      "description": "Descripción",
+      "status": "Estado",
+      "priority": "Prioridad",
+      "duration": "Duración",
+      "date": "Fecha",
+      "actions": "Acciones"
+    },
+    "actions": {
+      "edit": "Editar actividad",
+      "delete": "Eliminar actividad",
+      "add-task": "Agregar tarea",
+      "edit-task": "Editar tarea",
+      "delete-task": "Eliminar tarea"
+    },
+    "no-results": {
+      "message": "No se encontraron actividades con los filtros seleccionados",
+      "clear": "Limpiar filtros"
+    },
+    "messages": {
+      "create-success": "Actividad creada exitosamente",
+      "update-success": "Actividad actualizada exitosamente",
+      "delete-success": "Actividad eliminada exitosamente",
+      "error-create": "Error al crear la actividad",
+      "error-update": "Error al actualizar la actividad",
+      "error-delete": "Error al eliminar la actividad",
+      "error-load": "Error al cargar las actividades",
+      "confirm-delete": "¿Está seguro de que desea eliminar esta actividad?"
+    }
+  },
+  "dashboard": {
+    "title": "Panel de Control Logístico",
+    "metrics": {
+      "active-shipments": {
+        "title": "Envíos Activos",
+        "trend": "vs semana anterior"
+      },
+      "on-time-delivery": {
+        "title": "Entrega a Tiempo",
+        "trend": "vs semana anterior"
+      },
+      "resource-utilization": {
+        "title": "Utilización de Recursos",
+        "trend": "vs semana anterior"
+      }
+    },
+    "resource-usage": {
+      "title": "Resumen de Uso de Recursos",
+      "time-period": {
+        "label": "Período de Tiempo",
+        "today": "Hoy",
+        "week": "Esta Semana",
+        "month": "Este Mes"
+      }
+    },
+    "incidents": {
+      "title": "Incidentes Recientes",
+      "view-all": "Ver Todos",
+      "table": {
+        "description": "Descripción",
+        "severity": "Severidad",
+        "status": "Estado",
+        "location": "Ubicación"
+      }
+    },
+    "team-performance": {
+      "title": "Rendimiento del Equipo",
+      "metrics": {
+        "tasks-completed": "Tareas Completadas",
+        "efficiency": "Eficiencia",
+        "trend": "Tendencia"
+      }
     }
   }
 }
