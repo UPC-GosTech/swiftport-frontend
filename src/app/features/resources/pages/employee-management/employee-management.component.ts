@@ -73,7 +73,7 @@ export class EmployeeManagementComponent implements OnInit {
   ];
 
   constructor(
-    private dialog: MatDialog, 
+    private dialog: MatDialog,
     private employeeService: EmployeeService,
     private positionService: PositionService
   ) {}

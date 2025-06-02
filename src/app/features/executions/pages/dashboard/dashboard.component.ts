@@ -10,6 +10,7 @@ import { TableComponent } from '../../../../shared/components/table/table.compon
 import { DateNavigatorComponent } from '../../../../shared/components/date-navigator/date-navigator.component';
 import { Columns } from '../../../../shared/components/table/table.models';
 import { ActivityService } from 'src/app/features/planning/services/activity.service';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 
 interface TeamPerformance {
   name: string;
@@ -40,7 +41,9 @@ interface Incident {
     MatSelectModule,
     FormsModule,
     TableComponent,
-    DateNavigatorComponent
+    DateNavigatorComponent,
+    TranslateModule,
+    TranslatePipe
   ]
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
@@ -172,7 +175,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   private initResourceChart() {
     const ctx = this.resourceChartRef.nativeElement.getContext('2d');
-    
+
     this.resourceChart = new Chart(ctx, {
       type: 'line',
       data: {

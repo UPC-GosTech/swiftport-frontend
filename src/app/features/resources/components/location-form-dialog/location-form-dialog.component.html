@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>{{ data.location ? 'Editar' : 'Agregar' }} Ubicación</h2>
+<h2 mat-dialog-title>{{ (data.location ? 'common.edit' : 'common.create') | translate }} {{ 'location-form-dialog.name' | translate }}</h2>
 <form [formGroup]="locationForm" (ngSubmit)="onSubmit()">
   <div mat-dialog-content>
     <mat-form-field appearance="fill" class="full-width">

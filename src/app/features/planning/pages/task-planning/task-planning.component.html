@@ -1,19 +1,19 @@
 <div class="task-planning-container">
   <!-- Header with Date Navigation -->
   <div class="header-container">
-    <div class="title">Planificación de Tareas</div>
+    <div class="title">{{ 'task-planning.title' | translate }}</div>
     <div class="date-controls">
-      <app-date-navigator 
-        [selectedDate]="viewDate" 
+      <app-date-navigator
+        [selectedDate]="viewDate"
         (dateChange)="onDateChange($event)">
       </app-date-navigator>
     </div>
     <div class="view-toggle">
       <button mat-button [class.active]="viewMode === 'calendar'" (click)="viewMode = 'calendar'">
-        <mat-icon>calendar_today</mat-icon> Calendario
+        <mat-icon>calendar_today</mat-icon> {{ 'task-planning.view-mode.calendar' | translate }}
       </button>
       <button mat-button [class.active]="viewMode === 'table'" (click)="viewMode = 'table'">
-        <mat-icon>view_list</mat-icon> Tabla
+        <mat-icon>view_list</mat-icon> {{ 'task-planning.view-mode.table' | translate }}
       </button>
     </div>
   </div>
@@ -26,15 +26,15 @@
         <!-- Unscheduled Tasks Panel -->
         <div class="unscheduled-tasks-panel">
           <div class="panel-header">
-            <h3>Tareas Sin Programar</h3>
+            <h3>{{ 'task-planning.unscheduled.title' | translate }}</h3>
             <mat-form-field appearance="outline" class="search-field">
-              <mat-label>Buscar</mat-label>
+              <mat-label>{{ 'task-planning.search.placeholder' | translate }}</mat-label>
               <input matInput [(ngModel)]="searchTerm" (input)="searchTasks()">
               <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
           </div>
-          
-          <div class="task-cards" 
+
+          <div class="task-cards"
                cdkDropList
                #unscheduledList="cdkDropList"
                [cdkDropListConnectedTo]="['calendarList']"
@@ -46,9 +46,9 @@
               (schedule)="openSchedulingDialog($event)"
               (dragStart)="onDragStart($event, task)">
             </app-unscheduled-task-card>
-            
+
             <div *ngIf="filteredUnscheduledTasks.length === 0" class="empty-message">
-              No hay tareas sin programar
+              {{ 'task-planning.search.no-results' | translate }}
             </div>
           </div>
         </div>
@@ -60,8 +60,8 @@
              [cdkDropListConnectedTo]="['unscheduledList']"
              (cdkDropListDropped)="onTaskDropped($event)"
              [cdkDropListData]="taskSchedules">
-          
-          <!-- 
+
+          <!--
             Simulación visual del calendario (implementación temporal)
           -->
           <div class="calendar-day-view">
@@ -86,10 +86,10 @@
                             {{ event.start | date:'HH:mm' }} - {{ event.end | date:'HH:mm' }}
                           </div>
                           <div class="event-team" *ngIf="event.meta.teamId">
-                            <span class="label">Equipo:</span> {{ event.meta.teamId }}
+                            <span class="label">{{ 'task-planning.table.team' | translate }}:</span> {{ event.meta.teamId }}
                           </div>
                           <div class="event-status" [ngClass]="getStatusClass(event.meta.status)">
-                            {{ event.meta.status }}
+                            {{ 'task-planning.filters.status.' + event.meta.status | translate }}
                           </div>
                         </div>
                       </div>
@@ -107,7 +107,7 @@
     <div class="table-view" *ngIf="viewMode === 'table'">
       <!-- Scheduled Tasks Table -->
       <div class="tasks-container">
-        <h3>Tareas Programadas</h3>
+        <h3>{{ 'task-planning.scheduled.title' | translate }}</h3>
         <app-table
           [dataSource]="taskSchedules"
           [columns]="scheduledTasksColumns"
@@ -120,7 +120,7 @@
 
       <!-- Unscheduled Tasks Table -->
       <div class="tasks-container unscheduled-container">
-        <h3>Tareas Sin Programar</h3>
+        <h3>{{ 'task-planning.unscheduled.title' | translate }}</h3>
         <app-table
           [dataSource]="unscheduledTasks"
           [columns]="unscheduledTasksColumns"
@@ -137,10 +137,10 @@
 <!-- Templates for custom columns in tables -->
 <ng-template #scheduledActionsTemplate let-row>
   <div class="action-buttons">
-    <button mat-icon-button (click)="openSchedulingDialog(undefined, row)" matTooltip="Editar programación">
+    <button mat-icon-button (click)="openSchedulingDialog(undefined, row)" matTooltip="{{ 'task-planning.actions.edit' | translate }}">
       <mat-icon>edit</mat-icon>
     </button>
-    <button mat-icon-button (click)="cancelScheduling(row)" matTooltip="Cancelar programación" color="warn">
+    <button mat-icon-button (click)="cancelScheduling(row)" matTooltip="{{ 'task-planning.actions.cancel' | translate }}" color="warn">
       <mat-icon>delete</mat-icon>
     </button>
   </div>
@@ -148,7 +148,7 @@
 
 <ng-template #unscheduledActionsTemplate let-row>
   <div class="action-buttons">
-    <button mat-icon-button (click)="openSchedulingDialog(row)" matTooltip="Programar tarea" color="primary">
+    <button mat-icon-button (click)="openSchedulingDialog(row)" matTooltip="{{ 'task-planning.actions.edit' | translate }}" color="primary">
       <mat-icon>schedule</mat-icon>
     </button>
   </div>
@@ -163,10 +163,10 @@
         {{ event.start | date:'HH:mm' }} - {{ event.end | date:'HH:mm' }}
       </div>
       <div class="event-team" *ngIf="event.meta.teamId">
-        <span class="label">Equipo:</span> {{ event.meta.teamId }}
+        <span class="label">{{ 'task-planning.table.team' | translate }}:</span> {{ event.meta.teamId }}
       </div>
       <div class="event-status" [ngClass]="getStatusClass(event.meta.status)">
-        {{ event.meta.status }}
+        {{ 'task-planning.filters.status.' + event.meta.status | translate }}
       </div>
     </div>
   </div>

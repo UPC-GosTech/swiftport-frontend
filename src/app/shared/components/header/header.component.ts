@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
 
 @Component({
@@ -11,6 +13,8 @@ import { LanguageSwitcherComponent } from '../language-switcher/language-switche
   imports: [
     CommonModule,
     MatIconModule,
+    MatButtonModule,
+    TranslatePipe,
     LanguageSwitcherComponent
   ],
   templateUrl: './header.component.html',

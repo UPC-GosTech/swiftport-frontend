@@ -1,12 +1,16 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatButton} from "@angular/material/button";
+import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-page-not-found',
   standalone: true,
   imports: [
-    MatButton
+    CommonModule,
+    MatButton,
+    TranslatePipe
   ],
   templateUrl: './page-not-found.component.html',
   styleUrl: './page-not-found.component.scss'

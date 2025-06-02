@@ -1,4 +1,4 @@
-<div class="scheduled-task" 
+<div class="scheduled-task"
   [class.scheduled]="schedule.status === 'programmed'"
   [class.completed]="schedule.status === 'completed'"
   [class.pending]="schedule.status === 'pending'"
@@ -8,13 +8,13 @@
   draggable="true"
   (dragstart)="onDragStart($event)"
   (click)="editScheduling.emit(schedule)">
-  
+
   <div class="task-info">
     <h4>{{ schedule.task.taskName }}</h4>
     <p>{{ schedule.startTime | date:'HH:mm' }} - {{ schedule.endTime | date:'HH:mm' }}</p>
-    <p *ngIf="schedule.teamId > 0">Equipo: {{ schedule.teamId }}</p>
+    <p *ngIf="schedule.teamId > 0">{{ 'task-planning.table.team' | translate }}: {{ schedule.teamId }}</p>
     <p *ngIf="schedule.equipmentsIds && schedule.equipmentsIds.length > 0" class="equipment">
-      Equipos: {{ schedule.equipmentsIds.length }}
+      {{ 'task-planning.table.equipment' | translate }}: {{ schedule.equipmentsIds.length }}
     </p>
   </div>
-</div> 
+</div>

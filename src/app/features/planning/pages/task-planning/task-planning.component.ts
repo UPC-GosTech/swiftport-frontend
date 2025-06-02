@@ -15,6 +15,7 @@ import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { addHours, addDays, subDays } from 'date-fns';
 import { Subject } from 'rxjs';
 import { LocalStorageService } from '../../../../core/services/local-storage.service';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 
 import { DateNavigatorComponent } from '../../../../shared/components/date-navigator/date-navigator.component';
 import { TaskScheduling } from '../../model/taskScheduling.entity';
@@ -77,7 +78,9 @@ interface StorageState {
     DateNavigatorComponent,
     UnscheduledTaskCardComponent,
     ScheduledTaskCardComponent,
-    TableComponent
+    TableComponent,
+    TranslateModule,
+    TranslatePipe
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './task-planning.component.html',
@@ -91,17 +94,17 @@ export class TaskPlanningComponent implements OnInit {
   selectedDate: Date = new Date();
   viewDate: Date = new Date();
   viewMode: 'calendar' | 'table' = 'calendar';
-  
+
   events: CalendarEvent[] = [];
   refresh: Subject<any> = new Subject();
-  
+
   taskSchedules: TaskScheduling[] = [];
   unscheduledTasks: Task[] = [];
   filteredUnscheduledTasks: Task[] = [];
   searchTerm: string = '';
-  
+
   draggingTask: boolean = false;
-  
+
   timeSlots: string[] = Array.from({ length: 24 }, (_, i) => {
     const hour = i < 10 ? `0${i}` : `${i}`;
     return `${hour}:00`;
@@ -126,7 +129,7 @@ export class TaskPlanningComponent implements OnInit {
   private readonly STORAGE_KEY = 'task_planning_state';
 
   constructor(
-    private dialog: MatDialog, 
+    private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private dialogService: DialogService
   ) {
@@ -137,7 +140,7 @@ export class TaskPlanningComponent implements OnInit {
     this.loadState();
     this.loadTasksForDate(this.selectedDate);
   }
-  
+
   initTableColumns(): void {
     this.scheduledTasksColumns = [
       {
@@ -215,17 +218,17 @@ export class TaskPlanningComponent implements OnInit {
       }
     ];
   }
-  
+
   onDateChange(date: Date): void {
     this.selectedDate = date;
     this.viewDate = new Date(date);
     this.loadTasksForDate(date);
     this.saveState();
   }
-  
+
   loadTasksForDate(date: Date): void {
     const newDate = new Date(date);
-    
+
     // Load tasks from localStorage
     const savedState = this.localStorageService.getItem<StorageState>(this.STORAGE_KEY, {
       taskSchedules: [],
@@ -252,10 +255,10 @@ export class TaskPlanningComponent implements OnInit {
         scheduleDate.getDate() === newDate.getDate()
       );
     });
-    
+
     this.unscheduledTasks = savedState.unscheduledTasks;
     this.filteredUnscheduledTasks = [...this.unscheduledTasks];
-    
+
     this.generateCalendarEvents();
   }
 
@@ -281,7 +284,7 @@ export class TaskPlanningComponent implements OnInit {
         }
       };
     });
-    
+
     this.refresh.next(undefined);
   }
 
@@ -290,7 +293,7 @@ export class TaskPlanningComponent implements OnInit {
       // Moved within the same container
     } else {
       const task = event.item.data;
-      
+
       if (task) {
         this.openSchedulingDialog(task);
       }
@@ -330,7 +333,7 @@ export class TaskPlanningComponent implements OnInit {
   onDrop(event: DragEvent, timeSlot: string): void {
     event.preventDefault();
     const type = event.dataTransfer?.getData('type');
-    
+
     if (type === 'unscheduled-task') {
       this.handleUnscheduledTaskDrop(event, timeSlot);
     } else if (type === 'scheduled-task') {
@@ -341,11 +344,11 @@ export class TaskPlanningComponent implements OnInit {
   onDropOutside(event: DragEvent): void {
     event.preventDefault();
     const type = event.dataTransfer?.getData('type');
-    
+
     if (type === 'scheduled-task') {
       const schedulingId = event.dataTransfer?.getData('schedulingId');
       const taskName = event.dataTransfer?.getData('taskName');
-      
+
       if (schedulingId) {
         const scheduling = this.taskSchedules.find(s => s.id === schedulingId);
         if (scheduling) {
@@ -376,13 +379,13 @@ export class TaskPlanningComponent implements OnInit {
     const schedulingId = event.dataTransfer?.getData('schedulingId');
     const taskName = event.dataTransfer?.getData('taskName');
     const oldStartHour = event.dataTransfer?.getData('startHour');
-    
+
     if (schedulingId && oldStartHour) {
       const scheduling = this.taskSchedules.find(s => s.id === schedulingId);
       if (scheduling) {
         const newHour = parseInt(timeSlot.split(':')[0], 10);
         const currentHour = parseInt(oldStartHour, 10);
-        
+
         if (newHour !== currentHour) {
           this.dialogService.reschedule({
             taskName: taskName || scheduling.task.taskName,
@@ -394,13 +397,13 @@ export class TaskPlanningComponent implements OnInit {
               const newStartTime = new Date(this.selectedDate);
               newStartTime.setHours(newHour, 0, 0, 0);
               const newEndTime = new Date(newStartTime.getTime() + duration);
-              
+
               scheduling.startTime = newStartTime;
               scheduling.endTime = newEndTime;
-              
+
               this.generateCalendarEvents();
               this.saveState();
-              
+
               this.snackBar.open(`Tarea reprogramada para ${newHour}:00`, 'OK', {
                 duration: 3000
               });
@@ -413,28 +416,28 @@ export class TaskPlanningComponent implements OnInit {
 
   scheduleTask(task: Task, timeSlot: string): void {
     const hour = parseInt(timeSlot.split(':')[0], 10);
-    
+
     const startTime = new Date(this.selectedDate);
     startTime.setHours(hour, 0, 0, 0);
-    
+
     const endTime = new Date(startTime);
     endTime.setHours(hour + 1, 0, 0, 0);
-    
+
     const newScheduling = new TaskScheduling();
     newScheduling.id = Date.now().toString();
     newScheduling.task = task;
     newScheduling.startTime = startTime;
     newScheduling.endTime = endTime;
     newScheduling.status = 'programmed';
-    
+
     this.taskSchedules.push(newScheduling);
-    
+
     this.unscheduledTasks = this.unscheduledTasks.filter(t => t.taskId !== task.taskId);
     this.filteredUnscheduledTasks = this.filteredUnscheduledTasks.filter(t => t.taskId !== task.taskId);
-    
+
     this.generateCalendarEvents();
     this.saveState();
-    
+
     this.snackBar.open(`Tarea "${task.taskName}" programada para ${timeSlot}`, 'OK', {
       duration: 3000
     });
@@ -442,18 +445,18 @@ export class TaskPlanningComponent implements OnInit {
 
   rescheduleTask(scheduling: TaskScheduling, newHour: number): void {
     const duration = scheduling.endTime.getTime() - scheduling.startTime.getTime();
-    
+
     const newStartTime = new Date(this.selectedDate);
     newStartTime.setHours(newHour, 0, 0, 0);
-    
+
     const newEndTime = new Date(newStartTime.getTime() + duration);
-    
+
     scheduling.startTime = newStartTime;
     scheduling.endTime = newEndTime;
-    
+
     this.generateCalendarEvents();
     this.saveState();
-    
+
     this.snackBar.open(`Tarea reprogramada para ${newHour}:00`, 'OK', {
       duration: 3000
     });
@@ -461,18 +464,18 @@ export class TaskPlanningComponent implements OnInit {
 
   unscheduleTask(scheduling: TaskScheduling): void {
     this.taskSchedules = this.taskSchedules.filter(s => s.id !== scheduling.id);
-    
+
     this.unscheduledTasks.push(scheduling.task);
     this.filteredUnscheduledTasks.push(scheduling.task);
-    
+
     this.generateCalendarEvents();
     this.saveState();
-    
+
     this.snackBar.open(`Tarea "${scheduling.task.taskName}" desprogramada`, 'OK', {
       duration: 3000
     });
   }
-  
+
   cancelScheduling(scheduling: TaskScheduling): void {
     this.dialogService.confirm({
       title: 'Cancelar Programación',
@@ -483,28 +486,28 @@ export class TaskPlanningComponent implements OnInit {
       }
     });
   }
-  
+
   eventTimesChanged(event: any): void {
     const { event: calendarEvent, newStart, newEnd } = event;
-    
+
     const scheduling = this.taskSchedules.find(s => s.id === calendarEvent.id);
-    
+
     if (scheduling) {
       scheduling.startTime = newStart;
       scheduling.endTime = newEnd || addHours(newStart, 1);
-      
+
       calendarEvent.start = newStart;
       calendarEvent.end = newEnd;
-      
+
       this.refresh.next(undefined);
       this.saveState();
-      
+
       this.snackBar.open(`Tarea reprogramada: ${calendarEvent.title}`, 'OK', {
         duration: 3000
       });
     }
   }
-  
+
   onCalendarEventClick(event: { event: CalendarEvent }): void {
     const calendarEvent = event.event;
     const scheduling = this.taskSchedules.find(s => s.id === calendarEvent.id);
@@ -512,20 +515,20 @@ export class TaskPlanningComponent implements OnInit {
       this.openSchedulingDialog(undefined, scheduling);
     }
   }
-  
+
   searchTasks(): void {
     if (!this.searchTerm.trim()) {
       this.filteredUnscheduledTasks = [...this.unscheduledTasks];
     } else {
       const searchTermLower = this.searchTerm.toLowerCase();
-      this.filteredUnscheduledTasks = this.unscheduledTasks.filter(task => 
-        task.taskName.toLowerCase().includes(searchTermLower) || 
+      this.filteredUnscheduledTasks = this.unscheduledTasks.filter(task =>
+        task.taskName.toLowerCase().includes(searchTermLower) ||
         task.description.toLowerCase().includes(searchTermLower)
       );
     }
     this.saveState();
   }
-  
+
   getStatusClass(status: string): string {
     switch (status) {
       case 'programmed': return 'scheduled';
@@ -535,7 +538,7 @@ export class TaskPlanningComponent implements OnInit {
       default: return '';
     }
   }
-  
+
   openSchedulingDialog(task?: Task, scheduling?: TaskScheduling): void {
     const dialogRef = this.dialog.open(TaskSchedulingDialogComponent, {
       width: '600px',
@@ -554,13 +557,13 @@ export class TaskPlanningComponent implements OnInit {
           this.unscheduledTasks = this.unscheduledTasks.filter(t => t.taskId !== task.taskId);
           this.filteredUnscheduledTasks = this.filteredUnscheduledTasks.filter(t => t.taskId !== task.taskId);
         }
-        
+
         this.generateCalendarEvents();
         this.saveState();
       }
     });
   }
-  
+
   handleScheduledTaskSelection(task: TaskScheduling): void {
     this.openSchedulingDialog(undefined, task);
   }
@@ -578,7 +581,7 @@ export class TaskPlanningComponent implements OnInit {
     this.unscheduledTasksSort = sort;
     this.saveState();
   }
-  
+
   getSchedulingById(id: string | number | undefined): TaskScheduling {
     const scheduling = this.taskSchedules.find(s => s.id === id?.toString());
     if (!scheduling) {

@@ -6,6 +6,9 @@ import { MatIcon } from '@angular/material/icon';
 import { InputComponent } from '../shared/components/input/input.component';
 import { ButtonComponent } from '../shared/components/button/button.component';
 import {MatDivider} from '@angular/material/divider';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
 
 interface User {
   id: number;
@@ -20,16 +23,20 @@ interface User {
 
 @Component({
   selector: 'app-profile-view',
-  templateUrl: './profile-view.component.html',
+  standalone: true,
   imports: [
+    CommonModule,
     MatCardContent,
     MatDivider,
     MatCard,
     MatIcon,
     InputComponent,
     ButtonComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonModule,
+    TranslatePipe
   ],
+  templateUrl: './profile-view.component.html',
   styleUrls: ['./profile-view.component.scss']
 })
 export class ProfileViewComponent {

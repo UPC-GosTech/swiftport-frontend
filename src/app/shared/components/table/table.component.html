@@ -74,7 +74,7 @@
                                 [disabled]="itemsBeingDeleted.has(row.id) || (column.settings?.disable ? column.settings?.disable(row) : false)"
                                 (click)="$event.stopPropagation(); onSelectRow(row)"
                             >
-                                <mat-icon class="material-icons-outlined">edit</mat-icon>
+                                <mat-icon class="material-icons-outlined">{{ 'shared.components.table.edit' | translate }}</mat-icon>
                             </button>
                         </div>
                     </td>
@@ -111,7 +111,7 @@
             <th mat-footer-cell *matFooterCellDef [attr.colspan]="columns.length">
                 <div class="no-data-message">
                     <mat-icon [svgIcon]="'heroicons_outline:magnifying-glass-circle'"></mat-icon>
-                    <p>{{ "No hay registros disponibles" }}</p>
+                    <p>{{ 'shared.components.table.no-records' | translate }}</p>
                 </div>
             </th>
         </ng-container>

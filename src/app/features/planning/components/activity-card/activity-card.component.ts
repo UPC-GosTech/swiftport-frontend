@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatBadgeModule } from '@angular/material/badge';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 
 import { Activity } from '../../model/activity.entity';
 import { Task } from '../../model/task.entity';
@@ -22,7 +23,9 @@ import { TaskListComponent } from '../task-list/task-list.component';
     MatDividerModule,
     MatTooltipModule,
     MatBadgeModule,
-    TaskListComponent
+    TaskListComponent,
+    TranslateModule,
+    TranslatePipe
   ],
   templateUrl: './activity-card.component.html',
   styleUrls: ['./activity-card.component.scss']
@@ -78,7 +81,7 @@ export class ActivityCardComponent {
   formatDuration(minutes: number): string {
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
-    
+
     if (hours > 0) {
       return `${hours}h ${mins > 0 ? mins + 'm' : ''}`;
     }
@@ -108,4 +111,4 @@ export class ActivityCardComponent {
   onAddTask(): void {
     this.addTask.emit(this.activity.id);
   }
-} 
+}

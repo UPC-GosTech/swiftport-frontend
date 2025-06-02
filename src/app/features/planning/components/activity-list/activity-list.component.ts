@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 
 import { Activity } from '../../model/activity.entity';
 import { Task } from '../../model/task.entity';
@@ -10,7 +11,9 @@ import { ActivityCardComponent } from '../activity-card/activity-card.component'
   standalone: true,
   imports: [
     CommonModule,
-    ActivityCardComponent
+    ActivityCardComponent,
+    TranslateModule,
+    TranslatePipe
   ],
   templateUrl: './activity-list.component.html',
   styleUrls: ['./activity-list.component.scss']
@@ -67,4 +70,4 @@ export class ActivityListComponent {
   onAddTask(activityId: number): void {
     this.addTask.emit(activityId);
   }
-} 
+}

@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface RescheduleDialogData {
   taskName: string;
@@ -17,7 +18,8 @@ export interface RescheduleDialogData {
   imports: [
     CommonModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    TranslatePipe
   ],
   templateUrl: './reschedule-dialog.component.html',
   styleUrls: ['./reschedule-dialog.component.scss']
@@ -34,4 +36,4 @@ export class RescheduleDialogComponent {
       confirmText: data.confirmText || 'Reprogramar'
     };
   }
-} 
+}

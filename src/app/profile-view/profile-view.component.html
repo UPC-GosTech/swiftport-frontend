@@ -3,7 +3,7 @@
     <div class="avatar-container">
       <img [src]="user.photo || 'assets/default-avatar.png'" alt="Foto de perfil" class="avatar">
       <button mat-icon-button class="edit-avatar-btn">
-        <mat-icon>photo_camera</mat-icon>
+        <mat-icon>{{ 'shared.components.profile.change-photo' | translate }}</mat-icon>
       </button>
     </div>
     <h1 class="user-name">{{ user.name }}</h1>
