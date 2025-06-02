@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { LocalStorageService } from '../../../../core/services/local-storage.service';
+import { TranslateModule, TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 import { Activity } from '../../model/activity.entity';
 import { Task } from '../../model/task.entity';
@@ -57,7 +58,9 @@ interface StorageState {
     MatSnackBarModule,
     MatDialogModule,
     ActivityListComponent,
-    DateNavigatorComponent
+    DateNavigatorComponent,
+    TranslateModule,
+    TranslatePipe
   ],
   templateUrl: './activity-management.component.html',
   styleUrls: ['./activity-management.component.scss']
@@ -90,7 +93,8 @@ export class ActivityManagementComponent implements OnInit {
     private activityService: ActivityService,
     private taskService: TaskService,
     private dialogService: DialogService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -158,7 +162,7 @@ export class ActivityManagementComponent implements OnInit {
         this.applyFilters();
       },
       error: (error) => {
-        this.snackBar.open('Error al cargar las actividades', 'Cerrar', {
+        this.snackBar.open(this.translate.instant('activity-management.messages.error-load'), 'Cerrar', {
           duration: 3000
         });
         console.error('Error loading activities:', error);
@@ -249,12 +253,12 @@ export class ActivityManagementComponent implements OnInit {
               this.saveState();
               this.applyFilters();
             }
-            this.snackBar.open('Actividad actualizada exitosamente', 'Cerrar', {
+            this.snackBar.open(this.translate.instant('activity-management.messages.update-success'), 'Cerrar', {
               duration: 3000
             });
           },
           error: (error) => {
-            this.snackBar.open('Error al actualizar la actividad', 'Cerrar', {
+            this.snackBar.open(this.translate.instant('activity-management.messages.error-update'), 'Cerrar', {
               duration: 3000
             });
             console.error('Error updating activity:', error);
@@ -266,8 +270,8 @@ export class ActivityManagementComponent implements OnInit {
 
   onDeleteActivity(activityId: number): void {
     this.dialogService.confirm({
-      title: 'Eliminar Actividad',
-      message: '¿Está seguro de que desea eliminar esta actividad?'
+      title: this.translate.instant('activity-management.actions.delete'),
+      message: this.translate.instant('activity-management.messages.confirm-delete')
     }).subscribe(result => {
       if (result) {
         this.activityService.deleteActivity(activityId).subscribe({
@@ -275,12 +279,12 @@ export class ActivityManagementComponent implements OnInit {
             this.activities = this.activities.filter(a => a.id !== activityId);
             this.saveState();
             this.applyFilters();
-            this.snackBar.open('Actividad eliminada exitosamente', 'Cerrar', {
+            this.snackBar.open(this.translate.instant('activity-management.messages.delete-success'), 'Cerrar', {
               duration: 3000
             });
           },
           error: (error) => {
-            this.snackBar.open('Error al eliminar la actividad', 'Cerrar', {
+            this.snackBar.open(this.translate.instant('activity-management.messages.error-delete'), 'Cerrar', {
               duration: 3000
             });
             console.error('Error deleting activity:', error);
@@ -403,12 +407,12 @@ export class ActivityManagementComponent implements OnInit {
             this.activities.push(newActivity);
             this.saveState();
             this.applyFilters();
-            this.snackBar.open('Actividad creada exitosamente', 'Cerrar', {
+            this.snackBar.open(this.translate.instant('activity-management.messages.create-success'), 'Cerrar', {
               duration: 3000
             });
           },
           error: (error) => {
-            this.snackBar.open('Error al crear la actividad', 'Cerrar', {
+            this.snackBar.open(this.translate.instant('activity-management.messages.error-create'), 'Cerrar', {
               duration: 3000
             });
             console.error('Error creating activity:', error);

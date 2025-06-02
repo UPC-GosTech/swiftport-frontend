@@ -1,12 +1,12 @@
 <div class="general-container">
-  <h1>Historial de Ejecución de Tareas</h1>
+  <h1>{{ 'execution-history.title' | translate }}</h1>
 
   <!-- Navegador de fechas -->
   <app-date-navigator [selectedDate]="selectedDate" (dateChange)="onDateChange($event)"></app-date-navigator>
 
   <!-- Gráfico de líneas -->
   <div class="diagram-container">
-    <h3>Comparativo de Fechas Planificadas vs Reales</h3>
+    <h3>{{ 'execution-history.chart-title' | translate }}</h3>
     <canvas #historyChart></canvas>
   </div>
 
@@ -21,17 +21,17 @@
 
   <!-- Botones de exportar -->
   <div class="button-container">
-    <app-button label="Exportar a PDF" icon="picture_as_pdf" color="secondary" (clicked)="exportToPDF()"></app-button>
-    <app-button label="Exportar a CSV" icon="table_view" color="primary" (clicked)="exportToCSV()"></app-button>
+    <app-button [label]="'execution-history.export-pdf' | translate" icon="picture_as_pdf" color="secondary" (clicked)="exportToPDF()"></app-button>
+    <app-button [label]="'execution-history.export-csv' | translate" icon="table_view" color="primary" (clicked)="exportToCSV()"></app-button>
   </div>
 </div>
 
 <ng-template #statusTemplate let-column="column" let-row="row">
   <span *ngIf="column === 'status'" [ngClass]="{
     'badge': true,
-    'badge-success': row.status === 'Completada',
-    'badge-warning': row.status === 'En progreso',
-    'badge-danger': row.status === 'Retrasada'
+    'badge-success': row.status === ('execution-history.status.completed' | translate),
+    'badge-warning': row.status === ('execution-history.status.in-progress' | translate),
+    'badge-danger': row.status === ('execution-history.status.delayed' | translate)
   }">
     {{ row.status }}
   </span>

@@ -6,8 +6,7 @@
     [selectable]="false"
 ></app-table>
 
-
-<p> {{ 'test' | callback : namna }} </p>
+<p>{{ 'demo.components.test' | translate }}</p>
 
 <div>
     <app-selector
@@ -19,7 +18,7 @@
 
 <div class="button-container">
     <app-button
-        [label]="'Click me'"
+        [label]="'demo.components.click-me' | translate"
         [color]="'primary'"
         [disabled]="false"
     ></app-button>
@@ -28,11 +27,10 @@
 <div class="input-container">
   <app-input
     [(ngModel)]="magia"
-    [placeholder]="'Escribe a ver'"
+    [placeholder]="'demo.components.write-here' | translate"
   ></app-input>
 </div>
 
 <app-segmented-task></app-segmented-task>
 
-<app-date-navigator
-></app-date-navigator>
+<app-date-navigator></app-date-navigator>

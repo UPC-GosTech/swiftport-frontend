@@ -70,13 +70,7 @@
     "filter": "Filter by position: ",
     "add": "Add Employee",
     "edit": "Edit",
-    "delete": "Delete",
-    "table": {
-      "dni": "DNI",
-      "last-name": "Last Name",
-      "position": "Position",
-      "actions": "Actions"
-    }
+    "delete": "Delete"
   },
   "employee-form-dialog": {
     "add": "Add employee",
@@ -536,13 +530,7 @@
     },
     "incidents": {
       "title": "Recent Incidents",
-      "view-all": "View All",
-      "table": {
-        "description": "Description",
-        "severity": "Severity",
-        "status": "Status",
-        "location": "Location"
-      }
+      "view-all": "View All"
     },
     "team-performance": {
       "title": "Team Performance",

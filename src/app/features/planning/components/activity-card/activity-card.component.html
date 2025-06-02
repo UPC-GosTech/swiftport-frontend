@@ -6,11 +6,11 @@
         <div class="status-badges">
           <span class="status-badge" [ngClass]="getStatusClass(activity.status)">
             <mat-icon class="badge-icon">{{ getStatusIcon(activity.status) }}</mat-icon>
-            {{ activity.status }}
+            {{ 'activity-management.filters.status.' + activity.status.toLowerCase() | translate }}
           </span>
           <span class="priority-badge" [ngClass]="getPriorityClass(activity.priority)">
             <mat-icon class="badge-icon">{{ getPriorityIcon(activity.priority) }}</mat-icon>
-            {{ activity.priority }}
+            {{ 'activity-management.filters.priority.' + activity.priority.toLowerCase() | translate }}
           </span>
           <span class="duration-indicator">
             <mat-icon class="badge-icon">schedule</mat-icon>
@@ -19,10 +19,10 @@
         </div>
       </div>
       <div class="actions">
-        <button mat-icon-button matTooltip="Editar actividad" (click)="onEditActivity(); $event.stopPropagation()">
+        <button mat-icon-button [matTooltip]="'activity-management.actions.edit' | translate" (click)="onEditActivity(); $event.stopPropagation()">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button matTooltip="Eliminar actividad" color="warn" (click)="onDeleteActivity(); $event.stopPropagation()">
+        <button mat-icon-button [matTooltip]="'activity-management.actions.delete' | translate" color="warn" (click)="onDeleteActivity(); $event.stopPropagation()">
           <mat-icon>delete</mat-icon>
         </button>
         <mat-icon class="expand-icon" [ngClass]="{'expanded': expanded}">
@@ -62,7 +62,7 @@
       </div>
 
       <mat-divider class="section-divider"></mat-divider>
-      
+
       <div class="tasks-section">
         <div class="section-header">
           <h3>Tareas</h3>
@@ -70,13 +70,13 @@
             <mat-icon>add</mat-icon>
           </button>
         </div>
-        
-        <app-task-list 
-          [activityId]="activity.id" 
-          (editTask)="onEditTask($event)" 
+
+        <app-task-list
+          [activityId]="activity.id"
+          (editTask)="onEditTask($event)"
           (deleteTask)="onDeleteTask($event)">
         </app-task-list>
       </div>
     </mat-card-content>
   </div>
-</mat-card> 
+</mat-card>

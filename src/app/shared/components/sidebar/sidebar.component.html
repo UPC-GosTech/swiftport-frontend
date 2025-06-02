@@ -2,13 +2,13 @@
   <div class="sidebar__header">
     <div class="sidebar__logo">
         @if(isOpen) {
-            <span class="logo-full">SwiftPort</span>
+            <span class="logo-full">{{ 'shared.components.sidebar.logo' | translate }}</span>
         } @else {
-            <span class="logo-icon">SP</span>
+            <span class="logo-icon">{{ 'shared.components.sidebar.logo-short' | translate }}</span>
         }
     </div>
   </div>
-  
+
   <div class="sidebar__content">
     <ul class="sidebar__menu">
       @for (item of menuItems; track item.id) {
@@ -26,7 +26,7 @@
               {{item.expanded ? 'expand_less' : 'expand_more'}}
             </span>
           </div>
-          
+
           <ul class="sidebar__submenu" *ngIf="item.expanded && isOpen">
             <li *ngFor="let child of item.children" class="sidebar__submenu-item">
               <a class="sidebar__submenu-link" [routerLink]="child.route" routerLinkActive="active">
@@ -40,7 +40,7 @@
       }
     </ul>
   </div>
-  
+
   <div class="sidebar__footer">
     <div class="sidebar__collapse-btn" (click)="isOpen = !isOpen">
       <span class="material-icons-outlined">{{isOpen ? 'chevron_left' : 'chevron_right'}}</span>

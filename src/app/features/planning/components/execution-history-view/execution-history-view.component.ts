@@ -5,12 +5,13 @@ import { TableComponent } from 'src/app/shared/components/table/table.component'
 import { CommonModule } from '@angular/common';
 import { Chart } from 'chart.js/auto';
 import { Columns } from 'src/app/shared/components/table/table.models';
+import { TranslatePipe } from '@ngx-translate/core';
 
 interface TaskExecution {
   task: string;
   plannedDate: Date;
   realDate: Date;
-  status: 'Completada' | 'En progreso' | 'Retrasada';
+  status: string;
   comment: string;
 }
 
@@ -19,7 +20,7 @@ interface TaskExecution {
   templateUrl: './execution-history-view.component.html',
   styleUrl: './execution-history-view.component.scss',
   standalone: true,
-  imports: [CommonModule, DateNavigatorComponent, ButtonComponent, TableComponent]
+  imports: [CommonModule, DateNavigatorComponent, ButtonComponent, TableComponent, TranslatePipe]
 })
 export class ExecutionHistoryViewComponent {
   selectedDate: Date = new Date();
@@ -30,35 +31,35 @@ export class ExecutionHistoryViewComponent {
       task: 'Carga de camión',
       plannedDate: new Date('2024-06-01'),
       realDate: new Date('2024-06-01'),
-      status: 'Completada',
+      status: 'execution-history.status.completed',
       comment: 'Sin incidencias.'
     },
     {
       task: 'Salida a ruta',
       plannedDate: new Date('2024-06-02'),
       realDate: new Date('2024-06-03'),
-      status: 'Retrasada',
+      status: 'execution-history.status.delayed',
       comment: 'Retraso por tráfico.'
     },
     {
       task: 'Entrega parcial',
       plannedDate: new Date('2024-06-03'),
       realDate: new Date('2024-06-03'),
-      status: 'Completada',
+      status: 'execution-history.status.completed',
       comment: 'Entrega exitosa.'
     },
     {
       task: 'Descarga',
       plannedDate: new Date('2024-06-04'),
       realDate: new Date('2024-06-04'),
-      status: 'En progreso',
+      status: 'execution-history.status.in-progress',
       comment: 'En proceso.'
     },
     {
       task: 'Retorno',
       plannedDate: new Date('2024-06-05'),
       realDate: new Date('2024-06-06'),
-      status: 'Retrasada',
+      status: 'execution-history.status.delayed',
       comment: 'Demora por mantenimiento.'
     }
   ];
@@ -92,31 +93,31 @@ export class ExecutionHistoryViewComponent {
 
   columns: Columns[] = [
     {
-      header: { key: 'task', label: 'Tarea' },
+      header: { key: 'task', label: 'execution-history.table.task' },
       cell: 'task',
       type: 'text',
       sortable: true
     },
     {
-      header: { key: 'plannedDate', label: 'Fecha Planificada' },
+      header: { key: 'plannedDate', label: 'execution-history.table.planned-date' },
       cell: 'plannedDate',
       type: 'date',
       sortable: true
     },
     {
-      header: { key: 'realDate', label: 'Fecha Real' },
+      header: { key: 'realDate', label: 'execution-history.table.real-date' },
       cell: 'realDate',
       type: 'date',
       sortable: true
     },
     {
-      header: { key: 'status', label: 'Estado' },
+      header: { key: 'status', label: 'execution-history.table.status' },
       cell: 'status',
       type: 'template',
       sortable: true
     },
     {
-      header: { key: 'comment', label: 'Comentario' },
+      header: { key: 'comment', label: 'execution-history.table.comment' },
       cell: 'comment',
       type: 'text',
       sortable: false

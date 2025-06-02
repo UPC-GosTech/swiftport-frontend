@@ -70,13 +70,7 @@
     "filter": "Filtrar por cargo: ",
     "add": "Agregar Empleado",
     "edit": "Editar",
-    "delete": "Eliminar",
-    "table": {
-      "dni": "DNI",
-      "last-name": "Apellido",
-      "position": "Cargo",
-      "actions": "Acciones"
-    }
+    "delete": "Eliminar"
   },
   "employee-form-dialog": {
     "add": "Agregar empleado",
@@ -536,13 +530,7 @@
     },
     "incidents": {
       "title": "Incidentes Recientes",
-      "view-all": "Ver Todos",
-      "table": {
-        "description": "Descripción",
-        "severity": "Severidad",
-        "status": "Estado",
-        "location": "Ubicación"
-      }
+      "view-all": "Ver Todos"
     },
     "team-performance": {
       "title": "Rendimiento del Equipo",

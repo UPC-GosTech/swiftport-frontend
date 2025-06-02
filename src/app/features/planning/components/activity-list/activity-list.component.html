@@ -1,8 +1,8 @@
 <div class="activity-list-container">
   <div *ngIf="activities.length === 0" class="no-activities">
-    No hay actividades disponibles
+    {{ 'activity-management.no-results.message' | translate }}
   </div>
-  
+
   <app-activity-card
     *ngFor="let activity of activities"
     [activity]="activity"
@@ -14,4 +14,4 @@
     (deleteTask)="onDeleteTask($event)"
     (addTask)="onAddTask($event)"
   ></app-activity-card>
-</div> 
+</div>

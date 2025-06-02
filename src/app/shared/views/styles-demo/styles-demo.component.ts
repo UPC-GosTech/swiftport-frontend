@@ -7,7 +7,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeService } from '../../../core/services/theme.service';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import {TranslateService} from '@ngx-translate/core';
+import {TranslateService, TranslatePipe} from '@ngx-translate/core';
 import {SelectorComponent} from '../../../shared/components/selector/selector.component';
 import {InputComponent} from '../../../shared/components/input/input.component';
 import {RegisterComponent} from '../../../core/registration/views/register/register.component';
@@ -33,7 +33,8 @@ import {MatToolbar, MatToolbarRow} from '@angular/material/toolbar';
     SelectorComponent,
     InputComponent,
     RegisterComponent,
-    AccountCreationComponent
+    AccountCreationComponent,
+    TranslatePipe
   ],
   templateUrl: './styles-demo.component.html',
   styleUrls: ['./styles-demo.component.scss']

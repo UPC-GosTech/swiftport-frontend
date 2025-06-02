@@ -39,6 +39,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { CallbackPipe } from '../../pipes/callback.pipe';
+import { TranslatePipe } from '@ngx-translate/core';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-table',
@@ -54,6 +56,8 @@ import { CallbackPipe } from '../../pipes/callback.pipe';
     MatTooltipModule,
     MatButtonModule,
     CallbackPipe,
+    TranslatePipe,
+    MatProgressBarModule
   ],
 })
 export class TableComponent
@@ -90,7 +94,7 @@ export class TableComponent
   @Input() rowClass?: (row: any) => string;
   @Input() fixedSize?: boolean = false;
   @Input() fixedHeight?: string = '400px';
-  
+
 
   @Output() totalChange = new EventEmitter<number>();
   @Output() sortChange = new EventEmitter<Sort>();
@@ -215,17 +219,17 @@ export class TableComponent
    */
   setData(): void {
       const data = this.dataSource;
-      
+
       // Primero establecemos los datos
       this.filteredDataSource.data = data!;
       this.resultsLength = data!.length;
       console.log(this.filteredDataSource);
       console.log(this.columns);
-      
+
       if (this.showPaginator) {
           // Configuramos el paginador
           this.filteredDataSource.paginator = this.matPaginator;
-          
+
           // Si tiene tamaño fijo, ajustamos el tamaño de página después de un pequeño delay
           if (this.fixedSize && data) {
               setTimeout(() => {
@@ -234,7 +238,7 @@ export class TableComponent
               });
           }
       }
-      
+
       this.totalChange.emit(this.resultsLength);
   }
 

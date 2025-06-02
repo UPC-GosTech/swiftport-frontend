@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CurrencyPipe, CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 interface BillingRecord {
   date: string;
@@ -14,7 +15,11 @@ interface BillingRecord {
   standalone: true,
   templateUrl: './company-settings.component.html',
   styleUrls: ['./company-settings.component.scss'],
-  imports: [ReactiveFormsModule, CommonModule]
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    TranslatePipe
+  ]
 })
 export class CompanySettingsComponent implements OnInit {
   settingsForm!: FormGroup;
