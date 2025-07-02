@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {environment} from "../../../../environments/environment";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
@@ -7,6 +7,7 @@ import {SignUpRequest} from "../models/sign-up.request";
 import {SignUpResponse} from "../models/sign-up.response";
 import {SignInRequest} from "../models/sign-in.request";
 import {SignInResponse} from "../models/sign-in.response";
+import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 import { Roles } from '../models/roles.enum';
 import { List } from 'lodash';
 
@@ -17,6 +18,11 @@ import { List } from 'lodash';
  */
 @Injectable({providedIn: 'root'})
 export class AuthenticationService {
+
+  router = inject(Router);
+  http = inject(HttpClient);
+  localStorageService = inject(LocalStorageService);
+
   basePath: string = `${environment.apiBaseUrl}`;
   httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
@@ -25,12 +31,8 @@ export class AuthenticationService {
   private signedInUsername: BehaviorSubject<string> = new BehaviorSubject<string>('');
   private roles: BehaviorSubject<Roles[]> = new BehaviorSubject<Roles[]>([]);
 
-  /**
-   * Constructor for the AuthenticationService.
-    * @param router The router service.
-   * @param http The HttpClient service.
-   */
-  constructor(private router: Router, private http: HttpClient) {
+
+  constructor() {
   }
 
   get isSignedIn() {
@@ -83,7 +85,7 @@ export class AuthenticationService {
     this.signedInUserId.next(response.id);
     this.signedInUsername.next(response.username);
     this.roles.next(response.roles as Roles[])
-    localStorage.setItem('token', response.token);
+    this.localStorageService.setItem('token', response.token);
     console.log(`Signed in as ${response.username} with token ${response.token}`);
     this.router.navigate(['/swiftport']).then();
   }
