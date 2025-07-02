@@ -1,11 +1,17 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { map, Observable, of } from 'rxjs';
 import { SidebarMenuItem } from '../components/sidebar/sidebar.component';
+import { AuthenticationService } from 'src/app/features/iam/services/authentication.service';
+import { Roles } from 'src/app/features/iam/models/roles.enum';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MenuService {
+
+  router = inject(Router);
+  authService = inject(AuthenticationService);
 
   private adminMenuItems: SidebarMenuItem[] = [
     {
@@ -176,6 +182,31 @@ export class MenuService {
 
   constructor() { }
 
+  getMenuItems(): Observable<SidebarMenuItem[]> {
+    return this.authService.currentRoles.pipe(
+      map(roles => {
+        if (!roles || roles.length === 0) {
+          return [];
+        }
+        const firstRole = roles[0];
+        
+        switch (firstRole) {
+          case Roles.Admin:
+            return this.adminMenuItems;
+          case Roles.LogisticOperator:
+            return this.operarioMenuItems;
+          case Roles.LogisticSupervisor:
+            return this.supervisorMenuItems;
+          default:
+            return [];
+        }
+      })
+    );
+  }
+
+  handleRoleError(): void {
+  
+  }
   getSupervisorMenuItems(): Observable<SidebarMenuItem[]> {
     return of(this.supervisorMenuItems);
   }
