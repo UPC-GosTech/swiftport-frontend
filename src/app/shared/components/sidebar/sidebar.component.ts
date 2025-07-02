@@ -34,6 +34,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   constructor(private menuService: MenuService) {}
 
   ngOnInit(): void {
+    console.log('not here');
     this.menuService.getMenuItems()
       .pipe(takeUntil(this.destroy$))
       .subscribe({

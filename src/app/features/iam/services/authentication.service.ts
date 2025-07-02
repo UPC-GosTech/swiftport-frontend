@@ -33,6 +33,13 @@ export class AuthenticationService {
 
 
   constructor() {
+    if(this.localStorageService.hasKey('userSession')){
+        const userSession : SignInResponse= this.localStorageService.getItem('userSession');
+        this.signedIn.next(true);
+        this.signedInUserId.next(userSession.id);
+        this.signedInUsername.next(userSession.username);
+        this.roles.next(userSession.roles as Roles[]);
+    }
   }
 
   get isSignedIn() {
@@ -86,6 +93,8 @@ export class AuthenticationService {
     this.signedInUsername.next(response.username);
     this.roles.next(response.roles as Roles[])
     this.localStorageService.setItem('token', response.token);
+    this.localStorageService.setItem('userSession', response);
+    this.localStorageService.removeItem('menuItems');
     console.log(`Signed in as ${response.username} with token ${response.token}`);
     this.router.navigate(['/swiftport']).then();
   }

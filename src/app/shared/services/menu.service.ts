@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
 import { SidebarMenuItem } from '../components/sidebar/sidebar.component';
 import { AuthenticationService } from 'src/app/features/iam/services/authentication.service';
+import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 import { Roles } from 'src/app/features/iam/models/roles.enum';
 import { Router } from '@angular/router';
 
@@ -12,6 +13,7 @@ export class MenuService {
 
   router = inject(Router);
   authService = inject(AuthenticationService);
+  localStorageService = inject(LocalStorageService);
 
   private adminMenuItems: SidebarMenuItem[] = [
     {
@@ -180,26 +182,35 @@ export class MenuService {
     }
   ];
 
-  constructor() { }
+  constructor() {}
 
   getMenuItems(): Observable<SidebarMenuItem[]> {
+    if(this.localStorageService.hasKey('menuItems')){
+      const menuItems : SidebarMenuItem[] = this.localStorageService.getItem('menuItems');
+      return of(menuItems);
+    }
     return this.authService.currentRoles.pipe(
       map(roles => {
         if (!roles || roles.length === 0) {
           return [];
         }
         const firstRole = roles[0];
-        
+        let menuItems : SidebarMenuItem[] = [];
         switch (firstRole) {
           case Roles.Admin:
-            return this.adminMenuItems;
+            menuItems = this.adminMenuItems;
+            break;
           case Roles.LogisticOperator:
-            return this.operarioMenuItems;
+            menuItems =  this.operarioMenuItems;
+            break;
           case Roles.LogisticSupervisor:
-            return this.supervisorMenuItems;
+            menuItems =  this.supervisorMenuItems;
+            break;
           default:
-            return [];
+            menuItems = [];
         }
+        this.localStorageService.setItem('menuItems', menuItems);
+        return menuItems;
       })
     );
   }

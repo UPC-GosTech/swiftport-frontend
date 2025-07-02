@@ -5,7 +5,6 @@ import { HeaderComponent } from '../../shared/components/header/header.component
 import { CommonModule } from '@angular/common';
 import {MenuService} from '../../shared/services/menu.service';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
-import { UserSession } from '../../features/iam/models/userSession.entity';
 
 @Component({
   selector: 'app-main-layout',
