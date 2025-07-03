@@ -1,5 +1,5 @@
 export enum Roles {
     Admin = 'ROLE_ADMIN',
-    LogisticSupervisor = 'LOGISTIC_SUPERVISOR',
-    LogisticOperator = 'LOGISTIC_OPERATOR'
+    LogisticSupervisor = 'ROLE_LOGISTIC_SUPERVISOR',
+    LogisticOperator = 'ROLE_LOGISTIC_OPERATOR'
 }

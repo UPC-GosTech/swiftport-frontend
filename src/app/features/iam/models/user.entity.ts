@@ -1,27 +1,29 @@
+import { Roles } from "./roles.enum";
+
 export class User {
     id: number;
-    name: string;
+    username: string;
     email: string;
-    password: string;
-    role: string;
-    accountId: number;
-    status: string;
+    firstName: string;
+    lastName: string;
+    roles: Roles[];
+    status: boolean;
     
-constructor(
-    id?: number,
-    name?: string,
-    email?: string,
-    password?: string,
-    role?: string,
-    accountId?: number,
-    status?: string
-) {
-    this.id = id || 0;
-    this.name = name || '';
-    this.email = email || '';
-    this.password = password || '';
-    this.role = role || '';
-    this.accountId = accountId || 0;
-    this.status = status || '';
-}
+    constructor(
+        id?: number,
+        username?: string,
+        email?: string,
+        firstName?: string,
+        lastName?: string,
+        roles?: Roles[],
+        status?: boolean
+    ) {
+        this.id = id || 0;
+        this.username = username || '';
+        this.email = email || '';
+        this.firstName = firstName || '';
+        this.lastName = lastName || '';
+        this.roles = roles || [];
+        this.status = status || false;
+    }
 }

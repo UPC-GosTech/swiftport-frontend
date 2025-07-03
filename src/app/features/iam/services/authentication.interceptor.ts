@@ -1,8 +1,8 @@
 import {HttpInterceptorFn} from '@angular/common/http';
-import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 import { catchError, throwError } from 'rxjs';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 /**
  * Interceptor for adding the authentication token to the request headers.
  * @summary
@@ -16,7 +16,8 @@ export const authenticationInterceptor: HttpInterceptorFn = (
   next) => {
 
   // Get the token from local storage.
-  const token = localStorage.getItem('token');
+  const localStorageService = inject(LocalStorageService);
+  const token = localStorageService.getItem('token');
   const router = inject(Router);
   
   // If the token exists, add it to the request headers. Otherwise, send the request as is.
@@ -24,7 +25,7 @@ export const authenticationInterceptor: HttpInterceptorFn = (
     ? request.clone({headers: request.headers.set('Authorization', `Bearer ${token}`)})
     : request;
   
-  console.log('Request intercepted:', handledRequest.url);
+  console.log('Request intercepted:', handledRequest.url, token);
   
   // Return the handled request with error handling
   return next(handledRequest).pipe(

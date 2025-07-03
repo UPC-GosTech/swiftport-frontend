@@ -8,6 +8,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { UserCreateDialogComponent } from '../../components/user-create-dialog/user-create-dialog.component';
 import { UserEditDialogComponent } from '../../components/user-edit-dialog/user-edit-dialog.component';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
+import { Roles } from '../../models/roles.enum';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
@@ -15,7 +19,9 @@ import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmat
     FormsModule,
     NgForOf,
     TranslatePipe,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    MatIconModule,
+    MatButtonModule
   ],
   styleUrls: ['./user-management.component.scss']
 })
@@ -23,7 +29,7 @@ export class UserManagementComponent implements OnInit {
   users: User[] = [];
   filteredUsers: User[] = [];
   paginatedUsers: User[] = [];
-  roles: string[] = ['admin', 'supervisor', 'operario'];
+  roles: Roles[] = Object.values(Roles);
   selectedRole: string = '';
   searchTerm: string = '';
   currentPage: number = 1;
@@ -56,12 +62,29 @@ export class UserManagementComponent implements OnInit {
 
   filterUsers(): void {
     this.filteredUsers = this.users.filter(user =>
-      (!this.selectedRole || user.role === this.selectedRole) &&
-      (user.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      (!this.selectedRole || user.roles.includes(this.selectedRole as Roles)) &&
+      (this.getFullName(user).toLowerCase().includes(this.searchTerm.toLowerCase()) ||
         user.email.toLowerCase().includes(this.searchTerm.toLowerCase()))
     );
     this.currentPage = 1;
     this.updatePagination();
+  }
+
+  getFullName(user: User): string {
+    return `${user.firstName} ${user.lastName}`.trim();
+  }
+
+  getRolesDisplay(user: User): string {
+    return user.roles.map(role => this.getRoleLabel(role)).join(', ');
+  }
+
+  getRoleLabel(roleValue: Roles): string {
+    const roleLabels: {[key in Roles]: string} = {
+      [Roles.Admin]: 'Administrador',
+      [Roles.LogisticSupervisor]: 'Supervisor Logístico',
+      [Roles.LogisticOperator]: 'Operador Logístico'
+    };
+    return roleLabels[roleValue] || roleValue;
   }
 
   updatePagination(): void {
@@ -92,7 +115,7 @@ export class UserManagementComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.userService.createUser(result).subscribe(() => this.loadUsers());
+        this.userService.createUser(result.user, result.password).subscribe(() => this.loadUsers());
       }
     });
   }
@@ -111,7 +134,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   deleteUser(user: User): void {
-    if (user.role === 'admin') {
+    if (user.roles.includes(Roles.Admin)) {
       alert('No se puede eliminar un usuario con rol admin');
       return;
     }
@@ -132,7 +155,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   toggleEstado(user: User): void {
-    const updatedUser = { ...user, status: user.status === 'active' ? 'inactive' : 'active' };
-    this.userService.updateUser(updatedUser).subscribe(() => this.loadUsers());
+    const updatedUser = { ...user, status: !user.status };
+    this.userService.toggleUserStatus(updatedUser).subscribe(() => this.loadUsers());
   }
 }
