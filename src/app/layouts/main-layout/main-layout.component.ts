@@ -5,7 +5,6 @@ import { HeaderComponent } from '../../shared/components/header/header.component
 import { CommonModule } from '@angular/common';
 import {MenuService} from '../../shared/services/menu.service';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
-import { UserSession } from '../../features/security/models/userSession.entity';
 
 @Component({
   selector: 'app-main-layout',
@@ -14,7 +13,7 @@ import { UserSession } from '../../features/security/models/userSession.entity';
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.scss'
 })
-export class MainLayoutComponent implements OnInit {
+export class MainLayoutComponent  {
 
   isSidebarOpen = true;
   userType: string = '';
@@ -25,11 +24,6 @@ export class MainLayoutComponent implements OnInit {
     private localStorageService: LocalStorageService
   ) {}
 
-  ngOnInit() {
-    const userSession: UserSession = this.localStorageService.getItem('userSession');
-    this.userType = userSession.role;
-    console.log('userType', this.userType);
-  }
 
   toggleSidebar(): void {
     this.isSidebarOpen = !this.isSidebarOpen;
