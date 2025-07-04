@@ -52,7 +52,7 @@ export class UserAssembler {
     static toUpdateStatusRequest(entity: User) : UpdateUserStatusRequest{
         return {
             active: entity.status
-        }
+        };
     }
 }
 
