@@ -569,14 +569,23 @@
     "maxLength": "Maximum {{max}} characters"
   },
   "user-create-dialog": {
-    "title": "Create User",
-    "name": "Name",
+    "title": "Create New User",
+    "subtitle": "Complete the new user information",
+    "username": "Username",
+    "username.placeholder": "Ex: juan.perez",
+    "firstName": "First Name",
+    "firstName.placeholder": "Ex: Juan",
+    "lastName": "Last Name",
+    "lastName.placeholder": "Ex: Pérez",
     "email": "Email",
-    "role": "Role",
+    "email.placeholder": "Ex: juan.perez@company.com",
     "password": "Password",
-    "confirm-password": "Confirm Password",
+    "password.placeholder": "Minimum 8 characters",
+    "roles": "Roles",
+    "roles.placeholder": "Select roles",
+    "status": "Active user",
     "cancel": "Cancel",
-    "create": "Create"
+    "create": "Create User"
   },
   "user-edit-dialog": {
     "title": "Edit User",
@@ -592,5 +601,45 @@
     "contact-info": "Contact Information",
     "save": "Save",
     "cancel": "Cancel"
+  },
+  "form": {
+    "actions": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "submit": "Submit",
+      "create": "Create",
+      "update": "Update"
+    },
+    "errors": {
+      "required": "This field is required",
+      "email": "Invalid email format",
+      "minLength": "Minimum {{length}} characters",
+      "maxLength": "Maximum {{length}} characters",
+      "min": "Minimum value: {{min}}",
+      "max": "Maximum value: {{max}}",
+      "pattern": "Invalid format"
+    },
+    "fields": {
+      "username": "Username",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "password": "Password",
+      "roles": "Roles",
+      "status": "Status"
+    },
+    "placeholders": {
+      "select": "Select...",
+      "enter": "Enter...",
+      "choose": "Choose..."
+    }
+  },
+  "roles": {
+    "admin": "Administrator",
+    "admin.description": "Full system access",
+    "supervisor": "Logistics Supervisor",
+    "supervisor.description": "Logistics operations supervision",
+    "operator": "Logistics Operator",
+    "operator.description": "Basic logistics operations"
   }
 }

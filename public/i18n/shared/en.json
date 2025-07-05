@@ -22,5 +22,37 @@
     "email": "Invalid email format",
     "minLength": "Minimum {{min}} characters",
     "maxLength": "Maximum {{max}} characters"
+  },
+  "form": {
+    "actions": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "submit": "Submit",
+      "create": "Create",
+      "update": "Update"
+    },
+    "errors": {
+      "required": "This field is required",
+      "email": "Invalid email format",
+      "minLength": "Minimum {{length}} characters",
+      "maxLength": "Maximum {{length}} characters",
+      "min": "Minimum value: {{min}}",
+      "max": "Maximum value: {{max}}",
+      "pattern": "Invalid format"
+    },
+    "fields": {
+      "username": "Username",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "password": "Password",
+      "roles": "Roles",
+      "status": "Status"
+    },
+    "placeholders": {
+      "select": "Select...",
+      "enter": "Enter...",
+      "choose": "Choose..."
+    }
   }
 } 

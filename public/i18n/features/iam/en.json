@@ -77,14 +77,23 @@
     "create": "Create User"
   },
   "user-create-dialog": {
-    "title": "Create User",
-    "name": "Name",
+    "title": "Create New User",
+    "subtitle": "Complete the new user information",
+    "username": "Username",
+    "username.placeholder": "Ex: juan.perez",
+    "firstName": "First Name",
+    "firstName.placeholder": "Ex: Juan",
+    "lastName": "Last Name",
+    "lastName.placeholder": "Ex: Pérez",
     "email": "Email",
-    "role": "Role",
+    "email.placeholder": "Ex: juan.perez@company.com",
     "password": "Password",
-    "confirm-password": "Confirm Password",
+    "password.placeholder": "Minimum 8 characters",
+    "roles": "Roles",
+    "roles.placeholder": "Select roles",
+    "status": "Active user",
     "cancel": "Cancel",
-    "create": "Create"
+    "create": "Create User"
   },
   "user-edit-dialog": {
     "title": "Edit User",
@@ -100,5 +109,13 @@
     "contact-info": "Contact Information",
     "save": "Save",
     "cancel": "Cancel"
+  },
+  "roles": {
+    "admin": "Administrator",
+    "admin.description": "Full system access",
+    "supervisor": "Logistics Supervisor",
+    "supervisor.description": "Logistics operations supervision",
+    "operator": "Logistics Operator",
+    "operator.description": "Basic logistics operations"
   }
 } 

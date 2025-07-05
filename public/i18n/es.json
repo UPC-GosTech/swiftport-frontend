@@ -456,14 +456,23 @@
     "maxLength": "Máximo {{max}} caracteres"
   },
   "user-create-dialog": {
-    "title": "Crear Usuario",
-    "name": "Nombre",
-    "email": "Email",
-    "role": "Rol",
+    "title": "Crear Nuevo Usuario",
+    "subtitle": "Complete la información del nuevo usuario",
+    "username": "Nombre de usuario",
+    "username.placeholder": "Ej: juan.perez",
+    "firstName": "Nombre",
+    "firstName.placeholder": "Ej: Juan",
+    "lastName": "Apellido",
+    "lastName.placeholder": "Ej: Pérez",
+    "email": "Correo electrónico",
+    "email.placeholder": "Ej: juan.perez@empresa.com",
     "password": "Contraseña",
-    "confirm-password": "Confirmar Contraseña",
+    "password.placeholder": "Mínimo 8 caracteres",
+    "roles": "Roles",
+    "roles.placeholder": "Seleccionar roles",
+    "status": "Usuario activo",
     "cancel": "Cancelar",
-    "create": "Crear"
+    "create": "Crear Usuario"
   },
   "user-edit-dialog": {
     "title": "Editar Usuario",
@@ -485,5 +494,45 @@
     "end": "Fin",
     "duration": "Duración",
     "progress": "Progreso"
+  },
+  "form": {
+    "actions": {
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "submit": "Enviar",
+      "create": "Crear",
+      "update": "Actualizar"
+    },
+    "errors": {
+      "required": "Este campo es requerido",
+      "email": "Formato de email inválido",
+      "minLength": "Mínimo {{length}} caracteres",
+      "maxLength": "Máximo {{length}} caracteres",
+      "min": "Valor mínimo: {{min}}",
+      "max": "Valor máximo: {{max}}",
+      "pattern": "Formato inválido"
+    },
+    "fields": {
+      "username": "Nombre de usuario",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "roles": "Roles",
+      "status": "Estado"
+    },
+    "placeholders": {
+      "select": "Seleccionar...",
+      "enter": "Ingrese...",
+      "choose": "Elegir..."
+    }
+  },
+  "roles": {
+    "admin": "Administrador",
+    "admin.description": "Acceso completo al sistema",
+    "supervisor": "Supervisor Logístico",
+    "supervisor.description": "Supervisión de operaciones logísticas",
+    "operator": "Operador Logístico",
+    "operator.description": "Operaciones básicas de logística"
   }
 }
