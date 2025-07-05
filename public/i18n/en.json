@@ -128,11 +128,11 @@
     "register": "REGISTER",
     "loading": "Loading...",
     "fill": "Please fill in all fields.",
-    "invalid": "Incorrect username or password."
+    "invalid": "Invalid username or password."
   },
   "password-recovery": {
-    "recover-password": "Password Recovery",
-    "link-sent": "We'll send you a link to reset your password.",
+    "recover-password": "Recover Password",
+    "link-sent": "We will send you a link to reset your password.",
     "email": "Email",
     "email-example": "example@email.com",
     "sent-link": "SEND LINK",
@@ -270,26 +270,16 @@
     }
   },
   "common": {
-    "loading": "Loading...",
-    "error": "Error",
-    "success": "Success",
-    "warning": "Warning",
-    "info": "Information",
     "save": "Save",
     "cancel": "Cancel",
-    "delete": "Delete",
     "edit": "Edit",
-    "create": "Create",
+    "delete": "Delete",
+    "add": "Add",
     "update": "Update",
-    "confirm": "Confirm",
-    "back": "Back",
-    "next": "Next",
-    "previous": "Previous",
-    "search": "Search",
-    "filter": "Filter",
-    "no-results": "No results found",
-    "required": "Required field",
-    "invalid": "Invalid field"
+    "create": "Create",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
   },
   "settings": {
     "title": "Subscription Panel",
@@ -565,5 +555,91 @@
         "trend": "Trend"
       }
     }
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Invalid email format",
+    "minLength": "Minimum {{min}} characters",
+    "maxLength": "Maximum {{max}} characters"
+  },
+  "user-create-dialog": {
+    "title": "Create New User",
+    "subtitle": "Complete the new user information",
+    "username": "Username",
+    "username.placeholder": "Ex: juan.perez",
+    "firstName": "First Name",
+    "firstName.placeholder": "Ex: Juan",
+    "lastName": "Last Name",
+    "lastName.placeholder": "Ex: Pérez",
+    "email": "Email",
+    "email.placeholder": "Ex: juan.perez@company.com",
+    "password": "Password",
+    "password.placeholder": "Minimum 8 characters",
+    "roles": "Roles",
+    "roles.placeholder": "Select roles",
+    "status": "Active user",
+    "cancel": "Cancel",
+    "create": "Create User"
+  },
+  "user-edit-dialog": {
+    "title": "Edit User",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "cancel": "Cancel",
+    "update": "Update"
+  },
+  "company-settings": {
+    "title": "Company Settings",
+    "company-info": "Company Information",
+    "contact-info": "Contact Information",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "form": {
+    "actions": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "submit": "Submit",
+      "create": "Create",
+      "update": "Update"
+    },
+    "errors": {
+      "required": "This field is required",
+      "email": "Invalid email format",
+      "minLength": "Minimum {{length}} characters",
+      "maxLength": "Maximum {{length}} characters",
+      "min": "Minimum value: {{min}}",
+      "max": "Maximum value: {{max}}",
+      "pattern": "Invalid format"
+    },
+    "fields": {
+      "username": "Username",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "password": "Password",
+      "roles": "Roles",
+      "status": "Status"
+    },
+    "placeholders": {
+      "select": "Select...",
+      "enter": "Enter...",
+      "choose": "Choose..."
+    }
+  },
+  "roles": {
+    "admin": "Administrator",
+    "admin.description": "Full system access",
+    "supervisor": "Logistics Supervisor",
+    "supervisor.description": "Logistics operations supervision",
+    "operator": "Logistics Operator",
+    "operator.description": "Basic logistics operations"
   }
 }

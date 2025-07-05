@@ -66,7 +66,7 @@ export class AuthenticationService {
    * @returns Observable of {@link SignUpResponse} object containing the user's id and username.
    */
   signUp(signUpRequest: SignUpRequest): Observable<SignUpResponse> {
-    return this.http.post<SignUpResponse>(`${this.basePath}/authentications/sign-up`, signUpRequest, this.httpOptions);
+    return this.http.post<SignUpResponse>(`${this.basePath}/authentication/sign-up`, signUpRequest, this.httpOptions);
   }
 
   /**
@@ -78,7 +78,7 @@ export class AuthenticationService {
    */
   signIn(signInRequest: SignInRequest): Observable<SignInResponse> {
     console.log('Signing in with:', signInRequest);
-    return this.http.post<SignInResponse>(`${this.basePath}/authentications/sign-in`, signInRequest, this.httpOptions);
+    return this.http.post<SignInResponse>(`${this.basePath}/authentication/sign-in`, signInRequest, this.httpOptions);
   }
 
   /**

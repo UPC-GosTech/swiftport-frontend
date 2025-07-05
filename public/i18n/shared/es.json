@@ -1,0 +1,58 @@
+{
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "add": "Agregar",
+    "update": "Actualizar",
+    "create": "Crear",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "logout": "Cerrar Sesión"
+  },
+  "validation": {
+    "required": "Este campo es requerido",
+    "email": "Formato de email inválido",
+    "minLength": "Mínimo {{min}} caracteres",
+    "maxLength": "Máximo {{max}} caracteres"
+  },
+  "form": {
+    "actions": {
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "submit": "Enviar",
+      "create": "Crear",
+      "update": "Actualizar"
+    },
+    "errors": {
+      "required": "Este campo es requerido",
+      "email": "Formato de email inválido",
+      "minLength": "Mínimo {{length}} caracteres",
+      "maxLength": "Máximo {{length}} caracteres",
+      "min": "Valor mínimo: {{min}}",
+      "max": "Valor máximo: {{max}}",
+      "pattern": "Formato inválido"
+    },
+    "fields": {
+      "username": "Nombre de usuario",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "roles": "Roles",
+      "status": "Estado"
+    },
+    "placeholders": {
+      "select": "Seleccionar...",
+      "enter": "Ingrese...",
+      "choose": "Elegir..."
+    }
+  }
+} 

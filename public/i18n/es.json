@@ -270,26 +270,16 @@
     }
   },
   "common": {
-    "loading": "Cargando...",
-    "error": "Error",
-    "success": "Éxito",
-    "warning": "Advertencia",
-    "info": "Información",
     "save": "Guardar",
     "cancel": "Cancelar",
-    "delete": "Eliminar",
     "edit": "Editar",
-    "create": "Crear",
+    "delete": "Eliminar",
+    "add": "Agregar",
     "update": "Actualizar",
-    "confirm": "Confirmar",
-    "back": "Volver",
-    "next": "Siguiente",
-    "previous": "Anterior",
-    "search": "Buscar",
-    "filter": "Filtrar",
-    "no-results": "No se encontraron resultados",
-    "required": "Campo requerido",
-    "invalid": "Campo inválido"
+    "create": "Crear",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito"
   },
   "settings": {
     "title": "Panel de Suscripción",
@@ -400,133 +390,20 @@
   },
   "task-planning": {
     "title": "Planificación de Tareas",
-    "view-mode": {
-      "calendar": "Vista Calendario",
-      "table": "Vista Tabla"
-    },
-    "search": {
-      "placeholder": "Buscar tareas...",
-      "no-results": "No se encontraron tareas"
-    },
-    "filters": {
-      "status": {
-        "title": "Filtrar por estado",
-        "all": "Todos los estados",
-        "programmed": "Programada",
-        "completed": "Completada",
-        "pending": "Pendiente",
-        "cancelled": "Cancelada"
-      },
-      "priority": {
-        "title": "Filtrar por prioridad",
-        "all": "Todas las prioridades",
-        "high": "Alta",
-        "medium": "Media",
-        "low": "Baja"
-      },
-      "date-range": {
-        "title": "Rango de fechas",
-        "start": "Fecha inicio",
-        "end": "Fecha fin"
-      },
-      "show-completed": "Mostrar completadas",
-      "group-by": {
-        "title": "Agrupar por",
-        "none": "Sin agrupar",
-        "status": "Estado",
-        "priority": "Prioridad",
-        "team": "Equipo"
-      }
-    },
-    "table": {
-      "task": "Tarea",
-      "start": "Inicio",
-      "end": "Fin",
-      "status": "Estado",
-      "team": "Equipo",
-      "equipment": "Equipos",
-      "actions": "Acciones"
-    },
-    "actions": {
-      "edit": "Editar",
-      "delete": "Eliminar",
-      "complete": "Completar",
-      "cancel": "Cancelar"
-    },
-    "unscheduled": {
-      "title": "Tareas sin programar",
-      "drag": "Arrastra para programar"
-    },
-    "scheduled": {
-      "title": "Tareas programadas"
-    },
-    "dialog": {
-      "title": "Programar Tarea",
-      "edit-title": "Editar Tarea Programada",
-      "start-time": "Hora de inicio",
-      "end-time": "Hora de fin",
-      "team": "Equipo",
-      "equipment": "Equipos",
-      "comments": "Comentarios",
-      "save": "Guardar",
-      "cancel": "Cancelar"
-    }
+    "create": "Crear Tarea",
+    "schedule": "Programar",
+    "reschedule": "Reprogramar",
+    "complete": "Completar",
+    "cancel": "Cancelar"
   },
   "activity-management": {
     "title": "Gestión de Actividades",
-    "new-activity": "Nueva Actividad",
-    "search": {
-      "placeholder": "Buscar por título o descripción",
-      "label": "Buscar"
-    },
-    "filters": {
-      "status": {
-        "label": "Estado",
-        "all": "Todos",
-        "pending": "Pendiente",
-        "in-progress": "En progreso",
-        "completed": "Finalizada",
-        "cancelled": "Cancelada"
-      },
-      "priority": {
-        "label": "Prioridad",
-        "all": "Todas",
-        "high": "Alta",
-        "medium": "Media",
-        "low": "Baja"
-      },
-      "clear": "Limpiar filtros"
-    },
-    "table": {
-      "title": "Título",
-      "description": "Descripción",
-      "status": "Estado",
-      "priority": "Prioridad",
-      "duration": "Duración",
-      "date": "Fecha",
-      "actions": "Acciones"
-    },
-    "actions": {
-      "edit": "Editar actividad",
-      "delete": "Eliminar actividad",
-      "add-task": "Agregar tarea",
-      "edit-task": "Editar tarea",
-      "delete-task": "Eliminar tarea"
-    },
-    "no-results": {
-      "message": "No se encontraron actividades con los filtros seleccionados",
-      "clear": "Limpiar filtros"
-    },
-    "messages": {
-      "create-success": "Actividad creada exitosamente",
-      "update-success": "Actividad actualizada exitosamente",
-      "delete-success": "Actividad eliminada exitosamente",
-      "error-create": "Error al crear la actividad",
-      "error-update": "Error al actualizar la actividad",
-      "error-delete": "Error al eliminar la actividad",
-      "error-load": "Error al cargar las actividades",
-      "confirm-delete": "¿Está seguro de que desea eliminar esta actividad?"
-    }
+    "add": "Agregar Actividad",
+    "edit": "Editar Actividad",
+    "delete": "Eliminar Actividad",
+    "status": "Estado",
+    "priority": "Prioridad",
+    "assigned": "Asignado a"
   },
   "dashboard": {
     "title": "Panel de Control Logístico",
@@ -565,5 +442,97 @@
         "trend": "Tendencia"
       }
     }
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "logout": "Cerrar Sesión"
+  },
+  "validation": {
+    "required": "Este campo es requerido",
+    "email": "Formato de email inválido",
+    "minLength": "Mínimo {{min}} caracteres",
+    "maxLength": "Máximo {{max}} caracteres"
+  },
+  "user-create-dialog": {
+    "title": "Crear Nuevo Usuario",
+    "subtitle": "Complete la información del nuevo usuario",
+    "username": "Nombre de usuario",
+    "username.placeholder": "Ej: juan.perez",
+    "firstName": "Nombre",
+    "firstName.placeholder": "Ej: Juan",
+    "lastName": "Apellido",
+    "lastName.placeholder": "Ej: Pérez",
+    "email": "Correo electrónico",
+    "email.placeholder": "Ej: juan.perez@empresa.com",
+    "password": "Contraseña",
+    "password.placeholder": "Mínimo 8 caracteres",
+    "roles": "Roles",
+    "roles.placeholder": "Seleccionar roles",
+    "status": "Usuario activo",
+    "cancel": "Cancelar",
+    "create": "Crear Usuario"
+  },
+  "user-edit-dialog": {
+    "title": "Editar Usuario",
+    "name": "Nombre",
+    "email": "Email",
+    "role": "Rol",
+    "cancel": "Cancelar",
+    "update": "Actualizar"
+  },
+  "company-settings": {
+    "title": "Configuración de la Empresa",
+    "company-info": "Información de la Empresa",
+    "contact-info": "Información de Contacto",
+    "save": "Guardar",
+    "cancel": "Cancelar"
+  },
+  "activity-card": {
+    "start": "Inicio",
+    "end": "Fin",
+    "duration": "Duración",
+    "progress": "Progreso"
+  },
+  "form": {
+    "actions": {
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "submit": "Enviar",
+      "create": "Crear",
+      "update": "Actualizar"
+    },
+    "errors": {
+      "required": "Este campo es requerido",
+      "email": "Formato de email inválido",
+      "minLength": "Mínimo {{length}} caracteres",
+      "maxLength": "Máximo {{length}} caracteres",
+      "min": "Valor mínimo: {{min}}",
+      "max": "Valor máximo: {{max}}",
+      "pattern": "Formato inválido"
+    },
+    "fields": {
+      "username": "Nombre de usuario",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "roles": "Roles",
+      "status": "Estado"
+    },
+    "placeholders": {
+      "select": "Seleccionar...",
+      "enter": "Ingrese...",
+      "choose": "Elegir..."
+    }
+  },
+  "roles": {
+    "admin": "Administrador",
+    "admin.description": "Acceso completo al sistema",
+    "supervisor": "Supervisor Logístico",
+    "supervisor.description": "Supervisión de operaciones logísticas",
+    "operator": "Operador Logístico",
+    "operator.description": "Operaciones básicas de logística"
   }
 }

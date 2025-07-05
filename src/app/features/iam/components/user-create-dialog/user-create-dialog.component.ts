@@ -1,138 +1,168 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TranslatePipe } from '@ngx-translate/core';
+import { Component, Inject } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { BaseFormComponent, FormConfig, FormField } from '../../../../shared/components/base-form/base-form.component';
+import { SelectOption } from '../../../../shared/components/form-selector/form-selector.component';
 import { User } from '../../models/user.entity';
 import { Roles } from '../../models/roles.enum';
-
-interface RoleOption {
-  value: Roles;
-  label: string;
-  description: string;
-}
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-user-create-dialog',
   templateUrl: './user-create-dialog.component.html',
   styleUrls: ['./user-create-dialog.component.scss'],
   imports: [
-    TranslatePipe,
+    TranslateModule,
     CommonModule,
-    ReactiveFormsModule,
     MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatButtonModule,
     MatIconModule,
-    MatCheckboxModule
+    BaseFormComponent
   ],
   standalone: true
 })
 export class UserCreateDialogComponent {
-  form: FormGroup;
-  hidePassword = true;
+  isSubmitting = false;
   
-  roleOptions: RoleOption[] = [
+  // Opciones para el selector de roles
+  roleOptions: SelectOption[] = [
     {
       value: Roles.Admin,
-      label: 'Administrador',
-      description: 'Acceso completo al sistema'
+      label: 'Administrador'
     },
     {
       value: Roles.LogisticSupervisor,
-      label: 'Supervisor Logístico',
-      description: 'Supervisión de operaciones logísticas'
+      label: 'Supervisor Logístico'
     },
     {
       value: Roles.LogisticOperator,
-      label: 'Operador Logístico',
-      description: 'Operaciones básicas de logística'
+      label: 'Operario Logístico'
     }
   ];
 
+  // Configuración del formulario usando nuestra nueva implementación
+  formConfig: FormConfig = {
+    fields: [
+      {
+        key: 'username',
+        type: 'text',
+        label: 'Nombre de usuario',
+        labelKey: 'user-create-dialog.username',
+        required: true,
+        validation: {
+          minLength: 3,
+          maxLength: 50
+        }
+      },
+      {
+        key: 'firstName',
+        type: 'text',
+        label: 'Nombre',
+        labelKey: 'user-create-dialog.firstName',
+        required: true
+      },
+      {
+        key: 'lastName',
+        type: 'text',
+        label: 'Apellido',
+        labelKey: 'user-create-dialog.lastName',
+        required: true
+      },
+      {
+        key: 'email',
+        type: 'email',
+        label: 'Correo electrónico',
+        labelKey: 'user-create-dialog.email',
+        required: true
+      },
+      {
+        key: 'password',
+        type: 'password',
+        label: 'Contraseña',
+        labelKey: 'user-create-dialog.password',
+        required: true,
+        validation: {
+          minLength: 8
+        }
+      },
+      {
+        key: 'roles',
+        type: 'select',
+        label: 'Roles',
+        labelKey: 'user-create-dialog.roles',
+        required: true,
+        multiple: true,
+        options: [
+          { value: Roles.Admin, label: 'Administrador' },
+          { value: Roles.LogisticSupervisor, label: 'Supervisor Logístico' },
+          { value: Roles.LogisticOperator, label: 'Operario Logístico' }
+        ]
+      },
+      {
+        key: 'status',
+        type: 'select',
+        label: 'Estado',
+        labelKey: 'user-create-dialog.status',
+        required: true,
+        options: [
+          { value: 'active', label: 'Activo' },
+          { value: 'inactive', label: 'Inactivo' },
+          { value: 'pending', label: 'Pendiente' }
+        ]
+      },
+
+    ],
+    submitButtonText: 'Crear usuario',
+    submitButtonTextKey: 'user-create-dialog.create',
+    cancelButtonText: 'Cancelar',
+    cancelButtonTextKey: 'common.cancel',
+    showCancelButton: true,
+    layout: 'vertical',
+    size: 'medium'
+  };
+
+  // Datos iniciales del formulario
+  initialValues: any = {};
+
+
+
   constructor(
-    private fb: FormBuilder,
-    public dialogRef: MatDialogRef<UserCreateDialogComponent>
-  ) {
-    this.form = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(3)]],
-      firstName: ['', [Validators.required, Validators.minLength(2)]],
-      lastName: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      roles: [[Roles.LogisticOperator], Validators.required],
-      status: [true]
-    });
-  }
+    private dialogRef: MatDialogRef<UserCreateDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private userService: UserService
+  ) {}
 
-  getRoleLabel(roleValue: Roles): string {
-    const role = this.roleOptions.find(r => r.value === roleValue);
-    return role ? role.label : roleValue;
-  }
-
-  togglePasswordVisibility(): void {
-    this.hidePassword = !this.hidePassword;
-  }
-
-  submit(): void {
-    if (this.form.valid) {
-      const formValue = this.form.value;
-      const user = new User(
-        undefined,
-        formValue.username,
-        formValue.email,
-        formValue.firstName,
-        formValue.lastName,
-        formValue.roles,
-        formValue.status
-      );
-      
-      this.dialogRef.close({
-        user: user,
-        password: formValue.password
-      });
-    } else {
-      // Marcar todos los campos como tocados para mostrar errores
-      Object.keys(this.form.controls).forEach(key => {
-        this.form.get(key)?.markAsTouched();
-      });
+  ngOnInit() {
+    // Inicializar valores si vienen del data
+    if (this.data) {
+      this.initialValues = { ...this.data };
     }
   }
 
-  cancel(): void {
+  // Manejar envío del formulario
+  onFormSubmit(formValue: any): void {
+    this.isSubmitting = true;
+    
+    // Procesar datos del formulario
+    console.log('Datos del formulario:', formValue);
+    
+    // Simular envío
+    setTimeout(() => {
+      this.isSubmitting = false;
+      this.dialogRef.close(formValue);
+    }, 2000);
+  }
+
+  // Manejar cancelación del formulario
+  onFormCancel(): void {
     this.dialogRef.close();
   }
 
-  getErrorMessage(fieldName: string): string {
-    const field = this.form.get(fieldName);
-    if (field?.errors && field.touched) {
-      if (field.errors['required']) return `${this.getFieldLabel(fieldName)} es requerido`;
-      if (field.errors['email']) return 'Ingrese un email válido';
-      if (field.errors['minlength']) {
-        const requiredLength = field.errors['minlength'].requiredLength;
-        return `Mínimo ${requiredLength} caracteres`;
-      }
-    }
-    return '';
+  // Manejar cambios del formulario (opcional)
+  onFormChange(formValue: any): void {
+    console.log('Formulario cambió:', formValue);
   }
 
-  private getFieldLabel(fieldName: string): string {
-    const labels: {[key: string]: string} = {
-      'username': 'Nombre de usuario',
-      'firstName': 'Nombre',
-      'lastName': 'Apellido',
-      'email': 'Correo electrónico',
-      'password': 'Contraseña',
-      'roles': 'Roles'
-    };
-    return labels[fieldName] || fieldName;
-  }
+
 } 
