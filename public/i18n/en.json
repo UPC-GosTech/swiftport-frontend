@@ -128,11 +128,11 @@
     "register": "REGISTER",
     "loading": "Loading...",
     "fill": "Please fill in all fields.",
-    "invalid": "Incorrect username or password."
+    "invalid": "Invalid username or password."
   },
   "password-recovery": {
-    "recover-password": "Password Recovery",
-    "link-sent": "We'll send you a link to reset your password.",
+    "recover-password": "Recover Password",
+    "link-sent": "We will send you a link to reset your password.",
     "email": "Email",
     "email-example": "example@email.com",
     "sent-link": "SEND LINK",
@@ -270,26 +270,16 @@
     }
   },
   "common": {
-    "loading": "Loading...",
-    "error": "Error",
-    "success": "Success",
-    "warning": "Warning",
-    "info": "Information",
     "save": "Save",
     "cancel": "Cancel",
-    "delete": "Delete",
     "edit": "Edit",
-    "create": "Create",
+    "delete": "Delete",
+    "add": "Add",
     "update": "Update",
-    "confirm": "Confirm",
-    "back": "Back",
-    "next": "Next",
-    "previous": "Previous",
-    "search": "Search",
-    "filter": "Filter",
-    "no-results": "No results found",
-    "required": "Required field",
-    "invalid": "Invalid field"
+    "create": "Create",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
   },
   "settings": {
     "title": "Subscription Panel",
@@ -565,5 +555,42 @@
         "trend": "Trend"
       }
     }
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Invalid email format",
+    "minLength": "Minimum {{min}} characters",
+    "maxLength": "Maximum {{max}} characters"
+  },
+  "user-create-dialog": {
+    "title": "Create User",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "password": "Password",
+    "confirm-password": "Confirm Password",
+    "cancel": "Cancel",
+    "create": "Create"
+  },
+  "user-edit-dialog": {
+    "title": "Edit User",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "cancel": "Cancel",
+    "update": "Update"
+  },
+  "company-settings": {
+    "title": "Company Settings",
+    "company-info": "Company Information",
+    "contact-info": "Contact Information",
+    "save": "Save",
+    "cancel": "Cancel"
   }
 }
