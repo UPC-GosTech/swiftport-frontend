@@ -1,17 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { TranslateModule } from '@ngx-translate/core';
 import { Equipment } from '../../models/equipment.entity';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { ButtonComponent } from '../../../../shared/components/button/button.component';
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { TranslatePipe } from "@ngx-translate/core";
+import { BaseFormComponent, FormConfig } from '../../../../shared/components/base-form/base-form.component';
+import { UiService } from '../../../../core/services/ui.service';
 
-export interface DialogData {
+export interface EquipmentDialogData {
   equipment: Equipment;
   title: string;
+  isEdit: boolean;
 }
 
 @Component({
@@ -19,103 +17,155 @@ export interface DialogData {
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule,
     MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    ButtonComponent,
-    TranslatePipe
+    TranslateModule,
+    BaseFormComponent
   ],
   templateUrl: './equipment-form-dialog.component.html',
   styleUrl: './equipment-form-dialog.component.scss'
 })
 export class EquipmentFormDialogComponent implements OnInit {
-  equipmentForm!: FormGroup;
-  statusOptions: string[] = ['Disponible', 'Mantenimiento'];
-  isNewEquipment: boolean = true;
-  isSubmitting: boolean = false;
+  formConfig: FormConfig = { fields: [] };
+  initialValues: any = {};
+  isSubmitting = false;
 
   constructor(
-    private fb: FormBuilder,
     public dialogRef: MatDialogRef<EquipmentFormDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    @Inject(MAT_DIALOG_DATA) public data: EquipmentDialogData,
+    private uiService: UiService
   ) {}
 
   ngOnInit(): void {
-    this.createForm();
-
-    if (this.data.equipment) {
-      this.isNewEquipment = this.data.equipment.id === 0;
-      this.equipmentForm.patchValue(this.data.equipment);
-    }
+    this.setupForm();
+    this.updateFormConfig();
   }
 
-  createForm(): void {
-    this.equipmentForm = this.fb.group({
-      id: [0],
-      plateNumber: ['', [Validators.required, Validators.pattern(/^[A-Z0-9]{6,7}$/)]],
-      type: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-      capacityLoad: [0, [Validators.required, Validators.min(0)]],
-      capacityPassengers: [0, [Validators.required, Validators.min(0)]],
-      status: ['Disponible', [Validators.required]]
+  private setupForm(): void {
+    this.initialValues = {
+      name: this.data.equipment.name || '',
+      code: this.data.equipment.code || '',
+      plate: this.data.equipment.plate || '',
+      capacityLoad: this.data.equipment.capacityLoad || 0,
+      capacityPax: this.data.equipment.capacityPax || 0,
+      status: this.data.equipment.status || 'AVAILABLE'
+    };
+  }
+
+  private updateFormConfig(): void {
+    this.formConfig = {
+      fields: [
+        {
+          key: 'name',
+          type: 'text',
+          labelKey: 'equipment.form.name',
+          label: 'Equipment Name',
+          placeholderKey: 'equipment.form.placeholders.name',
+          required: true,
+          validation: {
+            minLength: 2,
+            maxLength: 100
+          }
+        },
+        {
+          key: 'code',
+          type: 'text',
+          labelKey: 'equipment.form.code',
+          label: 'Equipment Code',
+          placeholderKey: 'equipment.form.placeholders.code',
+          required: true,
+          validation: {
+            minLength: 3,
+            maxLength: 20,
+            pattern: '^[A-Z0-9\\-]+$'
+          },
+          customErrorMessages: {
+            pattern: 'Code must contain only uppercase letters, numbers and hyphens'
+          }
+        },
+        {
+          key: 'plate',
+          type: 'text',
+          labelKey: 'equipment.form.plate',
+          label: 'License Plate',
+          placeholderKey: 'equipment.form.placeholders.plate',
+          required: true,
+          validation: {
+            minLength: 6,
+            maxLength: 10,
+            pattern: '^[A-Z0-9\\-]+$'
+          },
+          customErrorMessages: {
+            pattern: 'Plate must contain only uppercase letters, numbers and hyphens'
+          }
+        },
+        {
+          key: 'capacityLoad',
+          type: 'number',
+          labelKey: 'equipment.form.capacityLoad',
+          label: 'Load Capacity (kg)',
+          placeholderKey: 'equipment.form.placeholders.capacityLoad',
+          required: true,
+          validation: {
+            min: 0,
+            max: 50000
+          }
+        },
+        {
+          key: 'capacityPax',
+          type: 'number',
+          labelKey: 'equipment.form.capacityPax',
+          label: 'Passenger Capacity',
+          placeholderKey: 'equipment.form.placeholders.capacityPax',
+          required: true,
+          validation: {
+            min: 1,
+            max: 100
+          }
+        },
+        {
+          key: 'status',
+          type: 'select',
+          labelKey: 'equipment.form.status',
+          label: 'Status',
+          required: true,
+          options: [
+            { value: 'AVAILABLE', label: 'Available' },
+            { value: 'MAINTENANCE', label: 'Maintenance' },
+            { value: 'OUT_OF_SERVICE', label: 'Out of Service' },
+            { value: 'RESERVED', label: 'Reserved' }
+          ]
+        }
+      ],
+      submitButtonTextKey: this.data.isEdit ? 'common.update' : 'common.create',
+      cancelButtonTextKey: 'common.cancel',
+      showCancelButton: true,
+      layout: 'vertical',
+      size: 'medium'
+    };
+  }
+
+  onFormSubmit(formValue: any): void {
+    this.isSubmitting = true;
+    
+    const equipmentData: Equipment = new Equipment({
+      id: this.data.isEdit ? this.data.equipment.id : 0,
+      tenantId: this.data.equipment.tenantId || 1, // Default tenant ID
+      name: formValue.name,
+      status: formValue.status,
+      code: formValue.code,
+      plate: formValue.plate,
+      capacityLoad: formValue.capacityLoad,
+      capacityPax: formValue.capacityPax
     });
+
+    // Simulate async operation
+    setTimeout(() => {
+      this.isSubmitting = false;
+      this.dialogRef.close(equipmentData);
+    }, 1000);
   }
 
-  getErrorMessage(field: string): string {
-    const control = this.equipmentForm.get(field);
-    if (!control) return '';
-
-    if (control.hasError('required')) {
-      return 'Este campo es obligatorio';
-    }
-
-    if (control.hasError('minlength')) {
-      return `Mínimo ${control.errors?.['minlength'].requiredLength} caracteres`;
-    }
-
-    if (control.hasError('maxlength')) {
-      return `Máximo ${control.errors?.['maxlength'].requiredLength} caracteres`;
-    }
-
-    if (field === 'plateNumber' && control.hasError('pattern')) {
-      return 'La placa debe tener 6 o 7 caracteres alfanuméricos';
-    }
-
-    if ((field === 'capacityLoad' || field === 'capacityPassengers') && control.hasError('min')) {
-      return 'El valor debe ser mayor o igual a 0';
-    }
-
-    return 'Campo inválido';
-  }
-
-  onSave(): void {
-    if (this.equipmentForm.valid && !this.isSubmitting) {
-      this.isSubmitting = true;
-      
-      const formValue = this.equipmentForm.value;
-      const equipment = new Equipment(formValue);
-
-      this.dialogRef.close(equipment);
-    } else {
-      this.markFormGroupTouched(this.equipmentForm);
-    }
-  }
-
-  onCancel(): void {
-    if (!this.isSubmitting) {
-      this.dialogRef.close();
-    }
-  }
-
-  // Helper method to mark all form controls as touched
-  markFormGroupTouched(formGroup: FormGroup): void {
-    Object.values(formGroup.controls).forEach(control => {
-      control.markAsTouched();
-
-      if ((control as FormGroup)?.controls) {
-        this.markFormGroupTouched(control as FormGroup);
-      }
-    });
+  onFormCancel(): void {
+    this.dialogRef.close();
   }
 }

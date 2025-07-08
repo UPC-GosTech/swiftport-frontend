@@ -6,13 +6,16 @@ import { Columns } from '../../../../shared/components/table/table.models';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { SelectorComponent } from '../../../../shared/components/selector/selector.component';
 import { FormsModule } from '@angular/forms';
-import { EquipmentCardComponent } from '../../components/equipment-card/equipment-card.component';
 import { EquipmentFormDialogComponent } from '../../components/equipment-form-dialog/equipment-form-dialog.component';
-import { EquipmentListComponent } from '../../components/equipment-list/equipment-list.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { TranslatePipe } from '@ngx-translate/core';
+import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 import { EquipmentService } from '../../services/equipment.service';
-import { finalize } from 'rxjs/operators';
+import { UiService } from '../../../../core/services/ui.service';
+import { DialogService } from '../../../../shared/services/dialog.service';
+import { finalize } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-equipment-management',
@@ -23,139 +26,172 @@ import { finalize } from 'rxjs/operators';
     ButtonComponent,
     SelectorComponent,
     FormsModule,
-    EquipmentListComponent,
     MatDialogModule,
-    TranslatePipe
+    MatIconModule,
+    TranslateModule
   ],
   templateUrl: './equipment-management.component.html',
   styleUrl: './equipment-management.component.scss'
 })
 export class EquipmentManagementComponent implements OnInit {
-  // Estado para alternar entre vista de tabla y tarjetas
+  // View mode toggle
   viewMode: 'table' | 'cards' = 'table';
 
-  // Filtros
-  statusFilter: string = 'all';
-  statusOptions: string[] = ['all', 'Disponible', 'Mantenimiento'];
-
-  // Datos de equipamiento (mock)
-  equipmentData: Equipment[] = [];
+  // Data sources
+  equipment: Equipment[] = [];
   filteredEquipment: Equipment[] = [];
   loading: boolean = false;
 
-  // Configuración de columnas para la tabla
+  // Filter options
+  statusFilter: string = 'all';
+  statusFilterOptions = [
+    { value: 'all', label: 'All Status' },
+    { value: 'AVAILABLE', label: 'Available' },
+    { value: 'MAINTENANCE', label: 'Maintenance' },
+    { value: 'OUT_OF_SERVICE', label: 'Out of Service' },
+    { value: 'RESERVED', label: 'Reserved' }
+  ];
+
+  // Table configuration
   columns: Columns[] = [
     {
-      header: {
-        key: 'plateNumber',
-        label: 'Placa',
-      },
-      cell: 'plateNumber',
+      header: { key: 'name', label: 'Equipment Name' },
+      cell: 'name',
       type: 'text',
       sortable: true,
-      hide: {
-        visible: true,
-        label: 'Placa',
-      }
+      hide: { visible: true, label: 'Name' }
     },
     {
-      header: {
-        key: 'type',
-        label: 'Modelo',
-      },
-      cell: 'type',
+      header: { key: 'code', label: 'Code' },
+      cell: 'code',
       type: 'text',
       sortable: true,
-      hide: {
-        visible: true,
-        label: 'Modelo',
-      }
+      hide: { visible: true, label: 'Code' }
     },
     {
-      header: {
-        key: 'capacityLoad',
-        label: 'Capacidad de Carga',
-      },
+      header: { key: 'plate', label: 'License Plate' },
+      cell: 'plate',
+      type: 'text',
+      sortable: true,
+      hide: { visible: true, label: 'Plate' }
+    },
+    {
+      header: { key: 'capacityLoad', label: 'Load Capacity (kg)' },
       cell: 'capacityLoad',
       type: 'text',
       sortable: true,
-      hide: {
-        visible: true,
-        label: 'Capacidad de Carga',
-      }
+      hide: { visible: true, label: 'Load Capacity' }
     },
     {
-      header: {
-        key: 'capacityPassengers',
-        label: 'Capacidad de Pasajeros',
-      },
-      cell: 'capacityPassengers',
+      header: { key: 'capacityPax', label: 'Passenger Capacity' },
+      cell: 'capacityPax',
       type: 'text',
       sortable: true,
-      hide: {
-        visible: true,
-        label: 'Capacidad de Pasajeros',
-      }
+      hide: { visible: true, label: 'Passenger Capacity' }
     },
     {
-      header: {
-        key: 'status',
-        label: 'Estado',
-      },
+      header: { key: 'status', label: 'Status' },
       cell: 'status',
       type: 'text',
       sortable: true,
-      hide: {
-        visible: true,
-        label: 'Estado',
-      }
+      hide: { visible: true, label: 'Status' }
     },
     {
-      header: {
-        key: 'actions',
-        label: 'Acciones',
-      },
+      header: { key: 'actions', label: 'Actions' },
       cell: 'actions',
       type: 'template',
       sortable: false,
-      hide: {
-        visible: true,
-        label: 'Acciones',
-      }
+      hide: { visible: true, label: 'Actions' }
     }
   ];
 
-  constructor(private dialog: MatDialog, private equipmentService: EquipmentService) {}
+  constructor(
+    private dialog: MatDialog,
+    private equipmentService: EquipmentService,
+    private uiService: UiService,
+    private dialogService: DialogService
+  ) {}
 
   ngOnInit(): void {
-    this.loadData();
+    this.loadEquipment();
   }
 
-  loadData(): void {
+  // New methods to fix linter errors
+  setViewMode(mode: 'table' | 'cards'): void {
+    this.viewMode = mode;
+  }
+
+  trackByEquipmentId(index: number, equipment: Equipment): number {
+    return equipment.id;
+  }
+
+  getEquipmentIcon(status: string): string {
+    const iconMap: { [key: string]: string } = {
+      'AVAILABLE': 'check_circle',
+      'MAINTENANCE': 'build',
+      'OUT_OF_SERVICE': 'block',
+      'RESERVED': 'lock'
+    };
+    return iconMap[status] || 'help';
+  }
+
+  getStatusIcon(status: string): string {
+    const iconMap: { [key: string]: string } = {
+      'AVAILABLE': 'check_circle',
+      'MAINTENANCE': 'build',
+      'OUT_OF_SERVICE': 'block',
+      'RESERVED': 'lock'
+    };
+    return iconMap[status] || 'help';
+  }
+
+  getLastMaintenanceText(equipment: Equipment): string {
+    // This is a placeholder since we don't have maintenance date in the model
+    return 'Not available';
+  }
+
+  // Fixed selector change method
+  onStatusFilterChange(status: string | string[]): void {
+    this.statusFilter = Array.isArray(status) ? status[0] || 'all' : status || 'all';
+    this.applyFilters();
+  }
+
+  loadEquipment(): void {
     this.loading = true;
+    
     this.equipmentService.getAllEquipment()
       .pipe(
-        finalize(() => this.loading = false)
+        finalize(() => this.loading = false),
+        catchError(error => {
+          console.error('Error loading equipment:', error);
+          this.uiService.showSnackbar({
+            message: 'Error loading equipment data',
+            type: 'error'
+          });
+          return of([]);
+        })
       )
       .subscribe({
         next: (equipment: Equipment[]) => {
-          this.equipmentData = equipment;
+          this.equipment = equipment;
           this.applyFilters();
-        },
-        error: (error: any) => {
-          console.error('Error loading equipment:', error);
+          
+          this.uiService.showSnackbar({
+            message: 'Equipment data loaded successfully',
+            type: 'success'
+          });
         }
       });
   }
 
-  // Método para alternar el modo de vista
+  // Toggle view mode between table and cards
   toggleViewMode(): void {
     this.viewMode = this.viewMode === 'table' ? 'cards' : 'table';
   }
 
-  // Aplicar filtros
+  // Apply filters
   applyFilters(): void {
-    let filtered: Equipment[] = [...this.equipmentData];
+    let filtered: Equipment[] = [...this.equipment];
 
     // Apply status filter
     if (this.statusFilter !== 'all') {
@@ -165,127 +201,184 @@ export class EquipmentManagementComponent implements OnInit {
     this.filteredEquipment = filtered;
   }
 
-  // Métodos para manejar acciones
-  onStatusFilterChange(status: string): void {
-    this.statusFilter = status;
-    this.applyFilters();
-  }
-
   openAddDialog(): void {
     const dialogRef = this.dialog.open(EquipmentFormDialogComponent, {
-      width: '500px',
+      width: '600px',
+      disableClose: true,
       data: {
-        equipment: new Equipment({
-          id: 0,
-          plateNumber: '',
-          type: '',
-          capacityLoad: 0,
-          capacityPassengers: 0,
-          status: 'Disponible'
-        }),
-        title: 'Agregar equipo'
+        equipment: new Equipment({}),
+        title: 'Add Equipment',
+        isEdit: false
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.loading = true;
-        this.equipmentService.createEquipment(result)
-          .pipe(
-            finalize(() => this.loading = false)
-          )
-          .subscribe({
-            next: (createdEquipment: Equipment) => {
-              this.equipmentData.push(createdEquipment);
-              this.applyFilters();
-            },
-            error: (error: any) => {
-              console.error('Error creating equipment:', error);
-            }
-          });
+        this.createEquipment(result);
       }
     });
   }
 
   openEditDialog(equipment: Equipment): void {
     const dialogRef = this.dialog.open(EquipmentFormDialogComponent, {
-      width: '500px',
+      width: '600px',
+      disableClose: true,
       data: {
-        equipment: {...equipment},
-        title: 'Editar equipo'
+        equipment: { ...equipment },
+        title: 'Edit Equipment',
+        isEdit: true
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.loading = true;
-        this.equipmentService.updateEquipment(result)
-          .pipe(
-            finalize(() => this.loading = false)
-          )
-          .subscribe({
-            next: (updatedEquipment: Equipment) => {
-              const index = this.equipmentData.findIndex(e => e.id === updatedEquipment.id);
-              if (index !== -1) {
-                this.equipmentData[index] = updatedEquipment;
-                this.applyFilters();
-              }
-            },
-            error: (error: any) => {
-              console.error('Error updating equipment:', error);
-            }
-          });
+        this.updateEquipment(result);
       }
     });
   }
 
-  deleteEquipment(equipment: Equipment): void {
-    if (confirm('¿Está seguro de que desea eliminar este equipo?')) {
-      this.loading = true;
-      this.equipmentService.deleteEquipment(equipment.id)
-        .pipe(
-          finalize(() => this.loading = false)
-        )
-        .subscribe({
-          next: () => {
-            this.equipmentData = this.equipmentData.filter(e => e.id !== equipment.id);
-            this.applyFilters();
-          },
-          error: (error: any) => {
-            console.error('Error deleting equipment:', error);
-          }
-        });
-    }
-  }
-
-  uploadPhoto(equipment: Equipment): void {
-    // Implementación para subir fotos
-    console.log('Subir foto para:', equipment);
-  }
-
-  changeStatus(equipment: Equipment, newStatus: string): void {
-    const updatedEquipment = { ...equipment, status: newStatus };
+  createEquipment(equipment: Equipment): void {
     this.loading = true;
-    this.equipmentService.updateEquipment(updatedEquipment)
+    
+    this.equipmentService.createEquipment(equipment)
       .pipe(
         finalize(() => this.loading = false)
       )
       .subscribe({
-        next: (result: Equipment) => {
-          const index = this.equipmentData.findIndex(e => e.id === result.id);
-          if (index !== -1) {
-            this.equipmentData[index] = result;
-            this.applyFilters();
-          }
+        next: (createdEquipment: Equipment) => {
+          this.equipment.push(createdEquipment);
+          this.applyFilters();
+          
+          this.uiService.showSnackbar({
+            message: 'Equipment created successfully',
+            type: 'success'
+          });
         },
         error: (error: any) => {
-          console.error('Error updating equipment status:', error);
+          console.error('Error creating equipment:', error);
+          this.uiService.showSnackbar({
+            message: 'Error creating equipment',
+            type: 'error'
+          });
         }
       });
   }
 
-  handleStatusChange(event: { equipment: Equipment, newStatus: string }): void {
-    this.changeStatus(event.equipment, event.newStatus);
+  updateEquipment(equipment: Equipment): void {
+    this.loading = true;
+    
+    this.equipmentService.updateEquipmentStatus(equipment.id, equipment.status)
+      .pipe(
+        finalize(() => this.loading = false)
+      )
+      .subscribe({
+        next: (updatedEquipment: Equipment) => {
+          const index = this.equipment.findIndex(e => e.id === updatedEquipment.id);
+          if (index !== -1) {
+            this.equipment[index] = updatedEquipment;
+            this.applyFilters();
+          }
+          
+          this.uiService.showSnackbar({
+            message: 'Equipment updated successfully',
+            type: 'success'
+          });
+        },
+        error: (error: any) => {
+          console.error('Error updating equipment:', error);
+          this.uiService.showSnackbar({
+            message: 'Error updating equipment',
+            type: 'error'
+          });
+        }
+      });
   }
 
+  deleteEquipment(equipment: Equipment): void {
+    this.dialogService.confirm({
+      title: 'Confirm Delete',
+      message: `Are you sure you want to mark equipment ${equipment.name} as out of service?`,
+      confirmText: 'Mark Out of Service',
+      cancelText: 'Cancel'
+    }).subscribe(confirmed => {
+      if (confirmed) {
+        this.performDelete(equipment);
+      }
+    });
+  }
+
+  private performDelete(equipment: Equipment): void {
+    // Since backend doesn't have delete endpoint, we'll update status to OUT_OF_SERVICE
+    this.loading = true;
+    
+    this.equipmentService.updateEquipmentStatus(equipment.id, 'OUT_OF_SERVICE')
+      .pipe(
+        finalize(() => this.loading = false)
+      )
+      .subscribe({
+        next: () => {
+          const index = this.equipment.findIndex(e => e.id === equipment.id);
+          if (index !== -1) {
+            this.equipment[index].status = 'OUT_OF_SERVICE';
+            this.applyFilters();
+          }
+          
+          this.uiService.showSnackbar({
+            message: 'Equipment marked as out of service',
+            type: 'success'
+          });
+        },
+        error: (error: any) => {
+          console.error('Error updating equipment status:', error);
+          this.uiService.showSnackbar({
+            message: 'Error updating equipment status',
+            type: 'error'
+          });
+        }
+      });
+  }
+
+  changeStatus(equipment: Equipment, newStatus: string): void {
+    this.loading = true;
+    
+    this.equipmentService.updateEquipmentStatus(equipment.id, newStatus)
+      .pipe(
+        finalize(() => this.loading = false)
+      )
+      .subscribe({
+        next: (updatedEquipment: Equipment) => {
+          const index = this.equipment.findIndex(e => e.id === updatedEquipment.id);
+          if (index !== -1) {
+            this.equipment[index] = updatedEquipment;
+            this.applyFilters();
+          }
+          
+          this.uiService.showSnackbar({
+            message: 'Equipment status updated successfully',
+            type: 'success'
+          });
+        },
+        error: (error: any) => {
+          console.error('Error updating equipment status:', error);
+          this.uiService.showSnackbar({
+            message: 'Error updating equipment status',
+            type: 'error'
+          });
+        }
+      });
+  }
+
+  refreshData(): void {
+    this.loadEquipment();
+  }
+
+  getStatusDisplayName(status: string): string {
+    const statusMap: { [key: string]: string } = {
+      'AVAILABLE': 'Available',
+      'MAINTENANCE': 'Under Maintenance',
+      'OUT_OF_SERVICE': 'Out of Service',
+      'RESERVED': 'Reserved'
+    };
+    return statusMap[status] || status;
+  }
 }

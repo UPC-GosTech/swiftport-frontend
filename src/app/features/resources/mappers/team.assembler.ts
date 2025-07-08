@@ -1,28 +1,21 @@
-import { Team } from "../models/team.entity";
-import { TeamResponse } from "server/models/team.response";
-import { TeamMember } from "../models/team-member.entity";
-import { Zone } from "../models/zone.entity";
+import { Team } from '../models/team.entity';
+import { TeamResource, CreateTeamResource } from '../models/team.resource';
 
 export class TeamAssembler {
-  static toResponse(team: Team): TeamResponse {
-    return {
-      id: team.id,
-      name: team.name,
-      date: team.date.toISOString(),
-      zoneId: team.zone.id,
-      status: team.status as 'Activo' | 'Inactivo',
-      membersId: team.members.map(m => m.id)
-    }
+  // Convert from backend resource to frontend entity
+  static toEntityFromResource(resource: TeamResource): Team {
+    return new Team(
+      resource.teamId,
+      resource.tenantId,
+      resource.name,
+      []
+    );
   }
 
-  static toEntity(dto: TeamResponse, members: TeamMember[] = []): Team {
-    return new Team(
-      dto.id,
-      dto.name,
-      new Date(dto.date),
-      new Zone(dto.zoneId),
-      dto.status,
-      members
-    );
+  // Convert from frontend entity to backend resource for creation
+  static toResourceFromEntity(entity: Team): CreateTeamResource {
+    return {
+      name: entity.name
+    };
   }
 }

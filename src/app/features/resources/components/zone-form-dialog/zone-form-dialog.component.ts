@@ -1,79 +1,92 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { TranslateModule } from '@ngx-translate/core';
 import { Zone } from '../../models/zone.entity';
-import { ZoneService } from '../../services/zone.service';
-import { ButtonComponent } from '../../../../shared/components/button/button.component';
-import {TranslatePipe} from "@ngx-translate/core";
+import { BaseFormComponent, FormConfig } from '../../../../shared/components/base-form/base-form.component';
+import { UiService } from '../../../../core/services/ui.service';
+
+export interface ZoneDialogData {
+  zone: Zone;
+  title: string;
+  isEdit: boolean;
+}
 
 @Component({
   selector: 'app-zone-form-dialog',
   standalone: true,
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatDialogModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        ButtonComponent,
-        TranslatePipe
-    ],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    TranslateModule,
+    BaseFormComponent
+  ],
   templateUrl: './zone-form-dialog.component.html',
-  styleUrls: ['./zone-form-dialog.component.scss']
+  styleUrl: './zone-form-dialog.component.scss'
 })
 export class ZoneFormDialogComponent implements OnInit {
-  zoneForm!: FormGroup;
+  formConfig: FormConfig = { fields: [] };
+  initialValues: any = {};
+  isSubmitting = false;
 
   constructor(
-    private fb: FormBuilder,
-    private zoneService: ZoneService,
     public dialogRef: MatDialogRef<ZoneFormDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { zone?: Zone }
+    @Inject(MAT_DIALOG_DATA) public data: ZoneDialogData,
+    private uiService: UiService
   ) {}
 
   ngOnInit(): void {
-    this.initForm();
+    this.setupForm();
+    this.updateFormConfig();
   }
 
-  initForm(): void {
-    this.zoneForm = this.fb.group({
-      name: [this.data.zone?.name || '', Validators.required],
-      description: [this.data.zone?.description || '']
-    });
+  private setupForm(): void {
+    this.initialValues = {
+      name: this.data.zone?.name || ''
+    };
   }
 
-  onSubmit(): void {
-    console.log('onSubmit', this.zoneForm.value);
-    if (this.zoneForm.invalid) return;
-
-    const { name, description } = this.zoneForm.value;
-
-    if (this.data.zone) {
-      // Update existing zone
-      this.zoneService.updateZone(new Zone(this.data.zone.id, name, description))
-        .subscribe({
-          next: (zone) => this.dialogRef.close(zone),
-          error: (error) => console.error('Error updating zone:', error)
-        });
-    } else {
-      // Create new zone
-      this.zoneService.createZone(new Zone(0, name, description))
-        .subscribe({
-          next: (zone) => {
-            console.log('zone', zone);
-            this.dialogRef.close(zone);
-          },
-          error: (error) => console.error('Error creating zone:', error)
-        });
-    }
+  private updateFormConfig(): void {
+    this.formConfig = {
+      fields: [
+        {
+          key: 'name',
+          type: 'text',
+          labelKey: 'zone.form.name',
+          label: 'Zone Name',
+          placeholderKey: 'zone.form.placeholders.name',
+          required: true,
+          validation: {
+            minLength: 2,
+            maxLength: 100
+          }
+        }
+      ],
+      submitButtonTextKey: this.data.isEdit ? 'common.update' : 'common.create',
+      cancelButtonTextKey: 'common.cancel',
+      showCancelButton: true,
+      layout: 'vertical',
+      size: 'medium'
+    };
   }
 
-  onCancel(): void {
+  onFormSubmit(formValue: any): void {
+    this.isSubmitting = true;
+    
+    const zoneData: Zone = new Zone(
+      this.data.isEdit ? this.data.zone?.id || 0 : 0,
+      this.data.zone?.tenantId || 1, // Default tenant ID
+      formValue.name
+    );
+
+    // Simulate async operation
+    setTimeout(() => {
+      this.isSubmitting = false;
+      this.dialogRef.close(zoneData);
+    }, 1000);
+  }
+
+  onFormCancel(): void {
     this.dialogRef.close();
   }
 }

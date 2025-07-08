@@ -1,56 +1,58 @@
-import { Activity } from "../model/activity.entity";
-import { TaskAssembler } from "./task.assembler";
-import { ActivityResponse } from "server/models/activity.response";
+import { Activity } from '../model/activity.entity';
+import { ActivityResource, CreateActivityResource } from '../model/activity.resource';
 
 export class ActivityAssembler {
-  static toResponse(activity: Activity): ActivityResponse {
+  
+  /**
+   * Converts an ActivityResource (from API) to an Activity entity
+   */
+  static toEntityFromResource(resource: ActivityResource): Activity {
+    return new Activity(
+      resource.id,
+      resource.activityCode,
+      resource.description,
+      new Date(resource.expectedTime),
+      resource.weekNumber,
+      resource.activityStatus,
+      resource.zoneOrigin,
+      resource.locationOrigin,
+      resource.zoneDestination,
+      resource.locationDestination
+    );
+  }
+
+  /**
+   * Converts an Activity entity to an ActivityResource (for API)
+   */
+  static toResourceFromEntity(entity: Activity): ActivityResource {
     return {
-      id: activity.id,
-      title: activity.title,
-      description: activity.description,
-      originLocationId: activity.originLocationId,
-      destinationLocationId: activity.destinationLocationId,
-      scheduledDate: activity.scheduledDate.toISOString(),
-      estimatedDuration: activity.estimatedDuration,
-      actualStartTime: activity.actualStartTime?.toISOString() || '',
-      actualEndTime: activity.actualEndTime?.toISOString() || null,
-      priority: activity.priority,
-      status: activity.status as 'En progreso' | 'Pendiente' | 'Finalizada',
-      assignedCrewId: activity.assignedCrewId,
-      vehicleId: activity.vehicleId,
-      incidentReportIds: activity.incidentReportIds,
-      supervisorNotes: activity.supervisorNotes || '',
-      attachments: activity.attachments || [],
-      createdAt: activity.createdAt?.toISOString() || '',
-      updatedAt: activity.updatedAt?.toISOString() || '',
-      tasksIds: activity.tasksIds,
-      zoneOriginId: activity.zoneOriginId,
-      zoneDestinationId: activity.zoneDestinationId
+      id: entity.id,
+      activityCode: entity.activityCode,
+      description: entity.description,
+      expectedTime: entity.expectedTime.toISOString(),
+      weekNumber: entity.weekNumber,
+      activityStatus: entity.activityStatus,
+      zoneOrigin: entity.zoneOrigin,
+      locationOrigin: entity.locationOrigin,
+      zoneDestination: entity.zoneDestination,
+      locationDestination: entity.locationDestination
     };
   }
 
-  static toEntity(dto: ActivityResponse): Activity {
-    const activity = new Activity(dto.id);
-    activity.title = dto.title;
-    activity.description = dto.description;
-    activity.originLocationId = dto.originLocationId;
-    activity.destinationLocationId = dto.destinationLocationId;
-    activity.scheduledDate = new Date(dto.scheduledDate);
-    activity.estimatedDuration = dto.estimatedDuration;
-    activity.actualStartTime = dto.actualStartTime ? new Date(dto.actualStartTime) : null;
-    activity.actualEndTime = dto.actualEndTime ? new Date(dto.actualEndTime) : null;
-    activity.priority = dto.priority;
-    activity.status = dto.status;
-    activity.assignedCrewId = dto.assignedCrewId;
-    activity.vehicleId = dto.vehicleId;
-    activity.incidentReportIds = dto.incidentReportIds;
-    activity.supervisorNotes = dto.supervisorNotes;
-    activity.attachments = dto.attachments;
-    activity.createdAt = dto.createdAt ? new Date(dto.createdAt) : undefined;
-    activity.updatedAt = dto.updatedAt ? new Date(dto.updatedAt) : undefined;
-    activity.tasksIds = dto.tasksIds;
-    activity.zoneOriginId = dto.zoneOriginId;
-    activity.zoneDestinationId = dto.zoneDestinationId;
-    return activity;
+  /**
+   * Converts an Activity entity to a CreateActivityResource (for API)
+   */
+  static toCreateResourceFromEntity(entity: Activity): CreateActivityResource {
+    return {
+      activityCode: entity.activityCode,
+      description: entity.description,
+      expectedTime: entity.expectedTime.toISOString(),
+      weekNumber: entity.weekNumber,
+      activityStatus: entity.activityStatus,
+      zoneOrigin: entity.zoneOrigin,
+      locationOrigin: entity.locationOrigin,
+      zoneDestination: entity.zoneDestination,
+      locationDestination: entity.locationDestination
+    };
   }
 }

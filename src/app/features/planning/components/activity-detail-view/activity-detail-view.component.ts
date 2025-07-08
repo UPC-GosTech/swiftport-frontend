@@ -25,15 +25,18 @@ export class ActivityDetailViewComponent {
 
   constructor(private cdr: ChangeDetectorRef) {}
 
-  tasks: Task[] = [ new Task(), new Task()];
-  activity: Activity = new Activity();
+  tasks: Task[] = [ new Task(1, 'Task 1', 'Description 1', 'PENDING', 1), new Task(2, 'Task 2', 'Description 2', 'IN_PROGRESS', 2)];
+  activity: Activity = new Activity(1, 'ACT001', 'Activity description', new Date(), 1, 'PENDING', 1, 1, 1, 2);
 
   showInputs: boolean = false;
 
-  originLocationIdInput: string = '';
-  destinationLocationIdInput: string = '';
-  estimatedDurationIdInput: string = '';
-  scheduledDateInput: string = '';
+  activityCodeInput: string = '';
+  locationOriginInput: string = '';
+  locationDestinationInput: string = '';
+  zoneOriginInput: string = '';
+  zoneDestinationInput: string = '';
+  expectedTimeInput: string = '';
+  weekNumberInput: string = '';
   statusInput: string = '';
   descriptionInput: string = '';
 
@@ -44,11 +47,14 @@ export class ActivityDetailViewComponent {
   onEditActivity() {
     this.showInputs = false;
     this.cdr.detectChanges();
-    if (this.originLocationIdInput.trim() !== '') this.activity.originLocationId = Number(this.originLocationIdInput);
-    if (this.destinationLocationIdInput.trim() !== '') this.activity.destinationLocationId = Number(this.destinationLocationIdInput);
-    if (this.estimatedDurationIdInput.trim() !== '') this.activity.estimatedDuration = Number(this.estimatedDurationIdInput);
-    if (this.scheduledDateInput.trim() !== '') this.activity.scheduledDate = new Date(this.scheduledDateInput);
-    if (this.statusInput.trim() !== '') this.activity.status = this.statusInput as 'Pendiente' | 'En progreso' | 'Finalizada' | 'Cancelada';
+    if (this.activityCodeInput.trim() !== '') this.activity.activityCode = this.activityCodeInput;
+    if (this.locationOriginInput.trim() !== '') this.activity.locationOrigin = Number(this.locationOriginInput);
+    if (this.locationDestinationInput.trim() !== '') this.activity.locationDestination = Number(this.locationDestinationInput);
+    if (this.zoneOriginInput.trim() !== '') this.activity.zoneOrigin = Number(this.zoneOriginInput);
+    if (this.zoneDestinationInput.trim() !== '') this.activity.zoneDestination = Number(this.zoneDestinationInput);
+    if (this.expectedTimeInput.trim() !== '') this.activity.expectedTime = new Date(this.expectedTimeInput);
+    if (this.weekNumberInput.trim() !== '') this.activity.weekNumber = Number(this.weekNumberInput);
+    if (this.statusInput.trim() !== '') this.activity.activityStatus = this.statusInput as 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED';
     if (this.descriptionInput.trim() !== '') this.activity.description = this.descriptionInput;
     console.log(this.activity);
   }
@@ -56,28 +62,43 @@ export class ActivityDetailViewComponent {
   onEnableInputs() {
     this.showInputs = true;
     this.cdr.detectChanges();
-    this.originLocationIdInput = '';
-    this.destinationLocationIdInput = '';
-    this.estimatedDurationIdInput = '';
-    this.scheduledDateInput = '';
+    this.activityCodeInput = '';
+    this.locationOriginInput = '';
+    this.locationDestinationInput = '';
+    this.zoneOriginInput = '';
+    this.zoneDestinationInput = '';
+    this.expectedTimeInput = '';
+    this.weekNumberInput = '';
     this.statusInput = '';
     this.descriptionInput = '';
   }
 
-  onOriginLocationIdChange(value: string) {
-    this.originLocationIdInput = value;
+  onActivityCodeChange(value: string) {
+    this.activityCodeInput = value;
   }
 
-  onDestinationLocationIdChange(value: string) {
-    this.destinationLocationIdInput = value;
+  onLocationOriginChange(value: string) {
+    this.locationOriginInput = value;
   }
 
-  onEstimatedDurationChange(value: string) {
-    this.estimatedDurationIdInput = value;
+  onLocationDestinationChange(value: string) {
+    this.locationDestinationInput = value;
   }
 
-  onScheduledDateChange(value: string) {
-    this.scheduledDateInput = String(value);
+  onZoneOriginChange(value: string) {
+    this.zoneOriginInput = value;
+  }
+
+  onZoneDestinationChange(value: string) {
+    this.zoneDestinationInput = value;
+  }
+
+  onExpectedTimeChange(value: string) {
+    this.expectedTimeInput = String(value);
+  }
+
+  onWeekNumberChange(value: string) {
+    this.weekNumberInput = value;
   }
 
   onStatusChange(value: string) {

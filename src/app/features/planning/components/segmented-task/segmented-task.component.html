@@ -1,5 +1,5 @@
 <div class="general-container">
-  <h3>{{ task.taskName }}</h3>
+  <h3>{{ task.title }}</h3>
   <div class="data-container">
     <h5>ID: {{ task.taskId }}</h5>
   </div>
@@ -8,20 +8,9 @@
     <p>{{ task.description }}</p>
   </div>
   <div class="data-container">
-    <h5>Progress: {{ task.progress }}%</h5>
+    <h5>Status: {{ task.status }}</h5>
   </div>
   <div class="data-container">
-    <div class="progress-bar-chart-graph-line">
-      <div
-        class="progress-bar-chart-graph-line-portion"
-        id="portion-used"
-        [style.width]="usedPortionValue + '%'"
-      ></div>
-      <div
-        class="progress-bar-chart-graph-line-portion"
-        id="portion-available"
-        [style.width]="availablePortionValue + '%'"
-      ></div>
-    </div>
+    <h5>Employee ID: {{ task.employeeId }}</h5>
   </div>
 </div>

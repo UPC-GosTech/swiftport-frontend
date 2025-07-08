@@ -112,10 +112,10 @@ export class TaskListOperarioViewComponent {
   loadingTest = false;
   tableData : any[] = this.tasks.map(tasks => ({
     activity: tasks.activityId,
-    name: tasks.taskName,
+    name: tasks.title,
     taskId: tasks.taskId,
-    schedule: tasks.createdAt,
-    equipment: tasks.locationId
+    schedule: tasks.status,
+    equipment: tasks.employeeId
   }));
 
   onEjectTask(row: any) {

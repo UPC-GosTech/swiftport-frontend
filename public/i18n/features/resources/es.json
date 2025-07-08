@@ -1,107 +1,104 @@
 {
-  "location-management": {
-    "zones": "Gestión de zonas",
-    "add": "Agregar Zona",
-    "loading": "Cargando zonas",
-    "not-found": "No se encontraron zonas",
-    "create": "Crear tu primera zona"
+  "LOCATION_MANAGEMENT": {
+    "TITLE": "Gestión de Ubicaciones",
+    "SUBTITLE": "Administra zonas y ubicaciones para una organización eficiente de recursos",
+    "ADD_ZONE": "Agregar Zona",
+    "ADD_LOCATION": "Agregar Ubicación",
+    "SEARCH_PLACEHOLDER": "Buscar zonas y ubicaciones...",
+    "EMPTY_STATE": {
+      "TITLE": "No hay zonas disponibles",
+      "DESCRIPTION": "Comienza creando zonas para organizar tus ubicaciones",
+      "ACTION": "Crear Primera Zona"
+    },
+    "ZONE": {
+      "NAME": "Nombre de Zona",
+      "LOCATIONS_COUNT": "ubicaciones",
+      "ACTIVE_LOCATIONS": "activas",
+      "ACTIONS": {
+        "ADD_LOCATION": "Agregar Ubicación",
+        "EDIT": "Editar Zona",
+        "DELETE": "Eliminar Zona"
+      }
+    },
+    "LOCATION": {
+      "ADDRESS": "Dirección",
+      "CITY": "Ciudad",
+      "COUNTRY": "País",
+      "STATUS": "Estado",
+      "COORDINATES": "Coordenadas",
+      "ACTIONS": {
+        "EDIT": "Editar Ubicación",
+        "TOGGLE_STATUS": "Cambiar Estado",
+        "VIEW_DETAILS": "Ver Detalles"
+      }
+    },
+    "FILTERS": {
+      "ALL_STATUS": "Todos los Estados",
+      "ACTIVE_ONLY": "Solo Activos",
+      "INACTIVE_ONLY": "Solo Inactivos"
+    }
   },
-  "location-form-dialog": {
-    "name": "Nombre",
-    "n2": "El nombre es requerido",
-    "description": "Descripción",
-    "l1": "Latitud",
-    "l2": "La latitud es requerida",
-    "l3": "Longitud",
-    "l4": "La longitud es requerida",
-    "cancel": "Cancelar",
-    "update": "Actualizar",
-    "add": "Agregar"
+  "EQUIPMENT_MANAGEMENT": {
+    "TITLE": "Gestión de Equipos",
+    "SUBTITLE": "Monitorea y administra tu flota de equipos de manera eficiente",
+    "ADD_EQUIPMENT": "Agregar Equipo",
+    "SEARCH_PLACEHOLDER": "Buscar equipos por nombre, modelo o serie...",
+    "FILTERS": {
+      "ALL_TYPES": "Todos los Tipos",
+      "ALL_STATUS": "Todos los Estados"
+    },
+    "TABLE": {
+      "NAME": "Nombre",
+      "TYPE": "Tipo",
+      "MODEL": "Modelo",
+      "SERIAL": "Número de Serie",
+      "STATUS": "Estado",
+      "CAPACITY": "Capacidad",
+      "LOCATION": "Ubicación",
+      "ACTIONS": "Acciones"
+    },
+    "CARD": {
+      "SERIAL": "Serie",
+      "CAPACITY": "Capacidad",
+      "LOCATION": "Ubicación"
+    },
+    "STATUS": {
+      "AVAILABLE": "Disponible",
+      "IN_USE": "En Uso",
+      "MAINTENANCE": "Mantenimiento",
+      "OUT_OF_SERVICE": "Fuera de Servicio"
+    },
+    "EMPTY_STATE": {
+      "TITLE": "No se encontraron equipos",
+      "DESCRIPTION": "Ningún equipo coincide con tus criterios de búsqueda y filtros actuales",
+      "ACTION": "Limpiar Filtros"
+    }
   },
-  "zone-form-dialog": {
-    "name": "Nombre",
-    "n2": "El nombre es requerido",
-    "description": "Descripción",
-    "cancel": "Cancelar",
-    "update": "Actualizar",
-    "add": "Agregar"
-  },
-  "zone-card": {
-    "locations": "Ubicaciones",
-    "edit": "Editar",
-    "delete": "Eliminar",
-    "activate": "Activar",
-    "deactivate": "Desactivar",
-    "add": "Agregar Ubicación"
-  },
-  "equipment-management": {
-    "equipment": "Gestión de equipamiento",
-    "filter": "Filtrar por estado: ",
-    "cards": "Ver en tarjetas",
-    "table": "Ver en tabla",
-    "add": "Agregar equipamiento",
-    "edit": "Editar",
-    "delete": "Eliminar",
-    "maintain": "A mantenimiento",
-    "able": "Disponible",
-    "picture": "Subir foto"
-  },
-  "equipment-card": {
-    "status": "Estado: ",
-    "charge": "Capacidad de carga: ",
-    "passengers": "Capacidad de pasajeros: ",
-    "edit": "Editar",
-    "picture": "Subir fotos",
-    "maintain": "A mantenimiento",
-    "able": "Disponible"
-  },
-  "equipment-form-dialog": {
-    "plate": "Placa",
-    "model": "Modelo/Tipo",
-    "charge": "Capacidad de carga (kg) ",
-    "passengers": "Capacidad de pasajeros ",
-    "status": "Estado",
-    "cancel": "Cancelar",
-    "save": "Guardar",
-    "list": "No hay equipamiento disponible con los filtros seleccionados."
-  },
-  "employee-management": {
-    "employee": "Gestión de Empleados",
-    "filter": "Filtrar por cargo: ",
-    "add": "Agregar Empleado",
-    "edit": "Editar",
-    "delete": "Eliminar"
-  },
-  "employee-form-dialog": {
-    "add": "Agregar empleado",
-    "edit": "Editar empleado",
-    "name": "Nombre",
-    "last-name": "Apellido",
-    "phone": "Teléfono",
-    "status": "Estado",
-    "active": "Activo",
-    "inactive": "Inactivo",
-    "charges": "Cargos",
-    "cancel": "Cancelar",
-    "save": "Guardar"
-  },
-  "team-management": {
-    "title": "Gestión de Equipos",
-    "filter": "Filtrar por Zona",
-    "all": "Todas las zonas",
-    "clean": "Limpiar filtro",
-    "no-teams": "No hay equipos para mostrar",
-    "no-filter": "No se encontraron equipos para la fecha y filtros seleccionados.",
-    "create": "Crear Equipo"
-  },
-  "team-card": {
-    "date": "Fecha: ",
-    "location": "Ubicación: ",
-    "status": "Estado: ",
-    "members": "Miembros del Equipo",
-    "no-members": "No hay miembros asignados a este equipo.",
-    "edit": "Editar",
-    "edit-m": "Editar Miembros",
-    "position": "Cargo: "
+  "POSITION_MANAGEMENT": {
+    "TITLE": "Gestión de Posiciones",
+    "SUBTITLE": "Administra las posiciones de trabajo disponibles en tu organización",
+    "ADD_POSITION": "Agregar Posición",
+    "EDIT_POSITION": "Editar Posición",
+    "ADD_FIRST_POSITION": "Agregar Primera Posición",
+    "SEARCH_PLACEHOLDER": "Buscar posiciones por nombre o descripción...",
+    "NO_POSITIONS": "No hay posiciones disponibles",
+    "NO_POSITIONS_DESCRIPTION": "Comienza agregando posiciones de trabajo para organizar tu estructura organizacional",
+    "TABLE": {
+      "ICON": "Icono",
+      "NAME": "Nombre",
+      "DESCRIPTION": "Descripción",
+      "ACTIONS": "Acciones"
+    },
+    "FORM": {
+      "TITLE": "Nombre de la Posición",
+      "TITLE_PLACEHOLDER": "Ej: Gerente de Operaciones",
+      "TITLE_REQUIRED": "El nombre de la posición es requerido",
+      "TITLE_MIN_LENGTH": "El nombre debe tener al menos 2 caracteres",
+      "DESCRIPTION": "Descripción de la Posición",
+      "DESCRIPTION_PLACEHOLDER": "Describe las responsabilidades y funciones principales...",
+      "DESCRIPTION_REQUIRED": "La descripción es requerida",
+      "DESCRIPTION_MIN_LENGTH": "La descripción debe tener al menos 5 caracteres",
+      "HELPER_TEXT": "Define claramente el título y las responsabilidades para una mejor organización del equipo"
+    }
   }
 } 

@@ -1,32 +1,48 @@
-import { Task } from "../model/task.entity";
-import { TaskResponse } from "server/models/task.response";
+import { Task } from '../model/task.entity';
+import { TaskResource, CreateTaskResource } from '../model/task.resource';
 
 export class TaskAssembler {
-  static toResponse(task: Task): TaskResponse {
+  
+  /**
+   * Converts a TaskResource (from API) to a Task entity
+   */
+  static toEntityFromResource(resource: TaskResource): Task {
+    return new Task(
+      resource.taskId,
+      resource.title,
+      resource.description,
+      resource.status,
+      resource.employeeId
+    );
+  }
+
+  /**
+   * Converts a Task entity to a TaskResource (for API)
+   */
+  static toResourceFromEntity(entity: Task): TaskResource {
     return {
-      taskId: task.taskId,
-      taskName: task.taskName,
-      activityId: task.activityId,
-      locationId: task.locationId,
-      description: task.description,
-      status: task.status as 'Pendiente' | 'En progreso' | 'Finalizada',
-      progress: task.progress,
-      createdAt: task.createdAt,
-      updatedAt: task.updatedAt
+      taskId: entity.taskId,
+      title: entity.title,
+      description: entity.description,
+      status: entity.status,
+      employeeId: entity.employeeId
     };
   }
 
-  static toEntity(dto: TaskResponse): Task {
-    const task = new Task();
-    task.taskId = dto.taskId;
-    task.taskName = dto.taskName;
-    task.activityId = dto.activityId;
-    task.locationId = dto.locationId;
-    task.description = dto.description;
-    task.status = dto.status;
-    task.progress = dto.progress;
-    task.createdAt = dto.createdAt;
-    task.updatedAt = dto.updatedAt;
-    return task;
+  /**
+   * Converts a Task entity to a CreateTaskResource (for API)
+   */
+  static toCreateResourceFromEntity(entity: Task): CreateTaskResource {
+    if (!entity.activityId) {
+      throw new Error('ActivityId is required for creating a task');
+    }
+    
+    return {
+      activityId: entity.activityId,
+      title: entity.title,
+      description: entity.description,
+      status: entity.status,
+      employeeId: entity.employeeId
+    };
   }
 }

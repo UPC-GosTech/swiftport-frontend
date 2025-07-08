@@ -1,66 +1,30 @@
-import { Location } from "../models/location.entity";
-import { LocationResponse } from "server/models/location.response";
-import { Coordinate } from "../models/coordinate.entity";
-
-export interface LocationDTO {
-  id: number;
-  zoneId: number;
-  name: string;
-  description: string;
-  ubication: {
-    latitude: number;
-    longitude: number;
-  };
-}
-
-export interface CreateLocationDTO {
-  zoneId: number;
-  name: string;
-  description: string;
-  ubication: {
-    latitude: number;
-    longitude: number;
-  };
-}
+import { Location } from '../models/location.entity';
+import { LocationResource, CreateLocationResource } from '../models/zone.resource';
 
 export class LocationAssembler {
-  static toResponse(location: Location): LocationResponse {
-    return {
-      id: location.id,
-      zoneId: location.zoneId,
-      name: location.name,
-      description: location.description,
-      ubication: {
-        latitude: location.ubication.latitude,
-        longitude: location.ubication.longitude
-      }
-    }
-  }
-
-  static toEntity(dto: LocationResponse): Location {
-    const coordinate = new Coordinate(
-      dto.ubication.latitude,
-      dto.ubication.longitude
-    );
-
+  // Convert from backend resource to frontend entity
+  static toEntityFromResource(resource: LocationResource): Location {
     return new Location(
-      dto.id,
-      dto.zoneId,
-      dto.name,
-      dto.description,
-      coordinate
+      resource.id,
+      resource.zoneId,
+      resource.street,
+      resource.city,
+      resource.country,
+      resource.latitude,
+      resource.longitude,
+      resource.status
     );
   }
 
-  static toCreateDTO(location: Location): CreateLocationDTO {
+  // Convert from frontend entity to backend resource for creation
+  static toResourceFromEntity(entity: Location): CreateLocationResource {
     return {
-      zoneId: location.zoneId,
-      name: location.name,
-      description: location.description,
-      ubication: {
-        latitude: location.ubication.latitude,
-        longitude: location.ubication.longitude
-      }
+      street: entity.street,
+      city: entity.city,
+      country: entity.country,
+      latitude: entity.latitude,
+      longitude: entity.longitude,
+      status: entity.status
     };
   }
 }

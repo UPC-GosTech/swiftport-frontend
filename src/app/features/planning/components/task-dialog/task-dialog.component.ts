@@ -45,22 +45,20 @@ export class TaskDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
     this.taskForm = this.fb.group({
-      taskName: ['', Validators.required],
+      title: ['', Validators.required],
       description: [''],
-      status: ['pending', Validators.required],
-      priority: ['medium', Validators.required],
-      dueDate: [new Date(), Validators.required]
+      status: ['PENDING', Validators.required],
+      employeeId: [null, Validators.required]
     });
   }
 
   ngOnInit(): void {
     if (this.data.task) {
       this.taskForm.patchValue({
-        taskName: this.data.task.taskName,
+        title: this.data.task.title,
         description: this.data.task.description,
         status: this.data.task.status,
-        priority: this.data.task.priority,
-        dueDate: new Date(this.data.task.dueDate)
+        employeeId: this.data.task.employeeId
       });
     }
   }
@@ -68,12 +66,13 @@ export class TaskDialogComponent implements OnInit {
   onSubmit(): void {
     if (this.taskForm.valid) {
       const formValue = this.taskForm.value;
-      const task: Task = {
-        ...this.data.task,
-        ...formValue,
-        activityId: this.data.activityId,
-        dueDate: formValue.dueDate.toISOString()
-      };
+      const task: Task = new Task(
+        this.data.task?.taskId || 0,
+        formValue.title,
+        formValue.description,
+        formValue.status,
+        formValue.employeeId
+      );
       this.dialogRef.close(task);
     }
   }

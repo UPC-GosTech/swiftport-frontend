@@ -1,17 +1,15 @@
-import { Employee } from "./employee.entity";
-import { Position } from "./position.entity";
-
 export class TeamMember {
     id: number;
-    employee: Employee;
-    position: Position;
+    teamId: number;
+    employeeId: number;
+    
     constructor(
         id: number,
-        employee: Employee,
-        position: Position
+        teamId: number,
+        employeeId: number
     ) {
         this.id = id;
-        this.employee = employee;
-        this.position = position;
+        this.teamId = teamId;
+        this.employeeId = employeeId;
     }
 }

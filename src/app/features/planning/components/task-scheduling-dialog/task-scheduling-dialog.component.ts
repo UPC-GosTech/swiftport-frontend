@@ -10,7 +10,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { SelectorComponent } from '../../../../shared/components/selector/selector.component';
-import { TaskScheduling } from '../../model/taskScheduling.entity';
+import { TaskProgramming } from '../../model/task-programming.entity';
 import { Task } from '../../model/task.entity';
 
 @Component({
@@ -35,25 +35,23 @@ import { Task } from '../../model/task.entity';
 })
 export class TaskSchedulingDialogComponent implements OnInit {
   schedulingForm: FormGroup;
-  availableTeams: { id: number, name: string }[] = [];
-  availableEquipments: { id: number, name: string }[] = [];
+  availableResources: { id: number, name: string, type: string }[] = [];
   
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<TaskSchedulingDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { task?: Task, scheduling?: TaskScheduling }
+    @Inject(MAT_DIALOG_DATA) public data: { task?: Task, scheduling?: TaskProgramming }
   ) {
     this.schedulingForm = this.fb.group({
       taskId: [{ value: '', disabled: true }],
-      taskName: [{ value: '', disabled: true }],
+      reservationId: ['', Validators.required],
       startDate: ['', Validators.required],
       startTime: ['', Validators.required],
       endDate: ['', Validators.required],
       endTime: ['', Validators.required],
-      teamId: ['', Validators.required],
-      equipmentsIds: [[]],
-      comments: [''],
-      status: ['programmed', Validators.required]
+      resourceType: [''],
+      resourceId: [''],
+      status: ['PENDING', Validators.required]
     });
   }
 
@@ -65,17 +63,11 @@ export class TaskSchedulingDialogComponent implements OnInit {
   loadAvailableResources(): void {
     // TODO: Get data from a service
     // Mock data for now
-    this.availableTeams = [
-      { id: 1, name: 'Equipo A' },
-      { id: 2, name: 'Equipo B' },
-      { id: 3, name: 'Equipo C' }
-    ];
-    
-    this.availableEquipments = [
-      { id: 101, name: 'Camión de combustible' },
-      { id: 102, name: 'Escalera móvil' },
-      { id: 103, name: 'Equipo de carga' },
-      { id: 104, name: 'Transportador de equipaje' }
+    this.availableResources = [
+      { id: 101, name: 'Camión de combustible', type: 'VEHICLE' },
+      { id: 102, name: 'Escalera móvil', type: 'EQUIPMENT' },
+      { id: 103, name: 'Equipo de carga', type: 'EQUIPMENT' },
+      { id: 104, name: 'Transportador de equipaje', type: 'VEHICLE' }
     ];
   }
   
@@ -83,26 +75,24 @@ export class TaskSchedulingDialogComponent implements OnInit {
     if (this.data.scheduling) {
       // Editing existing scheduling
       const scheduling = this.data.scheduling;
-      const startDate = new Date(scheduling.startTime);
-      const endDate = new Date(scheduling.endTime);
+      const startDate = scheduling.start || new Date();
+      const endDate = scheduling.end || new Date();
       
       this.schedulingForm.patchValue({
-        taskId: scheduling.task.taskId,
-        taskName: scheduling.task.taskName,
+        taskId: scheduling.taskId,
+        reservationId: scheduling.reservationId,
         startDate: startDate,
         startTime: this.formatTime(startDate),
         endDate: endDate,
         endTime: this.formatTime(endDate),
-        teamId: scheduling.teamId,
-        equipmentsIds: scheduling.equipmentsIds,
-        comments: scheduling.comments,
-        status: scheduling.status
+        resourceType: scheduling.resourceType,
+        resourceId: scheduling.resourceId,
+        status: scheduling.programmingStatus
       });
     } else if (this.data.task) {
       // New scheduling for a task
       this.schedulingForm.patchValue({
-        taskId: this.data.task.taskId,
-        taskName: this.data.task.taskName
+        taskId: this.data.task.taskId
       });
     }
   }
@@ -124,17 +114,19 @@ export class TaskSchedulingDialogComponent implements OnInit {
       const endTimeParts = formValues.endTime.split(':');
       endDateTime.setHours(Number(endTimeParts[0]), Number(endTimeParts[1]), 0, 0);
       
-      // Create or update the task scheduling
-      const taskScheduling = this.data.scheduling || new TaskScheduling();
-      taskScheduling.task = this.data.task || this.data.scheduling!.task;
-      taskScheduling.startTime = startDateTime;
-      taskScheduling.endTime = endDateTime;
-      taskScheduling.teamId = formValues.teamId;
-      taskScheduling.equipmentsIds = formValues.equipmentsIds;
-      taskScheduling.comments = formValues.comments;
-      taskScheduling.status = formValues.status;
+      // Create or update the task programming
+      const taskProgramming = new TaskProgramming(
+        this.data.scheduling?.taskProgrammingId || 0,
+        formValues.reservationId,
+        formValues.status,
+        this.data.task?.taskId || this.data.scheduling?.taskId,
+        formValues.resourceType,
+        formValues.resourceId,
+        startDateTime,
+        endDateTime
+      );
       
-      this.dialogRef.close(taskScheduling);
+      this.dialogRef.close(taskProgramming);
     }
   }
   

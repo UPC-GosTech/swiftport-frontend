@@ -18,7 +18,7 @@ import { LocalStorageService } from '../../../../core/services/local-storage.ser
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 
 import { DateNavigatorComponent } from '../../../../shared/components/date-navigator/date-navigator.component';
-import { TaskScheduling } from '../../model/taskScheduling.entity';
+import { TaskProgramming } from '../../model/task-programming.entity';
 import { Task } from '../../model/task.entity';
 import { TaskSchedulingDialogComponent } from '../../components/task-scheduling-dialog/task-scheduling-dialog.component';
 import { UnscheduledTaskCardComponent } from '../../components/unscheduled-task-card/unscheduled-task-card.component';
@@ -27,6 +27,8 @@ import { TableComponent } from '../../../../shared/components/table/table.compon
 import { Columns, Sort, SortDirection } from '../../../../shared/components/table/table.models';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogService } from '../../../../shared/services/dialog.service';
+import { TaskService } from '../../services/task.service';
+import { TaskProgrammingService } from '../../services/task-programming.service';
 
 interface CalendarEvent {
   id?: string | number;
@@ -43,7 +45,7 @@ interface CalendarEventTimesChangedEvent {
 }
 
 interface StorageState {
-  taskSchedules: TaskScheduling[];
+  taskProgrammings: TaskProgramming[];
   unscheduledTasks: Task[];
   viewMode: 'calendar' | 'table';
   searchTerm: string;
@@ -51,11 +53,10 @@ interface StorageState {
   unscheduledTasksSort: Sort;
   selectedDate: string;
   statusFilter: string;
-  priorityFilter: string;
   startDate: string | null;
   endDate: string | null;
   showCompleted: boolean;
-  groupBy: 'none' | 'status' | 'priority';
+  groupBy: 'none' | 'status';
 }
 
 @Component({
@@ -98,7 +99,7 @@ export class TaskPlanningComponent implements OnInit {
   events: CalendarEvent[] = [];
   refresh: Subject<any> = new Subject();
 
-  taskSchedules: TaskScheduling[] = [];
+  taskProgrammings: TaskProgramming[] = [];
   unscheduledTasks: Task[] = [];
   filteredUnscheduledTasks: Task[] = [];
   searchTerm: string = '';
@@ -112,18 +113,17 @@ export class TaskPlanningComponent implements OnInit {
 
   scheduledTasksColumns: Columns[] = [];
   unscheduledTasksColumns: Columns[] = [];
-  scheduledTasksSort: Sort = { active: 'startTime', direction: SortDirection.ASC };
-  unscheduledTasksSort: Sort = { active: 'taskName', direction: SortDirection.ASC };
+  scheduledTasksSort: Sort = { active: 'start', direction: SortDirection.ASC };
+  unscheduledTasksSort: Sort = { active: 'title', direction: SortDirection.ASC };
 
   // Filter properties
   statusFilter: string = '';
-  priorityFilter: string = '';
   startDate: Date | null = null;
   endDate: Date | null = null;
 
   // View settings
   showCompleted: boolean = true;
-  groupBy: 'none' | 'status' | 'priority' = 'none';
+  groupBy: 'none' | 'status' = 'none';
 
   private localStorageService = inject(LocalStorageService);
   private readonly STORAGE_KEY = 'task_planning_state';
@@ -131,7 +131,9 @@ export class TaskPlanningComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private taskService: TaskService,
+    private taskProgrammingService: TaskProgrammingService
   ) {
     this.initTableColumns();
   }
@@ -144,179 +146,171 @@ export class TaskPlanningComponent implements OnInit {
   initTableColumns(): void {
     this.scheduledTasksColumns = [
       {
-        header: { key: 'task.taskName', label: 'Tarea' },
-        cell: 'task.taskName',
+        header: { key: 'taskId', label: 'Task ID' },
+        cell: 'taskId',
         type: 'text',
         sortable: true,
-        hide: { label: 'Tarea', visible: true }
+        hide: { label: 'Task ID', visible: true }
       },
       {
-        header: { key: 'startTime', label: 'Inicio' },
-        cell: 'startTime',
+        header: { key: 'start', label: 'Start Time' },
+        cell: 'start',
         type: 'date',
         sortable: true,
-        hide: { label: 'Inicio', visible: true }
+        hide: { label: 'Start Time', visible: true }
       },
       {
-        header: { key: 'endTime', label: 'Fin' },
-        cell: 'endTime',
+        header: { key: 'end', label: 'End Time' },
+        cell: 'end',
         type: 'date',
         sortable: true,
-        hide: { label: 'Fin', visible: true }
+        hide: { label: 'End Time', visible: true }
       },
       {
-        header: { key: 'status', label: 'Estado' },
-        cell: 'status',
+        header: { key: 'programmingStatus', label: 'Status' },
+        cell: 'programmingStatus',
         type: 'text',
         sortable: true,
-        hide: { label: 'Estado', visible: true }
+        hide: { label: 'Status', visible: true }
       },
       {
-        header: { key: 'teamId', label: 'Equipo' },
-        cell: 'teamId',
+        header: { key: 'resourceType', label: 'Resource Type' },
+        cell: 'resourceType',
         type: 'text',
         sortable: true,
-        hide: { label: 'Equipo', visible: true }
+        hide: { label: 'Resource Type', visible: true }
       },
       {
-        header: { key: 'equipmentsIds', label: 'Equipos' },
-        cell: 'equipmentsIds',
+        header: { key: 'resourceId', label: 'Resource ID' },
+        cell: 'resourceId',
         type: 'text',
-        sortable: false,
-        hide: { label: 'Equipos', visible: true }
+        sortable: true,
+        hide: { label: 'Resource ID', visible: true }
       },
       {
-        header: { key: 'actions', label: 'Acciones' },
+        header: { key: 'actions', label: 'Actions' },
         cell: 'actions',
         type: 'template',
         sortable: false,
-        hide: { label: 'Acciones', visible: true }
+        hide: { label: 'Actions', visible: true }
       }
     ];
 
     this.unscheduledTasksColumns = [
       {
-        header: { key: 'taskName', label: 'Tarea' },
-        cell: 'taskName',
+        header: { key: 'title', label: 'Task Title' },
+        cell: 'title',
         type: 'text',
         sortable: true,
-        hide: { label: 'Tarea', visible: true }
+        hide: { label: 'Task Title', visible: true }
       },
       {
-        header: { key: 'description', label: 'Descripción' },
+        header: { key: 'description', label: 'Description' },
         cell: 'description',
         type: 'text',
         sortable: true,
-        hide: { label: 'Descripción', visible: true }
+        hide: { label: 'Description', visible: true }
       },
       {
-        header: { key: 'actions', label: 'Acciones' },
+        header: { key: 'status', label: 'Status' },
+        cell: 'status',
+        type: 'text',
+        sortable: true,
+        hide: { label: 'Status', visible: true }
+      },
+      {
+        header: { key: 'employeeId', label: 'Employee ID' },
+        cell: 'employeeId',
+        type: 'text',
+        sortable: true,
+        hide: { label: 'Employee ID', visible: true }
+      },
+      {
+        header: { key: 'actions', label: 'Actions' },
         cell: 'actions',
         type: 'template',
         sortable: false,
-        hide: { label: 'Acciones', visible: true }
+        hide: { label: 'Actions', visible: true }
       }
     ];
   }
 
   onDateChange(date: Date): void {
     this.selectedDate = date;
-    this.viewDate = new Date(date);
     this.loadTasksForDate(date);
     this.saveState();
   }
 
   loadTasksForDate(date: Date): void {
-    const newDate = new Date(date);
-
-    // Load tasks from localStorage
-    const savedState = this.localStorageService.getItem<StorageState>(this.STORAGE_KEY, {
-      taskSchedules: [],
-      unscheduledTasks: [],
-      viewMode: 'calendar',
-      searchTerm: '',
-      scheduledTasksSort: { active: 'startTime', direction: SortDirection.ASC },
-      unscheduledTasksSort: { active: 'taskName', direction: SortDirection.ASC },
-      selectedDate: new Date().toISOString(),
-      statusFilter: '',
-      priorityFilter: '',
-      startDate: null,
-      endDate: null,
-      showCompleted: true,
-      groupBy: 'none'
+    // Load all task programmings for the selected date
+    this.taskProgrammingService.getAllTaskProgrammings().subscribe({
+      next: (programmings) => {
+        this.taskProgrammings = programmings.filter(p => {
+          if (!p.start) return false;
+          const programmingDate = new Date(p.start);
+          return (
+            programmingDate.getFullYear() === date.getFullYear() &&
+            programmingDate.getMonth() === date.getMonth() &&
+            programmingDate.getDate() === date.getDate()
+          );
+        });
+        this.generateCalendarEvents();
+        this.saveState();
+      },
+      error: (error) => {
+        console.error('Error loading task programmings:', error);
+        this.snackBar.open('Error loading scheduled tasks', 'Close', { duration: 3000 });
+      }
     });
 
-    // Filter tasks for the selected date
-    this.taskSchedules = savedState.taskSchedules.filter(schedule => {
-      const scheduleDate = new Date(schedule.startTime);
-      return (
-        scheduleDate.getFullYear() === newDate.getFullYear() &&
-        scheduleDate.getMonth() === newDate.getMonth() &&
-        scheduleDate.getDate() === newDate.getDate()
-      );
+    // Load unscheduled tasks
+    this.taskService.getAllTasks().subscribe({
+      next: (tasks) => {
+        // Filter tasks that don't have programming for this date
+        const scheduledTaskIds = this.taskProgrammings.map(tp => tp.taskId);
+        this.unscheduledTasks = tasks.filter(task => !scheduledTaskIds.includes(task.taskId));
+        this.filteredUnscheduledTasks = [...this.unscheduledTasks];
+        this.searchTasks();
+        this.saveState();
+      },
+      error: (error) => {
+        console.error('Error loading tasks:', error);
+        this.snackBar.open('Error loading tasks', 'Close', { duration: 3000 });
+      }
     });
-
-    this.unscheduledTasks = savedState.unscheduledTasks;
-    this.filteredUnscheduledTasks = [...this.unscheduledTasks];
-
-    this.generateCalendarEvents();
   }
 
   generateCalendarEvents(): void {
-    this.events = this.taskSchedules.map(schedule => {
-      return {
-        id: schedule.id,
-        title: schedule.task.taskName,
-        start: new Date(schedule.startTime),
-        end: new Date(schedule.endTime),
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-        meta: {
-          taskId: schedule.task.taskId,
-          description: schedule.task.description,
-          status: schedule.status,
-          teamId: schedule.teamId,
-          equipmentsIds: schedule.equipmentsIds,
-          comments: schedule.comments
-        }
-      };
-    });
-
-    this.refresh.next(undefined);
+    this.events = this.taskProgrammings.map(programming => ({
+      id: programming.taskProgrammingId,
+      title: `Task ${programming.taskId} - ${programming.programmingStatus}`,
+      start: programming.start || new Date(),
+      end: programming.end || addHours(programming.start || new Date(), 1),
+      meta: programming
+    }));
+    this.refresh.next(true);
   }
 
   onTaskDropped(event: CdkDragDrop<any[]>): void {
-    if (event.previousContainer === event.container) {
-      // Moved within the same container
-    } else {
-      const task = event.item.data;
-
-      if (task) {
-        this.openSchedulingDialog(task);
-      }
-    }
+    // Handle task dropped from one container to another
+    console.log('Task dropped:', event);
   }
 
   onDragStart(event: DragEvent, task: Task): void {
-    if (event.dataTransfer) {
-      event.dataTransfer.setData('type', 'unscheduled-task');
-      event.dataTransfer.setData('taskId', task.taskId.toString());
-    }
     this.draggingTask = true;
+    if (event.dataTransfer) {
+      event.dataTransfer.setData('application/json', JSON.stringify({ type: 'task', data: task }));
+    }
   }
 
-  onDragStartScheduled(event: DragEvent, scheduling: TaskScheduling): void {
-    if (event.dataTransfer) {
-      event.dataTransfer.setData('type', 'scheduled-task');
-      event.dataTransfer.setData('schedulingId', scheduling.id);
-      event.dataTransfer.setData('taskName', scheduling.task.taskName);
-      event.dataTransfer.setData('startHour', scheduling.startTime.getHours().toString());
-      event.dataTransfer.effectAllowed = 'move';
-    }
+  onDragStartScheduled(event: DragEvent, programming: TaskProgramming): void {
     this.draggingTask = true;
+    if (event.dataTransfer) {
+      event.dataTransfer.setData('application/json', JSON.stringify({ 
+        type: 'programming', 
+        data: programming 
+      }));
+    }
   }
 
   onDragEnd(): void {
@@ -325,247 +319,242 @@ export class TaskPlanningComponent implements OnInit {
 
   onDragOver(event: DragEvent): void {
     event.preventDefault();
-    if (event.dataTransfer) {
-      event.dataTransfer.dropEffect = 'move';
-    }
   }
 
   onDrop(event: DragEvent, timeSlot: string): void {
     event.preventDefault();
-    const type = event.dataTransfer?.getData('type');
-
-    if (type === 'unscheduled-task') {
-      this.handleUnscheduledTaskDrop(event, timeSlot);
-    } else if (type === 'scheduled-task') {
-      this.handleScheduledTaskDrop(event, timeSlot);
+    
+    if (event.dataTransfer) {
+      const data = JSON.parse(event.dataTransfer.getData('application/json'));
+      
+      if (data.type === 'task') {
+        this.handleUnscheduledTaskDrop(event, timeSlot);
+      } else if (data.type === 'programming') {
+        this.handleScheduledTaskDrop(event, timeSlot);
+      }
     }
+    
+    this.onDragEnd();
   }
 
   onDropOutside(event: DragEvent): void {
     event.preventDefault();
-    const type = event.dataTransfer?.getData('type');
-
-    if (type === 'scheduled-task') {
-      const schedulingId = event.dataTransfer?.getData('schedulingId');
-      const taskName = event.dataTransfer?.getData('taskName');
-
-      if (schedulingId) {
-        const scheduling = this.taskSchedules.find(s => s.id === schedulingId);
-        if (scheduling) {
-          this.dialogService.confirm({
-            title: 'Desprogramar Tarea',
-            message: `¿Desea quitar la programación de "${taskName}"?`
-          }).subscribe(result => {
-            if (result) {
-              this.unscheduleTask(scheduling);
-            }
-          });
-        }
+    
+    if (event.dataTransfer) {
+      const data = JSON.parse(event.dataTransfer.getData('application/json'));
+      
+      if (data.type === 'programming') {
+        const programming = data.data as TaskProgramming;
+        this.unscheduleTask(programming);
       }
     }
+    
+    this.onDragEnd();
   }
 
   handleUnscheduledTaskDrop(event: DragEvent, timeSlot: string): void {
-    const taskId = event.dataTransfer?.getData('taskId');
-    if (taskId) {
-      const task = this.unscheduledTasks.find(t => t.taskId === Number(taskId));
-      if (task) {
-        this.scheduleTask(task, timeSlot);
-      }
-    }
+    if (!event.dataTransfer) return;
+    
+    const data = JSON.parse(event.dataTransfer.getData('application/json'));
+    const task = data.data as Task;
+    
+    this.scheduleTask(task, timeSlot);
   }
 
   handleScheduledTaskDrop(event: DragEvent, timeSlot: string): void {
-    const schedulingId = event.dataTransfer?.getData('schedulingId');
-    const taskName = event.dataTransfer?.getData('taskName');
-    const oldStartHour = event.dataTransfer?.getData('startHour');
-
-    if (schedulingId && oldStartHour) {
-      const scheduling = this.taskSchedules.find(s => s.id === schedulingId);
-      if (scheduling) {
-        const newHour = parseInt(timeSlot.split(':')[0], 10);
-        const currentHour = parseInt(oldStartHour, 10);
-
-        if (newHour !== currentHour) {
-          this.dialogService.reschedule({
-            taskName: taskName || scheduling.task.taskName,
-            oldTime: `${oldStartHour}:00`,
-            newTime: timeSlot
-          }).subscribe(result => {
-            if (result) {
-              const duration = scheduling.endTime.getTime() - scheduling.startTime.getTime();
-              const newStartTime = new Date(this.selectedDate);
-              newStartTime.setHours(newHour, 0, 0, 0);
-              const newEndTime = new Date(newStartTime.getTime() + duration);
-
-              scheduling.startTime = newStartTime;
-              scheduling.endTime = newEndTime;
-
-              this.generateCalendarEvents();
-              this.saveState();
-
-              this.snackBar.open(`Tarea reprogramada para ${newHour}:00`, 'OK', {
-                duration: 3000
-              });
-            }
-          });
-        }
-      }
-    }
+    if (!event.dataTransfer) return;
+    
+    const data = JSON.parse(event.dataTransfer.getData('application/json'));
+    const programming = data.data as TaskProgramming;
+    
+    const [hourStr] = timeSlot.split(':');
+    const newHour = parseInt(hourStr, 10);
+    
+    this.rescheduleTask(programming, newHour);
   }
 
   scheduleTask(task: Task, timeSlot: string): void {
-    const hour = parseInt(timeSlot.split(':')[0], 10);
-
+    const [hourStr, minuteStr] = timeSlot.split(':');
+    const hour = parseInt(hourStr, 10);
+    const minute = parseInt(minuteStr, 10);
+    
     const startTime = new Date(this.selectedDate);
-    startTime.setHours(hour, 0, 0, 0);
-
+    startTime.setHours(hour, minute, 0, 0);
+    
     const endTime = new Date(startTime);
-    endTime.setHours(hour + 1, 0, 0, 0);
-
-    const newScheduling = new TaskScheduling();
-    newScheduling.id = Date.now().toString();
-    newScheduling.task = task;
-    newScheduling.startTime = startTime;
-    newScheduling.endTime = endTime;
-    newScheduling.status = 'programmed';
-
-    this.taskSchedules.push(newScheduling);
-
-    this.unscheduledTasks = this.unscheduledTasks.filter(t => t.taskId !== task.taskId);
-    this.filteredUnscheduledTasks = this.filteredUnscheduledTasks.filter(t => t.taskId !== task.taskId);
-
-    this.generateCalendarEvents();
-    this.saveState();
-
-    this.snackBar.open(`Tarea "${task.taskName}" programada para ${timeSlot}`, 'OK', {
-      duration: 3000
+    endTime.setHours(hour + 1, minute, 0, 0); // Default 1 hour duration
+    
+    const newProgramming = new TaskProgramming(
+      0, // Will be set by backend
+      0, // Will be set by backend
+      'PENDING',
+      task.taskId,
+      'EQUIPMENT', // Default resource type
+      1, // Default resource ID
+      startTime,
+      endTime
+    );
+    
+    this.taskProgrammingService.addTaskProgramming(newProgramming).subscribe({
+      next: (createdProgramming) => {
+        this.taskProgrammings.push(createdProgramming);
+        this.unscheduledTasks = this.unscheduledTasks.filter(t => t.taskId !== task.taskId);
+        this.searchTasks();
+        this.generateCalendarEvents();
+        this.saveState();
+        this.snackBar.open('Task scheduled successfully', 'Close', { duration: 3000 });
+      },
+      error: (error) => {
+        console.error('Error scheduling task:', error);
+        this.snackBar.open('Error scheduling task', 'Close', { duration: 3000 });
+      }
     });
   }
 
-  rescheduleTask(scheduling: TaskScheduling, newHour: number): void {
-    const duration = scheduling.endTime.getTime() - scheduling.startTime.getTime();
-
-    const newStartTime = new Date(this.selectedDate);
-    newStartTime.setHours(newHour, 0, 0, 0);
-
-    const newEndTime = new Date(newStartTime.getTime() + duration);
-
-    scheduling.startTime = newStartTime;
-    scheduling.endTime = newEndTime;
-
-    this.generateCalendarEvents();
-    this.saveState();
-
-    this.snackBar.open(`Tarea reprogramada para ${newHour}:00`, 'OK', {
-      duration: 3000
+  rescheduleTask(programming: TaskProgramming, newHour: number): void {
+    if (!programming.start || !programming.end) return;
+    
+    const newStart = new Date(programming.start);
+    newStart.setHours(newHour);
+    
+    const duration = programming.end.getTime() - programming.start.getTime();
+    const newEnd = new Date(newStart.getTime() + duration);
+    
+    this.taskProgrammingService.updateTaskProgrammingTimeInterval(
+      programming.taskProgrammingId, 
+      newStart, 
+      newEnd
+    ).subscribe({
+      next: (updatedProgramming) => {
+        const index = this.taskProgrammings.findIndex(tp => tp.taskProgrammingId === programming.taskProgrammingId);
+        if (index !== -1) {
+          this.taskProgrammings[index] = updatedProgramming;
+          this.generateCalendarEvents();
+          this.saveState();
+        }
+        this.snackBar.open('Task rescheduled successfully', 'Close', { duration: 3000 });
+      },
+      error: (error) => {
+        console.error('Error rescheduling task:', error);
+        this.snackBar.open('Error rescheduling task', 'Close', { duration: 3000 });
+      }
     });
   }
 
-  unscheduleTask(scheduling: TaskScheduling): void {
-    this.taskSchedules = this.taskSchedules.filter(s => s.id !== scheduling.id);
-
-    this.unscheduledTasks.push(scheduling.task);
-    this.filteredUnscheduledTasks.push(scheduling.task);
-
-    this.generateCalendarEvents();
-    this.saveState();
-
-    this.snackBar.open(`Tarea "${scheduling.task.taskName}" desprogramada`, 'OK', {
-      duration: 3000
+  unscheduleTask(programming: TaskProgramming): void {
+    // Find the task associated with this programming
+    if (!programming.taskId) return;
+    
+    this.taskService.getTaskById(programming.taskId).subscribe({
+      next: (task) => {
+        // Remove programming from scheduled list
+        this.taskProgrammings = this.taskProgrammings.filter(tp => tp.taskProgrammingId !== programming.taskProgrammingId);
+        
+        // Add task back to unscheduled list
+        this.unscheduledTasks.push(task);
+        this.searchTasks();
+        this.generateCalendarEvents();
+        this.saveState();
+        
+        this.snackBar.open('Task unscheduled successfully', 'Close', { duration: 3000 });
+      },
+      error: (error) => {
+        console.error('Error unscheduling task:', error);
+        this.snackBar.open('Error unscheduling task', 'Close', { duration: 3000 });
+      }
     });
   }
 
-  cancelScheduling(scheduling: TaskScheduling): void {
-    this.dialogService.confirm({
-      title: 'Cancelar Programación',
-      message: `¿Desea cancelar la programación de "${scheduling.task.taskName}"?`
-    }).subscribe(result => {
-      if (result) {
-        this.unscheduleTask(scheduling);
+  cancelScheduling(programming: TaskProgramming): void {
+    this.taskProgrammingService.updateTaskProgrammingStatus(programming.taskProgrammingId, 'CANCELLED').subscribe({
+      next: (updatedProgramming) => {
+        const index = this.taskProgrammings.findIndex(tp => tp.taskProgrammingId === programming.taskProgrammingId);
+        if (index !== -1) {
+          this.taskProgrammings[index] = updatedProgramming;
+          this.generateCalendarEvents();
+          this.saveState();
+        }
+        this.snackBar.open('Task programming cancelled', 'Close', { duration: 3000 });
+      },
+      error: (error) => {
+        console.error('Error cancelling task programming:', error);
+        this.snackBar.open('Error cancelling task programming', 'Close', { duration: 3000 });
       }
     });
   }
 
   eventTimesChanged(event: any): void {
-    const { event: calendarEvent, newStart, newEnd } = event;
-
-    const scheduling = this.taskSchedules.find(s => s.id === calendarEvent.id);
-
-    if (scheduling) {
-      scheduling.startTime = newStart;
-      scheduling.endTime = newEnd || addHours(newStart, 1);
-
-      calendarEvent.start = newStart;
-      calendarEvent.end = newEnd;
-
-      this.refresh.next(undefined);
-      this.saveState();
-
-      this.snackBar.open(`Tarea reprogramada: ${calendarEvent.title}`, 'OK', {
-        duration: 3000
-      });
-    }
+    // Handle calendar event time changes
+    const programming = event.event.meta as TaskProgramming;
+    
+    this.taskProgrammingService.updateTaskProgrammingTimeInterval(
+      programming.taskProgrammingId,
+      event.newStart,
+      event.newEnd || addHours(event.newStart, 1)
+    ).subscribe({
+      next: (updatedProgramming) => {
+        const index = this.taskProgrammings.findIndex(tp => tp.taskProgrammingId === programming.taskProgrammingId);
+        if (index !== -1) {
+          this.taskProgrammings[index] = updatedProgramming;
+          this.generateCalendarEvents();
+          this.saveState();
+        }
+      },
+      error: (error) => {
+        console.error('Error updating task programming times:', error);
+        this.snackBar.open('Error updating task times', 'Close', { duration: 3000 });
+      }
+    });
   }
 
   onCalendarEventClick(event: { event: CalendarEvent }): void {
-    const calendarEvent = event.event;
-    const scheduling = this.taskSchedules.find(s => s.id === calendarEvent.id);
-    if (scheduling) {
-      this.openSchedulingDialog(undefined, scheduling);
-    }
+    const programming = event.event.meta as TaskProgramming;
+    this.openSchedulingDialog(undefined, programming);
   }
 
   searchTasks(): void {
     if (!this.searchTerm.trim()) {
       this.filteredUnscheduledTasks = [...this.unscheduledTasks];
     } else {
-      const searchTermLower = this.searchTerm.toLowerCase();
+      const searchLower = this.searchTerm.toLowerCase();
       this.filteredUnscheduledTasks = this.unscheduledTasks.filter(task =>
-        task.taskName.toLowerCase().includes(searchTermLower) ||
-        task.description.toLowerCase().includes(searchTermLower)
+        task.title.toLowerCase().includes(searchLower) ||
+        task.description.toLowerCase().includes(searchLower) ||
+        task.status.toLowerCase().includes(searchLower)
       );
     }
     this.saveState();
   }
 
   getStatusClass(status: string): string {
-    switch (status) {
-      case 'programmed': return 'scheduled';
-      case 'completed': return 'completed';
-      case 'pending': return 'pending';
-      case 'cancelled': return 'cancelled';
-      default: return '';
-    }
+    const statusClasses: { [key: string]: string } = {
+      'PENDING': 'status-pending',
+      'IN_PROGRESS': 'status-in-progress', 
+      'COMPLETED': 'status-completed',
+      'CANCELLED': 'status-cancelled'
+    };
+    return statusClasses[status] || 'status-default';
   }
 
-  openSchedulingDialog(task?: Task, scheduling?: TaskScheduling): void {
+  openSchedulingDialog(task?: Task, programming?: TaskProgramming): void {
     const dialogRef = this.dialog.open(TaskSchedulingDialogComponent, {
-      width: '600px',
-      data: { task, scheduling }
+      data: {
+        task,
+        programming,
+        selectedDate: this.selectedDate,
+        mode: programming ? 'edit' : 'create'
+      }
     });
 
-    dialogRef.afterClosed().subscribe((result: TaskScheduling) => {
+    dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        if (scheduling) {
-          const index = this.taskSchedules.findIndex(s => s.id === scheduling.id);
-          if (index !== -1) {
-            this.taskSchedules[index] = result;
-          }
-        } else if (task) {
-          this.taskSchedules.push(result);
-          this.unscheduledTasks = this.unscheduledTasks.filter(t => t.taskId !== task.taskId);
-          this.filteredUnscheduledTasks = this.filteredUnscheduledTasks.filter(t => t.taskId !== task.taskId);
-        }
-
-        this.generateCalendarEvents();
-        this.saveState();
+        this.loadTasksForDate(this.selectedDate);
       }
     });
   }
 
-  handleScheduledTaskSelection(task: TaskScheduling): void {
-    this.openSchedulingDialog(undefined, task);
+  handleScheduledTaskSelection(taskProgramming: TaskProgramming): void {
+    this.openSchedulingDialog(undefined, taskProgramming);
   }
 
   handleUnscheduledTaskSelection(task: Task): void {
@@ -582,129 +571,45 @@ export class TaskPlanningComponent implements OnInit {
     this.saveState();
   }
 
-  getSchedulingById(id: string | number | undefined): TaskScheduling {
-    const scheduling = this.taskSchedules.find(s => s.id === id?.toString());
-    if (!scheduling) {
-      throw new Error(`No se encontró la programación con ID ${id}`);
-    }
-    return scheduling;
+  getProgrammingById(id: string | number | undefined): TaskProgramming {
+    return this.taskProgrammings.find(tp => tp.taskProgrammingId == id) || new TaskProgramming();
   }
 
   private loadState() {
     const savedState = this.localStorageService.getItem<StorageState>(this.STORAGE_KEY, {
-      taskSchedules: [],
+      taskProgrammings: [],
       unscheduledTasks: [],
       viewMode: 'calendar',
       searchTerm: '',
-      scheduledTasksSort: { active: 'startTime', direction: SortDirection.ASC },
-      unscheduledTasksSort: { active: 'taskName', direction: SortDirection.ASC },
+      scheduledTasksSort: { active: 'start', direction: SortDirection.ASC },
+      unscheduledTasksSort: { active: 'title', direction: SortDirection.ASC },
       selectedDate: new Date().toISOString(),
       statusFilter: '',
-      priorityFilter: '',
       startDate: null,
       endDate: null,
       showCompleted: true,
       groupBy: 'none'
     });
 
-    // Generate default tasks if storage is empty
-    if (savedState.taskSchedules.length === 0) {
-      const today = new Date();
-      savedState.taskSchedules = [
-        Object.assign(new TaskScheduling(), {
-          id: '1',
-          task: Object.assign(new Task(), {
-            taskId: 1,
-            taskName: 'Carga de combustible',
-            description: 'Carga de combustible para avión Boeing 737',
-            status: 'pending',
-            priority: 'high'
-          }),
-          startTime: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 8, 0),
-          endTime: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 9, 30),
-          status: 'programmed',
-          teamId: 1,
-          equipmentsIds: [101, 102],
-          comments: 'Prioridad alta - Verificar niveles de combustible'
-        }),
-        Object.assign(new TaskScheduling(), {
-          id: '2',
-          task: Object.assign(new Task(), {
-            taskId: 2,
-            taskName: 'Revisión de vuelo',
-            description: 'Revisión pre-vuelo de aeronave Airbus A320',
-            status: 'pending',
-            priority: 'high'
-          }),
-          startTime: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 10, 0),
-          endTime: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 11, 0),
-          status: 'programmed',
-          teamId: 2,
-          equipmentsIds: [103],
-          comments: 'Verificar instrumentos y sistemas'
-        }),
-        Object.assign(new TaskScheduling(), {
-          id: '3',
-          task: Object.assign(new Task(), {
-            taskId: 3,
-            taskName: 'Limpieza de cabina',
-            description: 'Limpieza y desinfección de cabina de pasajeros',
-            status: 'pending',
-            priority: 'medium'
-          }),
-          startTime: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 0),
-          endTime: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 13, 0),
-          status: 'programmed',
-          teamId: 3,
-          equipmentsIds: [104],
-          comments: 'Incluir desinfección de superficies de contacto'
-        })
-      ];
-
-      savedState.unscheduledTasks = [
-        Object.assign(new Task(), {
-          taskId: 4,
-          taskName: 'Revisión de equipaje',
-          description: 'Revisión de equipaje en zona 3',
-          status: 'pending',
-          priority: 'medium'
-        }),
-        Object.assign(new Task(), {
-          taskId: 5,
-          taskName: 'Mantenimiento de pista',
-          description: 'Mantenimiento rutinario de pista principal',
-          status: 'pending',
-          priority: 'high'
-        }),
-        Object.assign(new Task(), {
-          taskId: 6,
-          taskName: 'Control de seguridad',
-          description: 'Revisión de sistemas de seguridad del aeropuerto',
-          status: 'pending',
-          priority: 'high'
-        })
-      ];
-
-      // Save the default state
-      this.localStorageService.setItem(this.STORAGE_KEY, savedState);
-    }
-
+    this.taskProgrammings = savedState.taskProgrammings;
+    this.unscheduledTasks = savedState.unscheduledTasks;
     this.viewMode = savedState.viewMode;
     this.searchTerm = savedState.searchTerm;
     this.scheduledTasksSort = savedState.scheduledTasksSort;
     this.unscheduledTasksSort = savedState.unscheduledTasksSort;
     this.selectedDate = new Date(savedState.selectedDate);
     this.statusFilter = savedState.statusFilter;
-    this.priorityFilter = savedState.priorityFilter;
     this.startDate = savedState.startDate ? new Date(savedState.startDate) : null;
     this.endDate = savedState.endDate ? new Date(savedState.endDate) : null;
     this.showCompleted = savedState.showCompleted;
     this.groupBy = savedState.groupBy;
+    
+    this.filteredUnscheduledTasks = [...this.unscheduledTasks];
   }
 
   private saveState() {
     const state: StorageState = {
-      taskSchedules: this.taskSchedules,
+      taskProgrammings: this.taskProgrammings,
       unscheduledTasks: this.unscheduledTasks,
       viewMode: this.viewMode,
       searchTerm: this.searchTerm,
@@ -712,7 +617,6 @@ export class TaskPlanningComponent implements OnInit {
       unscheduledTasksSort: this.unscheduledTasksSort,
       selectedDate: this.selectedDate.toISOString(),
       statusFilter: this.statusFilter,
-      priorityFilter: this.priorityFilter,
       startDate: this.startDate?.toISOString() || null,
       endDate: this.endDate?.toISOString() || null,
       showCompleted: this.showCompleted,

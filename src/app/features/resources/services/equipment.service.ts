@@ -1,55 +1,48 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { Equipment } from '../models/equipment.entity';
-import { environment } from '../../../../environments/environment';
-import { BaseService } from '../../../shared/services/base.service';
-import { EquipmentResponse } from 'server/models/equipment.response';
+import { EquipmentResource, CreateEquipmentResource, UpdateEquipmentStatusResource } from '../models/equipment.resource';
 import { EquipmentAssembler } from '../mappers/equipment.assembler';
-
-const equipmentEndPoint = environment.equipmentEndPoint;
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EquipmentService extends BaseService<EquipmentResponse> {
+export class EquipmentService {
+  private baseUrl = `${environment.apiBaseUrl}/equipment`;
 
-  constructor() {
-    super();
-    this.serverBaseUrl = environment.mockBaseUrl;
-    this.resourceEndpoint = equipmentEndPoint;
-  }
+  constructor(private http: HttpClient) {}
 
   getAllEquipment(): Observable<Equipment[]> {
-    return this.getAll().pipe(
-      map(equipmentResponses => 
-        equipmentResponses.map(response => EquipmentAssembler.toEntity(response))
-      )
+    return this.http.get<EquipmentResource[]>(this.baseUrl).pipe(
+      map(resources => resources.map(resource => EquipmentAssembler.toEntityFromResource(resource)))
     );
   }
 
-  getEquipmentById(id: number): Observable<Equipment | undefined> {
-    return this.getById(id).pipe(
-      map(equipmentResponse => 
-        equipmentResponse ? EquipmentAssembler.toEntity(equipmentResponse) : undefined
-      )
+  getEquipmentById(id: number): Observable<Equipment> {
+    return this.http.get<EquipmentResource>(`${this.baseUrl}/${id}`).pipe(
+      map(resource => EquipmentAssembler.toEntityFromResource(resource))
     );
   }
 
   createEquipment(equipment: Equipment): Observable<Equipment> {
-    const equipmentResponse = EquipmentAssembler.toResponse(equipment);
-    return this.create(equipmentResponse).pipe(
-      map(createdResponse => EquipmentAssembler.toEntity(createdResponse))
+    const createResource = EquipmentAssembler.toResourceFromEntity(equipment);
+    return this.http.post<EquipmentResource>(this.baseUrl, createResource).pipe(
+      map(resource => EquipmentAssembler.toEntityFromResource(resource))
     );
   }
 
-  updateEquipment(equipment: Equipment): Observable<Equipment> {
-    const equipmentResponse = EquipmentAssembler.toResponse(equipment);
-    return this.update(equipmentResponse.id, equipmentResponse).pipe(
-      map(updatedResponse => EquipmentAssembler.toEntity(updatedResponse))
+  updateEquipmentStatus(id: number, status: string): Observable<Equipment> {
+    const updateResource: UpdateEquipmentStatusResource = { status };
+    return this.http.patch<EquipmentResource>(`${this.baseUrl}/${id}/status`, updateResource).pipe(
+      map(resource => EquipmentAssembler.toEntityFromResource(resource))
     );
   }
 
-  deleteEquipment(id: number): Observable<boolean> {
-    return this.delete(id);
+  getEquipmentsByStatus(status: string): Observable<Equipment[]> {
+    return this.http.get<EquipmentResource[]>(`${this.baseUrl}/status/${status}`).pipe(
+      map(resources => resources.map(resource => EquipmentAssembler.toEntityFromResource(resource)))
+    );
   }
 }

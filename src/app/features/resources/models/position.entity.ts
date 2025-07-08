@@ -1,11 +1,13 @@
 export class Position {
     id: number;
-    name: string;
+    tenantId: number;
+    title: string;
     description: string;
 
-    constructor(id?: number, name?: string, description?: string) {
+    constructor(id?: number, tenantId?: number, title?: string, description?: string) {
         this.id = id ?? 0;
-        this.name = name ?? '';
+        this.tenantId = tenantId ?? 0;
+        this.title = title ?? '';
         this.description = description ?? '';
     }
     

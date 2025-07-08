@@ -36,18 +36,8 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>{{ 'activity-management.filters.priority.label' | translate }}</mat-label>
-          <mat-select [(ngModel)]="priorityFilter" (selectionChange)="applyFilters()">
-            <mat-option value="">{{ 'activity-management.filters.priority.all' | translate }}</mat-option>
-            <mat-option value="Alta">{{ 'activity-management.filters.priority.high' | translate }}</mat-option>
-            <mat-option value="Media">{{ 'activity-management.filters.priority.medium' | translate }}</mat-option>
-            <mat-option value="Baja">{{ 'activity-management.filters.priority.low' | translate }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-
         <button mat-stroked-button color="warn" (click)="clearFilters()"
-                [disabled]="!statusFilter && !priorityFilter && !searchQuery">
+                [disabled]="!statusFilter && !searchQuery">
           <mat-icon>clear</mat-icon>
           {{ 'activity-management.filters.clear' | translate }}
         </button>

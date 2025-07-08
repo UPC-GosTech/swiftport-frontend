@@ -1,105 +1,15 @@
-<h2 mat-dialog-title>{{ data.title }}</h2>
-<form [formGroup]="teamForm" (ngSubmit)="onSubmit()">
-  <div mat-dialog-content>
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Nombre del Equipo</mat-label>
-      <input matInput formControlName="name" required>
-      <mat-error *ngIf="teamForm.get('name')?.hasError('required')">
-        El nombre es requerido
-      </mat-error>
-    </mat-form-field>
-    
-    <div class="date-info">
-      <label>Fecha:</label>
-      <span class="date-value">{{ formatDate(selectedDate) }}</span>
-      <p class="date-note">La fecha se obtiene del navegador de fecha en la vista principal</p>
-    </div>
-    
-    <div class="location-selection">
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Zona</mat-label>
-        <mat-select formControlName="zoneId" required>
-          <mat-option *ngFor="let zone of zones" [value]="zone.id">
-            {{ zone.name }}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="teamForm.get('zoneId')?.hasError('required')">
-          La zona es requerida
-        </mat-error>
-      </mat-form-field>
-      
-    </div>
-    
-    <div class="team-members-section">
-      <div class="section-header">
-        <h3>Miembros del Equipo</h3>
-        <button type="button" mat-icon-button color="primary" (click)="addTeamMember()">
-          <mat-icon>add_circle</mat-icon>
-        </button>
-      </div>
-      
-      <mat-divider></mat-divider>
-      
-      <div formArrayName="teamMembers">
-        <div *ngIf="teamMembers.length === 0" class="empty-members">
-          <p>No hay miembros asignados. Haga clic en el botón + para agregar miembros.</p>
-        </div>
-        
-        <div *ngFor="let memberControl of teamMembers.controls; let i = index" 
-             [formGroupName]="i"
-             class="team-member-item">
-             
-          <div class="member-header">
-            <span>Miembro #{{ i + 1 }}</span>
-            <button type="button" mat-icon-button color="warn" (click)="removeTeamMember(i)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </div>
-          
-          <div class="member-fields">
-            <mat-form-field appearance="fill">
-              <mat-label>Empleado</mat-label>
-              <mat-select formControlName="employeeId" required>
-                <mat-option *ngFor="let employee of employees" [value]="employee.id">
-                  {{ employee.fullName }}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="memberControl.get('employeeId')?.hasError('required')">
-                El empleado es requerido
-              </mat-error>
-            </mat-form-field>
-            
-            <mat-form-field appearance="fill">
-              <mat-label>Cargo en el Equipo</mat-label>
-              <mat-select formControlName="positionId" required>
-                <mat-option *ngFor="let position of getAvailablePositionsForEmployee(memberControl.get('employeeId')?.value)" 
-                            [value]="position.id">
-                  {{ position.name }}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="memberControl.get('positionId')?.hasError('required')">
-                El cargo es requerido
-              </mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="team-dialog">
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{ data.title | translate }}</h2>
   </div>
-  
-  <div mat-dialog-actions align="end" class="dialog-actions">
-    <app-button 
-      [label]="'Cancelar'"
-      [color]="'secondary'"
-      (clicked)="onCancel()">
-    </app-button>
-    
-    <app-button 
-      [label]="isEditMode ? 'Actualizar' : 'Crear'"
-      [color]="'primary'"
-      [type]="'submit'"
-      [disabled]="teamForm.invalid"
-      (clicked)="onSubmit()">
-    </app-button>
+
+  <div class="dialog-content" mat-dialog-content>
+    <app-base-form
+      [config]="formConfig"
+      [initialValues]="initialValues"
+      [isSubmitting]="isSubmitting"
+      (formSubmit)="onFormSubmit($event)"
+      (formCancel)="onFormCancel()"
+    ></app-base-form>
   </div>
-</form>
+</div>

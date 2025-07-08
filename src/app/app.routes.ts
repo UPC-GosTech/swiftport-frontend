@@ -34,6 +34,7 @@ import {HomeComponent} from './core/registration/views/home/home.component';
 import {ActivityListComponent} from './features/planning/components/activity-list/activity-list.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { DashboardComponent } from './features/executions/pages/dashboard/dashboard.component';
+import { PositionManagementComponent } from './features/resources/pages/position-management/position-management.component';
 export const routes: Routes = [
   {
     path: '',
@@ -56,6 +57,7 @@ export const routes: Routes = [
       { path: 'equipments-management',        component: EquipmentManagementComponent},
       { path: 'employee-management',          component: EmployeeManagementComponent},
       { path: 'location-management',          component: LocationManagementComponent},
+      { path: 'position-management',          component: PositionManagementComponent},
       { path: 'teams-management',             component: TeamManagementComponent},
       { path: 'activity-management',          component: ActivityManagementComponent},
       { path: 'task-planning',                component: TaskPlanningComponent},

@@ -96,7 +96,7 @@ export class AuthenticationService {
     this.localStorageService.setItem('userSession', response);
     this.localStorageService.removeItem('menuItems');
     console.log(`Signed in as ${response.username} with token ${response.token}`);
-    this.router.navigate(['/swiftport']).then();
+    this.router.navigate(['/swiftport/home']).then();
   }
 
   /**

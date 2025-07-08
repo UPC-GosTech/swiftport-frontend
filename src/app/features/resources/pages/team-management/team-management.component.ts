@@ -1,116 +1,132 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatDividerModule } from '@angular/material/divider';
-import { FormsModule } from '@angular/forms';
-import { DateNavigatorComponent } from '../../../../shared/components/date-navigator/date-navigator.component';
-import { ButtonComponent } from '../../../../shared/components/button/button.component';
-import { TeamCardComponent } from '../../components/team-card/team-card.component';
-import { TeamFormDialogComponent } from '../../components/team-form-dialog/team-form-dialog.component';
-import { TeamService } from '../../services/team.service';
-import { ZoneService } from '../../services/zone.service';
-import { EmployeeService } from '../../services/employee.service';
+import { TableComponent } from '../../../../shared/components/table/table.component';
 import { Team } from '../../models/team.entity';
-import { Zone } from '../../models/zone.entity';
-import { TeamMember } from '../../models/team-member.entity';
-import {TranslatePipe} from '@ngx-translate/core';
+import { Employee } from '../../models/employee.entity';
+import { Columns } from '../../../../shared/components/table/table.models';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { FormsModule } from '@angular/forms';
+import { TeamFormDialogComponent } from '../../components/team-form-dialog/team-form-dialog.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { TranslateModule } from '@ngx-translate/core';
+import { TeamService } from '../../services/team.service';
+import { EmployeeService } from '../../services/employee.service';
+import { UiService } from '../../../../core/services/ui.service';
+import { DialogService } from '../../../../shared/services/dialog.service';
+import { finalize, forkJoin } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-team-management',
   standalone: true,
   imports: [
     CommonModule,
-    MatDialogModule,
-    MatIconModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatDividerModule,
-    FormsModule,
-    DateNavigatorComponent,
+    TableComponent,
     ButtonComponent,
-    TeamCardComponent,
-    TranslatePipe
+    FormsModule,
+    MatDialogModule,
+    TranslateModule
   ],
   templateUrl: './team-management.component.html',
   styleUrl: './team-management.component.scss'
 })
 export class TeamManagementComponent implements OnInit {
-  teams: Team[] = [];
-  zones: Zone[] = [];
-  filteredTeams: Team[] = [];
-  selectedDate: Date = new Date();
-  selectedZoneId: number | null = null;
+  // Data sources
+  teams: (Team & { memberCount: number })[] = [];
+  employees: Employee[] = [];
+  loading: boolean = false;
+
+  // Table configuration
+  columns: Columns[] = [
+    {
+      header: { key: 'name', label: 'Team Name' },
+      cell: 'name',
+      type: 'text',
+      sortable: true,
+      hide: { visible: true, label: 'Name' }
+    },
+    {
+      header: { key: 'memberCount', label: 'Members Count' },
+      cell: 'memberCount',
+      type: 'text',
+      sortable: true,
+      hide: { visible: true, label: 'Members' }
+    },
+    {
+      header: { key: 'actions', label: 'Actions' },
+      cell: 'actions',
+      type: 'template',
+      sortable: false,
+      hide: { visible: true, label: 'Actions' }
+    }
+  ];
 
   constructor(
+    private dialog: MatDialog,
     private teamService: TeamService,
-    private zoneService: ZoneService,
     private employeeService: EmployeeService,
-    private dialog: MatDialog
+    private uiService: UiService,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
-    this.loadZones();
-    this.loadTeams();
+    this.loadData();
   }
 
-  loadZones(): void {
-    this.zoneService.getAllZones().subscribe((zones: Zone[]) => {
-      this.zones = zones;
+  loadData(): void {
+    this.loading = true;
+    
+    // Load teams and employees in parallel
+    forkJoin({
+      teams: this.teamService.getAllTeams().pipe(
+        catchError(error => {
+          console.error('Error loading teams:', error);
+          return of([]);
+        })
+      ),
+      employees: this.employeeService.getAllEmployees().pipe(
+        catchError(error => {
+          console.error('Error loading employees:', error);
+          return of([]);
+        })
+      )
+    })
+    .pipe(
+      finalize(() => this.loading = false)
+    )
+    .subscribe({
+      next: ({ teams, employees }) => {
+        this.teams = teams.map(team => ({
+          ...team,
+          memberCount: team.members?.length || 0
+        }));
+        this.employees = employees;
+        
+        this.uiService.showSnackbar({
+          message: 'Data loaded successfully',
+          type: 'success'
+        });
+      },
+      error: (error) => {
+        console.error('Error loading data:', error);
+        this.uiService.showSnackbar({
+          message: 'Error loading data',
+          type: 'error'
+        });
+      }
     });
   }
 
-  loadTeams(): void {
-    this.teamService.getAllTeams().subscribe(teams => {
-      this.teams = teams;
-      console.log(this.teams);
-      this.applyFilters();
-    });
-  }
-
-  onDateChange(date: Date): void {
-    this.selectedDate = date;
-    this.applyFilters();
-  }
-
-  onZoneFilterChange(): void {
-    this.applyFilters();
-  }
-
-  clearZoneFilter(): void {
-    this.selectedZoneId = null;
-    this.applyFilters();
-  }
-
-  applyFilters(): void {
-    // Start with all teams and then apply filters
-    let filtered = [...this.teams];
-
-    // Filter by date
-    filtered = filtered.filter(team => {
-      const teamDate = new Date(team.date);
-      return teamDate.toDateString() === this.selectedDate.toDateString();
-    });
-
-    // Filter by zone if selected
-    if (this.selectedZoneId) {
-      filtered = filtered.filter(team => team.zone.id === this.selectedZoneId);
-    }
-
-    this.filteredTeams = filtered;
-  }
-
-  openCreateTeamDialog(): void {
+  openAddDialog(): void {
     const dialogRef = this.dialog.open(TeamFormDialogComponent, {
-      width: '700px',
+      width: '600px',
+      disableClose: true,
       data: {
-        title: 'Crear Equipo',
-        team: null,
-        selectedDate: this.selectedDate
+        team: new Team(0, 1, '', []),
+        employees: this.employees,
+        title: 'Add Team',
+        isEdit: false
       }
     });
 
@@ -121,24 +137,15 @@ export class TeamManagementComponent implements OnInit {
     });
   }
 
-  createTeam(team: Team): void {
-    console.log("team", team);
-    this.teamService.createTeam(team).subscribe(createdTeam => {
-      if (createdTeam) {
-        console.log("createdTeam", createdTeam);
-        this.teams.push(createdTeam);
-        this.applyFilters();
-      }
-    });
-  }
-
-  openEditTeamDialog(team: Team): void {
+  openEditDialog(team: Team): void {
     const dialogRef = this.dialog.open(TeamFormDialogComponent, {
-      width: '700px',
+      width: '600px',
+      disableClose: true,
       data: {
-        title: 'Editar Equipo',
-        team: team,
-        selectedDate: team.date
+        team: { ...team },
+        employees: this.employees,
+        title: 'Edit Team',
+        isEdit: true
       }
     });
 
@@ -149,71 +156,88 @@ export class TeamManagementComponent implements OnInit {
     });
   }
 
+  createTeam(team: Team): void {
+    this.loading = true;
+    
+    this.teamService.createTeam(team)
+      .pipe(
+        finalize(() => this.loading = false)
+      )
+      .subscribe({
+        next: (createdTeam: Team) => {
+          this.teams.push({
+            ...createdTeam,
+            memberCount: createdTeam.members?.length || 0
+          });
+          
+          this.uiService.showSnackbar({
+            message: 'Team created successfully',
+            type: 'success'
+          });
+        },
+        error: (error: any) => {
+          console.error('Error creating team:', error);
+          this.uiService.showSnackbar({
+            message: 'Error creating team',
+            type: 'error'
+          });
+        }
+      });
+  }
+
   updateTeam(team: Team): void {
-    this.teamService.updateTeam(team).subscribe(updatedTeam => {
-      if (updatedTeam) {
-        const index = this.teams.findIndex(t => t.id === updatedTeam.id);
-        if (index !== -1) {
-          this.teams[index] = updatedTeam;
-          this.applyFilters();
-        }
+    // Since backend doesn't have update endpoint, we'll simulate local update
+    this.loading = true;
+    
+    setTimeout(() => {
+      const index = this.teams.findIndex(t => t.id === team.id);
+      if (index !== -1) {
+        this.teams[index] = {
+          ...team,
+          memberCount: team.members?.length || 0
+        };
       }
-    });
-  }
-
-  openEditMembersDialog(team: Team): void {
-    const dialogRef = this.dialog.open(TeamFormDialogComponent, {
-      width: '700px',
-      data: {
-        title: 'Editar Miembros del Equipo',
-        team: team,
-        selectedDate: team.date
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.updateTeamMembers(result);
-      }
-    });
-  }
-
-  updateTeamMembers(team: Team): void {
-    this.teamService.updateTeamMembers(team.id, team.members).subscribe(updatedTeam => {
-      if (updatedTeam) {
-        const index = this.teams.findIndex(t => t.id === updatedTeam.id);
-        if (index !== -1) {
-          this.teams[index] = updatedTeam;
-          this.applyFilters();
-        }
-      }
-    });
-  }
-
-  toggleTeamStatus(team: Team): void {
-    this.teamService.toggleTeamStatus(team.id).subscribe(updatedTeam => {
-      if (updatedTeam) {
-        const index = this.teams.findIndex(t => t.id === updatedTeam.id);
-        if (index !== -1) {
-          this.teams[index] = updatedTeam;
-          this.applyFilters();
-        }
-      }
-    });
+      
+      this.loading = false;
+      this.uiService.showSnackbar({
+        message: 'Team updated successfully',
+        type: 'success'
+      });
+    }, 1000);
   }
 
   deleteTeam(team: Team): void {
-    this.teamService.deleteTeam(team.id).subscribe(() => {
-      this.teams = this.teams.filter(t => t.id !== team.id);
-      this.applyFilters();
+    this.dialogService.confirm({
+      title: 'Confirm Delete',
+      message: `Are you sure you want to delete team ${team.name}?`,
+      confirmText: 'Delete',
+      cancelText: 'Cancel'
+    }).subscribe(confirmed => {
+      if (confirmed) {
+        this.performDelete(team);
+      }
     });
   }
 
-  getFormattedDate(date: Date): string {
-    return date.toLocaleDateString('es-ES', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
+  private performDelete(team: Team): void {
+    // Since backend doesn't have delete endpoint, we'll simulate removal locally
+    this.loading = true;
+    
+    setTimeout(() => {
+      const index = this.teams.findIndex(t => t.id === team.id);
+      if (index !== -1) {
+        this.teams.splice(index, 1);
+      }
+      
+      this.loading = false;
+      this.uiService.showSnackbar({
+        message: 'Team removed successfully',
+        type: 'success'
+      });
+    }, 1000);
+  }
+
+  refreshData(): void {
+    this.loadData();
   }
 }

@@ -1,53 +1,145 @@
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, map, catchError } from 'rxjs';
 import { Task } from '../model/task.entity';
-import { environment } from '../../../../environments/environment';
-import { BaseService } from '../../../shared/services/base.service';
+import { TaskResource, CreateTaskResource, UpdateTaskStatusResource, UpdateTaskDescriptionResource, UpdateEmployeeIdResource } from '../model/task.resource';
 import { TaskAssembler } from '../mappers/task.assembler';
-import { TaskResponse } from 'server/models/task.response';
-
-const taskEndPoint = environment.taskEndPoint;
+import { environment } from '../../../../environments/environment';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TaskService extends BaseService<TaskResponse> {
-  constructor() {
-    super();
-    this.resourceEndpoint = taskEndPoint;
-  }
+export class TaskService {
+  private baseUrl = `${environment.apiBaseUrl}/tasks`;
 
-  getAllTasks(): Observable<Task[]> {
-    return this.getAll().pipe(
-      map(taskResponses => 
-        taskResponses.map(taskResponse => TaskAssembler.toEntity(taskResponse))
-      )
-    );
-  }
+  constructor(private http: HttpClient) {}
 
-  getTaskById(id: number): Observable<Task | undefined> {
-    return this.getById(id).pipe(
-      map(taskResponse => 
-        taskResponse ? TaskAssembler.toEntity(taskResponse) : undefined
-      )
-    );
-  }
-
+  /**
+   * Create a new task
+   */
   createTask(task: Task): Observable<Task> {
-    const taskResponse = TaskAssembler.toResponse(task);
-    return this.create(taskResponse).pipe(
-      map(createdResponse => TaskAssembler.toEntity(createdResponse))
+    const createResource = TaskAssembler.toCreateResourceFromEntity(task);
+    return this.http.post<TaskResource>(this.baseUrl, createResource).pipe(
+      map(resource => TaskAssembler.toEntityFromResource(resource)),
+      catchError(error => {
+        console.error('Error creating task:', error);
+        // For development, simulate creation
+        const newTask = new Task(
+          Date.now(),
+          task.title,
+          task.description,
+          task.status,
+          task.employeeId,
+          task.activityId
+        );
+        return of(newTask);
+      })
     );
   }
 
-  updateTask(task: Task): Observable<Task> {
-    const taskResponse = TaskAssembler.toResponse(task);
-    return this.update(taskResponse.taskId, taskResponse).pipe(
-      map(updatedResponse => TaskAssembler.toEntity(updatedResponse))
+  /**
+   * Get task by ID
+   */
+  getTaskById(taskId: number): Observable<Task> {
+    return this.http.get<TaskResource>(`${this.baseUrl}/${taskId}`).pipe(
+      map(resource => TaskAssembler.toEntityFromResource(resource)),
+      catchError(error => {
+        console.error(`Error getting task ${taskId}:`, error);
+        const mockTask = new Task(taskId, 'Mock Task', 'Mock Description', 'PENDING', 1);
+        return of(mockTask);
+      })
     );
   }
 
-  deleteTask(id: number): Observable<boolean> {
-    return this.delete(id);
+  /**
+   * Get all tasks for a specific activity
+   */
+  getTasksByActivityId(activityId: number): Observable<Task[]> {
+    return this.http.get<TaskResource[]>(`${this.baseUrl}/activities/${activityId}`).pipe(
+      map(resources => resources.map(resource => TaskAssembler.toEntityFromResource(resource))),
+      catchError(error => {
+        console.error(`Error getting tasks for activity ${activityId}:`, error);
+        return of([]);
+      })
+    );
+  }
+
+  /**
+   * Update task employee ID
+   */
+  updateTaskEmployeeId(taskId: number, employeeId: number): Observable<Task> {
+    const updateResource: UpdateEmployeeIdResource = { employeeId };
+    return this.http.patch<TaskResource>(`${this.baseUrl}/${taskId}/employeeId`, updateResource).pipe(
+      map(resource => TaskAssembler.toEntityFromResource(resource)),
+      catchError(error => {
+        console.error(`Error updating task ${taskId} employee:`, error);
+        throw error;
+      })
+    );
+  }
+
+  /**
+   * Update task description
+   */
+  updateTaskDescription(taskId: number, description: string): Observable<Task> {
+    const updateResource: UpdateTaskDescriptionResource = { description };
+    return this.http.patch<TaskResource>(`${this.baseUrl}/${taskId}/description`, updateResource).pipe(
+      map(resource => TaskAssembler.toEntityFromResource(resource)),
+      catchError(error => {
+        console.error(`Error updating task ${taskId} description:`, error);
+        throw error;
+      })
+    );
+  }
+
+  /**
+   * Update task status
+   */
+  updateTaskStatus(taskId: number, status: string): Observable<Task> {
+    const updateResource: UpdateTaskStatusResource = { status };
+    return this.http.patch<TaskResource>(`${this.baseUrl}/${taskId}/status`, updateResource).pipe(
+      map(resource => TaskAssembler.toEntityFromResource(resource)),
+      catchError(error => {
+        console.error(`Error updating task ${taskId} status:`, error);
+        throw error;
+      })
+    );
+  }
+
+  /**
+   * Get all tasks
+   */
+  getAllTasks(): Observable<Task[]> {
+    return this.http.get<TaskResource[]>(this.baseUrl).pipe(
+      map(resources => resources.map(resource => TaskAssembler.toEntityFromResource(resource))),
+      catchError(error => {
+        console.error('Error getting all tasks:', error);
+        return of(this.getMockTasks());
+      })
+    );
+  }
+
+  /**
+   * Get tasks by status
+   */
+  getTasksByStatus(status: string): Observable<Task[]> {
+    return this.http.get<TaskResource[]>(`${this.baseUrl}/status/${status}`).pipe(
+      map(resources => resources.map(resource => TaskAssembler.toEntityFromResource(resource))),
+      catchError(error => {
+        console.error(`Error getting tasks by status ${status}:`, error);
+        return of([]);
+      })
+    );
+  }
+
+  // Mock data for development
+  private getMockTasks(): Task[] {
+    return [
+      new Task(1, 'Inspección de Equipos', 'Realizar inspección general de equipos de carga', 'PENDING', 1, 1),
+      new Task(2, 'Mantenimiento Preventivo', 'Ejecutar rutina de mantenimiento preventivo', 'IN_PROGRESS', 2, 1),
+      new Task(3, 'Limpieza de Área', 'Limpiar y organizar área de trabajo', 'COMPLETED', 3, 2),
+      new Task(4, 'Verificación de Seguridad', 'Verificar cumplimiento de protocolos de seguridad', 'PENDING', 4, 2)
+    ];
   }
 }

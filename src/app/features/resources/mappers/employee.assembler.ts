@@ -1,32 +1,31 @@
-import { Employee } from "../models/employee.entity";
-import { EmployeeResponse } from "server/models/employee.response";
-import { Position } from "../models/position.entity";
+import { Employee } from '../models/employee.entity';
+import { EmployeeResource, CreateEmployeeResource } from '../models/employee.resource';
 
 export class EmployeeAssembler {
-  static toResponse(employee: Employee): EmployeeResponse {
-    return {
-      id: employee.id,
-      firstName: employee.firstName,
-      lastName: employee.lastName,
-      dni: employee.dni,
-      email: employee.email,
-      phone: employee.phone,
-      status: employee.status as 'ACTIVE' | 'INACTIVE',
-      positionsId: employee.positions.map(p => p.id)
-    }
+  // Convert from backend resource to frontend entity
+  static toEntityFromResource(resource: EmployeeResource): Employee {
+    return new Employee(
+      resource.employeeId,
+      resource.tenantId,
+      resource.name,
+      resource.lastName,
+      resource.positionId,
+      resource.positionTitle,
+      resource.employeeStatus,
+      resource.email,
+      resource.phoneNumber
+    );
   }
 
-  static toEntity(dto: EmployeeResponse, positions: Position[] = []): Employee {
-    console.log("dto", dto);
-    return new Employee(
-      dto.id,
-      dto.firstName,
-      dto.lastName,
-      dto.dni,
-      dto.email,
-      dto.phone,
-      dto.status,
-      positions
-    );
+  // Convert from frontend entity to backend resource for creation
+  static toResourceFromEntity(entity: Employee): CreateEmployeeResource {
+    return {
+      name: entity.name,
+      lastName: entity.lastName,
+      positionId: entity.positionId,
+      employeeStatus: entity.status,
+      email: entity.email,
+      phoneNumber: entity.phoneNumber
+    };
   }
 }

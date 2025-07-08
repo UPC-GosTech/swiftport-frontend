@@ -45,22 +45,30 @@ export class ActivityDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
     this.activityForm = this.fb.group({
-      title: ['', Validators.required],
+      activityCode: ['', Validators.required],
       description: [''],
-      scheduledDate: [new Date(), Validators.required],
-      priority: ['medium', Validators.required],
-      status: ['pending', Validators.required]
+      expectedTime: [new Date(), Validators.required],
+      weekNumber: [1, [Validators.required, Validators.min(1), Validators.max(52)]],
+      activityStatus: ['PENDING', Validators.required],
+      locationOrigin: [null, Validators.required],
+      locationDestination: [null, Validators.required],
+      zoneOrigin: [null, Validators.required],
+      zoneDestination: [null, Validators.required]
     });
   }
 
   ngOnInit(): void {
     if (this.data.activity) {
       this.activityForm.patchValue({
-        title: this.data.activity.title,
+        activityCode: this.data.activity.activityCode,
         description: this.data.activity.description,
-        scheduledDate: new Date(this.data.activity.scheduledDate),
-        priority: this.data.activity.priority,
-        status: this.data.activity.status
+        expectedTime: new Date(this.data.activity.expectedTime),
+        weekNumber: this.data.activity.weekNumber,
+        activityStatus: this.data.activity.activityStatus,
+        locationOrigin: this.data.activity.locationOrigin,
+        locationDestination: this.data.activity.locationDestination,
+        zoneOrigin: this.data.activity.zoneOrigin,
+        zoneDestination: this.data.activity.zoneDestination
       });
     }
   }
@@ -68,10 +76,18 @@ export class ActivityDialogComponent implements OnInit {
   onSubmit(): void {
     if (this.activityForm.valid) {
       const formValue = this.activityForm.value;
-      const activity: Activity = {
-        ...this.data.activity,
-        ...formValue,
-      };
+      const activity: Activity = new Activity(
+        this.data.activity?.id || 0,
+        formValue.activityCode,
+        formValue.description,
+        formValue.expectedTime,
+        formValue.weekNumber,
+        formValue.activityStatus,
+        formValue.zoneOrigin,
+        formValue.locationOrigin,
+        formValue.zoneDestination,
+        formValue.locationDestination
+      );
       this.dialogRef.close(activity);
     }
   }

@@ -1,20 +1,22 @@
-import { Position } from "../models/position.entity";
-import { PositionResponse } from "server/models/positions.response";
+import { Position } from '../models/position.entity';
+import { PositionResource, CreatePositionResource } from '../models/position.resource';
 
 export class PositionAssembler {
-  static toResponse(position: Position): PositionResponse {
-    return {
-      id: position.id,
-      name: position.name,
-      description: position.description
-    }
+  // Convert from backend resource to frontend entity
+  static toEntityFromResource(resource: PositionResource): Position {
+    return new Position(
+      resource.positionId,
+      resource.tenantId,
+      resource.title,
+      resource.description
+    );
   }
 
-  static toEntity(dto: PositionResponse): Position {
-    return new Position(
-      dto.id,
-      dto.name,
-      dto.description
-    );
+  // Convert from frontend entity to backend resource for creation
+  static toResourceFromEntity(entity: Position): CreatePositionResource {
+    return {
+      title: entity.title,
+      description: entity.description
+    };
   }
 }

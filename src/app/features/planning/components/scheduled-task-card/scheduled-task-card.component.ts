@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TaskScheduling } from '../../model/taskScheduling.entity';
+import { TaskProgramming } from '../../model/task-programming.entity';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -15,17 +15,21 @@ import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./scheduled-task-card.component.scss']
 })
 export class ScheduledTaskCardComponent {
-  @Input() schedule!: TaskScheduling;
-  @Output() editScheduling = new EventEmitter<TaskScheduling>();
+  @Input() schedule!: TaskProgramming;
+  @Output() editScheduling = new EventEmitter<TaskProgramming>();
   @Output() dragStart = new EventEmitter<DragEvent>();
 
   onDragStart(event: DragEvent): void {
     if (event.dataTransfer) {
       event.dataTransfer.setData('type', 'scheduled-task');
-      event.dataTransfer.setData('schedulingId', this.schedule.id);
-      event.dataTransfer.setData('taskName', this.schedule.task.taskName);
-      event.dataTransfer.setData('startHour', this.schedule.startTime.getHours().toString());
+      event.dataTransfer.setData('schedulingId', this.schedule.taskProgrammingId.toString());
+      event.dataTransfer.setData('taskId', this.schedule.taskId?.toString() || '');
+      event.dataTransfer.setData('startHour', this.schedule.start?.getHours().toString() || '0');
       this.dragStart.emit(event);
     }
+  }
+
+  onEditScheduling(): void {
+    this.editScheduling.emit(this.schedule);
   }
 }

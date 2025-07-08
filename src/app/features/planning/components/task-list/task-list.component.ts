@@ -35,52 +35,16 @@ export class TaskListComponent implements OnInit {
   tableColumns: Columns[] = [];
   
   loading = false;
-  sort: Sort = { active: 'taskName', direction: SortDirection.ASC };
+  sort: Sort = { active: 'title', direction: SortDirection.ASC };
 
   constructor() {}
 
   ngOnInit(): void {
     // Mock data for demostration
     this.tasks = [
-      {
-        taskId: 1,
-        taskName: 'Inspección inicial',
-        activityId: this.activityId,
-        locationId: 101,
-        description: 'Realizar inspección preliminar del sitio',
-        status: 'Completado',
-        progress: 100,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        priority: 'low',
-        dueDate: new Date().toISOString()
-      },
-      {
-        taskId: 2,
-        taskName: 'Preparación de equipos',
-        activityId: this.activityId,
-        locationId: 101,
-        description: 'Preparar equipos necesarios para la actividad',
-        status: 'En progreso',
-        progress: 60,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        priority: 'medium',
-        dueDate: new Date().toISOString()
-      },
-      {
-        taskId: 3,
-        taskName: 'Documentación',
-        activityId: this.activityId,
-        locationId: 101,
-        description: 'Completar documentación requerida',
-        status: 'Pendiente',
-        progress: 0,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        priority: 'high',
-        dueDate: new Date().toISOString()
-      }
+      new Task(1, 'Inspección inicial', 'Realizar inspección preliminar del sitio', 'COMPLETED', 1),
+      new Task(2, 'Preparación de equipos', 'Preparar equipos necesarios para la actividad', 'IN_PROGRESS', 1),
+      new Task(3, 'Documentación', 'Completar documentación requerida', 'PENDING', 2)
     ];
 
     this.initTableColumns();
@@ -89,8 +53,8 @@ export class TaskListComponent implements OnInit {
   initTableColumns(): void {
     this.tableColumns = [
       {
-        header: { key: 'taskName', label: 'Tarea' },
-        cell: 'taskName',
+        header: { key: 'title', label: 'Tarea' },
+        cell: 'title',
         type: 'text',
         sortable: true,
         hide: { label: 'Tarea', visible: true }
@@ -110,11 +74,11 @@ export class TaskListComponent implements OnInit {
         hide: { label: 'Estado', visible: true }
       },
       {
-        header: { key: 'progress', label: 'Progreso' },
-        cell: 'progress',
-        type: 'template',
+        header: { key: 'employeeId', label: 'Empleado' },
+        cell: 'employeeId',
+        type: 'text',
         sortable: true,
-        hide: { label: 'Progreso', visible: true }
+        hide: { label: 'Empleado', visible: true }
       },
       {
         header: { key: 'actions', label: 'Acciones' },
@@ -126,29 +90,22 @@ export class TaskListComponent implements OnInit {
     ];
   }
 
-  getProgressColor(progress: number): string {
-    if (progress === 100) return 'primary';
-    if (progress < 25) return 'warn';
-    if (progress < 75) return 'accent';
-    return 'primary';
-  }
-
   getStatusChipClass(status: string): string {
-    switch (status.toLowerCase()) {
-      case 'completado': return 'status-completed';
-      case 'en progreso': return 'status-in-progress';
-      case 'pendiente': return 'status-pending';
-      case 'cancelado': return 'status-cancelled';
+    switch (status.toUpperCase()) {
+      case 'COMPLETED': return 'status-completed';
+      case 'IN_PROGRESS': return 'status-in-progress';
+      case 'PENDING': return 'status-pending';
+      case 'CANCELLED': return 'status-cancelled';
       default: return '';
     }
   }
 
   getStatusIcon(status: string): string {
-    switch (status.toLowerCase()) {
-      case 'completado': return 'check_circle';
-      case 'en progreso': return 'schedule';
-      case 'pendiente': return 'pending';
-      case 'cancelado': return 'cancel';
+    switch (status.toUpperCase()) {
+      case 'COMPLETED': return 'check_circle';
+      case 'IN_PROGRESS': return 'schedule';
+      case 'PENDING': return 'pending';
+      case 'CANCELLED': return 'cancel';
       default: return 'help';
     }
   }

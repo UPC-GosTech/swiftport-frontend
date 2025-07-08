@@ -115,7 +115,27 @@ export class UserManagementComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.userService.createUser(result.user, result.password).subscribe(() => this.loadUsers());
+      
+        const newUser = new User(
+          undefined, 
+          result.username,
+          result.email,
+          result.firstName,
+          result.lastName,
+          result.roles,
+          result.status === 'active' 
+        );
+        
+        // Llamar al servicio con el usuario y la contraseña
+        this.userService.createUser(newUser, result.password).subscribe({
+          next: () => {
+            this.loadUsers();
+          },
+          error: (error) => {
+            console.error('Error al crear usuario:', error);
+            this.errorMessage = 'user-management.error-creating';
+          }
+        });
       }
     });
   }

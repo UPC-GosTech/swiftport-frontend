@@ -2,50 +2,39 @@ import { Task } from "./task.entity";
 
 export class Activity {
   id: number;
-  title: string;
+  activityCode: string;
   description: string;
-  originLocationId: number;
-  destinationLocationId: number;
-  scheduledDate: Date;
-  estimatedDuration: number;
-  actualStartTime: Date | null;
-  actualEndTime: Date | null;
-  priority: 'Alta' | 'Media' | 'Baja';
-  status: 'Pendiente' | 'En progreso' | 'Finalizada' | 'Cancelada';
-  assignedCrewId: string;
-  vehicleId: string;
-  incidentReportIds: string[];
-  supervisorNotes: string | null;
-  attachments?: string[];
-  createdAt?: Date;
-  updatedAt?: Date;
-  tasksIds: number[];
-  zoneOriginId: number;
-  zoneDestinationId: number;
-  tasks: Task[];
+  expectedTime: Date;
+  weekNumber: number;
+  activityStatus: string;
+  zoneOrigin: number;
+  locationOrigin: number;
+  zoneDestination: number;
+  locationDestination: number;
+  tasks?: Task[]; // Keep for frontend logic
 
-  constructor(id?: number) {
-    this.id = id || 0;
-    this.title = '';
-    this.description = '';
-    this.originLocationId = 0;
-    this.destinationLocationId = 0;
-    this.scheduledDate = new Date();
-    this.estimatedDuration = 0;
-    this.actualStartTime = new Date();
-    this.actualEndTime = new Date();
-    this.priority = 'Media';
-    this.status = 'Pendiente';
-    this.assignedCrewId = '';
-    this.vehicleId = '';
-    this.incidentReportIds = [];
-    this.supervisorNotes = '';
-    this.attachments = [];
-    this.createdAt = new Date();
-    this.updatedAt = new Date();
-    this.tasksIds = [];
-    this.zoneOriginId = 0;
-    this.zoneDestinationId = 0;
+  constructor(
+    id: number = 0,
+    activityCode: string = '',
+    description: string = '',
+    expectedTime: Date = new Date(),
+    weekNumber: number = 1,
+    activityStatus: string = 'PENDING',
+    zoneOrigin: number = 0,
+    locationOrigin: number = 0,
+    zoneDestination: number = 0,
+    locationDestination: number = 0
+  ) {
+    this.id = id;
+    this.activityCode = activityCode;
+    this.description = description;
+    this.expectedTime = expectedTime;
+    this.weekNumber = weekNumber;
+    this.activityStatus = activityStatus;
+    this.zoneOrigin = zoneOrigin;
+    this.locationOrigin = locationOrigin;
+    this.zoneDestination = zoneDestination;
+    this.locationDestination = locationDestination;
     this.tasks = [];
   }
 }

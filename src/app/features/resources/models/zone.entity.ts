@@ -2,29 +2,25 @@ import { Location } from "./location.entity";
 
 export class Zone {
     id: number;
+    tenantId: number;
     name: string;
-    description: string;
     locations: Location[];
-    active: boolean;
     
     constructor(
         id?: number,
+        tenantId?: number,
         name?: string,
-        description?: string,
-        locations: Location[] = [],
-        active?: boolean
+        locations: Location[] = []
     ) {
         this.id = id ?? 0;
+        this.tenantId = tenantId ?? 0;
         this.name = name ?? '';
-        this.description = description ?? '';
         this.locations = locations;
-        this.active = active ?? true;
     }
 }
 
 export interface ZoneInfo {
     id: number;
+    tenantId: number;
     name: string;
-    description: string;
-    active: boolean;
 }

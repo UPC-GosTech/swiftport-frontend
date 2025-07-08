@@ -1,114 +1,48 @@
 import { Injectable } from '@angular/core';
-import { Observable, map, switchMap } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
 import { Employee } from '../models/employee.entity';
-import { Position } from '../models/position.entity';
-import { environment } from '../../../../environments/environment';
-import { BaseService } from '../../../shared/services/base.service';
-import { EmployeeResponse } from 'server/models/employee.response';
+import { EmployeeResource, CreateEmployeeResource, UpdateEmployeeStatusResource } from '../models/employee.resource';
 import { EmployeeAssembler } from '../mappers/employee.assembler';
-import { PositionService } from './position.service';
-
-const employeeEndPoint = environment.employeeEndPoint;
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeService extends BaseService<EmployeeResponse> {
+export class EmployeeService {
+  private baseUrl = `${environment.apiBaseUrl}/employees`;
 
-  constructor(private positionService: PositionService) {
-    super();
-    this.resourceEndpoint = employeeEndPoint;
-  }
+  constructor(private http: HttpClient) {}
 
   getAllEmployees(): Observable<Employee[]> {
-    return this.getAll().pipe(
-      switchMap(employeeResponses => {
-        // First convert responses to entities
-        const employees = employeeResponses.map(employeeResponse => 
-          EmployeeAssembler.toEntity(employeeResponse)
-        );
-        
-        // Then get the positions for each employee
-        return this.positionService.getAllPositions().pipe(
-          map(positions => {
-            console.log(positions);
-            // Assign the positions to each employee
-            return employees.map(employee => {
-              const employeeResponse = employeeResponses.find(er => er.id === employee.id);
-              if (employeeResponse) { 
-                employee.positions = positions.filter(position => 
-                  employeeResponse.positionsId?.includes(position.id) ?? false
-                );
-              }
-              return employee;
-            });
-          })
-        );
-      })
+    return this.http.get<EmployeeResource[]>(this.baseUrl).pipe(
+      map(resources => resources.map(resource => EmployeeAssembler.toEntityFromResource(resource)))
     );
   }
 
-  getEmployeeById(id: number): Observable<Employee | undefined> {
-    return this.getById(id).pipe(
-      switchMap(employeeResponse => {
-        if (!employeeResponse) {
-          return new Observable<undefined>(subscriber => subscriber.next(undefined));
-        }
-        
-        const employee = EmployeeAssembler.toEntity(employeeResponse);
-        
-        // Get the positions for the employee
-        return this.positionService.getAllPositions().pipe(
-          map(positions => {
-            employee.positions = positions.filter(position => 
-              employeeResponse.positionsId.includes(position.id)
-            );
-            return employee;
-          })
-        );
-      })
+  getEmployeeById(id: number): Observable<Employee> {
+    return this.http.get<EmployeeResource>(`${this.baseUrl}/${id}`).pipe(
+      map(resource => EmployeeAssembler.toEntityFromResource(resource))
     );
   }
 
   createEmployee(employee: Employee): Observable<Employee> {
-    const employeeResponse = EmployeeAssembler.toResponse(employee);
-    return this.create(employeeResponse).pipe(
-      switchMap(createdResponse => {
-        const createdEmployee = EmployeeAssembler.toEntity(createdResponse);
-        
-        // Get positions for the created employee
-        return this.positionService.getAllPositions().pipe(
-          map(positions => {
-            createdEmployee.positions = positions.filter(position => 
-              createdResponse.positionsId.includes(position.id)
-            );
-            return createdEmployee;
-          })
-        );
-      })
+    const createResource = EmployeeAssembler.toResourceFromEntity(employee);
+    return this.http.post<EmployeeResource>(this.baseUrl, createResource).pipe(
+      map(resource => EmployeeAssembler.toEntityFromResource(resource))
     );
   }
 
-  updateEmployee(employee: Employee): Observable<Employee> {
-    const employeeResponse = EmployeeAssembler.toResponse(employee);
-    return this.update(employeeResponse.id, employeeResponse).pipe(
-      switchMap(updatedResponse => {
-        const updatedEmployee = EmployeeAssembler.toEntity(updatedResponse);
-        
-        // Get positions for the updated employee
-        return this.positionService.getAllPositions().pipe(
-          map(positions => {
-            updatedEmployee.positions = positions.filter(position => 
-              updatedResponse.positionsId.includes(position.id)
-            );
-            return updatedEmployee;
-          })
-        );
-      })
+  updateEmployeeStatus(id: number, status: string): Observable<Employee> {
+    const updateResource: UpdateEmployeeStatusResource = { employeeStatus: status };
+    return this.http.patch<EmployeeResource>(`${this.baseUrl}/${id}/status`, updateResource).pipe(
+      map(resource => EmployeeAssembler.toEntityFromResource(resource))
     );
   }
 
-  deleteEmployee(id: number): Observable<boolean> {
-    return this.delete(id);
+  getEmployeesByStatus(status: string): Observable<Employee[]> {
+    return this.http.get<EmployeeResource[]>(`${this.baseUrl}/status/${status}`).pipe(
+      map(resources => resources.map(resource => EmployeeAssembler.toEntityFromResource(resource)))
+    );
   }
 }

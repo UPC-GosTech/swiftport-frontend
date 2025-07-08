@@ -1,23 +1,21 @@
-import { Zone } from "../models/zone.entity";
-import { ZoneResponse } from "server/models/zone.response";
+import { Zone } from '../models/zone.entity';
+import { ZoneResource, CreateZoneResource } from '../models/zone.resource';
 
 export class ZoneAssembler {
-  static toResponse(zone: Zone): ZoneResponse {
-    return {
-      id: zone.id,
-      name: zone.name,
-      description: zone.description,
-      active: zone.active
-    }
+  // Convert from backend resource to frontend entity
+  static toEntityFromResource(resource: ZoneResource): Zone {
+    return new Zone(
+      resource.zoneId,
+      resource.tenantId,
+      resource.name,
+      []
+    );
   }
 
-  static toEntity(dto: ZoneResponse): Zone {
+  // Convert from frontend entity to backend resource for creation
+  static toResourceFromEntity(entity: Zone): CreateZoneResource {
     return {
-      id: dto.id,
-      name: dto.name,
-      description: dto.description,
-      active: dto.active,
-      locations: []
-    }
+      name: entity.name
+    };
   }
 }

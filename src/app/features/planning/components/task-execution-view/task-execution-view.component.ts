@@ -40,13 +40,13 @@ export class TaskExecutionViewComponent {
     this.endTime = value;
     console.log('End time: ', this.endTime);
   }
-  onMachineChange(value: string): void {
-    this.machine = value;
+  onMachineChange(value: string | string[]): void {
+    this.machine = Array.isArray(value) ? value[0] || '' : value || '';
     console.log('Machine: ', this.machine);
   }
-  onSquadChange(value: string): void {
-    this.squad = value;
-    console.log('Machine: ', this.squad);
+  onSquadChange(value: string | string[]): void {
+    this.squad = Array.isArray(value) ? value[0] || '' : value || '';
+    console.log('Squad: ', this.squad);
   }
   onCommentChange(value: string): void {
     this.comment = value;

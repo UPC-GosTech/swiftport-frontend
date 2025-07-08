@@ -26,14 +26,6 @@
       </mat-chip-set>
     </div>
 
-    <div *ngIf="column === 'progress'" class="progress-cell">
-      <mat-progress-bar 
-        [color]="getProgressColor(row.progress)" 
-        [value]="row.progress">
-      </mat-progress-bar>
-      <span class="progress-value">{{ row.progress }}%</span>
-    </div>
-
     <div *ngIf="column === 'actions'" class="actions-cell">
       <button mat-icon-button matTooltip="Editar tarea" (click)="onEditTask(row); $event.stopPropagation()">
         <mat-icon>edit</mat-icon>

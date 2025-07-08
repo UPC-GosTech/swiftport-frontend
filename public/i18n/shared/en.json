@@ -54,5 +54,61 @@
       "enter": "Enter...",
       "choose": "Choose..."
     }
+  },
+  "SHARED": {
+    "ACTIONS": "Actions",
+    "ADD": "Add",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
+    "CANCEL": "Cancel",
+    "SAVE": "Save",
+    "CREATE": "Create",
+    "UPDATE": "Update",
+    "SEARCH": "Search",
+    "FILTER": "Filter",
+    "REFRESH": "Refresh",
+    "LOADING": "Loading...",
+    "NO_DATA": "No data available",
+    "CONFIRM": "Confirm",
+    "SUCCESS": "Success",
+    "ERROR": "Error",
+    "WARNING": "Warning",
+    "INFO": "Information",
+    "CLOSE": "Close",
+    "STATUS": {
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive",
+      "PENDING": "Pending",
+      "COMPLETED": "Completed",
+      "CANCELLED": "Cancelled"
+    },
+    "TABLE_VIEW": "Table View",
+    "CARD_VIEW": "Card View"
+  },
+  "NAVIGATION": {
+    "DASHBOARD": "Dashboard",
+    "RESOURCES": "Resources",
+    "PLANNING": "Planning",
+    "EXECUTION": "Execution",
+    "IAM": "Identity Management",
+    "NOTIFICATIONS": "Notifications",
+    "BILLING": "Billing",
+    "SETTINGS": "Settings",
+    "LOGOUT": "Logout"
+  },
+  "POSITION_MANAGEMENT": {
+    "TITLE": "Position Management",
+    "SUBTITLE": "Manage work positions available in your organization",
+    "ADD_POSITION": "Add Position",
+    "ADD_FIRST_POSITION": "Add First Position",
+    "SEARCH_PLACEHOLDER": "Search positions by name or description...",
+    "NO_POSITIONS": "No positions available",
+    "NO_POSITIONS_DESCRIPTION": "Start by adding work positions to organize your organizational structure",
+    "TABLE": {
+      "ICON": "Icon",
+      "NAME": "Name",
+      "DESCRIPTION": "Description",
+      "ACTIONS": "Actions"
+    }
   }
 } 

@@ -1,22 +1,20 @@
-import { Employee } from "../models/employee.entity";
-import { Position } from "../models/position.entity";
-import { TeamMember } from "../models/team-member.entity";
-import { TeamMemberResponse } from "server/models/team-member.response";
+import { TeamMember } from '../models/team-member.entity';
+import { TeamMemberResource, CreateTeamMemberResource } from '../models/team.resource';
 
 export class TeamMemberAssembler {
-  static toResponse(teamMember: TeamMember): TeamMemberResponse {
-    return {
-      id: teamMember.id,
-      employeeId: teamMember.employee.id,
-      positionId: teamMember.position.id
-    }
+  // Convert from backend resource to frontend entity
+  static toEntityFromResource(resource: TeamMemberResource): TeamMember {
+    return new TeamMember(
+      resource.id,
+      resource.teamId,
+      resource.employeeId
+    );
   }
 
-  static toEntity(dto: TeamMemberResponse): TeamMember {
-    return new TeamMember(
-      dto.id,
-      new Employee(dto.employeeId),
-      new Position(dto.positionId)
-    );
+  // Convert from frontend entity to backend resource for creation
+  static toResourceFromEntity(entity: TeamMember): CreateTeamMemberResource {
+    return {
+      employeeId: entity.employeeId
+    };
   }
 }

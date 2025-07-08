@@ -58,17 +58,17 @@ export class PaymentInformationComponent {
     this.cvv = option;
     console.log(option);
   }
-  onCardTypeChange(option: string) {
-    this.cardType = option;
-    console.log(option);
+  onCardTypeChange(option: string | string[]) {
+    this.cardType = Array.isArray(option) ? option[0] || '' : option || '';
+    console.log(this.cardType);
   }
-  onMonthChange(option: string) {
-    this.month = option;
-    console.log(option);
+  onMonthChange(option: string | string[]) {
+    this.month = Array.isArray(option) ? option[0] || '' : option || '';
+    console.log(this.month);
   }
-  onYearChange(option: string) {
-    this.year = option;
-    console.log(option);
+  onYearChange(option: string | string[]) {
+    this.year = Array.isArray(option) ? option[0] || '' : option || '';
+    console.log(this.year);
   }
 
   onSaveInformation() {

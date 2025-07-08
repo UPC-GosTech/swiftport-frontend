@@ -1,41 +1,39 @@
-import { get } from "lodash";
 import { Position } from "./position.entity";
 
 export class Employee {
   id: number;
-  firstName: string;
+  tenantId: number;
+  name: string;
   lastName: string;
-  dni: string;
-  email: string;
-  phone: string;
+  positionId: number;
+  positionTitle: string;
   status: string;
-  positions: Position[];
+  email: string;
+  phoneNumber: string;
 
   constructor(
     id?: number,
-    firstName?: string,
+    tenantId?: number,
+    name?: string,
     lastName?: string,
-    dni?: string,
-    email?: string,
-    phone?: string,
+    positionId?: number,
+    positionTitle?: string,
     status: string = 'ACTIVE',
-    positions: Position[] = []
+    email?: string,
+    phoneNumber?: string
   ) {
     this.id = id || 0;
-    this.firstName = firstName || '';
+    this.tenantId = tenantId || 0;
+    this.name = name || '';
     this.lastName = lastName || '';
-    this.dni = dni || '';
-    this.email = email || '';
-    this.phone = phone || '';
+    this.positionId = positionId || 0;
+    this.positionTitle = positionTitle || '';
     this.status = status || 'ACTIVE';
-    this.positions = positions || [];
+    this.email = email || '';
+    this.phoneNumber = phoneNumber || '';
   }
 
   get fullName(): string {
-    return `${this.firstName} ${this.lastName}`;
-  }
-
-  get positionNames(): string {
-    return this.positions.map(position => position.name).join(', ');
+    return `${this.name} ${this.lastName}`;
   }
 }

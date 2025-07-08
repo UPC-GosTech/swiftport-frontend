@@ -1,26 +1,30 @@
-import { Equipment } from "../models/equipment.entity";
-import { EquipmentResponse } from "server/models/equipment.response";
+import { Equipment } from '../models/equipment.entity';
+import { EquipmentResource, CreateEquipmentResource } from '../models/equipment.resource';
 
 export class EquipmentAssembler {
-  static toResponse(equipment: Equipment): EquipmentResponse {
-    return {
-      id: equipment.id,
-      plateNumber: equipment.plateNumber,
-      type: equipment.type,
-      capacityLoad: equipment.capacityLoad,
-      capacityPassengers: equipment.capacityPassengers,
-      status: equipment.status as 'Disponible' | 'Mantenimiento'
-    }
+  // Convert from backend resource to frontend entity
+  static toEntityFromResource(resource: EquipmentResource): Equipment {
+    return new Equipment({
+      id: resource.equipmentId,
+      tenantId: resource.tenantId,
+      name: resource.name,
+      status: resource.status,
+      code: resource.code,
+      plate: resource.plate,
+      capacityLoad: resource.capacityLoad,
+      capacityPax: resource.capacityPax
+    });
   }
 
-  static toEntity(dto: EquipmentResponse): Equipment {
-    return new Equipment({
-      id: dto.id,
-      plateNumber: dto.plateNumber,
-      type: dto.type,
-      capacityLoad: dto.capacityLoad,
-      capacityPassengers: dto.capacityPassengers,
-      status: dto.status
-    });
+  // Convert from frontend entity to backend resource for creation
+  static toResourceFromEntity(entity: Equipment): CreateEquipmentResource {
+    return {
+      name: entity.name,
+      status: entity.status,
+      code: entity.code,
+      plate: entity.plate,
+      capacityLoad: entity.capacityLoad,
+      capacityPax: entity.capacityPax
+    };
   }
 }

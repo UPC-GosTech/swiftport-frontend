@@ -41,51 +41,23 @@ export class ActivityCardComponent {
   @Output() addTask = new EventEmitter<number>();
 
   getStatusClass(status: string): string {
-    switch (status) {
-      case 'Pendiente': return 'status-pending';
-      case 'En progreso': return 'status-in-progress';
-      case 'Finalizada': return 'status-completed';
-      case 'Cancelada': return 'status-cancelled';
-      default: return '';
-    }
-  }
-
-  getPriorityClass(priority: string): string {
-    switch (priority) {
-      case 'Alta': return 'priority-high';
-      case 'Media': return 'priority-medium';
-      case 'Baja': return 'priority-low';
-      default: return '';
-    }
+    const statusClasses: { [key: string]: string } = {
+      'PENDING': 'status-pending',
+      'IN_PROGRESS': 'status-in-progress',
+      'COMPLETED': 'status-completed',
+      'CANCELLED': 'status-cancelled'
+    };
+    return statusClasses[status] || 'status-default';
   }
 
   getStatusIcon(status: string): string {
-    switch (status) {
-      case 'Pendiente': return 'schedule';
-      case 'En progreso': return 'directions_car';
-      case 'Finalizada': return 'check_circle';
-      case 'Cancelada': return 'cancel';
-      default: return 'info';
-    }
-  }
-
-  getPriorityIcon(priority: string): string {
-    switch (priority) {
-      case 'Alta': return 'priority_high';
-      case 'Media': return 'low_priority';
-      case 'Baja': return 'low_priority';
-      default: return 'low_priority';
-    }
-  }
-
-  formatDuration(minutes: number): string {
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-
-    if (hours > 0) {
-      return `${hours}h ${mins > 0 ? mins + 'm' : ''}`;
-    }
-    return `${mins}m`;
+    const statusIcons: { [key: string]: string } = {
+      'PENDING': 'schedule',
+      'IN_PROGRESS': 'directions_car',
+      'COMPLETED': 'check_circle',
+      'CANCELLED': 'cancel'
+    };
+    return statusIcons[status] || 'info';
   }
 
   onToggleExpand(): void {

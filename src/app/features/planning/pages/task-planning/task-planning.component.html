@@ -59,7 +59,7 @@
              #calendarList="cdkDropList"
              [cdkDropListConnectedTo]="['unscheduledList']"
              (cdkDropListDropped)="onTaskDropped($event)"
-             [cdkDropListData]="taskSchedules">
+             [cdkDropListData]="taskProgrammings">
 
           <!--
             Simulación visual del calendario (implementación temporal)
@@ -76,7 +76,7 @@
                          class="calendar-event"
                          [ngClass]="event.meta?.status ? getStatusClass(event.meta.status) : ''"
                          draggable="true"
-                         (dragstart)="onDragStartScheduled($event, getSchedulingById(event.id))"
+                         (dragstart)="onDragStartScheduled($event, getProgrammingById(event.id))"
                          (dragend)="onDragEnd()"
                          (click)="onCalendarEventClick({event: event})">
                       <div class="event-content">
@@ -109,7 +109,7 @@
       <div class="tasks-container">
         <h3>{{ 'task-planning.scheduled.title' | translate }}</h3>
         <app-table
-          [dataSource]="taskSchedules"
+          [dataSource]="taskProgrammings"
           [columns]="scheduledTasksColumns"
           [sort]="scheduledTasksSort"
           (sortChange)="onSortScheduledChange($event)"
